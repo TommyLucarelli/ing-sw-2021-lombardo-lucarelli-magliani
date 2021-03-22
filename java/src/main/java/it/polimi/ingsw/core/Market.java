@@ -1,5 +1,9 @@
 package it.polimi.ingsw.core;
 
+/**
+ * Market is a
+ */
+
 public class Market {
 
     Marble[][] structure;
@@ -17,8 +21,10 @@ public class Market {
         this.structure = structure;
     }
 
-    public void pickLine(int line){}
+    public void pickLine(int line){    }
 
     public void pickColumn(int column){}
+    
+    //private void MarketToResource(Marble[][] structure, ){}
 
 }
