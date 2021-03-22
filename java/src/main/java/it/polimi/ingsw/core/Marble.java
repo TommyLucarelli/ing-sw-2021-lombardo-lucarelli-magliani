@@ -1,7 +1,11 @@
 package it.polimi.ingsw.core;
 
+/**
+ * This enum class define all marbles types
+ */
+
 public enum Marble {
 
-    GREEN,RED,BLUE,YELLOW,WHITE,GREY,PURPLE
+    RED,BLUE,YELLOW,WHITE,GREY,PURPLE
 
 }
