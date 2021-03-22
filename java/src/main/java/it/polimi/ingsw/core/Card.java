@@ -7,6 +7,10 @@ package it.polimi.ingsw.core;
 public abstract class Card {
     private int id;
 
+    /**
+     * Class constructor.
+     * @param id the id of the card
+     */
     public Card(int id){
         this.id = id;
     }
