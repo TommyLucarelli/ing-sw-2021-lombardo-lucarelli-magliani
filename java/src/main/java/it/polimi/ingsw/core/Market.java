@@ -1,7 +1,8 @@
 package it.polimi.ingsw.core;
 
 /**
- * Market is a
+ * Class represent the market structure, composed by (3 line) * (4 column) marbles
+ * @author martina
  */
 
 public class Market {
@@ -9,6 +10,10 @@ public class Market {
     Marble[][] structure;
     int line, column;
 
+    /**
+     * Class constructor
+     * @param structure contains all marbles on the market place
+     */
     public Market(Marble[][] structure){
         this.structure = structure;
     }
@@ -21,7 +26,7 @@ public class Market {
         this.structure = structure;
     }
 
-    public void pickLine(int line){    }
+    public void pickLine(int line){}
 
     public void pickColumn(int column){}
     
