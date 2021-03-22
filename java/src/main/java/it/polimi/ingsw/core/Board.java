@@ -14,7 +14,7 @@ public class Board {
     private ArrayList<LeaderCard> leaderCards;
 
     /**
-     * Creator method that initialize each structure inside the board
+     * Constructor method that initialize each structure inside the board
      */
     public Board()
     {
@@ -65,6 +65,15 @@ public class Board {
      */
     public LeaderCard getLeaderCard(int i){
         return leaderCards.get(i);
+    }
+
+    /**
+     * Method to give the leader card to each player at the beginning of the game
+     * @param lc is the Leader Card that is being inserted in the array
+     */
+    public void addLeaderCard(LeaderCard lc){
+        //controllo che non siano più di 2 o 4(da capire)
+        leaderCards.add(lc);
     }
 
 }
