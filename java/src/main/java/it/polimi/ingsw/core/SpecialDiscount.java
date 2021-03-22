@@ -7,22 +7,22 @@ package it.polimi.ingsw.core;
 
 public class SpecialDiscount extends SpecialAbility {
 
-    Resource discount;
+    Resource resource;
 
     /**
      * Class constructor
-     * @param discount represent a special discount on the price of a DevCard
+     * @param resource represent a special discount on the price of a DevCard
      */
-    public SpecialDiscount(Resource discount){
-        super(1, discount);
+    public SpecialDiscount(Resource resource){
+        super(1, resource);
     }
 
+    /**
+     * @Override of the superclass Getter method
+     * @return the resource related to the special ability
+     */
     @Override
     public Resource getResource() {
         return super.getResource();
-    }
-
-    public Resource getDiscount() {
-        return discount;
     }
 }

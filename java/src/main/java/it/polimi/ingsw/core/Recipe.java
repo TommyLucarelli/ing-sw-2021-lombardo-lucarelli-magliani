@@ -21,19 +21,20 @@ public class Recipe {
         this.inputResources = inputResources;
     }
 
+    /**
+     * Getter method
+     * @return output resource of the DevCard
+     */
     public ArrayList getOutputResources() {
         return outputResources;
     }
 
+    /**
+     * Getter method
+     * @return input resource of the DevCard
+     */
     public ArrayList getInputResources() {
         return inputResources;
     }
 
-    public void addInputResource(ResourceQty resourceQty){
-        inputResources.add(resourceQty);
-    }
-
-    public void addOutputResource(ResourceQty resourceQty){
-        outputResources.add(resourceQty);
-    }
 }
