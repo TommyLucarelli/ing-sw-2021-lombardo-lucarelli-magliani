@@ -1,21 +1,29 @@
 package it.polimi.ingsw.core;
 /**
- * This class represents a resource with its quantity
+ * This class represents a resource with its quantity.
  * @author Martina Magliani
  */
 
 public class ResourceQty {
-
     Resource resource;
     int qty;
 
     /**
-     * Class constructor
-     * @param resource the resource type
-     * @param qty the quantity of the resource
+     * Class constructor.
+     * @param resource the resource type.
+     * @param qty the quantity of the resource.
      */
     public ResourceQty(Resource resource, int qty){
         this.qty = qty;
+        this.resource = resource;
+    }
+
+    /**
+     * Class constructor with quantity = 1.
+     * @param resource the resource type.
+     */
+    public ResourceQty(Resource resource){
+        this.qty = 1;
         this.resource = resource;
     }
 
