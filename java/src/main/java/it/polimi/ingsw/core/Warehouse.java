@@ -1,36 +1,36 @@
 package it.polimi.ingsw.core;
 
+import java.util.ArrayList;
+
 /**
  * Class representing the warehouse inside the board
+ *
  * @author Tommaso Lucarelli
  */
 public class Warehouse
 {
-    private ResourceQty resource1;
-    private ResourceQty resource2;
-    private ResourceQty resource3;
+    private ArrayList<Resource> structure; //gli spazi vuoti sono del tipo any del resource
 
-    public void addResource(ResourceQty rq){
-
+    /**
+     * Class constructor
+     */
+    public Warehouse(){
+        structure = new ArrayList<Resource>();
     }
 
-    public void moveResource(){
-
+    /**
+     * Method used to update the configuration after user action
+     * @param aRes array with the new configuration
+     */
+    public void updateConfiguration(ArrayList<Resource> aRes){
+        structure = (ArrayList<Resource>) aRes.clone();
     }
 
-    public void useResource(){
-
-    }
-
-    public ResourceQty getResource1() {
-        return resource1;
-    }
-
-    public ResourceQty getResource2() {
-        return resource2;
-    }
-
-    public ResourceQty getResource3() {
-        return resource3;
+    /**
+     * Getter method
+     * @return the configuration of the warehouse
+     */
+    public ArrayList<Resource> getStructure() {
+        return structure;
     }
 }

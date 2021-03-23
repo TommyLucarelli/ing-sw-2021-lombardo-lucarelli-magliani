@@ -12,6 +12,7 @@ public class Board {
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
+    //probabilmente verranno aggiunti dei flag per le abilità speciali delle carte Leader
 
     /**
      * Constructor method that initialize each structure inside the board
@@ -73,8 +74,11 @@ public class Board {
      * @param lc is the Leader Card that is being inserted in the array
      */
     public void addLeaderCard(LeaderCard lc){
-        //controllo che non siano più di 2 o 4(da capire)
         leaderCards.add(lc);
+    }
+
+    public void removeLeaderCard(LeaderCard lc){
+        leaderCards.remove(lc);
     }
 
 }
