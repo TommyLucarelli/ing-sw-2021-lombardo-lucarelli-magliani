@@ -34,4 +34,34 @@ public class ResourceQty {
     public Resource getResource() {
         return resource;
     }
+
+    /**
+     * Increases the quantity by 1 unit.
+     */
+    public void increaseQty(){
+        this.qty++;
+    }
+
+    /**
+     * Increases the quantity by a defined amount.
+     * @param qty the quantity added.
+     */
+    public void increaseQty(int qty){
+        this.qty += qty;
+    }
+
+    /**
+     * Decreases the quantity by 1 unit.
+     */
+    public void decreaseQty(){
+        this.qty--;
+    }
+
+    /**
+     * Decreases the quantity by a defined amount.
+     * @param qty the quantity removed.
+     */
+    public void decreaseQty(int qty){
+        this.qty -= qty;
+    }
 }
