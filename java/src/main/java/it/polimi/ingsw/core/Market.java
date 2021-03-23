@@ -63,13 +63,16 @@ public class Market {
      */
     public ArrayList<Resource> pickLine(int line){
         //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
+        return null;
     }
 
     /**
      *Every turn the player chooses a line or a column. A column contains 3 marbles.
      * @param column the number of the column selected by the player
      */
-    public ArrayList<Resource> pickColumn(int column){}
+    public ArrayList<Resource> pickColumn(int column){
+        return null;
+    }
 
     /**
      * This method transforms a marble into the related resource. It is used in pickLine and pickColumn.

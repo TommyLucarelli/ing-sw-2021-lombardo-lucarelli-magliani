@@ -1,5 +1,7 @@
 package it.polimi.ingsw.core;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,7 @@ public class DevCardStructure {
      */
     protected DevCardStructure(){
         structure = new ArrayList[3][4];
+        Gson g = new Gson();
 
         //DOES THIS MAKE SENSE???? IS IT THE BEST WAY TO DO IT????
         startRes = new ArrayList<ResourceQty>();

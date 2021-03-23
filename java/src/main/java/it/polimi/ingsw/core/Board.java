@@ -6,13 +6,13 @@ import java.util.ArrayList;
  * @author Tommaso Lucarelli
  */
 public class Board {
-
     private Warehouse warehouse;
     private Strongbox strongbox;
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
     //probabilmente verranno aggiunti dei flag per le abilità speciali delle carte Leader
+
 
     /**
      * Constructor method that initialize each structure inside the board
@@ -33,7 +33,7 @@ public class Board {
      * Getter method
      * @return the faith track
      */
-    public FaithTrack getFaithtrack() {
+    public FaithTrack getFaithTrack() {
         return faithtrack;
     }
 

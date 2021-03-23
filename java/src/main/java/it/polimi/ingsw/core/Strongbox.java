@@ -56,13 +56,14 @@ public class Strongbox
      * @param r type of resource we are looking for
      * @return the object ResourceQty looked for
      */
-    public ResourceQty getResourceQtyX(Resource r){
+    public int getResourceQtyX(Resource r){
         for(int i=0; i< resources.size(); i++)
         {
             if(resources.get(i).getResource() == r){
-                return resources.get(i);
+                return resources.get(i).getQty();
             }
         }
+        return 0;
         //magari è da aggiungere il caso in cui non ci sia la risorsa
     }
 

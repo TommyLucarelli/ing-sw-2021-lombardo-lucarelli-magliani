@@ -60,6 +60,18 @@ public class DevCard extends Card{
     }
 
     @Override
+    public String toString() {
+        return "DevCard{" +
+                "id=" + this.getId() +
+                ", flag=" + flag +
+                ", recipe=" + recipe +
+                ", cost=" + cost +
+                ", victoryPoints=" + victoryPoints +
+                '}';
+    }
+
+
+    @Override
     public void show(){
         System.out.println(this.toString());
     }
