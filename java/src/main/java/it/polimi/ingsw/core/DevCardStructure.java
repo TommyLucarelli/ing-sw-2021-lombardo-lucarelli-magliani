@@ -14,6 +14,9 @@ public class DevCardStructure {
     private ArrayList<ResourceQty> endRes;
     private ArrayList<ResourceQty> cost;
 
+    /**
+     * Class constructor. Initializes the structure and then generates the development cards.
+     */
     protected DevCardStructure(){
         structure = new ArrayList[3][4];
 

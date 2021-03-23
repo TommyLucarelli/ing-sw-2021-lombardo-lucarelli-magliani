@@ -1,13 +1,12 @@
 package it.polimi.ingsw.core;
 
 /**
- * This class represent the special ability that consist in a discount related to a DevCard
- * @author martina
+ * This class represents the special ability that consists in a discount related to a DevCard
+ * @author Martina Magliani
  */
 
 public class SpecialDiscount extends SpecialAbility {
-
-    Resource resource;
+    private Resource resource;
 
     /**
      * Class constructor
@@ -17,10 +16,6 @@ public class SpecialDiscount extends SpecialAbility {
         super(1, resource);
     }
 
-    /**
-     * @Override of the superclass Getter method
-     * @return the resource related to the special ability
-     */
     @Override
     public Resource getResource() {
         return super.getResource();

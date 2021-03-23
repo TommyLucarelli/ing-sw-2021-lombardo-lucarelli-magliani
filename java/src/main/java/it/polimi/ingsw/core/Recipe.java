@@ -2,38 +2,38 @@ package it.polimi.ingsw.core;
 import java.util.ArrayList;
 
 /**
- * Class represent input and output resource of every DevCard
- * @author martina
+ * Class which represents input and output resources of a production power of a Development card
+ * @author Martina Magliani
  */
 
 public class Recipe {
 
-    ArrayList inputResources = new ArrayList<ResourceQty>();
-    ArrayList outputResources = new ArrayList<ResourceQty>();
+    ArrayList<ResourceQty> inputResources = new ArrayList<ResourceQty>();
+    ArrayList<ResourceQty> outputResources = new ArrayList<ResourceQty>();
 
     /**
      * Class constructor
-     * @param inputResources are input resource of a DevCard
-     * @param outputResources are output resource of a DevCard
+     * @param inputResources input resources of the recipe
+     * @param outputResources output resources of the recipe
      */
-    public Recipe(ArrayList inputResources, ArrayList outputResources){
+    public Recipe(ArrayList<ResourceQty> inputResources, ArrayList<ResourceQty> outputResources){
         this.outputResources = outputResources;
         this.inputResources = inputResources;
     }
 
     /**
      * Getter method
-     * @return output resource of the DevCard
+     * @return output resources of the recipe
      */
-    public ArrayList getOutputResources() {
+    public ArrayList<ResourceQty> getOutputResources() {
         return outputResources;
     }
 
     /**
      * Getter method
-     * @return input resource of the DevCard
+     * @return input resources of the recipe
      */
-    public ArrayList getInputResources() {
+    public ArrayList<ResourceQty> getInputResources() {
         return inputResources;
     }
 

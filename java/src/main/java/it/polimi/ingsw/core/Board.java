@@ -59,6 +59,7 @@ public class Board {
     public DevCardSlot getDevCardSlot(int i){
         return devCardSlots.get(i);
     }
+
     /**
      * Getter method
      * @return the Leader Card selected

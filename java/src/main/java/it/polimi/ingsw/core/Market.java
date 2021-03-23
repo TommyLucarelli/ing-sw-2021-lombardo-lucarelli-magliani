@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Class represent the market structure, composed by (3 line) * (4 column) marbles
- * @author martina
+ * Class which represents the market structure, composed by (3 lines) * (4 columns) marbles
+ * @author Martina Magliani
  */
 
 public class Market {
@@ -58,20 +58,20 @@ public class Market {
     }
 
     /**
-     * Every turn the player choose a line or a column. A line contains 4 marbles.
-     * @param line
+     * Every turn the player chooses a line or a column. A line contains 4 marbles.
+     * @param line the number of the line selected by the player
      */
     public void pickLine(int line){
     }
 
     /**
-     *Every turn the player choose a line or a column. A column contains 3 marbles.
-     * @param column
+     *Every turn the player chooses a line or a column. A column contains 3 marbles.
+     * @param column the number of the column selected by the player
      */
     public void pickColumn(int column){}
 
     /**
-     * This method transform a marble to the related resource. Is used in pickLine e pickColumn.
+     * This method transforms a marble into the related resource. It is used in pickLine and pickColumn.
      */
     private Resource MarbleToResource(Marble marble){
         switch (marble) {

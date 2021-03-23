@@ -1,7 +1,8 @@
 package it.polimi.ingsw.core;
+
 /**
- * Class represent all the card Colour
- * @author martina
+ * Class which represents the colour of the cards.
+ * @author Martina Magliani
  */
 public enum Colour {
 

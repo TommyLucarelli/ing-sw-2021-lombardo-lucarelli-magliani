@@ -1,7 +1,7 @@
 package it.polimi.ingsw.core;
 /**
- * This enum class define all marbles types
- * @author martina
+ * This enum class defines all marbles types
+ * @author Martina Magliani
  */
 
 public enum Marble {
