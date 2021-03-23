@@ -21,7 +21,6 @@ public class Market {
      * Class constructor
      */
     public Market(){
-
         initialStructure.add(Marble.WHITE);
         initialStructure.add(Marble.WHITE);
         initialStructure.add(Marble.WHITE);
@@ -37,6 +36,7 @@ public class Market {
         initialStructure.add(Marble.RED);
 
         structure = new Marble[3][4];
+
         for(int i=0; i<3; i++){
             for(int j=0; j<4; j++){
                 pos = r.nextInt(count);
@@ -61,14 +61,15 @@ public class Market {
      * Every turn the player chooses a line or a column. A line contains 4 marbles.
      * @param line the number of the line selected by the player
      */
-    public void pickLine(int line){
+    public ArrayList<Resource> pickLine(int line){
+        //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
     }
 
     /**
      *Every turn the player chooses a line or a column. A column contains 3 marbles.
      * @param column the number of the column selected by the player
      */
-    public void pickColumn(int column){}
+    public ArrayList<Resource> pickColumn(int column){}
 
     /**
      * This method transforms a marble into the related resource. It is used in pickLine and pickColumn.
