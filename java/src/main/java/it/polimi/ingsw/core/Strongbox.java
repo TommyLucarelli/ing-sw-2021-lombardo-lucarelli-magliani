@@ -18,35 +18,57 @@ public class Strongbox
     }
 
     /**
-     *
-     * @param rq
+     * Method used to add resources inside the strongbox. It does that eiter easily adding the ResourceQty object
+     * or updating the quantity if that kind of resource is already inside the strongbox.
+     * @param rq type and quantity of the resources we want to add
      */
     public void addResource(ResourceQty rq){
-        //potrebbe starci un controllo per capire se esistono già risorse di quel tipo e quindi unirle
-        resources.add(rq);
+        Boolean flag = false;
+        for(int i=0; i< resources.size(); i++)
+        {
+            if(resources.get(i).getResource() == rq.getResource()){
+                flag = true;
+                resources.get(i).increaseQty(rq.getQty());
+            }
+        }
+        if(flag == false)
+            resources.add(rq);
     }
 
     /**
-     *
-     * @param r
-     * @param qty
+     * Method to use resources
+     * @param rq type and quantity of the resources we have used
      */
-    public void useResource(Resource r, int qty){
-        //usa e dunque rimuove una quantità "qty" dalla
+    public void useResource(ResourceQty rq){
+        for(int i=0; i< resources.size(); i++)
+        {
+            if(resources.get(i).getResource() == rq.getResource()){
+                resources.get(i).decreaseQty(rq.getQty());
+                if(resources.get(i).getQty()==0)
+                    resources.remove(i);
+                break;
+            }
+        }
     }
 
     /**
-     *
-     * @param r
-     * @return
+     * Getter method
+     * @param r type of resource we are looking for
+     * @return the object ResourceQty looked for
      */
     public ResourceQty getResourceQtyX(Resource r){
-        //scorre l'array per cercare se c'è la risorsa "r" nel strongbox
+        for(int i=0; i< resources.size(); i++)
+        {
+            if(resources.get(i).getResource() == r){
+                return resources.get(i);
+            }
+        }
+        //magari è da aggiungere il caso in cui non ci sia la risorsa
     }
 
     /**
-     *
-     * @return
+     * Getter method
+     * @return the whole state of the strongbox, with all the resources
      */
     public ArrayList<ResourceQty> getResources() {
         return resources;

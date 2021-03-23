@@ -5,8 +5,8 @@ package it.polimi.ingsw.core;
  */
 
 public class ResourceQty {
-    Resource resource;
-    int qty;
+    private Resource resource;
+    private int qty;
 
     /**
      * Class constructor.
