@@ -25,7 +25,24 @@ public class DevCardSlot
      */
     public void addCard(DevCard dc)
     {
-        //controllo livello (probabilmente va messa un exception)
-        slot.add(dc);
+        if(dc.getFlag().getLevel() == (slot.size() + 1))
+            slot.add(dc);
+        //aggiungere eventuale exception
+    }
+
+    /**
+     * Getter method
+     * @return the list of the development card in the slot
+     */
+    public ArrayList<DevCard> getSlot() {
+        return slot;
+    }
+
+    /**
+     * Getter method
+     * @return the card on the top of the slot
+     */
+    public DevCard getTopCard(){
+        return slot.get(slot.size() - 1);
     }
 }
