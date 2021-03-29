@@ -1,5 +1,6 @@
 package it.polimi.ingsw.core;
 
+import java.util.Collections;
 import java.util.Stack;
 
 /**
@@ -20,6 +21,8 @@ public class LeaderCardsDeck {
      * Shuffles the deck.
      */
     public void shuffle(){
-
+        Collections.shuffle(deck);
     }
+
+    //TODO: (jack) aggiungere getter del deck (?) e pop (pesca carta)
 }

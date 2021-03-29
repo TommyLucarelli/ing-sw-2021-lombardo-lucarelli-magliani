@@ -34,7 +34,17 @@ public class FaithTrack {
      * @return boolean array that represents whether a favour card is activated
      */
     public Boolean[] getFavourCardsFlag() {
-        return favourCardsFlag;
+        return favourCardsFlag.clone();
+    }
+
+    /**
+     * Getter method, returns the favour card at the specified index
+     * @param i the index of the card
+     * @return boolean value that is true or false whether the card is activated or not.
+     */
+    public boolean getFavourCardsFlag(int i){
+        return favourCardsFlag[i];
+        //TODO: out of bounds exception
     }
 
     /**
@@ -42,6 +52,6 @@ public class FaithTrack {
      */
     public void moveFaithIndicator(){
         position++;
-        //da aggiungere controllo (o eccezzione) se si finisce su uno spot papale per l'attivazione delle carte favore
+        //da aggiungere controllo (o eccezione) se si finisce su uno spot papale per l'attivazione delle carte favore
     }
 }

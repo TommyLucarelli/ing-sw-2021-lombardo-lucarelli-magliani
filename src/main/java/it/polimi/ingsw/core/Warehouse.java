@@ -32,8 +32,6 @@ public class Warehouse
      * @return the configuration of the warehouse
      */
     public ArrayList<Resource> getStructure() {
-        ArrayList<Resource> aRes = new ArrayList<>();
-        aRes = (ArrayList<Resource>) structure.clone();
-        return aRes;
+        return (ArrayList<Resource>) structure.clone();
     }
 }

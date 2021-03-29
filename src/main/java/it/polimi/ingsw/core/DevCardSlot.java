@@ -23,10 +23,14 @@ public class DevCardSlot
      * Method to add a new development card in the slot
      * @param dc is the development card that is being inserted in the array
      */
-    public void addCard(DevCard dc)
+    public boolean addCard(DevCard dc)
     {
-        if(dc.getFlag().getLevel() == (slot.size() + 1))
+        if(dc.getFlag().getLevel() == (slot.size() + 1)){
             slot.add(dc);
+            return true;
+        } else {
+            return false;
+        }
         //aggiungere eventuale exception
     }
 
@@ -35,7 +39,7 @@ public class DevCardSlot
      * @return the list of the development card in the slot
      */
     public ArrayList<DevCard> getSlot() {
-        return slot;
+        return (ArrayList<DevCard>) slot.clone();
     }
 
     /**
@@ -44,5 +48,6 @@ public class DevCardSlot
      */
     public DevCard getTopCard(){
         return slot.get(slot.size() - 1);
+        //TODO: aggiungere exception
     }
 }

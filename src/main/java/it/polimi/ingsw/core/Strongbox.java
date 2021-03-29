@@ -23,15 +23,14 @@ public class Strongbox
      * @param rq type and quantity of the resources we want to add
      */
     public void addResource(ResourceQty rq){
-        Boolean flag = false;
-        for(int i=0; i< resources.size(); i++)
-        {
-            if(resources.get(i).getResource() == rq.getResource()){
+        boolean flag = false;
+        for (ResourceQty resource : resources) {
+            if (resource.getResource() == rq.getResource()) {
                 flag = true;
-                resources.get(i).increaseQty(rq.getQty());
+                resource.increaseQty(rq.getQty());
             }
         }
-        if(flag == false)
+        if(!flag)
             resources.add(rq);
     }
 
@@ -49,6 +48,7 @@ public class Strongbox
                 break;
             }
         }
+        //TODO: (tommy) exception risorsa non presente
     }
 
     /**
@@ -64,7 +64,7 @@ public class Strongbox
             }
         }
         return 0;
-        //magari è da aggiungere il caso in cui non ci sia la risorsa
+        //TODO: (tommy) exception risorsa non presente
     }
 
     /**
@@ -72,7 +72,7 @@ public class Strongbox
      * @return the whole state of the strongbox, with all the resources
      */
     public ArrayList<ResourceQty> getResources() {
-        return resources;
+        return (ArrayList<ResourceQty>) resources.clone();
     }
 
 }

@@ -54,45 +54,28 @@ public class Market {
      * @return the structure of the market place
      */
     public Marble[][] getStructure() {
-        return structure;
+        return structure.clone();
     }
 
     /**
-     * Every turn the player chooses a line or a column. A line contains 4 marbles.
+     * Getter method.
      * @param line the number of the line selected by the player
+     * @return the selected line.
      */
-    public ArrayList<Resource> pickLine(int line){
+    public ArrayList<Resource> getLine(int line){
         //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
         return null;
     }
 
     /**
-     *Every turn the player chooses a line or a column. A column contains 3 marbles.
+     * Getter method.
      * @param column the number of the column selected by the player
+     * @return the selected column.
      */
-    public ArrayList<Resource> pickColumn(int column){
+    public ArrayList<Resource> getColumn(int column){
         return null;
     }
 
-    /**
-     * This method transforms a marble into the related resource. It is used in pickLine and pickColumn.
-     */
-    private Resource MarbleToResource(Marble marble){
-        switch (marble) {
-            case RED:
-                return Resource.FAITH;
-            case BLUE:
-                return Resource.SHIELD;
-            case GREY:
-                return Resource.STONE;
-            case YELLOW:
-                return Resource.COIN;
-            case WHITE:
-                return Resource.ANY;
-            case PURPLE:
-                return Resource.SERVANT;
-        }
-        return null;
-    }
+    //TODO: (marti) implementare i metodi getLine and getColumn, (group) selezionare i metodi utili alla classe.
 
 }

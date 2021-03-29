@@ -32,7 +32,7 @@ public class LeaderCard extends Card {
      * @return an ArrayList of flags required to play the card
      */
     public ArrayList<Flag> getRequiredFlags() {
-        return requiredFlags;
+        return (ArrayList<Flag>) requiredFlags.clone();
     }
 
     /**
@@ -40,7 +40,7 @@ public class LeaderCard extends Card {
      * @return an ArrayList of integers indicating the quantity of each flag required to play the card
      */
     public ArrayList<Integer> getRequiredQty() {
-        return requiredQty;
+        return (ArrayList<Integer>) requiredQty.clone();
     }
 
     /**
@@ -57,6 +57,7 @@ public class LeaderCard extends Card {
      */
     public SpecialAbility getSpecialAbility() {
         return specialAbility;
+        //TODO: (jack) implementazione abilità speciali
     }
 
     @Override

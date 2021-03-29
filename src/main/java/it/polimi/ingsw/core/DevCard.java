@@ -48,7 +48,7 @@ public class DevCard extends Card{
      * @return the cost of the card
      */
     public ArrayList<ResourceQty> getCost() {
-        return cost;
+        return (ArrayList<ResourceQty>) cost.clone();
     }
 
     /**

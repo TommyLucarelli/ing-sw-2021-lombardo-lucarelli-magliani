@@ -26,7 +26,7 @@ public class Recipe {
      * @return output resources of the recipe
      */
     public ArrayList<ResourceQty> getOutputResources() {
-        return outputResources;
+        return (ArrayList<ResourceQty>) outputResources.clone();
     }
 
     /**
@@ -34,7 +34,7 @@ public class Recipe {
      * @return input resources of the recipe
      */
     public ArrayList<ResourceQty> getInputResources() {
-        return inputResources;
+        return (ArrayList<ResourceQty>) inputResources.clone();
     }
 
 }
