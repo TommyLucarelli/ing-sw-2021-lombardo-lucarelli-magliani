@@ -60,9 +60,8 @@ public class Market {
     /**
      * Getter method.
      * @param line the number of the line selected by the player
-     * @return the selected line.
+     * @return all the obtained resources from the selected line.
      */
-    //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
 
     public ArrayList<Resource> getLine(int line){
         for (int i=0; i<4; i++){
@@ -100,6 +99,6 @@ public class Market {
         }
         return null;
     }
-    //TODO: (marti) implementare i metodi getLine and getColumn, (group) selezionare i metodi utili alla classe.
+    //TODO: (group) selezionare i metodi utili alla classe.
 
 }
