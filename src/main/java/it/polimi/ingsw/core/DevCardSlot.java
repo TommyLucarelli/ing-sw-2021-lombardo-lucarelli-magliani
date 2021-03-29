@@ -48,6 +48,6 @@ public class DevCardSlot
      */
     public DevCard getTopCard(){
         return slot.get(slot.size() - 1);
-        //TODO: (tommy) aggiungere exception
+        //da gestire exception nel controller
     }
 }

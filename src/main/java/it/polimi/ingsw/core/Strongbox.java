@@ -48,7 +48,7 @@ public class Strongbox
                 break;
             }
         }
-        //TODO: (tommy) exception risorsa non presente
+        //TODO: (tommy) exception risorsa non presente, potrebbe non servire perchè il controller controlla prima che ci siano le risorse
     }
 
     /**
@@ -64,7 +64,7 @@ public class Strongbox
             }
         }
         return 0;
-        //TODO: (tommy) exception risorsa non presente
+
     }
 
     /**
