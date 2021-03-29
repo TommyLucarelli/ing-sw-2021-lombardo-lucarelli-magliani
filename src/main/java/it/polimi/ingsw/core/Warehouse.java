@@ -23,6 +23,7 @@ public class Warehouse
      * @param aRes array with the new configuration
      */
     public void updateConfiguration(ArrayList<Resource> aRes){
+        //forse da aggiungere il controllo che la disposizione sia giusta
         structure = (ArrayList<Resource>) aRes.clone();
     }
 
@@ -31,6 +32,8 @@ public class Warehouse
      * @return the configuration of the warehouse
      */
     public ArrayList<Resource> getStructure() {
-        return structure;
+        ArrayList<Resource> aRes = new ArrayList<>();
+        aRes = (ArrayList<Resource>) structure.clone();
+        return aRes;
     }
 }
