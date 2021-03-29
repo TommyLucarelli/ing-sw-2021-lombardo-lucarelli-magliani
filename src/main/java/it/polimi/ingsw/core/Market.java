@@ -11,11 +11,11 @@ import java.util.Random;
 public class Market {
 
     Marble[][] structure;
-    int line, column, pos;
     Marble reserveMarble, x;
     ArrayList<Marble> initialStructure = new ArrayList<Marble>();
+    ArrayList<Resource> resources = new ArrayList<Resource>();
     Random r = new Random();
-    int count = 12;
+    int pos, count = 12;
 
     /**
      * Class constructor
@@ -62,20 +62,44 @@ public class Market {
      * @param line the number of the line selected by the player
      * @return the selected line.
      */
+    //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
+
     public ArrayList<Resource> getLine(int line){
-        //ritorniamo l'array list delle 4 risorse che verranno gestite dal controller e sistemiamo il mercato
-        return null;
+        for (int i=0; i<4; i++){
+            resources.add(MarbleToResource(structure[line][i]));
+        }
+        return resources;
     }
 
     /**
      * Getter method.
      * @param column the number of the column selected by the player
-     * @return the selected column.
+     * @return obtained resources from the selected column.
      */
     public ArrayList<Resource> getColumn(int column){
-        return null;
+        for (int i=0; i<3; i++){
+            resources.add(MarbleToResource(structure[i][column]));
+        }
+        return resources;
     }
 
+    public Resource MarbleToResource (Marble marble){
+        switch (marble){
+            case GREY:
+                return Resource.STONE;
+            case BLUE:
+                return Resource.SHIELD;
+            case RED:
+                return Resource.FAITH;
+            case YELLOW:
+                return Resource.COIN;
+            case PURPLE:
+                return Resource.SERVANT;
+            case WHITE:
+                return Resource.ANY;
+        }
+        return null;
+    }
     //TODO: (marti) implementare i metodi getLine and getColumn, (group) selezionare i metodi utili alla classe.
 
 }
