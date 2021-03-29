@@ -44,7 +44,7 @@ public class FaithTrack {
      */
     public boolean getFavourCardsFlag(int i){
         return favourCardsFlag[i];
-        //TODO: out of bounds exception
+        //TODO: (tommy) out of bounds exception
     }
 
     /**

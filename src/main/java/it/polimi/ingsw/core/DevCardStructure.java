@@ -62,7 +62,7 @@ public class DevCardStructure {
         cost.add(new ResourceQty(Resource.STONE, 1));
         structure[0][0].add(new DevCard(5, new Flag(1, Colour.GREEN), rec, cost, 2));
 
-        //TODO: implementare json (jack)
+        //TODO: (jack) implementare json
     }
 
 
