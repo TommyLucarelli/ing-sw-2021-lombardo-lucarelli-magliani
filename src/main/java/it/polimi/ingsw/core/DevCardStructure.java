@@ -30,9 +30,8 @@ public class DevCardStructure {
         Gson g = new Gson();
         JsonReader jreader = new JsonReader(new FileReader(filename));
         ArrayList<DevCard> cards = g.fromJson(jreader, CARD_TYPE);
-        System.out.println(cards.size());
 
-        //TODO: (jack) implementare json
+        //TODO: (jack) implementare la creazione della struttura
     }
 
 
