@@ -5,6 +5,7 @@ import java.util.Random;
 
 /**
  * Class which represents the market structure, composed by (3 lines) * (4 columns) marbles
+ * plus one marble that is the reserveMarble
  * @author Martina Magliani
  */
 
@@ -74,7 +75,7 @@ public class Market {
     /**
      * Getter method.
      * @param column the number of the column selected by the player
-     * @return obtained resources from the selected column.
+     * @return obtained resources from the selected column and modified the market structure
      */
     public ArrayList<Resource> getColumn(int column){
         for (int i=0; i<3; i++){
@@ -84,6 +85,10 @@ public class Market {
         return (ArrayList<Resource>) resources.clone();
     }
 
+    /**
+     * Transforms the marble into the related resource.
+     * @return the resource related to the marble.
+     */
     public Resource MarbleToResource (Marble marble){
         switch (marble){
             case GREY:
