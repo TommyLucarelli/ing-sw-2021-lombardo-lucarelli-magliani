@@ -13,7 +13,7 @@ public class DevCardTokenTest {
         String s2;
 
         s2 = dt.getAction();
-        
+
         assertEquals(s1,s2);
     }
 }
