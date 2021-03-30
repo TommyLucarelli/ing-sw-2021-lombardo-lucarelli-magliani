@@ -67,7 +67,8 @@ public class Market {
         for (int i=0; i<4; i++){
             resources.add(MarbleToResource(structure[line][i]));
         }
-        return resources;
+        structure[line][3] = reserveMarble;
+        return (ArrayList<Resource>) resources.clone();
     }
 
     /**
@@ -79,7 +80,8 @@ public class Market {
         for (int i=0; i<3; i++){
             resources.add(MarbleToResource(structure[i][column]));
         }
-        return resources;
+        structure[2][column] = reserveMarble;
+        return (ArrayList<Resource>) resources.clone();
     }
 
     public Resource MarbleToResource (Marble marble){
