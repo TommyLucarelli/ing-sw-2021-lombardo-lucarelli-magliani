@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class WarehouseTest {
 
     @Test
-    public void updateConfiguration() {
+    public void testUpdateConfiguration() {
         Warehouse w = new Warehouse();
         ArrayList<Resource> a = new ArrayList<>();
         ArrayList<Resource> b = new ArrayList<>();
