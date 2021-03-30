@@ -45,3 +45,5 @@ public class Player {
         return nickname;
     }
 }
+
+//TODO: (group) ma va fatto il test di una classe con solo getter?

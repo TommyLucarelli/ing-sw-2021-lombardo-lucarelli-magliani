@@ -48,6 +48,14 @@ public class FaithTrack {
     }
 
     /**
+     * Method to put the favour card face up
+     * @param i position of the favour card we want to activate
+     */
+    public void setFavourCardsFlag(int i){
+        favourCardsFlag[i] = true;
+    }
+
+    /**
      * Method to move the Faith Indicator forward in the track
      */
     public void moveFaithIndicator(){
