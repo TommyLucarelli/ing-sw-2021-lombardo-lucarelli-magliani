@@ -7,10 +7,10 @@ import java.util.ArrayList;
  * @author Giacomo Lombardo
  */
 public class DevCard extends Card{
-    private Flag flag;
-    private Recipe recipe;
-    private ArrayList<ResourceQty> cost;
-    private int victoryPoints;
+    private final Flag flag;
+    private final Recipe recipe;
+    private final ArrayList<ResourceQty> cost;
+    private final int victoryPoints;
 
     /**
      * Class constructor

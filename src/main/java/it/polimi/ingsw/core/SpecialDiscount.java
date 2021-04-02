@@ -5,7 +5,7 @@ package it.polimi.ingsw.core;
  * @author Martina Magliani
  */
 
-public class SpecialDiscount extends SpecialAbility {
+public class SpecialDiscount implements SpecialAbility {
     private Resource resource;
 
     /**
@@ -13,11 +13,21 @@ public class SpecialDiscount extends SpecialAbility {
      * @param resource represent a special discount on the price of a DevCard
      */
     public SpecialDiscount(Resource resource){
-        super(1, resource);
+        this.resource = resource;
     }
 
     @Override
     public Resource getResource() {
-        return super.getResource();
+        return this.resource;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Quando compri una carta sviluppo, puoi pagarne il costo con uno sconto della risorsa indicata (se la carta che stai comprando ha quella risorsa come costo).";
+    }
+
+    @Override
+    public void evokeEffect() {
+
     }
 }

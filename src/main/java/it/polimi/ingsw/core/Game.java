@@ -34,10 +34,6 @@ public class Game
 
     public static void main( String[] args )
     {
-        try {
-            DevCardStructure devCardStructure = new DevCardStructure();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
 }

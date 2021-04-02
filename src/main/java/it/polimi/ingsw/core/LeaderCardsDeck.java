@@ -24,5 +24,19 @@ public class LeaderCardsDeck {
         Collections.shuffle(deck);
     }
 
-    //TODO: (jack) aggiungere getter del deck (?) e pop (pesca carta)
+    /**
+     * Getter method.
+     * @return the entire deck.
+     */
+    public Stack<LeaderCardsDeck> getDeck(){
+        return (Stack<LeaderCardsDeck>) deck.clone();
+    }
+
+    /**
+     * Pop method.
+     * @return the card on top of the deck.
+     */
+    public LeaderCard drawCard(){
+        return deck.pop();
+    }
 }
