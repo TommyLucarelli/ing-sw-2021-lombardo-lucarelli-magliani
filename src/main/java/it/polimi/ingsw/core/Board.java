@@ -79,6 +79,7 @@ public class Board {
 
     public void removeLeaderCard(LeaderCard lc){
         leaderCards.remove(lc);
+        //lancia IndexOutofBoundException da gestire nel controller
     }
 
 }

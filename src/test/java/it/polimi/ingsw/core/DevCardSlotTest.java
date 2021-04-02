@@ -10,7 +10,6 @@ public class DevCardSlotTest {
     public void addCard() {
         DevCardSlot dcs = new DevCardSlot();
 
-
     }
 
     @Test

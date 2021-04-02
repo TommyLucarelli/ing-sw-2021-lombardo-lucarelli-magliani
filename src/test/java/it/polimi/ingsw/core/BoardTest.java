@@ -2,17 +2,49 @@ package it.polimi.ingsw.core;
 
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class BoardTest {
 
     @Test
-    public void addLeaderCard() {
+    public void testAddLeaderCard() {
         Board b = new Board();
-        //TODO: da fare con leader card
+        ArrayList<Flag> requiredFlags = new ArrayList<>();
+        ArrayList<Integer> requiredQty = new ArrayList<>();
+        requiredFlags.add(new Flag(2,Colour.BLUE));
+        requiredQty.add(2);
+        SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, requiredQty, 5, sa);
+        LeaderCard x;
+
+        b.addLeaderCard(lc);
+        x = b.getLeaderCard(0);
+
+        assertEquals(lc, x);
     }
 
     @Test
-    public void removeLeaderCard() {
+    public void testRemoveLeaderCard() {
+        Board b = new Board();
+        ArrayList<Flag> requiredFlags = new ArrayList<>();
+        ArrayList<Integer> requiredQty = new ArrayList<>();
+        requiredFlags.add(new Flag(2,Colour.BLUE));
+        requiredQty.add(2);
+        SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, requiredQty, 5, sa);
+        LeaderCard x;
+
+        b.addLeaderCard(lc);
+        x = b.getLeaderCard(0);
+        b.removeLeaderCard(lc);
+        try{
+            x = b.getLeaderCard(0);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Non ci sono carte leader in questo Deck");
+        }
+
     }
 }
