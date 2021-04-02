@@ -18,6 +18,14 @@ public class BlackFlagToken implements SoloActionToken{
         this.shuffle = shuffle;
     }
 
+    public int getSpaces(){
+        return this.spaces;
+    }
+
+    public boolean shufflesDeck(){
+        return this.shuffle;
+    }
+
     @Override
     public String getAction() {
         String s = "BFT"+spaces+shuffle;
