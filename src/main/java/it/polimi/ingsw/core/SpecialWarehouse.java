@@ -6,9 +6,11 @@ package it.polimi.ingsw.core;
 
 public class SpecialWarehouse implements SpecialAbility{
     private Resource resource;
+    private boolean isActivated;
 
     protected SpecialWarehouse(Resource resource){
         this.resource = resource;
+        this.isActivated = false;
     }
 
     @Override
@@ -23,7 +25,12 @@ public class SpecialWarehouse implements SpecialAbility{
     }
 
     @Override
-    public void evokeEffect() {
-        //TODO: decorator del Warehouse?
+    public boolean isActivated() {
+        return this.isActivated;
+    }
+
+    @Override
+    public void activate() {
+        this.isActivated = true;
     }
 }

@@ -2,9 +2,11 @@ package it.polimi.ingsw.core;
 
 public class SpecialProductionPower implements SpecialAbility {
     private Resource resource;
+    private boolean isActivated;
 
     public SpecialProductionPower(Resource resource) {
         this.resource = resource;
+        this.isActivated = false;
     }
 
     @Override
@@ -19,7 +21,12 @@ public class SpecialProductionPower implements SpecialAbility {
     }
 
     @Override
-    public void evokeEffect() {
+    public boolean isActivated() {
+        return this.isActivated;
+    }
 
+    @Override
+    public void activate() {
+        this.isActivated = true;
     }
 }

@@ -17,6 +17,8 @@ public interface SpecialAbility {
      */
     public Resource getResource();
 
-    public void evokeEffect();
+    public boolean isActivated();
+
+    public void activate();
 
 }

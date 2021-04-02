@@ -7,6 +7,7 @@ package it.polimi.ingsw.core;
 
 public class SpecialDiscount implements SpecialAbility {
     private Resource resource;
+    private boolean isActivated;
 
     /**
      * Class constructor
@@ -14,6 +15,7 @@ public class SpecialDiscount implements SpecialAbility {
      */
     public SpecialDiscount(Resource resource){
         this.resource = resource;
+        this.isActivated = false;
     }
 
     @Override
@@ -27,7 +29,12 @@ public class SpecialDiscount implements SpecialAbility {
     }
 
     @Override
-    public void evokeEffect() {
+    public boolean isActivated() {
+        return this.isActivated;
+    }
 
+    @Override
+    public void activate() {
+        this.isActivated = true;
     }
 }
