@@ -66,7 +66,7 @@ public class Market {
 
     public ArrayList<Resource> getLine(int line){
         for (int i=0; i<4; i++){
-            resources.add(MarbleToResource(structure[line][i]));
+            resources.add(structure[line][i].toResource());
         }
         structure[line][3] = reserveMarble;
         return (ArrayList<Resource>) resources.clone();
@@ -79,33 +79,12 @@ public class Market {
      */
     public ArrayList<Resource> getColumn(int column){
         for (int i=0; i<3; i++){
-            resources.add(MarbleToResource(structure[i][column]));
+            resources.add(structure[i][column].toResource());
         }
         structure[2][column] = reserveMarble;
         return (ArrayList<Resource>) resources.clone();
     }
 
-    /**
-     * Transforms the marble into the related resource.
-     * @return the resource related to the marble.
-     */
-    public Resource MarbleToResource (Marble marble){
-        switch (marble){
-            case GREY:
-                return Resource.STONE;
-            case BLUE:
-                return Resource.SHIELD;
-            case RED:
-                return Resource.FAITH;
-            case YELLOW:
-                return Resource.COIN;
-            case PURPLE:
-                return Resource.SERVANT;
-            case WHITE:
-                return Resource.ANY;
-        }
-        return null;
-    }
     //TODO: (group) selezionare i metodi utili alla classe.
 
 }
