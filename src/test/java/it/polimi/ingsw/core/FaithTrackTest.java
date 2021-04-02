@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class FaithTrackTest {
 
     @Test
-    public void setFavourCardsFlag() {
+    public void testSetFavourCardsFlag() {
         FaithTrack ft = new FaithTrack();
 
         assertEquals(ft.getFavourCardsFlag(0), false);
@@ -22,7 +22,7 @@ public class FaithTrackTest {
     }
 
     @Test
-    public void moveFaithIndicator() {
+    public void testMoveFaithIndicator() {
         FaithTrack ft = new FaithTrack();
 
         ft.moveFaithIndicator();

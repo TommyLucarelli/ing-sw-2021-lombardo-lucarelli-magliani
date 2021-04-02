@@ -31,7 +31,7 @@ public class DevCardSlot
         } else {
             return false;
         }
-        //aggiungere eventuale exception
+        //fare il controllo boolean perchè non inserisce la carta se il livello è sbagliato
     }
 
     /**
