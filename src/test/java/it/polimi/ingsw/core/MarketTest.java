@@ -10,36 +10,48 @@ import static org.junit.Assert.*;
 public class MarketTest {
 
     @Test
-    public void testGetStructure() {
-    }
-
-    @Test
     public void testGetLine() {
         Market m = new Market();
-        Marble[][] matrix = new Marble[3][4];
+        ArrayList<Marble> marble, marble2;
         ArrayList<Resource> resources;
+        Marble resMarble;
 
-        matrix = m.getStructure();
-        //System.out.println("reserveMarble" + m.reserveMarble.toResource());
-        for (int i=0; i<4; i++){
-            System.out.println("matrice = " + matrix[1][i].toResource());
-        }
+        marble = m.chooseLine(1);
+        resMarble = m.getReserveMarble();
         resources = m.getLine(1);
-        //System.out.println("reserveMarble" + m.reserveMarble.toResource());
-        for (int i=0; i<4; i++){
-            System.out.println("matrice = " + matrix[1][i].toResource());
-        }
-        /**for (int i=0; i<4; i++){
-            System.out.println("res = " + resources.get(i));
-        }
 
         for (int i=0; i<4; i++) {
-            assertEquals(matrix[1][i].toResource(), resources.get(i));
+            assertEquals(marble.get(i).toResource(), resources.get(i));
         }
-         **/
+
+        marble2 = m.chooseLine(1);
+        for (int i=0; i<3;i++){
+            assertEquals(marble2.get(i), marble.get(i+1));
+        }
+        assertEquals(marble2.get(3),resMarble);
+        assertEquals(m.getReserveMarble(),marble.get(0));
     }
 
     @Test
     public void testGetColumn() {
+        Market m = new Market();
+        ArrayList<Marble> marble, marble2;
+        ArrayList<Resource> resources;
+        Marble resMarble;
+
+        marble = m.chooseColumn(1);
+        resMarble = m.getReserveMarble();
+        resources = m.getColumn(1);
+
+        for (int i=0; i<3; i++) {
+            assertEquals(marble.get(i).toResource(), resources.get(i));
+        }
+
+        marble2 = m.chooseColumn(1);
+        for (int i=0; i<2;i++){
+            assertEquals(marble2.get(i), marble.get(i+1));
+        }
+        assertEquals(marble2.get(2),resMarble);
+        assertEquals(m.getReserveMarble(),marble.get(0));
     }
 }

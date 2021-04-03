@@ -25,7 +25,7 @@ public class StrongboxTest {
         sb.addResource(rq);
         sb.useResource(rq2);
 
-        assertEquals(2, sb.getResourceQtyX(Resource.COIN));
+        assertEquals(1, sb.getResourceQtyX(Resource.COIN));
 
     }
 

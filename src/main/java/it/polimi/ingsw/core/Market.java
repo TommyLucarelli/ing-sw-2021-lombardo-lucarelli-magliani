@@ -59,11 +59,35 @@ public class Market {
     }
 
     /**
+     * Metodo creato perchè il test on ci torna
+     * @param line
+     * @return un array list di marble della linea selezionata
+     */
+    public ArrayList<Marble> chooseLine(int line){
+         ArrayList<Marble> r = new ArrayList<Marble>();
+         for ( int i=0; i<4; i++){
+             r.add(structure[line][i]);
+         }
+         return r;
+    }
+
+    public ArrayList<Marble> chooseColumn(int column){
+        ArrayList<Marble> r = new ArrayList<Marble>();
+        for ( int i=0; i<3; i++){
+            r.add(structure[i][column]);
+        }
+        return r;
+    }
+
+    public Marble getReserveMarble(){
+        return reserveMarble;
+    }
+
+    /**
      * Getter method.
      * @param line the number of the line selected by the player
      * @return all the obtained resources from the selected line.
      */
-
     public ArrayList<Resource> getLine(int line) {
         for (int i = 0; i < 4; i++) {
             resources.add(structure[line][i].toResource());
@@ -76,7 +100,7 @@ public class Market {
         }
         structure[line][3] = rM;
 
-        return resources;
+        return (ArrayList<Resource>) resources.clone();
     }
 
     /**
@@ -88,12 +112,13 @@ public class Market {
         for (int i=0; i<3; i++){
             resources.add(structure[i][column].toResource());
         }
-        structure[2][column] = reserveMarble;
+        rM = reserveMarble;
         reserveMarble = structure[0][column];
         for (int i=0; i<2; i++){
             structure[i][column] = structure[i+1][column];
         }
 
+        structure[2][column] = rM;
         return (ArrayList<Resource>) resources.clone();
     }
 
