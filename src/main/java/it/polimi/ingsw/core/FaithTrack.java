@@ -8,17 +8,14 @@ import java.util.ArrayList;
  */
 public class FaithTrack {
     private int position;
-    private Boolean[] favourCardsFlag;
+    private boolean[] favourCardsFlag;
 
     /**
      * Class constructor
      */
     public FaithTrack(){
         position = 0;
-        favourCardsFlag = new Boolean[3];
-        favourCardsFlag[0] = false;
-        favourCardsFlag[1] = false;
-        favourCardsFlag[2] = false;
+        favourCardsFlag = new boolean[3];
     }
 
     /**
@@ -33,7 +30,7 @@ public class FaithTrack {
      * Getter method
      * @return boolean array that represents whether a favour card is activated
      */
-    public Boolean[] getFavourCardsFlag() {
+    public boolean[] getFavourCardsFlag() {
         return favourCardsFlag.clone();
     }
 

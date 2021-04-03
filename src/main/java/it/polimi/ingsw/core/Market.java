@@ -11,12 +11,12 @@ import java.util.Random;
 
 public class Market {
 
-    Marble[][] structure;
-    Marble reserveMarble,rM, x;
-    ArrayList<Marble> initialStructure = new ArrayList<Marble>();
-    ArrayList<Resource> resources = new ArrayList<Resource>();
-    Random r = new Random();
-    int pos, count = 12;
+    private Marble[][] structure;
+    private Marble reserveMarble,rM, x;
+    private ArrayList<Marble> initialStructure = new ArrayList<Marble>();
+    private ArrayList<Resource> resources = new ArrayList<Resource>();
+    private Random r = new Random();
+    private int pos, count = 12;
 
     /**
      * Class constructor
