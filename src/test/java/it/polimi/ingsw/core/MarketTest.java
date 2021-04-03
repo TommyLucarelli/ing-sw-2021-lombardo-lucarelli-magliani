@@ -16,7 +16,7 @@ public class MarketTest {
     @Test
     public void testGetLine() {
         Market m = new Market();
-        Marble[][] matrix;
+        Marble[][] matrix = new Marble[3][4];
         ArrayList<Resource> resources;
 
         matrix = m.getStructure();

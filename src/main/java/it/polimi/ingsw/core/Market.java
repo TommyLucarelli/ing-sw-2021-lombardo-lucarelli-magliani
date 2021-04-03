@@ -54,13 +54,8 @@ public class Market {
      * Getter Method
      * @return the structure of the market place
      */
-     public ArrayList<Resource> getStructure() {
-        Marble[][] m = new Marble[3][4];
-        for(int i = 0; i< structure.length; i++){
-            for (int j = 0; j < structure[i].length; j++){
-                m[i][j] = structure[i][j];
-            }
-        return m;
+     public Marble[][] getStructure() {
+        return structure.clone();
     }
 
     /**
