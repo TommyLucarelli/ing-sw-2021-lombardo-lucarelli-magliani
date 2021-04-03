@@ -17,8 +17,15 @@ public interface SpecialAbility {
      */
     public Resource getResource();
 
+    /**
+     * Getter method.
+     * @return true if the card is activated, false otherwise.
+     */
     public boolean isActivated();
 
+    /**
+     * Activates the card.
+     */
     public void activate();
 
 }
