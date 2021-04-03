@@ -22,6 +22,7 @@ public class DevCardSlotTest {
         Recipe r = new Recipe(rq1, rq2);
         DevCard dc = new DevCard(1, f, r, rq3, 10);
         DevCard dc2 = new DevCard(2, f1, r, rq3, 5);
+        DevCard dc3 = new DevCard(2, f1, r, rq3, 2);
 
         assertTrue(dcs.addCard(dc));
         assertEquals(dcs.getSlot().get(0), dc);
@@ -29,7 +30,9 @@ public class DevCardSlotTest {
         assertTrue(dcs.addCard(dc2));
         assertEquals(dcs.getSlot().get(0), dc);
 
+        assertFalse(dcs.addCard(dc3));
     }
+
 
     @Test
     public void testGetTopCard() {
