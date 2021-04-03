@@ -1,7 +1,7 @@
 package it.polimi.ingsw.core;
 
 public class SpecialProductionPower implements SpecialAbility {
-    private Resource resource;
+    private final Resource resource;
     private boolean isActivated;
 
     public SpecialProductionPower(Resource resource) {

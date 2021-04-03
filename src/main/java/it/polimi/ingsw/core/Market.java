@@ -11,12 +11,12 @@ import java.util.Random;
 
 public class Market {
 
-    Marble[][] structure;
-    Marble reserveMarble, x;
-    ArrayList<Marble> initialStructure = new ArrayList<Marble>();
-    ArrayList<Resource> resources = new ArrayList<Resource>();
-    Random r = new Random();
-    int pos, count = 12;
+    private Marble[][] structure;
+    private Marble reserveMarble,rM, x;
+    private ArrayList<Marble> initialStructure = new ArrayList<Marble>();
+    private ArrayList<Resource> resources = new ArrayList<Resource>();
+    private Random r = new Random();
+    private int pos, count = 12;
 
     /**
      * Class constructor
@@ -64,15 +64,17 @@ public class Market {
      * @return all the obtained resources from the selected line.
      */
 
-    public ArrayList<Resource> getLine(int line){
-        for (int i=0; i<4; i++){
+    public ArrayList<Resource> getLine(int line) {
+        for (int i = 0; i < 4; i++) {
             resources.add(structure[line][i].toResource());
         }
-        structure[line][3] = reserveMarble;
+
+        rM = reserveMarble;
         reserveMarble = structure[line][0];
         for (int i=0; i<3; i++){
             structure[line][i] = structure[line][i+1];
         }
+        structure[line][3] = rM;
 
         return (ArrayList<Resource>) resources.clone();
     }

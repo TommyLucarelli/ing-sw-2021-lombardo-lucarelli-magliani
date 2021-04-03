@@ -5,8 +5,8 @@ package it.polimi.ingsw.core;
  * @author Martina Magliani
  */
 public class Flag {
-    int level;
-    Colour colour;
+    private final int level;
+    private final Colour colour;
 
     /**
      * Class constructor
@@ -15,6 +15,16 @@ public class Flag {
      */
     public Flag(int level, Colour colour) {
         this.level = level;
+        this.colour = colour;
+    }
+
+    /**
+     * Class constructor. Initializes a flag without level (this.level == 0).
+     * Used to instantiate the required flags to play a LeaderCard.
+     * @param colour the colour of the card
+     */
+    public Flag(Colour colour){
+        this.level = 0;
         this.colour = colour;
     }
 
@@ -32,5 +42,14 @@ public class Flag {
      */
     public int getLevel() {
         return level;
+    }
+
+    /**
+     * Method to compare the object with another class.
+     * @param flag the flag which the object will be compared to.
+     * @return true if the flags have the same colour and the object has the level >= than the other flag's level. False otherwise.
+     */
+    public boolean equalOrStrongerThan(Flag flag){
+        return flag.getColour() == this.getColour() && flag.getLevel() <= this.getLevel();
     }
 }

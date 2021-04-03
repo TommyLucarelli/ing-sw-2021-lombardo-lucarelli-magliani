@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Recipe {
 
-    ArrayList<ResourceQty> inputResources = new ArrayList<ResourceQty>();
-    ArrayList<ResourceQty> outputResources = new ArrayList<ResourceQty>();
+    private final ArrayList<ResourceQty> inputResources;
+    private final ArrayList<ResourceQty> outputResources;
 
     /**
      * Class constructor

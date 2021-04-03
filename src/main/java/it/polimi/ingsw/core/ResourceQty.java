@@ -5,7 +5,7 @@ package it.polimi.ingsw.core;
  */
 
 public class ResourceQty {
-    private Resource resource;
+    private final Resource resource;
     private int qty;
 
     /**

@@ -6,7 +6,7 @@ package it.polimi.ingsw.core;
  */
 
 public class SpecialDiscount implements SpecialAbility {
-    private Resource resource;
+    private final Resource resource;
     private boolean isActivated;
 
     /**

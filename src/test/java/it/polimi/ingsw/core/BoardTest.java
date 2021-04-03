@@ -13,11 +13,9 @@ public class BoardTest {
     public void testAddLeaderCard() {
         Board b = new Board();
         ArrayList<Flag> requiredFlags = new ArrayList<>();
-        ArrayList<Integer> requiredQty = new ArrayList<>();
         requiredFlags.add(new Flag(2,Colour.BLUE));
-        requiredQty.add(2);
         SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
-        LeaderCard lc = new LeaderCard(1, requiredFlags, requiredQty, 5, sa);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, sa);
         LeaderCard x;
 
         b.addLeaderCard(lc);
@@ -30,11 +28,9 @@ public class BoardTest {
     public void testRemoveLeaderCard() {
         Board b = new Board();
         ArrayList<Flag> requiredFlags = new ArrayList<>();
-        ArrayList<Integer> requiredQty = new ArrayList<>();
         requiredFlags.add(new Flag(2,Colour.BLUE));
-        requiredQty.add(2);
         SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
-        LeaderCard lc = new LeaderCard(1, requiredFlags, requiredQty, 5, sa);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, sa);
         LeaderCard x;
 
         b.addLeaderCard(lc);

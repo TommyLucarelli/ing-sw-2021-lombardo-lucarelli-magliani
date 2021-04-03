@@ -7,23 +7,16 @@ import static org.junit.Assert.*;
 public class ResourceQtyTest {
 
     @Test
-    public void getQty() {
+    public void testGetQty() {
     }
 
     @Test
-    public void getResource() {
+    public void testGetResource() {
     }
 
-    @Test
-    public void increaseQty() {
-    }
 
     @Test
     public void testIncreaseQty() {
-    }
-
-    @Test
-    public void decreaseQty() {
     }
 
     @Test

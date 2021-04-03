@@ -8,21 +8,21 @@ import java.util.ArrayList;
  */
 public class LeaderCard extends Card {
     private ArrayList<Flag> requiredFlags;
-    private ArrayList<Integer> requiredQty;
+    private ArrayList<ResourceQty> requiredResources;
     private int victoryPoints;
     private SpecialAbility specialAbility;
 
     /**
      * Class constructor
      * @param requiredFlags type of flags required to play the leader card
-     * @param requiredQty quantity of flags required to play the leader card
+     * @param requiredResources quantity of flags required to play the leader card
      * @param victoryPoints quantity of victory points assigned from the leader card
      * @param specialAbility special ability of the card
      */
-    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ArrayList<Integer> requiredQty, int victoryPoints, SpecialAbility specialAbility) {
+    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ArrayList<ResourceQty> requiredResources, int victoryPoints, SpecialAbility specialAbility) {
         super(id);
         this.requiredFlags = requiredFlags;
-        this.requiredQty = requiredQty;
+        this.requiredResources = requiredResources;
         this.victoryPoints = victoryPoints;
         this.specialAbility = specialAbility;
     }
@@ -39,8 +39,8 @@ public class LeaderCard extends Card {
      * Getter method
      * @return an ArrayList of integers indicating the quantity of each flag required to play the card
      */
-    public ArrayList<Integer> getRequiredQty() {
-        return (ArrayList<Integer>) requiredQty.clone();
+    public ArrayList<ResourceQty> getRequiredResources() {
+        return (ArrayList<ResourceQty>) requiredResources.clone();
     }
 
     /**
@@ -57,7 +57,6 @@ public class LeaderCard extends Card {
      */
     public SpecialAbility getSpecialAbility() {
         return specialAbility;
-        //TODO: (jack) implementazione abilità speciali
     }
 
     @Override
