@@ -10,13 +10,21 @@ public class RecipeTest {
 
     @Test
     public void testGetOutputResources() {
-        //Recipe r = new Recipe();
-        //assertNotNull(r.inputResources);
+        ArrayList<ResourceQty> inputResources = new ArrayList<ResourceQty>();
+        inputResources.add(new ResourceQty(Resource.SERVANT));
+        ArrayList<ResourceQty> outputResource = new ArrayList<>();
+        outputResource.add(new ResourceQty(Resource.SERVANT));
+        Recipe r = new Recipe(inputResources,outputResource);
+        assertNotNull(r.getOutputResources());
     }
 
     @Test
     public void testGetInputResources() {
-        //Recipe r = new Recipe();
-        //assertNotNull(r.outputResources);
+        ArrayList<ResourceQty> inputResources = new ArrayList<ResourceQty>();
+        inputResources.add(new ResourceQty(Resource.SERVANT));
+        ArrayList<ResourceQty> outputResource = new ArrayList<>();
+        outputResource.add(new ResourceQty(Resource.SERVANT));
+        Recipe r = new Recipe(inputResources,outputResource);
+        assertNotNull(r.getInputResources());
     }
 }

@@ -12,4 +12,8 @@ public class MarbleTest {
         assertEquals(Marble.valueOf("WHITE"), marble);
     }
 
+    @Test
+    public void toResource() {
+        assertEquals(Marble.GREY.toResource(),Resource.STONE);
+    }
 }
