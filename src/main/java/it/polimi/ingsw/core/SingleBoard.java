@@ -30,15 +30,16 @@ public class SingleBoard extends Board{
      * @return the first token
      */
     public SoloActionToken getSoloActionToken(){
-        if(counter!=0)
-            counter ++;
-        return soloActionTokens.get(counter);
-        //forse andrebbe ritornato un clone
+        SoloActionToken sat;
+        sat = soloActionTokens.get(counter);
+        counter ++;
+        return sat;
+        //TODO: Da aggiungere la clone, che però da problemi
     }
 
     /**
      * method to reset the counter when the player draw a "shuffle" token
-      */
+     */
     public void resetCounter(){
         counter = 0;
     }
