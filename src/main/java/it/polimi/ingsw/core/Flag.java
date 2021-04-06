@@ -44,6 +44,14 @@ public class Flag {
         return level;
     }
 
+    @Override
+    public String toString() {
+        return "Flag{" +
+                "level=" + level +
+                ", colour=" + colour +
+                '}';
+    }
+
     /**
      * Method to compare the object with another class.
      * @param flag the flag which the object will be compared to.
