@@ -12,6 +12,9 @@ public class LeaderCard extends Card {
     private int victoryPoints;
     private SpecialAbility specialAbility;
 
+    /**TODO: (jack) special ability diventa un intero da 1 a 4 o un'enumerazione di special ability + uno spazio per
+            tenere in memoria la risorsa della special ability (la classe SA potrebbe essere un simil ResourceQty)
+
     /**
      * Class constructor
      * @param requiredFlags type of flags required to play the leader card
