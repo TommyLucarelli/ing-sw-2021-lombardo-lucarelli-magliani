@@ -40,6 +40,7 @@ public class DevCardStructure {
             }
         }
 
+        //TODO: (jack) si può snellire notevolmente questa parte
         for (int i = 0; i < cards.size(); i++){
             devCard = cards.pop();
             switch (devCard.getFlag().getColour()){
