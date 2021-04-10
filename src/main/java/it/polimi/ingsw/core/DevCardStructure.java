@@ -40,58 +40,21 @@ public class DevCardStructure {
             }
         }
 
-        //TODO: (jack) si può snellire notevolmente questa parte
         for (int i = 0; i < cards.size(); i++){
             devCard = cards.pop();
             switch (devCard.getFlag().getColour()){
                 case GREEN:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][0].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][0].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][0].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][0].push(devCard);
+                    break;
                 case BLUE:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][1].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][1].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][1].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][1].push(devCard);
+                    break;
                 case YELLOW:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][2].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][2].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][2].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][2].push(devCard);
+                    break;
                 case PURPLE:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][3].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][3].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][3].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][3].push(devCard);
+                    break;
             }
         }
     }
@@ -99,6 +62,4 @@ public class DevCardStructure {
     public DevCard drawCard(int row, int column){
         return (DevCard) structure[row][column].pop();
     }
-
-
 }
