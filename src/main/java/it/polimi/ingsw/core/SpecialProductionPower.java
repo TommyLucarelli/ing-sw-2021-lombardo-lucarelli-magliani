@@ -1,12 +1,9 @@
 package it.polimi.ingsw.core;
 
-public class SpecialProductionPower implements SpecialAbility {
-    private final Resource resource;
-    private boolean isActivated;
+public class SpecialProductionPower extends SpecialAbility {
 
     public SpecialProductionPower(Resource resource) {
-        this.resource = resource;
-        this.isActivated = false;
+        super(resource);
     }
 
     @Override
@@ -16,17 +13,7 @@ public class SpecialProductionPower implements SpecialAbility {
     }
 
     @Override
-    public Resource getResource() {
-        return this.resource;
-    }
-
-    @Override
-    public boolean isActivated() {
-        return this.isActivated;
-    }
-
-    @Override
     public void activate() {
-        this.isActivated = true;
+        super.activate();
     }
 }

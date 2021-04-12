@@ -4,28 +4,41 @@ package it.polimi.ingsw.core;
  * Class representing a special ability of a Leader Card
  * @author Giacomo Lombardo
  */
-public interface SpecialAbility {
+public abstract class SpecialAbility {
+    private Resource resource;
+    private boolean isActivated;
+
+    public SpecialAbility(Resource resource){
+        this.resource = resource;
+    }
+
     /**
      * Getter method
      * @return a description of the special abilty
      */
-    public String getDescription();
+    public abstract String getDescription();
 
     /**
      * Getter method
      * @return the resource related to the special abilty
      */
-    public Resource getResource();
+    public Resource getResource(){
+        return this.resource;
+    }
 
     /**
      * Getter method.
      * @return true if the card is activated, false otherwise.
      */
-    public boolean isActivated();
+    public boolean isActivated(){
+        return this.isActivated;
+    }
 
     /**
      * Activates the card.
      */
-    public void activate();
+    public void activate(){
+        this.isActivated = true;
+    }
 
 }

@@ -59,6 +59,22 @@ public class DevCardStructure {
         }
     }
 
+    /**
+     * Getter method. Returns the card on top of the stack at the specified coordinates without removing it.
+     * @param row the row of the stack
+     * @param column the column of the stack
+     * @return the DevCard at the specified coordinates.
+     */
+    public DevCard getTopCard(int row, int column){
+        return (DevCard) structure[row][column].peek();
+    }
+
+    /**
+     * Pop method. Returns the card on top of the stack at the specified coordinates and removes it from the stack.
+     * @param row the row of the stack
+     * @param column the column of the stack
+     * @return the DevCard at the specified coordinates.
+     */
     public DevCard drawCard(int row, int column){
         return (DevCard) structure[row][column].pop();
     }

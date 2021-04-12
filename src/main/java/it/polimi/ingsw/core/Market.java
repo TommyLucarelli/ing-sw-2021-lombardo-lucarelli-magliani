@@ -12,16 +12,14 @@ import java.util.Random;
 public class Market {
 
     private Marble[][] structure;
-    private Marble reserveMarble,rM, x;
-    private ArrayList<Marble> initialStructure = new ArrayList<Marble>();
-    private ArrayList<Resource> resources = new ArrayList<Resource>();
-    private Random r = new Random();
-    private int pos, count = 12;
+    private Marble reserveMarble;
 
     /**
      * Class constructor
      */
     public Market(){
+        ArrayList<Marble> initialStructure = new ArrayList<Marble>();
+
         initialStructure.add(Marble.WHITE);
         initialStructure.add(Marble.WHITE);
         initialStructure.add(Marble.WHITE);
@@ -38,10 +36,13 @@ public class Market {
 
         structure = new Marble[3][4];
 
+        int pos, count = 12;
+        Random r = new Random();
+
         for(int i=0; i<3; i++){
             for(int j=0; j<4; j++){
                 pos = r.nextInt(count);
-                x = initialStructure.get(pos);
+                Marble x = initialStructure.get(pos);
                 initialStructure.remove(pos);
                 structure[i][j] = x;
                 count--;
@@ -54,74 +55,106 @@ public class Market {
      * Getter Method
      * @return the structure of the market place
      */
-     public Marble[][] getStructure() {
+    public Marble[][] getStructure() {
         return structure.clone();
     }
 
     /**
-     * Metodo creato perchè il test on ci torna
-     * @param line
-     * @return un array list di marble della linea selezionata
+     * Getter method.
+     * @return the structure of the market as an array: the first 4 slots are the first row, and so on...
      */
-    public ArrayList<Marble> chooseLine(int line){
-         ArrayList<Marble> r = new ArrayList<Marble>();
-         for ( int i=0; i<4; i++){
-             r.add(structure[line][i]);
+    public Marble[] getStructureAsArray(){
+         Marble[] structureArray = new Marble[12];
+         for(int i = 0; i < 12; i++){
+             structureArray[i] = structure[i/4][i%4];
          }
-         return r;
+         return structureArray;
     }
 
-    public ArrayList<Marble> chooseColumn(int column){
-        ArrayList<Marble> r = new ArrayList<Marble>();
+    /**
+     * Getter method.
+     * @param line the selected line
+     * @return an array containing the marbles of the specified line
+     */
+    public Marble[] getLine(int line){
+         Marble[] result = new Marble[4];
+         for ( int i=0; i<4; i++){
+             result[i] = structure[line][i];
+         }
+         return result;
+    }
+
+    /**
+     * Getter method.
+     * @param column the selected columnn
+     * @return an array containing the marbles of the specified column
+     */
+    public Marble[] getColumn(int column){
+        Marble[] result = new Marble[3];
         for ( int i=0; i<3; i++){
-            r.add(structure[i][column]);
+            result[i] = structure[i][column];
         }
-        return r;
+        return result;
     }
 
+    /**
+     * Getter method.
+     * @return the marble not inserted into the market structure.
+     */
     public Marble getReserveMarble(){
         return reserveMarble;
     }
 
     /**
-     * Getter method.
-     * @param line the number of the line selected by the player
+     * Inserts the reserve marble into the specified line, shifting its marbles and getting a new reserve marble.
+     * @param line the number of the line selected by the player.
      * @return all the obtained resources from the selected line.
      */
-    public ArrayList<Resource> getLine(int line) {
+    public Resource[] updateLineAndGetResources(int line) {
+        Resource[] resources = new Resource[4];
         for (int i = 0; i < 4; i++) {
-            resources.add(structure[line][i].toResource());
+            resources[i] = structure[line][i].toResource();
         }
 
-        rM = reserveMarble;
+        Marble rM = reserveMarble;
         reserveMarble = structure[line][0];
         for (int i=0; i<3; i++){
             structure[line][i] = structure[line][i+1];
         }
         structure[line][3] = rM;
 
-        return (ArrayList<Resource>) resources.clone();
+        return resources;
     }
 
     /**
-     * Getter method.
-     * @param column the number of the column selected by the player
-     * @return obtained resources from the selected column and modified the market structure
+     * Inserts the reserve marble into the specified column, shifting its marbles and getting a new reserve marble.
+     * @param column the number of the column selected by the player.
+     * @return obtained resources from the selected column.
      */
-    public ArrayList<Resource> getColumn(int column){
+    public Resource[] updateColumnAndGetResources(int column){
+        Resource[] resources = new Resource[3];
         for (int i=0; i<3; i++){
-            resources.add(structure[i][column].toResource());
+            resources[i] = structure[i][column].toResource();
         }
-        rM = reserveMarble;
+
+        Marble rM = reserveMarble;
         reserveMarble = structure[0][column];
         for (int i=0; i<2; i++){
             structure[i][column] = structure[i+1][column];
         }
-
         structure[2][column] = rM;
-        return (ArrayList<Resource>) resources.clone();
+
+        return resources;
     }
 
-    //TODO: (group) selezionare i metodi utili alla classe.
+    /**
+     * Getter method.
+     * @param row the row of the desired marble
+     * @param column the column of the desired marble
+     * @return the marble at the specified coordinates.
+     */
+    public Marble getMarble(int row, int column){
+        return structure[row][column];
+    }
 
 }

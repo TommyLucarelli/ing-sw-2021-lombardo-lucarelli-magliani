@@ -16,6 +16,10 @@ public class DevCardStructureTest {
             assertEquals(devCard.getFlag().getLevel(), 1);
             assertEquals(devCard.getFlag().getColour(), Colour.GREEN);
 
+            devCard = devCardStructure.drawCard(0, 0);
+            assertEquals(devCard.getFlag().getLevel(), 1);
+            assertEquals(devCard.getFlag().getColour(), Colour.GREEN);
+
             devCard = devCardStructure.drawCard(0, 2);
             assertEquals(devCard.getFlag().getLevel(), 1);
             assertEquals(devCard.getFlag().getColour(), Colour.YELLOW);

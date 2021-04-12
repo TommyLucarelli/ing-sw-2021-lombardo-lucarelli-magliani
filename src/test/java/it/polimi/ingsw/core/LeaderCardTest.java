@@ -14,8 +14,7 @@ public class LeaderCardTest {
         requiredFlags.add(new Flag(Colour.GREEN));
         requiredFlags.add(new Flag(Colour.GREEN));
         requiredFlags.add(new Flag(Colour.PURPLE));
-        SpecialAbility specialAbility = new SpecialExtraResource(Resource.SHIELD);
-        LeaderCard leaderCard = new LeaderCard(1, requiredFlags, null, 5, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, requiredFlags, null, 5, 2, Resource.SHIELD);
 
         assertEquals(leaderCard.getRequiredFlags().size(), 3);
         assertEquals(leaderCard.getRequiredFlags().get(1).getColour(), Colour.GREEN);
@@ -26,8 +25,7 @@ public class LeaderCardTest {
     public void getRequiredQty() {
         ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
         requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
-        SpecialAbility specialAbility = new SpecialWarehouse(Resource.SHIELD);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, 4, Resource.SHIELD);
 
         assertEquals(leaderCard.getRequiredResources().get(0).getQty(), 5);
         assertEquals(leaderCard.getRequiredResources().get(0).getResource(), Resource.SERVANT);
@@ -37,8 +35,7 @@ public class LeaderCardTest {
     public void getVictoryPoints() {
         ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
         requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
-        SpecialAbility specialAbility = new SpecialWarehouse(Resource.SHIELD);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, 4, Resource.SHIELD);
 
         assertEquals(leaderCard.getVictoryPoints(),3);
     }
@@ -47,8 +44,7 @@ public class LeaderCardTest {
     public void getSpecialAbility() {
         ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
         requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
-        SpecialAbility specialAbility = new SpecialWarehouse(Resource.SHIELD);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, 4, Resource.SHIELD);
 
         assertEquals(leaderCard.getSpecialAbility().getResource(), Resource.SHIELD);
     }
