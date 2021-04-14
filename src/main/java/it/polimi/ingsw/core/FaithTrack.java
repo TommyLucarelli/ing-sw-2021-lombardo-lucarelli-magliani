@@ -53,10 +53,19 @@ public class FaithTrack {
     }
 
     /**
-     * Method to move the Faith Indicator forward in the track
+     * Method to move the Faith Indicator forward in the track by one step
      */
     public void moveFaithIndicator(){
         position++;
+        //da aggiungere controllo (o eccezione) se si finisce su uno spot papale per l'attivazione delle carte favore
+    }
+
+    /**
+     * Method to move the Faith Indicator forward in the track.
+     * @param steps the amount of forward steps to do.
+     */
+    public void moveFaithIndicator(int steps){
+        position += steps;
         //da aggiungere controllo (o eccezione) se si finisce su uno spot papale per l'attivazione delle carte favore
     }
 }

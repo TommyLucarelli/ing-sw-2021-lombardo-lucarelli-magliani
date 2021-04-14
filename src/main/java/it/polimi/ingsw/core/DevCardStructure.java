@@ -78,4 +78,18 @@ public class DevCardStructure {
     public DevCard drawCard(int row, int column){
         return (DevCard) structure[row][column].pop();
     }
+
+    public String toStringTopStructure(){
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                str.append(structure[i][j].size() > 0 ? structure[i][j].peek().getId() : 0);
+                str.append("-");
+            }
+            str.append(";");
+        }
+        str.append("}");
+        return str.toString();
+    }
 }

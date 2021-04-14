@@ -37,4 +37,12 @@ public class DevCardStructureTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testToStringTopStructure() throws FileNotFoundException{
+        DevCardStructure devCardStructure = new DevCardStructure();
+
+        System.out.println(devCardStructure.toStringTopStructure());
+        //FIXME: non è un test...
+    }
 }
