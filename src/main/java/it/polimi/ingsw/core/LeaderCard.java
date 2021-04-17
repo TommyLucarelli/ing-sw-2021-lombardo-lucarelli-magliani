@@ -20,14 +20,30 @@ public class LeaderCard extends Card {
      * @param requiredFlags type of flags required to play the leader card
      * @param requiredResources quantity of flags required to play the leader card
      * @param victoryPoints quantity of victory points assigned from the leader card
-     * @param specialAbility special ability of the card
+     * @param specialAbilityType the type of the special ability (1 - discount, 2 - extra resource from white marble,
+     *                           3 - extra production power, 4 - extra warehouse)
+     * @param specialAbilityResource the type of the resource of the special ability.
      */
-    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ArrayList<ResourceQty> requiredResources, int victoryPoints, SpecialAbility specialAbility) {
+    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ArrayList<ResourceQty> requiredResources, int victoryPoints,
+                      int specialAbilityType, Resource specialAbilityResource) {
         super(id);
         this.requiredFlags = requiredFlags;
         this.requiredResources = requiredResources;
         this.victoryPoints = victoryPoints;
-        this.specialAbility = specialAbility;
+        switch (specialAbilityType){
+            case 1:
+                this.specialAbility = new SpecialDiscount(specialAbilityResource);
+                break;
+            case 2:
+                this.specialAbility = new SpecialExtraResource(specialAbilityResource);
+                break;
+            case 3:
+                this.specialAbility = new SpecialProductionPower(specialAbilityResource);
+                break;
+            case 4:
+                this.specialAbility = new SpecialWarehouse(specialAbilityResource);
+                break;
+        }
     }
 
     /**

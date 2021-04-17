@@ -4,13 +4,10 @@ package it.polimi.ingsw.core;
  * Is it possible to delete this class and add a flag in the Warehouse class?
  */
 
-public class SpecialWarehouse implements SpecialAbility{
-    private final Resource resource;
-    private boolean isActivated;
+public class SpecialWarehouse extends SpecialAbility{
 
     protected SpecialWarehouse(Resource resource){
-        this.resource = resource;
-        this.isActivated = false;
+        super(resource);
     }
 
     @Override
@@ -20,17 +17,7 @@ public class SpecialWarehouse implements SpecialAbility{
     }
 
     @Override
-    public Resource getResource() {
-        return this.resource;
-    }
-
-    @Override
-    public boolean isActivated() {
-        return this.isActivated;
-    }
-
-    @Override
     public void activate() {
-        this.isActivated = true;
+        super.activate();
     }
 }

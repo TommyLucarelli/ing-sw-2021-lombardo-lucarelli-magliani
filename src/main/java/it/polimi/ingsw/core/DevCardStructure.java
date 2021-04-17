@@ -44,60 +44,52 @@ public class DevCardStructure {
             devCard = cards.pop();
             switch (devCard.getFlag().getColour()){
                 case GREEN:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][0].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][0].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][0].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][0].push(devCard);
+                    break;
                 case BLUE:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][1].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][1].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][1].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][1].push(devCard);
+                    break;
                 case YELLOW:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][2].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][2].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][2].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][2].push(devCard);
+                    break;
                 case PURPLE:
-                    switch (devCard.getFlag().getLevel()){
-                        case 1:
-                            structure[0][3].push(devCard);
-                            break;
-                        case 2:
-                            structure[1][3].push(devCard);
-                            break;
-                        case 3:
-                            structure[2][3].push(devCard);
-                            break;
-                    }
+                    structure[devCard.getFlag().getLevel() - 1][3].push(devCard);
+                    break;
             }
         }
     }
 
+    /**
+     * Getter method. Returns the card on top of the stack at the specified coordinates without removing it.
+     * @param row the row of the stack
+     * @param column the column of the stack
+     * @return the DevCard at the specified coordinates.
+     */
+    public DevCard getTopCard(int row, int column){
+        return (DevCard) structure[row][column].peek();
+    }
+
+    /**
+     * Pop method. Returns the card on top of the stack at the specified coordinates and removes it from the stack.
+     * @param row the row of the stack
+     * @param column the column of the stack
+     * @return the DevCard at the specified coordinates.
+     */
     public DevCard drawCard(int row, int column){
         return (DevCard) structure[row][column].pop();
     }
 
-
+    public String toStringTopStructure(){
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                str.append(structure[i][j].size() > 0 ? structure[i][j].peek().getId() : 0);
+                str.append("-");
+            }
+            str.append(";");
+        }
+        str.append("}");
+        return str.toString();
+    }
 }

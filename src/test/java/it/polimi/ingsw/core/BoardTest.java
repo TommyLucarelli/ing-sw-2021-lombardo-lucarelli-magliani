@@ -14,8 +14,7 @@ public class BoardTest {
         Board b = new Board();
         ArrayList<Flag> requiredFlags = new ArrayList<>();
         requiredFlags.add(new Flag(2,Colour.BLUE));
-        SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
-        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, sa);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, 4, Resource.COIN);
         LeaderCard x;
 
         b.addLeaderCard(lc);
@@ -29,8 +28,7 @@ public class BoardTest {
         Board b = new Board();
         ArrayList<Flag> requiredFlags = new ArrayList<>();
         requiredFlags.add(new Flag(2,Colour.BLUE));
-        SpecialAbility sa = new SpecialWarehouse(Resource.COIN);
-        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, sa);
+        LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, 4, Resource.COIN);
         LeaderCard x;
 
         b.addLeaderCard(lc);

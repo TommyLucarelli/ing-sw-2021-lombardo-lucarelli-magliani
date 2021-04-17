@@ -1,12 +1,9 @@
 package it.polimi.ingsw.core;
 
-public class SpecialExtraResource implements SpecialAbility{
-    private final Resource resource;
-    private boolean isActivated;
+public class SpecialExtraResource extends SpecialAbility{
 
     public SpecialExtraResource(Resource resource) {
-        this.resource = resource;
-        this.isActivated = false;
+        super(resource);
     }
 
     @Override
@@ -17,17 +14,7 @@ public class SpecialExtraResource implements SpecialAbility{
     }
 
     @Override
-    public Resource getResource() {
-        return this.resource;
-    }
-
-    @Override
-    public boolean isActivated() {
-        return this.isActivated;
-    }
-
-    @Override
     public void activate() {
-        this.isActivated = true;
+        super.activate();
     }
 }
