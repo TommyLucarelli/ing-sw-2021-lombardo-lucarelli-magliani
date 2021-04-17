@@ -46,17 +46,30 @@ public class FaithTrack {
 
     /**
      * Method to put the favour card face up
-     * @param i position of the favour card we want to activate
+     * @param i position of the pope spot reached by the first user
+     * @return true if the Favour Card is set, false if the user can't set the Favour Card due to his position in the faith track
      */
-    public void setFavourCardsFlag(int i){
-        favourCardsFlag[i] = true;
+    public boolean setFavourCardsFlag(int i){
+        if(this.position > (i-4)){
+            i = (i/8) - 1;
+            favourCardsFlag[i] = true;
+            return true;
+        }else
+            return false;
+
     }
 
     /**
      * Method to move the Faith Indicator forward in the track
+     * @return true or false whether the faith indicator is on a pope spot or not
      */
-    public void moveFaithIndicator(){
+    public boolean moveFaithIndicator(){
         position++;
-        //da aggiungere controllo (o eccezione) se si finisce su uno spot papale per l'attivazione delle carte favore
+        if(position==8 || position==16 || position==24)
+            return true; //se è true bisogna controllare che non siamo arrivati alla fine
+        else
+            return false;
     }
+
+
 }
