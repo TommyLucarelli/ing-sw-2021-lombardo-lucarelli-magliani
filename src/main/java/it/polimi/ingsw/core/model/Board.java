@@ -22,7 +22,7 @@ public class Board {
      * 6 - special production 1
      * 7 - special production 2
      */
-    private Boolean[] abilityActivationFlag;
+    private boolean[] abilityActivationFlag;
 
 
     /**
@@ -38,7 +38,7 @@ public class Board {
         devCardSlots.add(new DevCardSlot());
         devCardSlots.add(new DevCardSlot());
         leaderCards = new ArrayList<LeaderCard>();
-        abilityActivationFlag = new Boolean[8];
+        abilityActivationFlag = new boolean[8];
     }
 
     /**
@@ -107,7 +107,7 @@ public class Board {
      * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
      * @return the current value of the flag
      */
-    public Boolean isActivated(int i){
+    public boolean isActivated(int i){
         return abilityActivationFlag[i];
     }
 }
