@@ -8,12 +8,21 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * Main class for the client side of the network.
+ * @author Giacomo Lombardo
+ */
 public class Client implements Runnable{
     private String serverIp;
     private int portNumber;
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
 
+    /**
+     * Class constructor.
+     * @param serverIp the IP address of the server
+     * @param portNumber the port number of the server.
+     */
     public Client(String serverIp, int portNumber){
         this.serverIp = serverIp;
         this.portNumber = portNumber;
@@ -22,6 +31,11 @@ public class Client implements Runnable{
     public static void main(String[] args) {
         String ip;
         int port;
+
+        /**
+         * Checks that the arguments passed are correct. If some arguments are missing or there are invalid arguments
+         * prints a help message and ends the execution.
+         */
         if(args.length != 4){
             printHelpMessage();
             return;
@@ -39,10 +53,16 @@ public class Client implements Runnable{
             return;
         }
 
+        /**
+         * Sets the IP address and the port number passed as arguments, then starts the client execution.
+         */
         Client client = new Client(ip, port);
         client.run();
     }
 
+    /**
+     * Prints a help message to the terminal.
+     */
     public static void printHelpMessage(){
         System.out.println("To execute the client, add the following arguments: ");
         System.out.println("-s the IP address of the server");
