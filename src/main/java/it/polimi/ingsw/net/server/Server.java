@@ -26,11 +26,12 @@ public class Server {
             return;
         }
 
+        System.out.println("Server started on port " + SOCKET_PORT + " - Waiting for connections...");
         try {
             while(true){
                 pool.execute(new ClientHandler(socket.accept(), numClients + 1));
                 numClients++;
-                System.out.println("[SERVER] New client connected!");
+                System.out.println("New client connected!");
             }
         } catch (IOException e){
             System.err.println("IOException from Server");
@@ -80,6 +81,27 @@ public class Server {
             } catch (ClassNotFoundException e){
                 System.err.println("ClassNotFoundException from ClientHandler");
             }
+
+            try{
+                while(true){
+                    Object next = inputStream.readObject();
+                    handleRequest(next);
+                }
+            } catch(IOException e){
+                System.err.println("IOException from ClientHandler - Client ID: " + id);
+            } catch (ClassNotFoundException e){
+                System.err.println("ClassNotFoundException from ClientHandler - Client ID: " + id);
+            }
+        }
+
+        public void handleRequest(Object req){
+            try{
+                System.out.println((String) req);
+                outputStream.writeObject("[SERVER] Received: " + req);
+            } catch (IOException e){
+                System.err.println("IOException in handleRequest - could not process the request.");
+            }
+
         }
     }
 }
