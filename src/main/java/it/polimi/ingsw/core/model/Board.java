@@ -11,7 +11,18 @@ public class Board {
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
-    //probabilmente verranno aggiunti dei flag per le abilità speciali delle carte Leader
+    /**
+     * abiltyActivationFlag layout:
+     * 0 - special warehouse 1
+     * 1 - special warehouse 2
+     * 2 - special marble 1
+     * 3 - special marble 2
+     * 4 - special discount 1
+     * 5 - special discount 2
+     * 6 - special production 1
+     * 7 - special production 2
+     */
+    private Boolean[] abilityActivationFlag;
 
 
     /**
@@ -27,6 +38,7 @@ public class Board {
         devCardSlots.add(new DevCardSlot());
         devCardSlots.add(new DevCardSlot());
         leaderCards = new ArrayList<LeaderCard>();
+        abilityActivationFlag = new Boolean[8];
     }
 
     /**
@@ -82,4 +94,20 @@ public class Board {
         //lancia IndexOutofBoundException da gestire nel controller
     }
 
+    /**
+     * Setter method to set true the flag of a special ability that has become active
+     * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
+     */
+    public void setAbilityActivationFlag(int i) {
+        abilityActivationFlag[i] = true;
+    }
+
+    /**
+     * getter method to to see whether an ability is activated or not
+     * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
+     * @return the current value of the flag
+     */
+    public Boolean isActivated(int i){
+        return abilityActivationFlag[i];
+    }
 }
