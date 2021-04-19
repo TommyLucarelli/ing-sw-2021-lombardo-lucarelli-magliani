@@ -1,10 +1,14 @@
 package it.polimi.ingsw.net.client;
 
+import com.google.gson.Gson;
+import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.net.server.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -13,10 +17,11 @@ import java.util.Scanner;
  * @author Giacomo Lombardo
  */
 public class Client implements Runnable{
-    private String serverIp;
-    private int portNumber;
+    private final String serverIp;
+    private final int portNumber;
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
+    private final RequestHandler requestHandler;
 
     /**
      * Class constructor.
@@ -26,6 +31,7 @@ public class Client implements Runnable{
     public Client(String serverIp, int portNumber){
         this.serverIp = serverIp;
         this.portNumber = portNumber;
+        this.requestHandler = new RequestHandler();
     }
 
     public static void main(String[] args) {
@@ -72,12 +78,10 @@ public class Client implements Runnable{
 
     @Override
     public void run() {
-        Scanner scanner = new Scanner(System.in);
-        String in;
-
+        Gson gson = new Gson();
         Socket server;
         try{
-            server = new Socket(serverIp, Server.SOCKET_PORT);
+            server = new Socket(serverIp, portNumber);
             outputStream = new ObjectOutputStream(server.getOutputStream());
             inputStream = new ObjectInputStream(server.getInputStream());
         } catch (IOException e){
@@ -86,21 +90,27 @@ public class Client implements Runnable{
         }
         System.out.println("Connected to server successful! Type \"quit\" to close the connection.");
 
-        try{
-            System.out.println(inputStream.readObject());
-        } catch (IOException e){
-            System.err.println("IOException in Client - communication with server failed");
-        } catch (ClassNotFoundException e){
-            System.err.println("ClassNotFoundException in Client - communication with server failed");
-        }
+        RequestMsg requestMsg = null;
+        ResponseMsg responseMsg;
 
+        try {
+            requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);
+        } catch (IOException e) {
+            System.err.println("IOException in Client - cannot receive first request");
+        } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException in Client - cannot receive first request");
+        }
 
         try {
             while(true){
-                in = scanner.nextLine();
-                if(in.equals("quit")) break;
-                outputStream.writeObject(in);
-                System.out.println(inputStream.readObject());
+                try {
+                    responseMsg = requestHandler.handleRequest(requestMsg);
+                    outputStream.writeObject(gson.toJson(responseMsg));
+                } catch (QuitConnectionException e) {
+                    //TODO: handle the quit exception
+                    break;
+                }
+                requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);
             }
             System.out.println("Closing connection with server...");
             server.close();
@@ -110,7 +120,5 @@ public class Client implements Runnable{
         } catch (ClassNotFoundException e){
             System.err.println("ClassNotFoundException in Client - communication with server failed");
         }
-
-
     }
 }

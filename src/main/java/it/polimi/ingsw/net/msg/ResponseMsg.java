@@ -1,20 +1,26 @@
 package it.polimi.ingsw.net.msg;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class RequestMsg extends NetworkMsg{
+import java.util.UUID;
+
+public class ResponseMsg {
     private MessageType messageType;
+    private UUID requestUUID;
     private JsonObject payload;
 
-    public RequestMsg(MessageType messageType, JsonObject payload){
-        super();
+    public ResponseMsg(UUID requestUUID, MessageType messageType, JsonObject payload){
         this.messageType = messageType;
+        this.requestUUID = requestUUID;
         this.payload = payload;
     }
 
     public MessageType getMessageType() {
         return messageType;
+    }
+
+    public UUID getRequestUUID() {
+        return requestUUID;
     }
 
     public JsonObject getPayload() {

@@ -1,5 +1,10 @@
 package it.polimi.ingsw.net.server;
 
+import com.google.gson.Gson;
+import it.polimi.ingsw.net.msg.ErrorMsg;
+import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.net.msg.ResponseMsg;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -10,11 +15,12 @@ import java.net.Socket;
  * @author Giacomo Lombardo
  */
 public class ClientHandler implements Runnable{
-    private int id;
+    private final int id;
     private String name;
     private Socket socket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
+    private final ResponseHandler responseHandler;
 
     /**
      * Class constructor.
@@ -22,41 +28,49 @@ public class ClientHandler implements Runnable{
      * @param id the id of the client assigned automatically by the server
      */
     public ClientHandler(Socket socket, int id){
+        this.responseHandler = new ResponseHandler(this);
         this.socket = socket;
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
     public void run(){
+        Gson gson = new Gson();
         try{
             inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
-
-            /**
-             * Requires the client to register with a unique username.
-             */
-            String welcome = "Welcome! Please enter a username: ";
-            outputStream.writeObject((Object)welcome);
-            while(true){
-                Object next = inputStream.readObject();
-                name = (String) next;
-                if(!ServerUtils.usernames.contains(name)) break;
-                else outputStream.writeObject((Object)"This username is not available, please enter another one:");
-            }
-            outputStream.writeObject((Object)"Welcome, " + name + "!");
-
         } catch (IOException e){
             System.err.println("IOException from ClientHandler");
-        } catch (ClassNotFoundException e){
-            System.err.println("ClassNotFoundException from ClientHandler");
         }
 
         /**
-         * Main loop for receiving and handling the client requests.
+         * Preparing the first request to the client
+         */
+        RequestMsg requestMsg = responseHandler.firstMessage();
+
+        /**
+         * Main loop for client-server communication
          */
         try{
             while(true){
-                Object next = inputStream.readObject();
-                handleRequest(next);
+                outputStream.writeObject(gson.toJson(requestMsg));
+                ResponseMsg next = gson.fromJson((String)inputStream.readObject(), ResponseMsg.class);
+                try {
+                    requestMsg = responseHandler.handleRequest(next);
+                } catch (InvalidResponseException e) {
+                    outputStream.writeObject(new ErrorMsg("Invalid request"));
+                }
             }
         } catch(IOException e){
             System.err.println("IOException from ClientHandler - Client ID: " + id);
@@ -69,13 +83,12 @@ public class ClientHandler implements Runnable{
      * Handles the client request
      * @param req the client's request.
      */
-    public void handleRequest(Object req){
+    /*public void handleRequest(Object req){
         try{
             System.out.println("[" + name + "]: " + (String) req);
             outputStream.writeObject("[SERVER] Received: " + req);
         } catch (IOException e){
             System.err.println("IOException in handleRequest - could not process the request.");
         }
-
-    }
+    }*/
 }
