@@ -23,7 +23,7 @@ public class Game
     public Game(int id, ArrayList<String> playerNames) throws FileNotFoundException {
         this.gameId = id;
         for(int i = 0; i < playerNames.size(); i++){
-            players.add(new Player(i, playerNames.get(i)));
+            getPlayers().add(new Player(i, playerNames.get(i)));
         }
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
@@ -33,5 +33,25 @@ public class Game
     public static void main( String[] args )
     {
 
+    }
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public DevCardStructure getDevCardStructure() {
+        return devCardStructure;
+    }
+
+    public LeaderCardsDeck getLeaderCards() {
+        return leaderCards;
     }
 }

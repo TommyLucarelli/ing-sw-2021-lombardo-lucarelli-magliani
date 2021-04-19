@@ -110,10 +110,10 @@ public class Market {
      * @param line the number of the line selected by the player.
      * @return all the obtained resources from the selected line.
      */
-    public Resource[] updateLineAndGetResources(int line) {
-        Resource[] resources = new Resource[4];
+    public ArrayList<Resource> updateLineAndGetResources(int line) {
+        ArrayList<Resource> resources = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            resources[i] = structure[line][i].toResource();
+            resources.add(structure[line][i].toResource());
         }
 
         Marble rM = reserveMarble;
@@ -131,10 +131,10 @@ public class Market {
      * @param column the number of the column selected by the player.
      * @return obtained resources from the selected column.
      */
-    public Resource[] updateColumnAndGetResources(int column){
-        Resource[] resources = new Resource[3];
+    public ArrayList<Resource> updateColumnAndGetResources(int column){
+        ArrayList<Resource> resources = new ArrayList<>();
         for (int i=0; i<3; i++){
-            resources[i] = structure[i][column].toResource();
+            resources.add(structure[i][column].toResource());
         }
 
         Marble rM = reserveMarble;

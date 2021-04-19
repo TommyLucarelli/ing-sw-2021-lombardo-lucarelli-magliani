@@ -12,6 +12,7 @@ public class Board {
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
     /**
+     * 0 if the ability isn't activated, a number representing the id of the card is the ability is activated
      * abiltyActivationFlag layout:
      * 0 - special warehouse 1
      * 1 - special warehouse 2
@@ -22,7 +23,7 @@ public class Board {
      * 6 - special production 1
      * 7 - special production 2
      */
-    private boolean[] abilityActivationFlag;
+    private int[] abilityActivationFlag;
 
 
     /**
@@ -38,7 +39,7 @@ public class Board {
         devCardSlots.add(new DevCardSlot());
         devCardSlots.add(new DevCardSlot());
         leaderCards = new ArrayList<LeaderCard>();
-        abilityActivationFlag = new boolean[8];
+        abilityActivationFlag = new int[8]; //dovrebbero essere già tutti 0
     }
 
     /**
@@ -97,9 +98,10 @@ public class Board {
     /**
      * Setter method to set true the flag of a special ability that has become active
      * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
+     * @param id the identifier of the card with the special ability
      */
-    public void setAbilityActivationFlag(int i) {
-        abilityActivationFlag[i] = true;
+    public void setAbilityActivationFlag(int i, int id) {
+        abilityActivationFlag[i] = id;
     }
 
     /**
@@ -107,7 +109,15 @@ public class Board {
      * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
      * @return the current value of the flag
      */
-    public boolean isActivated(int i){
+    public int isActivated(int i){
         return abilityActivationFlag[i];
+    }
+
+    public LeaderCard activeLeader(int id){
+        if(leaderCards.get(0).getId() == id)
+            return leaderCards.get(0);
+        else
+            return leaderCards.get(1);
+        /* se non avviene nessuno dei due abbiamo un problema, ci può stare fare un exception */
     }
 }

@@ -1,7 +1,8 @@
 package it.polimi.ingsw.core.controller;
 
 /**
- * Interface for the classes that will be handle the different phase of the game
+ * Interface for the classes that will be handle the different phase of the game.
+ * The main method in these classes is runPhase(), that will be handle the flow of the specific phase
  */
 public interface PhaseHandler {
 

@@ -5,6 +5,8 @@ import it.polimi.ingsw.core.model.Market;
 import it.polimi.ingsw.core.model.Resource;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class MarketTest {
@@ -13,7 +15,7 @@ public class MarketTest {
     public void testUpdateLine() {
         Market m = new Market();
         Marble[] marble, marble2;
-        Resource[] resources;
+        ArrayList<Resource> resources;
         Marble resMarble;
 
         marble = m.getLine(1);
@@ -21,7 +23,7 @@ public class MarketTest {
         resources = m.updateLineAndGetResources(1);
 
         for (int i=0; i<4; i++) {
-            assertEquals(marble[i].toResource(), resources[i]);
+            assertEquals(marble[i].toResource(), resources.get(i));
         }
 
         marble2 = m.getLine(1);
@@ -36,7 +38,7 @@ public class MarketTest {
     public void testGetColumn() {
         Market m = new Market();
         Marble[] marble, marble2;
-        Resource[] resources;
+        ArrayList<Resource> resources;
         Marble resMarble;
 
         marble = m.getColumn(1);
@@ -44,7 +46,7 @@ public class MarketTest {
         resources = m.updateColumnAndGetResources(1);
 
         for (int i=0; i<3; i++) {
-            assertEquals(marble[i].toResource(), resources[i]);
+            assertEquals(marble[i].toResource(), resources.get(i));
         }
 
         marble2 = m.getColumn(1);
