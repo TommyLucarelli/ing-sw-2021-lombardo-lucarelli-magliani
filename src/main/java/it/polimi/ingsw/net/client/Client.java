@@ -1,16 +1,14 @@
 package it.polimi.ingsw.net.client;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
-import it.polimi.ingsw.net.server.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Type;
 import java.net.Socket;
-import java.util.Scanner;
 
 /**
  * Main class for the client side of the network.
@@ -93,6 +91,9 @@ public class Client implements Runnable{
         RequestMsg requestMsg = null;
         ResponseMsg responseMsg;
 
+        /**
+         * Receives the first message from the server
+         */
         try {
             requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);
         } catch (IOException e) {
@@ -101,13 +102,22 @@ public class Client implements Runnable{
             System.err.println("ClassNotFoundException in Client - cannot receive first request");
         }
 
+        /**
+         * Main loop for client-server communication: the client receives the message, passes it to the requestHandler which
+         * returns the response for the message.
+         */
         try {
             while(true){
                 try {
                     responseMsg = requestHandler.handleRequest(requestMsg);
                     outputStream.writeObject(gson.toJson(responseMsg));
                 } catch (QuitConnectionException e) {
-                    //TODO: handle the quit exception
+                    /**
+                     * Whenever the user decides to quit, an exception is thrown: the client sends a "quit" message to
+                     * the server, then proceeds to close the connection.
+                     */
+                    responseMsg = new ResponseMsg(requestMsg.getIdentifier(), MessageType.QUIT_MESSAGE, null);
+                    outputStream.writeObject(gson.toJson(responseMsg));
                     break;
                 }
                 requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);

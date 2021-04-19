@@ -1,6 +1,7 @@
 package it.polimi.ingsw.net.server;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.net.client.QuitConnectionException;
 import it.polimi.ingsw.net.msg.ErrorMsg;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
@@ -70,6 +71,11 @@ public class ClientHandler implements Runnable{
                     requestMsg = responseHandler.handleRequest(next);
                 } catch (InvalidResponseException e) {
                     outputStream.writeObject(new ErrorMsg("Invalid request"));
+                } catch (QuitConnectionException e) {
+                    ServerUtils.numClients--;
+                    ServerUtils.usernames.remove(name);
+                    System.out.println("[clientId: " + id + "] Connection dropped - number of clients currently connected: " + ServerUtils.numClients);
+                    break;
                 }
             }
         } catch(IOException e){
@@ -77,18 +83,14 @@ public class ClientHandler implements Runnable{
         } catch (ClassNotFoundException e){
             System.err.println("ClassNotFoundException from ClientHandler - Client ID: " + id);
         }
-    }
 
-    /**
-     * Handles the client request
-     * @param req the client's request.
-     */
-    /*public void handleRequest(Object req){
-        try{
-            System.out.println("[" + name + "]: " + (String) req);
-            outputStream.writeObject("[SERVER] Received: " + req);
-        } catch (IOException e){
-            System.err.println("IOException in handleRequest - could not process the request.");
+        /**
+         * Closes the connection.
+         */
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }*/
+    }
 }

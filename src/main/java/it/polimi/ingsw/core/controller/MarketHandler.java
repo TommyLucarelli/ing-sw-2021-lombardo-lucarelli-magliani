@@ -64,6 +64,7 @@ public class MarketHandler implements PhaseHandler{
         //controllo disposizione
 
         //check warehouse normale
+        /**
         if(placed.get(0) != Resource.ANY)
             blackList.add(placed.get(0));
         if(placed.get(1) != Resource.ANY){
@@ -72,6 +73,8 @@ public class MarketHandler implements PhaseHandler{
                 if(placed.get(1) != placed.get(2))
             }
         }
+         */
+        //Fre non fare push di codice che non compila
 
         return true;
     }
