@@ -54,4 +54,8 @@ public class Game
     public LeaderCardsDeck getLeaderCards() {
         return leaderCards;
     }
+
+    public void FaithTrackUpdate(int p1, int p2, int p3, int p4){
+
+    }
 }

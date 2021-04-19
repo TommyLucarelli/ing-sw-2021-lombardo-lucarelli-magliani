@@ -16,9 +16,13 @@ public class MarketHandler implements PhaseHandler{
     private Market market;
     private MainController controller;
     private ArrayList<Resource> resources;
+    private ArrayList<Resource> blackList;
+    private ArrayList<Resource> placed;
+    private boolean work;
 
     public MarketHandler(MainController controller){
         this.controller = controller;
+        blackList = new ArrayList<>();
     }
 
     @Override
@@ -43,26 +47,34 @@ public class MarketHandler implements PhaseHandler{
                 }
             }
             for(int i = 0; i <resources.size(); i++){
-                //può essere migliorato con uno stream
                 //resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
-                //così?
                 if (resources.get(i) == Resource.ANY)
                 {
                     resources.remove(i);
                     i--;
                 }
             }
-
-
         }
 
         //sistemazione punti fede
-        //preparazione messaggio placement
-        //attesa messaggio
+        //scorro l'array e tolgo i punti fede e conto quanti devo aggiungerne al giocatore
+        //metodo punti fede per aggiornarli alla fine
+        //preparazione messaggio placement con array risorse
+        //attesa messaggio con array disposizione "placed"
         //controllo disposizione
 
+        //check warehouse normale
+        if(placed.get(0) != Resource.ANY)
+            blackList.add(placed.get(0));
+        if(placed.get(1) != Resource.ANY){
+            blackList.add(placed.get(1));
+            if(placed.get(1) != Resource.ANY){
+                if(placed.get(1) != placed.get(2))
+            }
+        }
 
-
-        return false;
+        return true;
     }
+
+    //metodi con le varie fasi -> meglio per il debugging (es. capisci se ha il flag)
 }

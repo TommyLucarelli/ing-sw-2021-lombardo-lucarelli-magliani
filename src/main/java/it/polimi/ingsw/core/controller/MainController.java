@@ -4,7 +4,7 @@ import it.polimi.ingsw.core.model.*;
 
 import java.util.ArrayList;
 
-public class MainController extends Thread{
+public class MainController{
 
     private Game currentGame;
     private Player currentPlayer;
