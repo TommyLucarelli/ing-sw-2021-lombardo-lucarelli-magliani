@@ -4,6 +4,8 @@ import it.polimi.ingsw.core.model.Market;
 import it.polimi.ingsw.core.model.Resource;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * This Class will handle the phase of acquiring resource from the market
@@ -40,13 +42,18 @@ public class MarketHandler implements PhaseHandler{
                         resource = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(2)).getSpecialAbility().getAbilityResource();
                 }
             }
-            for(int i = 0; i <resources.size(); i++){ //può essere migliorato con uno stream
+            for(int i = 0; i <resources.size(); i++){
+                //può essere migliorato con uno stream
+                //resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
+                //così?
                 if (resources.get(i) == Resource.ANY)
                 {
                     resources.remove(i);
                     i--;
                 }
             }
+
+
         }
 
         //sistemazione punti fede
