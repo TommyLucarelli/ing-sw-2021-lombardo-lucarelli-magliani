@@ -14,6 +14,7 @@ public class Game
     private Market market;
     private DevCardStructure devCardStructure;
     private LeaderCardsDeck leaderCards;
+    private int faithTrackMarker;
 
     /**
      * Class constructor.
@@ -28,6 +29,7 @@ public class Game
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
+        setFaithTrackMarker(0);
     }
 
     public static void main( String[] args )
@@ -55,7 +57,43 @@ public class Game
         return leaderCards;
     }
 
-    public void FaithTrackUpdate(int p1, int p2, int p3, int p4){
+    /**
+     * p represent the value of faithtrack movement
+     * @param p1 main player
+     * @param p2 other player
+     */
+    public void FaithTrackUpdate(Player play, int p1, int p2){
+        boolean marker = false;
+        int val = 0;
+        for(int i = 0; i < players.size(); i++)
+        {
+            if(players.get(i) == play){
+                for(int j = 0; j < p1; j++) {
+                    marker = play.getBoard().getFaithTrack().moveFaithIndicator();
+                    if (marker && play.getBoard().getFaithTrack().getPosition() > val)
+                        val = play.getBoard().getFaithTrack().getPosition();
+                }
+            }else{
+                for(int j = 0; j < p2; j++) {
+                    marker = players.get(i).getBoard().getFaithTrack().moveFaithIndicator();
+                    if (marker && players.get(i).getBoard().getFaithTrack().getPosition() > val)
+                        val = players.get(i).getBoard().getFaithTrack().getPosition();
+                }
+            }
+        }
+        if(marker && (val > faithTrackMarker)){
+            faithTrackMarker = val;
+            for(int i = 0; i < players.size(); i++){
+                players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update
+            }
+        }
+    }
 
+    public int getFaithTrackMarker() {
+        return faithTrackMarker;
+    }
+
+    public void setFaithTrackMarker(int faithTrackMarker) {
+        this.faithTrackMarker = faithTrackMarker;
     }
 }

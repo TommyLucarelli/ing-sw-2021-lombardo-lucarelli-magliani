@@ -18,7 +18,8 @@ public class MarketHandler implements PhaseHandler{
     private ArrayList<Resource> resources;
     private ArrayList<Resource> blackList;
     private ArrayList<Resource> placed;
-    private boolean work;
+    private boolean configWorks;
+    private Resource r;
 
     public MarketHandler(MainController controller){
         this.controller = controller;
@@ -28,6 +29,7 @@ public class MarketHandler implements PhaseHandler{
     @Override
     public boolean runPhase() {
         market = controller.getCurrentGame().getMarket();
+        int faithP1 = 0, faithP2 = 0;
         //preparazione messaggio pick
         //attesa risposta di pick con scelta colonna o riga del mercato e il valore x (controllo validità messaggio, potrebbe essere fatto nel client alla composizione del messaggio)
         /*if(colonna)
@@ -46,38 +48,78 @@ public class MarketHandler implements PhaseHandler{
                         resource = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(2)).getSpecialAbility().getAbilityResource();
                 }
             }
-            for(int i = 0; i <resources.size(); i++){
-                //resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
-                if (resources.get(i) == Resource.ANY)
-                {
-                    resources.remove(i);
-                    i--;
-                }
-            }
+            resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
         }
 
         //sistemazione punti fede
-        //scorro l'array e tolgo i punti fede e conto quanti devo aggiungerne al giocatore
-        //metodo punti fede per aggiornarli alla fine
-        //preparazione messaggio placement con array risorse
-        //attesa messaggio con array disposizione "placed"
-        //controllo disposizione
-
-        //check warehouse normale
-        /**
-        if(placed.get(0) != Resource.ANY)
-            blackList.add(placed.get(0));
-        if(placed.get(1) != Resource.ANY){
-            blackList.add(placed.get(1));
-            if(placed.get(1) != Resource.ANY){
-                if(placed.get(1) != placed.get(2))
+        for(int i=0; i < resources.size(); i++){
+            if(resources.get(i) == Resource.FAITH){
+                resources.remove(i);
+                i--;
+                faithP1++;
             }
         }
-         */
-        //Fre non fare push di codice che non compila
+
+        do{
+              //preparazione messaggio placement con array risorse
+              //attesa messaggio con array disposizione "placed" + risorse scartate int discRes -> faithP2
+              //controllo disposizione
+              configWorks = checkPlacement(placed);
+        }while(!configWorks);
+
+        //aggiornamento struttura warehouse
+        controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
+
+        //aggiornamento punti fede
+        controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
+
+        //Short_update
+
 
         return true;
     }
 
-    //metodi con le varie fasi -> meglio per il debugging (es. capisci se ha il flag)
+    protected boolean checkPlacement(ArrayList<Resource> placed)
+    {
+        //check normal warehouse
+        if(placed.get(0) != Resource.ANY)
+            blackList.add(placed.get(0));
+        if(placed.get(1) != Resource.ANY){
+            blackList.add(placed.get(1));
+            if(placed.get(2) != Resource.ANY && placed.get(2) != placed.get(1))
+                return false;
+        }
+        if(placed.get(3) != Resource.ANY){
+            blackList.add(placed.get(3));
+            if(placed.get(4) != Resource.ANY && placed.get(4) != placed.get(3))
+                return false;
+            else if(placed.get(4) != Resource.ANY && placed.get(4) == placed.get(3)){
+                if(placed.get(5) != Resource.ANY && placed.get(5) != placed.get(4))
+                    return false;
+            }
+        }
+        for(int i=0; i< blackList.size(); i++)
+        {
+            for(int j=0; j< blackList.size(); j++)
+            {
+                if(i != j && blackList.get(i) == blackList.get(j))
+                    return false;
+            }
+        }
+        //check extended warehouse
+        if(controller.getCurrentPlayer().getBoard().isActivated(0) != 0){
+            r = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(0)).getSpecialAbility().getAbilityResource();
+            if((r != placed.get(6) && placed.get(6) != Resource.ANY) || (r != placed.get(7) && placed.get(7) != Resource.ANY))
+                return false;
+        }
+        if(controller.getCurrentPlayer().getBoard().isActivated(1) != 0){
+            r = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(1)).getSpecialAbility().getAbilityResource();
+            if((r != placed.get(8) && placed.get(8) != Resource.ANY) || (r != placed.get(9) && placed.get(9) != Resource.ANY))
+                return false;
+        }
+        return true;
+    }
+
 }
+
+

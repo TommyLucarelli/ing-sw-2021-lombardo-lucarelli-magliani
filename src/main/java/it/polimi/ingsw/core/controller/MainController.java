@@ -9,9 +9,10 @@ public class MainController{
     private Game currentGame;
     private Player currentPlayer;
 
-    public MainController(Game currentGame)
+
+    public MainController()
     {
-        this.currentGame = currentGame;
+       //currentGame = new Game(); mi serve capire chi crea il controller per passare i dati giusti al game
     }
 
     public Game getCurrentGame() {
