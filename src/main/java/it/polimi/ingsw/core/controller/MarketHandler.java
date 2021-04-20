@@ -71,6 +71,7 @@ public class MarketHandler implements PhaseHandler{
         controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
 
         //aggiornamento punti fede
+        controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
 
         //Short_update
 
