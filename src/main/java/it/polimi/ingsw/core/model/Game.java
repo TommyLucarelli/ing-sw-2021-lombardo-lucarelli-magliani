@@ -14,6 +14,7 @@ public class Game
     private Market market;
     private DevCardStructure devCardStructure;
     private LeaderCardsDeck leaderCards;
+    private int faithTrackHead;
 
     /**
      * Class constructor.

@@ -46,7 +46,7 @@ public class FaithTrack {
 
     /**
      * Method to put the favour card face up
-     * @param i position of the pope spot reached by the first user
+     * @param i position of the pope spot reached by the user ahead
      * @return true if the Favour Card is set, false if the user can't set the Favour Card due to his position in the faith track
      */
     public boolean setFavourCardsFlag(int i){
@@ -56,7 +56,6 @@ public class FaithTrack {
             return true;
         }else
             return false;
-
     }
 
     /**
@@ -65,7 +64,7 @@ public class FaithTrack {
      */
     public boolean moveFaithIndicator(){
         position++;
-        if(position==8 || position==16 || position==24)
+        if(position == 8 || position == 16 || position == 24)
             return true; //se è true bisogna controllare che non siamo arrivati alla fine
         else
             return false;
