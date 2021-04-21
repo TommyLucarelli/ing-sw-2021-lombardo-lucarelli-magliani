@@ -122,30 +122,5 @@ public class Board {
         /* se non avviene nessuno dei due abbiamo un problema, ci può stare fare un exception */
     }
 
-    /**
-     * Method to count the amount of flag of a specified colour in the devcard slots
-     * @param f kind of flag that has been counted
-     * @param level true if we want to filter by level
-     * @return the count
-     */
-    public int countFlags(Flag f, boolean level){
-        int count = 0;
-        ArrayList<Flag> flags;
-        if(level){
-            for(int i=0; i < devCardSlots.size(); i++){
-                flags = devCardSlots.get(i).getSlotFlags();
-                if(flags.size() >= f.getLevel() && flags.get(f.getLevel()-1).getColour() == f.getColour())
-                    count++;
-            }
-        }else {
-            for (int i = 0; i < devCardSlots.size(); i++) {
-                flags = devCardSlots.get(i).getSlotFlags();
-                for (int j = 0; j < flags.size(); j++) {
-                    if (flags.get(j).getColour() == f.getColour())
-                        count++;
-                }
-            }
-        }
-        return count;
-    }
+    //TODO: metodi per il controllo di una bandiera di livello x
 }

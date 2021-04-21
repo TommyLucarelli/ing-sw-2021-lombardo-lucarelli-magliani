@@ -70,4 +70,5 @@ public class ResourceQty {
     public void decreaseQty(int qty){
         this.qty -= qty;
     }
+
 }
