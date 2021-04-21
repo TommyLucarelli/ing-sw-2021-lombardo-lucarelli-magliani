@@ -11,6 +11,8 @@ public class Board {
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
+    private int[] resPlayer;
+
     /**
      * 0 if the ability isn't activated, a number representing the id of the card is the ability is activated
      * abiltyActivationFlag layout:
@@ -122,5 +124,43 @@ public class Board {
         /* se non avviene nessuno dei due abbiamo un problema, ci può stare fare un exception */
     }
 
+    /**
+     * @return the player resources with the following layout: COIN|STONE|SHIELD|SERVANT
+     */
+    public int[] personalResQtyToArray() {
+        for (int i = 0; i < warehouse.getStructure().size(); i++) {
+            switch (warehouse.getStructure().get(i)) {
+                case COIN:
+                    resPlayer[0] ++;
+                    break;
+                case STONE:
+                    resPlayer[1] ++;
+                    break;
+                case SHIELD:
+                    resPlayer[2] ++;
+                    break;
+                case SERVANT:
+                    resPlayer[3] ++;
+                    break;
+            }
+        }
+        for (int i = 0; i < strongbox.getResources().size(); i++) {
+            switch (strongbox.getResources().get(i).getResource()) {
+                case COIN:
+                    resPlayer[0] += strongbox.getResources().get(i).getQty();
+                    break;
+                case STONE:
+                    resPlayer[1] += strongbox.getResources().get(i).getQty();
+                    break;
+                case SHIELD:
+                    resPlayer[2] += strongbox.getResources().get(i).getQty();
+                    break;
+                case SERVANT:
+                    resPlayer[3] += strongbox.getResources().get(i).getQty();
+                    break;
+            }
+        }
+        return resPlayer;
+    }
     //TODO: metodi per il controllo di una bandiera di livello x
 }
