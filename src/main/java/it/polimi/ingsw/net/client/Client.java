@@ -77,6 +77,7 @@ public class Client implements Runnable{
     @Override
     public void run() {
         Gson gson = new Gson();
+
         Socket server;
         try{
             server = new Socket(serverIp, portNumber);

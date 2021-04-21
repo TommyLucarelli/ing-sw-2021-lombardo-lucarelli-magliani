@@ -12,6 +12,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
  */
 public class ResponseHandler {
     private final ClientHandler client;
+    private MessageType lastType;
 
     /**
      * Class constructor.
@@ -34,6 +35,16 @@ public class ResponseHandler {
                 throw new QuitConnectionException();
             case REGISTRATION_MESSAGE:
                 return handleRegistration(response.getPayload());
+            case WELCOME_MESSAGE:
+                return handleWelcome(response.getPayload());
+            case NUMBER_OF_PLAYERS:
+                return handleCreateGame(response.getPayload());
+            case WAIT_FOR_PLAYERS:
+                return handleWaitPlayers();
+            case WAIT_START_GAME:
+                return handleWaitPlayers();
+            case JOIN_GAME:
+                return handleJoinGame(response.getPayload());
             default:
                 return testingMessage(response.getPayload());
         }
@@ -46,6 +57,9 @@ public class ResponseHandler {
     public RequestMsg firstMessage(){
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "Welcome! Please enter a username:");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
         return new RequestMsg(MessageType.REGISTRATION_MESSAGE, payload);
     }
 
@@ -58,21 +72,100 @@ public class ResponseHandler {
      * @throws InvalidResponseException if the received message hasn't the expected format/fields.
      */
     private RequestMsg handleRegistration(JsonObject response) throws InvalidResponseException {
-        if(!response.has("name")){
-            throw new InvalidResponseException("Invalid response. Please enter a valid response");
-        } else if(ServerUtils.usernames.contains(response.get("name").getAsString())){
+        String input = response.get("input").getAsString();
+        if(input.isBlank()){
+            throw new InvalidResponseException("Invalid username. Please enter a valid username");
+        } else if(ServerUtils.usernames.contains(input)){
             JsonObject payload = new JsonObject();
             payload.addProperty("message", "This username is already taken, please enter another username.");
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "string");
+            payload.add("expectedResponse", expectedResponse);
             return new RequestMsg(MessageType.REGISTRATION_MESSAGE, payload);
         } else {
-            String name = response.get("name").getAsString();
-            ServerUtils.usernames.add(name);
-            client.setName(name);
+            ServerUtils.usernames.add(input);
+            client.setName(input);
             JsonObject payload = new JsonObject();
-            payload.addProperty("message", "Welcome, " + name +
-                    "! Enter \"C\" to create a new lobby or join an existing one by entering its ID!");
+            payload.addProperty("message", "Welcome, " + input +
+                    "! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "int");
+            expectedResponse.addProperty("min", 1);
+            expectedResponse.addProperty("max", 2);
+            payload.add("expectedResponse", expectedResponse);
             return new RequestMsg(MessageType.WELCOME_MESSAGE, payload);
         }
+    }
+
+    private RequestMsg handleWelcome(JsonObject response) throws InvalidResponseException {
+        int choice = 0;
+        try{
+            choice = Integer.parseInt(response.get("input").getAsString());
+        } catch (NumberFormatException e){
+            throw new InvalidResponseException("Please enter a valid input.");
+        }
+        if(choice == 1){
+            JsonObject payload = new JsonObject();
+            payload.addProperty("message", "How many players will the game have?");
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "int");
+            expectedResponse.addProperty("min", 1);
+            expectedResponse.addProperty("max", 4);
+            payload.add("expectedResponse", expectedResponse);
+            return new RequestMsg(MessageType.NUMBER_OF_PLAYERS, payload);
+        } else if (choice == 2){
+            JsonObject payload = new JsonObject();
+            payload.addProperty("message", "Enter the lobbyId: ");
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "int");
+            expectedResponse.addProperty("min", 10000);
+            expectedResponse.addProperty("max", 99999);
+            payload.add("expectedResponse", expectedResponse);
+            return new RequestMsg(MessageType.JOIN_GAME, payload);
+        } else throw new InvalidResponseException("Invalid input. Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+    }
+
+    private RequestMsg handleCreateGame(JsonObject response) throws InvalidResponseException {
+        Lobby lobby = new Lobby(client.getId(), response.get("input").getAsInt());
+        ServerUtils.lobbies.add(lobby);
+        JsonObject payload = new JsonObject();
+        System.out.println(lobby.getLobbySize());
+        payload.addProperty("message", "Lobby created successfully! Lobby ID: " + lobby.getId() + " - Waiting for other players to join");
+        return new RequestMsg(MessageType.WAIT_FOR_PLAYERS, payload);
+    }
+
+    private RequestMsg handleJoinGame(JsonObject response){
+        int id = response.get("input").getAsInt();
+        JsonObject payload = new JsonObject();
+        for(Lobby lobby: ServerUtils.lobbies){
+            if(lobby.getId() == id){
+                try{
+                    lobby.addPlayer(client.getId());
+                } catch (InvalidResponseException e){
+                    payload.addProperty("message", e.getErrorMessage());
+                    return new RequestMsg(MessageType.ERROR_MESSAGE, payload);
+                }
+                payload.addProperty("message", "You have successfully joined the lobby! Players currently in the lobby: " + lobby.getPlayersInLobby() +
+                        " --- The game will be starting soon!");
+                return new RequestMsg(MessageType.WAIT_START_GAME, payload);
+            }
+        }
+        payload.addProperty("message", "The specified lobby does not exist! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "int");
+        expectedResponse.addProperty("min", 1);
+        expectedResponse.addProperty("max", 2);
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.WELCOME_MESSAGE, payload);
+    }
+
+    private RequestMsg handleWaitPlayers(){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("message", "Wait for players...");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.TESTING_MESSAGE, payload);
     }
 
     /**
@@ -80,12 +173,14 @@ public class ResponseHandler {
      * of testing messages which is interrupted only if the client drops the connection.
      * @param response the response received from the client
      * @return the new request message which will be sent to the client
-     * @throws InvalidResponseException if the received message hasn't the expected format/fields.
      */
     private RequestMsg testingMessage(JsonObject response){
         JsonObject payload = new JsonObject();
-        payload.addProperty("message", "Server received: " + response.get("message").toString());
-        return new RequestMsg(MessageType.TESTING_MESSAGE, response);
+        payload.addProperty("message", "Server received: " + response.get("input").toString());
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.TESTING_MESSAGE, payload);
     }
 
 

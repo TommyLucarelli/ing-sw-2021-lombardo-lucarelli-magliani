@@ -1,5 +1,6 @@
 package it.polimi.ingsw.net.server;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,4 +18,6 @@ public class ServerUtils {
      * Number of clients connected.
      */
     public static int numClients = 0;
+
+    public static ArrayList<Lobby> lobbies = new ArrayList<>();
 }

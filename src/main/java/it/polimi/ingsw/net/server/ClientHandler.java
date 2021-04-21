@@ -2,7 +2,6 @@ package it.polimi.ingsw.net.server;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.client.QuitConnectionException;
-import it.polimi.ingsw.net.msg.ErrorMsg;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -22,6 +21,7 @@ public class ClientHandler implements Runnable{
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private final ResponseHandler responseHandler;
+    private Lobby lobby;
 
     /**
      * Class constructor.
@@ -44,6 +44,10 @@ public class ClientHandler implements Runnable{
 
     public void setName(String name){
         this.name = name;
+    }
+
+    protected void joinLobby(Lobby lobby){
+        this.lobby = lobby;
     }
 
     public void run(){
@@ -70,7 +74,8 @@ public class ClientHandler implements Runnable{
                 try {
                     requestMsg = responseHandler.handleRequest(next);
                 } catch (InvalidResponseException e) {
-                    outputStream.writeObject(new ErrorMsg("Invalid request"));
+                    outputStream.writeObject(gson.toJson(requestMsg));
+                    //TODO: migliorare la gestione degli errori
                 } catch (QuitConnectionException e) {
                     ServerUtils.numClients--;
                     ServerUtils.usernames.remove(name);
