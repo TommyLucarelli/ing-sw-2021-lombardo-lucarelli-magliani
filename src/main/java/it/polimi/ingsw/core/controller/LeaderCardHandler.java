@@ -39,18 +39,44 @@ public class LeaderCardHandler implements PhaseHandler{
             }
         }while(!check);
 
+        //short update
+
         return true;
     }
 
     public boolean checkRequirements(LeaderCard lc){
         int check1, check2;
         Resource r;
-        ArrayList<Flag> flags = lc.getRequiredFlags();
-
+        ArrayList<Flag> flags;
+        int resPlayer[] ;
         switch (lc.getSpecialAbility().getAbilityType()){
             case 0: //controllo nel warehouse e nello strongbox se ho 5 risorse del tipo r
-
+                r = lc.getRequiredResources().get(0).getResource();
+                resPlayer = controller.getCurrentPlayer().getBoard().personalResQtyToArray();
+                    switch (r){
+                        case COIN:
+                            if(resPlayer[0] >= 5)
+                                return true;
+                            else
+                                return false;
+                        case STONE:
+                            if(resPlayer[1] >= 5)
+                                return true;
+                            else
+                                return false;
+                        case SHIELD:
+                            if(resPlayer[2] >= 5)
+                                return true;
+                            else
+                                return false;
+                        case SERVANT:
+                            if(resPlayer[3] >= 5)
+                                return true;
+                            else
+                                return false;
+                    }
             case 1: //2 carte di una bandiera e 1 di un altra
+                flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);
                 check2 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(1), false);
                 if(check1 > 1 && check2 > 0)
@@ -58,6 +84,7 @@ public class LeaderCardHandler implements PhaseHandler{
                 else
                     return false;
             case 2: //1 carta di una bandiera e 1 di un altra
+                flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);
                 check2 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(1), false);
                 if(check1 > 0 && check2 > 0)
@@ -65,6 +92,7 @@ public class LeaderCardHandler implements PhaseHandler{
                 else
                     return false;
             case 3: //1 carta di una bandiera, ma di livello 2
+                flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), true);
                 if(check1 > 0)
                     return true;
