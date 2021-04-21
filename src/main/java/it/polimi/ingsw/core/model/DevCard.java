@@ -6,17 +6,19 @@ import java.util.ArrayList;
  * Class which represents a Development Card
  * @author Giacomo Lombardo
  */
-public class DevCard extends Card{
+public class DevCard extends Card {
     private final Flag flag;
     private final Recipe recipe;
     private final ArrayList<ResourceQty> cost;
     private final int victoryPoints;
+    private int[] resDevCard = new int[4];
 
     /**
      * Class constructor
-     * @param flag the flag of the development card
-     * @param recipe the recipe of the development card
-     * @param cost the cost of the card, represented by an ArrayList of ResourceQty
+     *
+     * @param flag          the flag of the development card
+     * @param recipe        the recipe of the development card
+     * @param cost          the cost of the card, represented by an ArrayList of ResourceQty
      * @param victoryPoints the amount of victory points assigned by the card
      */
     public DevCard(int id, Flag flag, Recipe recipe, ArrayList<ResourceQty> cost, int victoryPoints) {
@@ -29,6 +31,7 @@ public class DevCard extends Card{
 
     /**
      * Getter method.
+     *
      * @return the flag of the card
      */
     public Flag getFlag() {
@@ -37,6 +40,7 @@ public class DevCard extends Card{
 
     /**
      * Getter method.
+     *
      * @return the recipe of the card
      */
     public Recipe getRecipe() {
@@ -45,6 +49,7 @@ public class DevCard extends Card{
 
     /**
      * Getter method.
+     *
      * @return the cost of the card
      */
     public ArrayList<ResourceQty> getCost() {
@@ -53,6 +58,7 @@ public class DevCard extends Card{
 
     /**
      * Getter method.
+     *
      * @return the amount of victory points assigned by the card
      */
     public int getVictoryPoints() {
@@ -72,7 +78,30 @@ public class DevCard extends Card{
 
 
     @Override
-    public void show(){
+    public void show() {
         System.out.println(this.toString());
+    }
+
+    /**
+     * @return he cost of the card with the following layout: COIN|STONE|SHIELD|SERVANT
+     */
+    public int[] resQtyToArray() {
+        for (int i = 0; i < cost.size(); i++) {
+            switch (cost.get(i).getResource()) {
+                case COIN:
+                    resDevCard[0] += cost.get(i).getQty();
+                    break;
+                case STONE:
+                    resDevCard[1] += cost.get(i).getQty();
+                    break;
+                case SHIELD:
+                    resDevCard[2] += cost.get(i).getQty();
+                    break;
+                case SERVANT:
+                    resDevCard[3] += cost.get(i).getQty();
+                    break;
+            }
+        }
+        return resDevCard;
     }
 }
