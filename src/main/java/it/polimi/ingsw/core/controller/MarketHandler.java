@@ -21,11 +21,19 @@ public class MarketHandler implements PhaseHandler{
     private boolean configWorks;
     private Resource r;
 
+    /**
+     * Class constructor
+     * @param controller that called this class
+     */
     public MarketHandler(MainController controller){
         this.controller = controller;
         blackList = new ArrayList<>();
     }
 
+    /**
+     * Main method that handle the market phase
+     * @return true if the phase went well
+     */
     @Override
     public boolean runPhase() {
         market = controller.getCurrentGame().getMarket();
@@ -45,7 +53,7 @@ public class MarketHandler implements PhaseHandler{
             }else{
                 for (Resource resource : resources) {
                     if (resource == Resource.ANY)
-                        resource = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(2)).getSpecialAbility().getAbilityResource();
+                        resource = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(2)).getSpecialAbility().getAbilityResource();
                 }
             }
             resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
@@ -73,12 +81,18 @@ public class MarketHandler implements PhaseHandler{
         //aggiornamento punti fede
         controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
 
-        //Short_update
-
+        //Short_update [player x has acquired new resources from the market, + avanzamento fede + marker]
+        //ha senso mandare uno short-update così senza mostrare l'aggiornamento vero e proprio ai giocatori
+        //forse solo con l'azione scelta
 
         return true;
     }
 
+    /**
+     * Method to check if the placement proposed by the user is right
+     * @param placed proposed placement
+     * @return true if the placement is ok
+     */
     protected boolean checkPlacement(ArrayList<Resource> placed)
     {
         //check normal warehouse
@@ -108,12 +122,12 @@ public class MarketHandler implements PhaseHandler{
         }
         //check extended warehouse
         if(controller.getCurrentPlayer().getBoard().isActivated(0) != 0){
-            r = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(0)).getSpecialAbility().getAbilityResource();
+            r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(0)).getSpecialAbility().getAbilityResource();
             if((r != placed.get(6) && placed.get(6) != Resource.ANY) || (r != placed.get(7) && placed.get(7) != Resource.ANY))
                 return false;
         }
         if(controller.getCurrentPlayer().getBoard().isActivated(1) != 0){
-            r = controller.getCurrentPlayer().getBoard().activeLeader(controller.getCurrentPlayer().getBoard().isActivated(1)).getSpecialAbility().getAbilityResource();
+            r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(1)).getSpecialAbility().getAbilityResource();
             if((r != placed.get(8) && placed.get(8) != Resource.ANY) || (r != placed.get(9) && placed.get(9) != Resource.ANY))
                 return false;
         }

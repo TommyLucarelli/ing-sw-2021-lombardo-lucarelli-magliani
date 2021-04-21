@@ -95,6 +95,7 @@ public class Board {
         //lancia IndexOutofBoundException da gestire nel controller
     }
 
+
     /**
      * Setter method to set true the flag of a special ability that has become active
      * @param i spot representing the ability that the user has activated, the spot layout is determined by the legend above
@@ -113,11 +114,13 @@ public class Board {
         return abilityActivationFlag[i];
     }
 
-    public LeaderCard activeLeader(int id){
+    public LeaderCard getLeader(int id){
         if(leaderCards.get(0).getId() == id)
             return leaderCards.get(0);
         else
             return leaderCards.get(1);
         /* se non avviene nessuno dei due abbiamo un problema, ci può stare fare un exception */
     }
+
+    //TODO: metodi per il controllo di una bandiera di livello x
 }

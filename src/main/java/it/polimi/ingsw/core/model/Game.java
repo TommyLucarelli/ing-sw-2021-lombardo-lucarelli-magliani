@@ -29,7 +29,7 @@ public class Game
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
-        setFaithTrackMarker(0);
+        faithTrackMarker = 0;
     }
 
     public static void main( String[] args )
@@ -61,8 +61,9 @@ public class Game
      * p represent the value of faithtrack movement
      * @param p1 main player
      * @param p2 other player
+     * @return true if Favour Cards have been flipped, it's useful for shortupdate
      */
-    public void FaithTrackUpdate(Player play, int p1, int p2){
+    public boolean FaithTrackUpdate(Player play, int p1, int p2){
         boolean marker = false;
         int val = 0;
         for(int i = 0; i < players.size(); i++)
@@ -70,13 +71,13 @@ public class Game
             if(players.get(i) == play){
                 for(int j = 0; j < p1; j++) {
                     marker = play.getBoard().getFaithTrack().moveFaithIndicator();
-                    if (marker && play.getBoard().getFaithTrack().getPosition() > val)
+                    if (marker && (play.getBoard().getFaithTrack().getPosition() > val))
                         val = play.getBoard().getFaithTrack().getPosition();
                 }
             }else{
                 for(int j = 0; j < p2; j++) {
                     marker = players.get(i).getBoard().getFaithTrack().moveFaithIndicator();
-                    if (marker && players.get(i).getBoard().getFaithTrack().getPosition() > val)
+                    if (marker && (players.get(i).getBoard().getFaithTrack().getPosition() > val))
                         val = players.get(i).getBoard().getFaithTrack().getPosition();
                 }
             }
@@ -87,13 +88,13 @@ public class Game
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update
             }
         }
+        if(marker)
+            return true;
+        else
+            return false;
     }
 
     public int getFaithTrackMarker() {
         return faithTrackMarker;
-    }
-
-    public void setFaithTrackMarker(int faithTrackMarker) {
-        this.faithTrackMarker = faithTrackMarker;
     }
 }

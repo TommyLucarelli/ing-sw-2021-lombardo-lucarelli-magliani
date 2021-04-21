@@ -50,4 +50,16 @@ public class DevCardSlot
         return slot.get(slot.size() - 1);
         //da gestire exception nel controller
     }
+
+    /**
+     * Getter method
+     * @return the list of flag in the slot
+     */
+    public ArrayList<Flag> getSlotFlags(){
+        ArrayList<Flag> flags = new ArrayList<>();
+        for(int i=0; i< slot.size(); i++){
+            flags.add(slot.get(i).getFlag());
+        }
+        return flags;
+    }
 }
