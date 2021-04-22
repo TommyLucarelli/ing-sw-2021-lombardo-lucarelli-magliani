@@ -35,10 +35,21 @@ public class Strongbox
     }
 
     /**
+     * this method use the resources of the strongbox that the client choose to buy a devcard
+     * @param a(i) quantity of resources required
+     */
+    public void decreaseResource(int[] a){
+        useResource(new ResourceQty(Resource.COIN,a[0]));
+        useResource(new ResourceQty(Resource.STONE,a[1]));
+        useResource(new ResourceQty(Resource.SHIELD,a[2]));
+        useResource(new ResourceQty(Resource.SERVANT,a[3]));
+    }
+
+    /**
      * Method to use resources
      * @param rq type and quantity of the resources we have used
      */
-    public void useResource(ResourceQty rq){
+    protected void useResource(ResourceQty rq){
         for(int i=0; i< resources.size(); i++)
         {
             if(resources.get(i).getResource() == rq.getResource()){
