@@ -4,6 +4,8 @@ import it.polimi.ingsw.core.model.Flag;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.core.model.ResourceQty;
+import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 
@@ -20,31 +22,37 @@ public class LeaderCardHandler implements PhaseHandler{
         check = true;
     }
 
-    @Override
-    public boolean runPhase() {
 
-        do {
-            //preparazione e invio messaggio leader action
-            //attesa risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
-            if (action) {
-                lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
-                check = checkRequirements(lc);
-                if(check){
-                    lc.setAbilityActivation();
-                    controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
-                }
-            } else {
-                controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
-                controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
-            }
-        }while(!check);
-
-        //short update
-
-        return true;
+    public RequestMsg leaderAction(ResponseMsg rm){
+       //preparazione e invio messaggio leaderAction
+        return null;
     }
 
-    public boolean checkRequirements(LeaderCard lc){
+
+
+     public RequestMsg leaderActivation(ResponseMsg rm){
+        //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
+        if (action) {
+            lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
+            check = checkRequirements(lc);
+        if(check){
+            lc.setAbilityActivation();
+            controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
+        }
+        } else {
+            controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
+            controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
+        }
+        if(check){
+            //costruzione e ritorno messaggio shortUpdate + scelta azione carta leader
+        }else{
+            //costruzione e ritorno messaggio leaderAction
+        }
+
+         return null;
+     }
+
+    protected boolean checkRequirements(LeaderCard lc){
         int check1, check2;
         Resource r;
         ArrayList<Flag> flags;

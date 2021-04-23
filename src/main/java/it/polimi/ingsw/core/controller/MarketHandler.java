@@ -48,7 +48,7 @@ public class MarketHandler implements PhaseHandler{
         //processing array risorse con trasformazione marble bianche
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0){
             if(controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
-                //crea messaggio marble transformation
+                //crea messaggio marble transformation LO TOGLIAMO
                 //aspetta la risposta e modifica l'array cambiando le risorse bianche con quelle selezionate
             }else{
                 for (Resource resource : resources) {
