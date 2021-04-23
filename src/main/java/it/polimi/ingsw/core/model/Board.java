@@ -11,7 +11,6 @@ public class Board {
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
-    private int[] resPlayer;
 
     /**
      * 0 if the ability isn't activated, a number representing the id of the card is the ability is activated
@@ -128,6 +127,7 @@ public class Board {
      * @return the player resources with the following layout: COIN|STONE|SHIELD|SERVANT
      */
     public int[] personalResQtyToArray() {
+        int[] resPlayer = new int[4];
         for (int i = 0; i < warehouse.getStructure().size(); i++) {
             switch (warehouse.getStructure().get(i)) {
                 case COIN:
