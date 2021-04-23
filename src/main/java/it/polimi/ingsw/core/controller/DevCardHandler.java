@@ -1,44 +1,56 @@
 package it.polimi.ingsw.core.controller;
 
 import it.polimi.ingsw.core.model.*;
+import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 
-public class DevCardHandler implements PhaseHandler{
+public class DevCardHandler{
 
     private MainController controller;
     private Board board;
     private DevCard devCard;
     private Resource resource;
-    private int[] costArray = devCard.resQtyToArray();
+    private int[] costArray;
 
     public DevCardHandler(MainController controller){
         this.controller = controller;
     }
 
-    @Override
-    public boolean runPhase() {
+    public RequestMsg chooseDevCard(ResponseMsg rm){
+        //preparazione e invio messaggio CHOOSE_DEVCARD
+        return null;
+    }
+
+    public RequestMsg checkDevCard(ResponseMsg rm) {
         board = controller.getCurrentPlayer().getBoard();
         ArrayList<Integer> checkPlace;
-        //costruzione messaggio CHOICE
+        int i=0,j=0;
         //arriva il messaggio dal client con la scelta della carta sviluppo come pos (i,j) nel devcardstructure
+        devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i,j);
+        costArray = devCard.resQtyToArray();
         discount(4);
         discount(5);
         checkPlace = placeable();
-        if (affordable() && checkPlace.size()>0) {
-            //do{
-            // invio messaggio al client per SCELTA RISORSE, in attesa di a,b,c
-            // check = check_resources(a,b,c)
-            // }while(!check);
+        if (affordable() && checkPlace.size() > 0) {
+            board.getStrongbox().decreaseResource(costArray);
+            board.getWarehouse().decResWarehouse(costArray, true);
+            board.getWarehouse().decResWarehouse(costArray, false);
+            devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i,j);
+            //preparazione invio messaggio placement con payload checkplace
+        } else {
+            //preparazione e invio messaggio CHOOSE_DEVCARD
         }
-        //board.getStrongbox().decreaseResource(c);
-        //board.getWarehouse().decResWarehouse(b, true);
-        //board.getWarehouse().decResWarehouse(a, false);
-        //chiedere piazzamento carta con messaggio PIAZZALACAZZODICARTA inviando Array CheckPlace
-        //Sarà il client a controllare che il piazzamento sia giusto, il client invia INDICE index
-        //board.getDevCardSlot(index).addCard(devCard);
-        //SHORT_UPDATE
-        return true;
+        return null;
+    }
+
+    public RequestMsg placement(ResponseMsg ms){
+        int index = 0;
+        //arriva posizione di dove mettere la carta nel devcard slot
+        board.getDevCardSlot(index).addCard(devCard);
+        //costruzione messagio short update o leader_Activation
+        return null;
     }
 
     /**
@@ -84,13 +96,5 @@ public class DevCardHandler implements PhaseHandler{
             }
         }
         return check;
-    }
-
-    public boolean check_resources(int[] ware, int[] specialWare, int[]strong) {
-        for (int i = 0; i < costArray.length; i++) {
-            if (costArray[i] != ware[i]+strong[i]+specialWare[i])
-                return false;
-        }
-        return true;
     }
 }
