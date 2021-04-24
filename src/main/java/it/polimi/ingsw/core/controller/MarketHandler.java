@@ -34,7 +34,6 @@ public class MarketHandler implements PhaseHandler{
      * Main method that handle the market phase
      * @return true if the phase went well
      */
-    @Override
     public boolean runPhase() {
         market = controller.getCurrentGame().getMarket();
         int faithP1 = 0, faithP2 = 0;

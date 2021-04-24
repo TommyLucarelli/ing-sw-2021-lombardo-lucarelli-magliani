@@ -30,7 +30,7 @@ public class LeaderCardHandler implements PhaseHandler{
 
 
 
-     public RequestMsg leaderActivation(ResponseMsg rm){
+    public RequestMsg leaderActivation(ResponseMsg rm){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
@@ -50,7 +50,7 @@ public class LeaderCardHandler implements PhaseHandler{
         }
 
          return null;
-     }
+    }
 
     protected boolean checkRequirements(LeaderCard lc){
         int check1, check2;
