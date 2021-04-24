@@ -35,6 +35,15 @@ public class Strongbox
     }
 
     /**
+     * Method to add an arraylist of resource qty
+     * @param arq the arraylist
+     */
+    public void addResource(ArrayList<ResourceQty> arq){
+        for(int i=0; i<arq.size(); i++){
+            addResource(arq.get(i));
+        }
+    }
+    /**
      * this method use the resources of the strongbox that the client choose to buy a devcard
      * @param a(i) quantity of resources required
      */
