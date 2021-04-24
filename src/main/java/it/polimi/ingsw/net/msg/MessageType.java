@@ -11,4 +11,5 @@ public enum MessageType {
     JOIN_GAME, //Join lobby
     WAIT_START_GAME, //Wait for start game
     START_GAME, //Start game
+    GAME_MESSAGE,
 }

@@ -1,37 +1,43 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
+import it.polimi.ingsw.net.msg.*;
+import it.polimi.ingsw.net.server.InvalidResponseException;
 
 import java.util.ArrayList;
 
 public class MainController{
-
     private Game currentGame;
+    private int numPlayers;
     private Player currentPlayer;
-    private ArrayList<String> playerNames; //shuffle this and create the turn order
+    private boolean gameInProgress;
+    private ArrayList<PlayerHandler> players; //shuffle this and create the turn order
 
 
-    public MainController()
+    public MainController(int numPlayers)
     {
+        this.numPlayers = numPlayers;
+        this.gameInProgress = false;
+        this.players = new ArrayList<>();
        //currentGame = new Game(); mi serve capire chi crea il controller per passare i dati giusti al game
     }
 
-    public void run(){
-        /**lancia beginHandler e lo itera per gli x player
-        manda il messaggio UPDATE  a tutti i client con lo stato iniziale del gioco
-        Iniziano i turni (verranno eseguiti in un ciclo che termina solo con l'ultimo giocatore e se è finito il gioco)
-         DENTRO IL CICLO:
-         1 - scelta gioca carta leader (MESSAGGIO)
-         2 - crea classe LeaderCardHandler (opzionale)
-         3 - scelta azione principale (MESSAGGIO)
-         4 - crea classe di una delle tre azioni scelte (ci deve essere la possibilità di tornare indietro alla scelta)
-         5 - scelta gioca carta leader (MESSAGGIO)
-         6 - crea classe LeaderCardHandler (opzionale)
-         7 - calcola il prossimo giocatore
-         8 - manda a tutti l'UPDATE del gioco + prepara il prossimo giocatore che deve fare il turno
-         FUORI DAL CICLO:
-         Gestione fine partita
-        **/
+    public PlayerHandler addPlayer(int id) throws InvalidResponseException {
+        if(players.size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
+        else {
+            PlayerHandler player = new PlayerHandler(id, this);
+            players.add(player);
+            return player;
+        }
+    }
+
+    public int getPlayersInGame(){
+        return players.size();
+    }
+
+    public boolean isGameInProgress() {
+        return gameInProgress;
     }
 
     /*
@@ -48,5 +54,64 @@ public class MainController{
         return currentPlayer;
     }
 
+    public synchronized RequestMsg handle(ResponseMsg responseMsg){
+        switch (responseMsg.getPayload().get("gameAction").getAsString()){
+            case "WAIT_FOR_PLAYERS":
+                return handleWaitForPlayers();
+            case "WAIT_START_GAME":
+                return handleWaitStartGame();
+            case "TESTING_MESSAGE":
+                return handleTestMessage(responseMsg.getPayload());
+        }
+        return null;
+    }
 
+    public RequestMsg handleWaitForPlayers() {
+        /**
+        while(getPlayersInGame() != numPlayers) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+         */
+        JsonObject payload = new JsonObject();
+        payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
+        payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+    }
+
+    public RequestMsg handleWaitStartGame(){
+        /**
+        while(!gameInProgress) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+         */
+        JsonObject payload = new JsonObject();
+        payload.addProperty("message", "The game has started!");
+        payload.addProperty("gameAction", "TESTING_MESSAGE");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+    }
+
+    public RequestMsg handleTestMessage(JsonObject response){
+        System.out.println("Testing message");
+        JsonObject payload = new JsonObject();
+        payload.addProperty("message", "Server received: " + response.get("input").toString());
+        payload.addProperty("gameAction", "TESTING_MESSAGE");
+        JsonObject expectedResponse = new JsonObject();
+        expectedResponse.addProperty("type", "string");
+        payload.add("expectedResponse", expectedResponse);
+        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+    }
 }

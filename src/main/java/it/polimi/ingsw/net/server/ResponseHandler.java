@@ -1,10 +1,9 @@
 package it.polimi.ingsw.net.server;
 
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.core.controller.PlayerHandler;
 import it.polimi.ingsw.net.client.QuitConnectionException;
-import it.polimi.ingsw.net.msg.MessageType;
-import it.polimi.ingsw.net.msg.RequestMsg;
-import it.polimi.ingsw.net.msg.ResponseMsg;
+import it.polimi.ingsw.net.msg.*;
 
 /**
  * Handles the various responses sent by the client.
@@ -12,6 +11,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
  */
 public class ResponseHandler {
     private final ClientHandler client;
+    private PlayerHandler playerHandler;
     private MessageType lastType;
 
     /**
@@ -39,10 +39,8 @@ public class ResponseHandler {
                 return handleWelcome(response.getPayload());
             case NUMBER_OF_PLAYERS:
                 return handleCreateGame(response.getPayload());
-            case WAIT_FOR_PLAYERS:
-                return handleWaitPlayers();
-            case WAIT_START_GAME:
-                return handleWaitPlayers();
+            case GAME_MESSAGE:
+                return playerHandler.nextMessage(response);
             case JOIN_GAME:
                 return handleJoinGame(response.getPayload());
             default:
@@ -126,12 +124,13 @@ public class ResponseHandler {
     }
 
     private RequestMsg handleCreateGame(JsonObject response) throws InvalidResponseException {
-        Lobby lobby = new Lobby(client.getId(), response.get("input").getAsInt());
+        Lobby lobby = new Lobby(response.get("input").getAsInt());
+        playerHandler = lobby.addPlayer(client.getId());
         ServerUtils.lobbies.add(lobby);
         JsonObject payload = new JsonObject();
-        System.out.println(lobby.getLobbySize());
+        payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
         payload.addProperty("message", "Lobby created successfully! Lobby ID: " + lobby.getId() + " - Waiting for other players to join");
-        return new RequestMsg(MessageType.WAIT_FOR_PLAYERS, payload);
+        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
     private RequestMsg handleJoinGame(JsonObject response){
@@ -140,14 +139,16 @@ public class ResponseHandler {
         for(Lobby lobby: ServerUtils.lobbies){
             if(lobby.getId() == id){
                 try{
-                    lobby.addPlayer(client.getId());
+                    playerHandler = lobby.addPlayer(client.getId());
+                    notifyAll();
                 } catch (InvalidResponseException e){
                     payload.addProperty("message", e.getErrorMessage());
                     return new RequestMsg(MessageType.ERROR_MESSAGE, payload);
                 }
                 payload.addProperty("message", "You have successfully joined the lobby! Players currently in the lobby: " + lobby.getPlayersInLobby() +
                         " --- The game will be starting soon!");
-                return new RequestMsg(MessageType.WAIT_START_GAME, payload);
+                payload.addProperty("gameAction", "WAIT_START_GAME");
+                return new RequestMsg(MessageType.GAME_MESSAGE, payload);
             }
         }
         payload.addProperty("message", "The specified lobby does not exist! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.net.client;
 
 import com.google.gson.JsonObject;
-import it.polimi.ingsw.net.msg.RequestMsg;
-import it.polimi.ingsw.net.msg.ResponseMsg;
+import it.polimi.ingsw.net.msg.*;
 
 /**
  * Handles the various requests messages (RequestMsg) from the server.
@@ -19,6 +18,7 @@ public class RequestHandler {
      */
     public ResponseMsg handleRequest(RequestMsg request) throws QuitConnectionException{
         System.out.println(request.getPayload().get("message").getAsString());
+        if(request.getMessageType() == MessageType.GAME_MESSAGE) return handleGameRequest(request);
         JsonObject payload = new JsonObject();
         if(request.getPayload().has("expectedResponse")) {
             payload = InputHandler.getInput(request.getPayload().getAsJsonObject("expectedResponse"));
@@ -28,4 +28,14 @@ public class RequestHandler {
         return new ResponseMsg(request.getIdentifier(), request.getMessageType(), payload);
     }
 
+    private ResponseMsg handleGameRequest(RequestMsg request){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", request.getPayload().get("gameAction").getAsString());
+        if(request.getPayload().has("expectedResponse")) {
+            payload = InputHandler.getInput(request.getPayload().getAsJsonObject("expectedResponse"));
+        } else {
+            payload.addProperty("input", "received");
+        }
+        return new ResponseMsg(request.getIdentifier(), request.getMessageType(), payload);
+    }
 }
