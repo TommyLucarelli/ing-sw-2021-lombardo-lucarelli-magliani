@@ -6,7 +6,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 public class TurnHandler implements PhaseHandler{
 
     public RequestMsg leaderCard(ResponseMsg ms){
-        if(ms){
+        if(ms.equals(1)){
             //costruzione e invio messaggio leader_Activation
             return null;
         }
