@@ -36,9 +36,9 @@ public class ProductionHandler {
         for(int i=0; i<response.size(); i++){
             if(response.get(i)==1){
                 //recipe mex
-                //inResource = recipeBasicProduction.getInputResources()
+                //inResource = recipeBasicProduction.getInputResources();
                 //personalResources = reduceResource(inResources, personalResources);
-                //outputResources.add(recipeBasicProduction.getOutputResources())
+                //outputResources.add(recipeBasicProduction.getOutputResources());
             }else if(response.get(i)>=2 && response.get(i)<5){
                 //recipe devcard
                 inputResources = board.getDevCardSlot(response.get(i)-2).getTopCard().getRecipe().getInputResources();
@@ -63,8 +63,8 @@ public class ProductionHandler {
         }
         if(check){
             //rimozione risorse
-            board.getWarehouse().decResWarehouse(copyPersonalResources, true);
             board.getWarehouse().decResWarehouse(copyPersonalResources, false);
+            board.getWarehouse().decResWarehouse(copyPersonalResources, true);
             board.getStrongbox().decreaseResource(copyPersonalResources);
             //aggiunta risorse della produzione
             board.getStrongbox().addResource(outputResources);

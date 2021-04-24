@@ -24,13 +24,6 @@ public class LeaderCardHandler implements PhaseHandler{
 
 
     public RequestMsg leaderAction(ResponseMsg rm){
-       //preparazione e invio messaggio leaderAction
-        return null;
-    }
-
-
-
-    public RequestMsg leaderActivation(ResponseMsg rm){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);

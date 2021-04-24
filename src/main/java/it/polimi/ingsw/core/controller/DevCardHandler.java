@@ -34,8 +34,8 @@ public class DevCardHandler{
         discount(5);
         checkPlace = placeable();
         if (affordable() && checkPlace.size() > 0) {
-            board.getWarehouse().decResWarehouse(costArray, true);
             board.getWarehouse().decResWarehouse(costArray, false);
+            board.getWarehouse().decResWarehouse(costArray, true);
             board.getStrongbox().decreaseResource(costArray);
             devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i,j);
             //preparazione invio messaggio placement con payload checkplace

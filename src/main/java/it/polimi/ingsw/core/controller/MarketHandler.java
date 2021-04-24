@@ -2,6 +2,8 @@ package it.polimi.ingsw.core.controller;
 
 import it.polimi.ingsw.core.model.Market;
 import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,7 @@ public class MarketHandler implements PhaseHandler{
     private ArrayList<Resource> placed;
     private boolean configWorks;
     private Resource r;
+    int faithP1 = 0, faithP2 = 0;
 
     /**
      * Class constructor
@@ -30,35 +33,30 @@ public class MarketHandler implements PhaseHandler{
         blackList = new ArrayList<>();
     }
 
-    /**
-     * Main method that handle the market phase
-     * @return true if the phase went well
-     */
-    public boolean runPhase() {
-        market = controller.getCurrentGame().getMarket();
-        int faithP1 = 0, faithP2 = 0;
+    public RequestMsg market(ResponseMsg rm){
         //preparazione messaggio pick
+        return null;
+    }
+
+    public RequestMsg pick(ResponseMsg rm){
+        boolean column = false;
+        Resource r = Resource.ANY;
+        int x=0;
         //attesa risposta di pick con scelta colonna o riga del mercato e il valore x (controllo validità messaggio, potrebbe essere fatto nel client alla composizione del messaggio)
-        /*if(colonna)
+        if(column)
             resources = market.updateColumnAndGetResources(x);
         else
-            resources = market.updateLineAndGetResources(x);*/
+            resources = market.updateLineAndGetResources(x);
 
-        //processing array risorse con trasformazione marble bianche
-        if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0){
-            if(controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
-                //crea messaggio marble transformation LO TOGLIAMO
-                //aspetta la risposta e modifica l'array cambiando le risorse bianche con quelle selezionate
-            }else{
+        //nel messaggio c'è anche la risorsa speciale con cui vuole cambiare la bianca "r"
+        if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
                 for (Resource resource : resources) {
                     if (resource == Resource.ANY)
-                        resource = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(2)).getSpecialAbility().getAbilityResource();
+                        resource = r;
                 }
             }
-            resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
-        }
+        resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
 
-        //sistemazione punti fede
         for(int i=0; i < resources.size(); i++){
             if(resources.get(i) == Resource.FAITH){
                 resources.remove(i);
@@ -66,25 +64,24 @@ public class MarketHandler implements PhaseHandler{
                 faithP1++;
             }
         }
+        //preparazione messaggio placement con array risorse
+        return null;
+    }
 
-        do{
-              //preparazione messaggio placement con array risorse
-              //attesa messaggio con array disposizione "placed" + risorse scartate int discRes -> faithP2
-              //controllo disposizione
-              configWorks = checkPlacement(placed);
-        }while(!configWorks);
+    public RequestMsg placement(ResponseMsg rm){
+        //arrivo messaggio con il piazzamento
+        if(checkPlacement(placed)){
+            //aggiornamento struttura warehouse
+            controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
 
-        //aggiornamento struttura warehouse
-        controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
+            //aggiornamento punti fede
+            controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
+            //prep messaggio ShortUpdate / leader activation
+        }else{
+            //reinvia messaggio placement
+        }
 
-        //aggiornamento punti fede
-        controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
-
-        //Short_update [player x has acquired new resources from the market, + avanzamento fede + marker]
-        //ha senso mandare uno short-update così senza mostrare l'aggiornamento vero e proprio ai giocatori
-        //forse solo con l'azione scelta
-
-        return true;
+        return null;
     }
 
     /**
