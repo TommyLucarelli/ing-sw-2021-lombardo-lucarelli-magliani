@@ -13,14 +13,24 @@ public class MainController{
     private Player currentPlayer;
     private boolean gameInProgress;
     private ArrayList<PlayerHandler> players; //shuffle this and create the turn order
+    private MarketHandler marketHandler;
+    private LeaderCardHandler leaderCardHandler;
+    private TurnHandler turnHandler;
+    private ProductionHandler productionHandler;
+    private DevCardHandler devCardHandler;
 
 
     public MainController(int numPlayers)
     {
+        //dobbiamo creare il game qua dentro???
         this.numPlayers = numPlayers;
         this.gameInProgress = false;
         this.players = new ArrayList<>();
-       //currentGame = new Game(); mi serve capire chi crea il controller per passare i dati giusti al game
+        this.marketHandler = new MarketHandler(this);
+        this.leaderCardHandler = new LeaderCardHandler(this);
+        this.turnHandler = new TurnHandler(this);
+        this.productionHandler = new ProductionHandler(this);
+        this.devCardHandler = new DevCardHandler(this);
     }
 
     public PlayerHandler addPlayer(int id) throws InvalidResponseException {
@@ -40,11 +50,6 @@ public class MainController{
         return gameInProgress;
     }
 
-    /*
-    public Player computeNextPlayer(Player p){
-        //passa il giocatore successivo
-        //se è single mode restituisce Lorenzo che fa il suo turno speciale tipo
-    }*/
 
     public Game getCurrentGame() {
         return currentGame;
@@ -62,6 +67,24 @@ public class MainController{
                 return handleWaitStartGame();
             case "TESTING_MESSAGE":
                 return handleTestMessage(responseMsg.getPayload());
+            case "LEADER_ACTIVATION":
+                return turnHandler.leaderActivation(responseMsg);
+            case "LEADER_ACTION":
+                return leaderCardHandler.leaderAction(responseMsg);
+            case "MAIN_CHOICE":
+                return turnHandler.mainChoice(responseMsg);
+            case "PICK":
+                return marketHandler.pick(responseMsg);
+            case "WAREHOUSE_PLACEMENT":
+                return marketHandler.warehousePlacement(responseMsg);
+            case "CHOOSE_PRODUCTION":
+                return productionHandler.chooseProduction(responseMsg);
+            case "CHOOSE_DEVCARD":
+                return devCardHandler.chooseDevCard(responseMsg);
+            case "DEVCARD_PLACEMENT":
+                return devCardHandler.devCardPlacement(responseMsg);
+            case "COMEBACK":
+                return turnHandler.comeBack(responseMsg);
         }
         return null;
     }

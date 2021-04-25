@@ -18,12 +18,8 @@ public class DevCardHandler{
         this.controller = controller;
     }
 
-    public RequestMsg chooseDevCard(ResponseMsg rm){
-        //preparazione e invio messaggio CHOOSE_DEVCARD
-        return null;
-    }
 
-    public RequestMsg checkDevCard(ResponseMsg rm) {
+    public RequestMsg chooseDevCard(ResponseMsg rm) {
         board = controller.getCurrentPlayer().getBoard();
         ArrayList<Integer> checkPlace;
         int i=0,j=0;
@@ -38,17 +34,18 @@ public class DevCardHandler{
             board.getWarehouse().decResWarehouse(costArray, true);
             board.getStrongbox().decreaseResource(costArray);
             devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i,j);
-            //preparazione invio messaggio placement con payload checkplace
+            //preparazione invio messaggio placement con payload devCardPlacement
         } else {
             //preparazione e invio messaggio CHOOSE_DEVCARD
         }
         return null;
     }
 
-    public RequestMsg placement(ResponseMsg ms){
+    public RequestMsg devCardPlacement(ResponseMsg ms){
         int index = 0;
         //arriva posizione di dove mettere la carta nel devcard slot
         board.getDevCardSlot(index).addCard(devCard);
+        devCard = null;
         //costruzione messagio short update o leader_Activation
         return null;
     }

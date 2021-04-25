@@ -3,13 +3,12 @@ package it.polimi.ingsw.core.controller;
 import it.polimi.ingsw.core.model.Flag;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.core.model.Resource;
-import it.polimi.ingsw.core.model.ResourceQty;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 
-public class LeaderCardHandler implements PhaseHandler{
+public class LeaderCardHandler{
 
     private MainController controller;
     private boolean action;

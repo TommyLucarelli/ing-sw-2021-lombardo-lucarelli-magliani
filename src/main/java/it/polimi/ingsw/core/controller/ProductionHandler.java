@@ -17,12 +17,8 @@ public class ProductionHandler {
         this.controller = controller;
     }
 
-    public RequestMsg chooseProduction(ResponseMsg ms){
-        //costruzione messaggio choose_production e invio
-        return null;
-    }
 
-    public RequestMsg prodActivation(ResponseMsg ms){
+    public RequestMsg chooseProduction(ResponseMsg ms){
         //ms è un array list di integer da 1 a 6 , rappresentatnti gli slot di attivazione
         //più un recipe per la prod base e due ResourceQty per le special ability
         boolean check = true;

@@ -6,14 +6,13 @@ import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
  * This Class will handle the phase of acquiring resource from the market
  * @author Tommaso Lucarelli
  */
-public class MarketHandler implements PhaseHandler{
+public class MarketHandler {
 
     private Market market;
     private MainController controller;
@@ -42,7 +41,7 @@ public class MarketHandler implements PhaseHandler{
         boolean column = false;
         Resource r = Resource.ANY;
         int x=0;
-        //attesa risposta di pick con scelta colonna o riga del mercato e il valore x (controllo validità messaggio, potrebbe essere fatto nel client alla composizione del messaggio)
+        //risposta di pick con scelta colonna o riga del mercato e il valore x (controllo validità messaggio, potrebbe essere fatto nel client alla composizione del messaggio)
         if(column)
             resources = market.updateColumnAndGetResources(x);
         else
@@ -68,7 +67,7 @@ public class MarketHandler implements PhaseHandler{
         return null;
     }
 
-    public RequestMsg placement(ResponseMsg rm){
+    public RequestMsg warehousePlacement(ResponseMsg rm){
         //arrivo messaggio con il piazzamento
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse

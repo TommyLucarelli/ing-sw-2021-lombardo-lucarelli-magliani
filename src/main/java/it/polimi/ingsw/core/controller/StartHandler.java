@@ -21,8 +21,9 @@ public class StartHandler {
     }
 
     public RequestMsg startResAndLeader(ResponseMsg ms) {
-        //costruzione e invio messaggio Choose_start_resources
-        //costruzione e invio messaggio Choose_start_leaders
+        //costruzione e invio messaggio Choose_start_resourcesLeaders
+        //qua vanno pescate 4 carte leader
+        //inoltre bisogna dire al giocatore il numero di risorse che può prendere
         return null;
     }
 }
