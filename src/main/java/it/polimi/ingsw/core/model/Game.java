@@ -15,6 +15,7 @@ public class Game
     private DevCardStructure devCardStructure;
     private LeaderCardsDeck leaderCards;
     private int faithTrackMarker;
+    private Turn turn;
 
     /**
      * Class constructor.
@@ -29,6 +30,7 @@ public class Game
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
+        this.turn = new Turn();
         faithTrackMarker = 0;
     }
 
