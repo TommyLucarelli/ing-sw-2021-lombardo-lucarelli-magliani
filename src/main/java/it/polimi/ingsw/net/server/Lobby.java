@@ -32,7 +32,7 @@ public class Lobby {
         return controller.isGameInProgress();
     }
 
-    public PlayerHandler addPlayer(int id) throws InvalidResponseException {
-        return controller.addPlayer(id);
+    public PlayerHandler addPlayer(int id, String username) throws InvalidResponseException {
+        return controller.addPlayer(id, username);
     }
 }
