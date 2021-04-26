@@ -5,6 +5,9 @@ import it.polimi.ingsw.core.controller.PlayerHandler;
 import it.polimi.ingsw.net.client.QuitConnectionException;
 import it.polimi.ingsw.net.msg.*;
 
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Handles the various responses sent by the client.
  * @author Giacomo Lombardo
@@ -40,7 +43,12 @@ public class ResponseHandler {
             case NUMBER_OF_PLAYERS:
                 return handleCreateGame(response.getPayload());
             case GAME_MESSAGE:
-                return playerHandler.nextMessage(response);
+            case PING:
+                if(playerHandler.isActivePlayer() || playerHandler.isNewUpdate()){
+                    return playerHandler.nextMessage(response);
+                } else {
+                    return pingMessage();
+                }
             case JOIN_GAME:
                 return handleJoinGame(response.getPayload());
             default:
@@ -125,7 +133,7 @@ public class ResponseHandler {
 
     private RequestMsg handleCreateGame(JsonObject response) throws InvalidResponseException {
         Lobby lobby = new Lobby(response.get("input").getAsInt());
-        playerHandler = lobby.addPlayer(client.getId());
+        playerHandler = lobby.addPlayer(client.getId(), client.getName());
         ServerUtils.lobbies.add(lobby);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
@@ -139,8 +147,7 @@ public class ResponseHandler {
         for(Lobby lobby: ServerUtils.lobbies){
             if(lobby.getId() == id){
                 try{
-                    playerHandler = lobby.addPlayer(client.getId());
-                    notifyAll();
+                    playerHandler = lobby.addPlayer(client.getId(), client.getName());
                 } catch (InvalidResponseException e){
                     payload.addProperty("message", e.getErrorMessage());
                     return new RequestMsg(MessageType.ERROR_MESSAGE, payload);
@@ -160,13 +167,14 @@ public class ResponseHandler {
         return new RequestMsg(MessageType.WELCOME_MESSAGE, payload);
     }
 
-    private RequestMsg handleWaitPlayers(){
-        JsonObject payload = new JsonObject();
-        payload.addProperty("message", "Wait for players...");
-        JsonObject expectedResponse = new JsonObject();
-        expectedResponse.addProperty("type", "string");
-        payload.add("expectedResponse", expectedResponse);
-        return new RequestMsg(MessageType.TESTING_MESSAGE, payload);
+    public RequestMsg pingMessage(){
+        Timer timer = new Timer();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new RequestMsg(MessageType.PING, new JsonObject());
     }
 
     /**

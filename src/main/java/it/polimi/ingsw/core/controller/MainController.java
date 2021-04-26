@@ -22,7 +22,6 @@ public class MainController{
 
     public MainController(int numPlayers)
     {
-        //dobbiamo creare il game qua dentro???
         this.numPlayers = numPlayers;
         this.gameInProgress = false;
         this.players = new ArrayList<>();
@@ -33,10 +32,17 @@ public class MainController{
         this.devCardHandler = new DevCardHandler(this);
     }
 
-    public PlayerHandler addPlayer(int id) throws InvalidResponseException {
+    public PlayerHandler addPlayer(int id, String username) throws InvalidResponseException {
         if(players.size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
         else {
-            PlayerHandler player = new PlayerHandler(id, this);
+            PlayerHandler player = new PlayerHandler(id, username,this);
+            if(players.size() != 0){
+                JsonObject payload = new JsonObject();
+                payload.addProperty("gameAction", "SHORT_UPDATE");
+                payload.addProperty("message", username + " has joined the lobby.");
+                payload.addProperty("activePlayerId", 0);
+                notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
             players.add(player);
             return player;
         }
@@ -49,7 +55,6 @@ public class MainController{
     public boolean isGameInProgress() {
         return gameInProgress;
     }
-
 
     public Game getCurrentGame() {
         return currentGame;
@@ -90,7 +95,7 @@ public class MainController{
     }
 
     public RequestMsg handleWaitForPlayers() {
-        /**
+        /*
         while(getPlayersInGame() != numPlayers) {
             try {
                 wait();
@@ -109,7 +114,7 @@ public class MainController{
     }
 
     public RequestMsg handleWaitStartGame(){
-        /**
+        /*
         while(!gameInProgress) {
             try {
                 wait();
@@ -136,5 +141,11 @@ public class MainController{
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
         return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+    }
+
+    public void notifyAllPlayers(RequestMsg updateMsg){
+        for(PlayerHandler player: players){
+            player.update(updateMsg);
+        }
     }
 }

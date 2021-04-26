@@ -17,7 +17,8 @@ public class RequestHandler {
      * @throws QuitConnectionException whenever the user decides to quit.
      */
     public ResponseMsg handleRequest(RequestMsg request) throws QuitConnectionException{
-        System.out.println(request.getPayload().get("message").getAsString());
+        if(request.getPayload().has("message"))
+            System.out.println(request.getPayload().get("message").getAsString());
         if(request.getMessageType() == MessageType.GAME_MESSAGE) return handleGameRequest(request);
         JsonObject payload = new JsonObject();
         if(request.getPayload().has("expectedResponse")) {
