@@ -6,6 +6,7 @@ import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class LeaderCardHandler{
@@ -27,16 +28,22 @@ public class LeaderCardHandler{
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
-        if(check){
-            lc.setAbilityActivation();
-            controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
-        }
+            if(check){
+                lc.setAbilityActivation();
+                controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
+            }
         } else {
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
         }
         if(check){
-            //costruzione e ritorno messaggio shortUpdate + scelta azione carta leader
+            if(controller.getCurrentGame().getTurn().isEndGame()){
+                controller.getCurrentGame().getTurn().setEndGame(false);
+                //costruzione e ritorno messaggio update
+            } else{
+                //costruzione e invio messaggio mainChoice
+            }
+
         }else{
             //costruzione e ritorno messaggio leaderAction
         }

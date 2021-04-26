@@ -10,6 +10,7 @@ public class Turn {
     private int currentPlayer;
     private boolean lastTurn;
     private boolean endGame;
+    private int typeOfAction; //per decidere che tipo di update fare
 
     public int getCurrentPlayer() {
         return currentPlayer;

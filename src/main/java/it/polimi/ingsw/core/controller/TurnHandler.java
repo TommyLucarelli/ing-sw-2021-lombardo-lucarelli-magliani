@@ -12,6 +12,7 @@ public class TurnHandler {
     }
 
     public RequestMsg mainChoice(ResponseMsg ms) {
+        controller.getCurrentGame().getTurn().setEndGame(true);
         if (ms.equals(0)) {
             //costruzione e invio messaggio Pick
             return null;
@@ -30,7 +31,12 @@ public class TurnHandler {
             return null;
         }
         else{
-            //costruzione e invio messaggio main_choice
+            if(controller.getCurrentGame().getTurn().isEndGame()){
+                controller.getCurrentGame().getTurn().setEndGame(false);
+                //costruzione e ritorno messaggio update
+            } else{
+                //costruzione e invio messaggio mainChoice
+            }
             return null;
         }
     }
