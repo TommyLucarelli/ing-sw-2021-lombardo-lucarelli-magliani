@@ -7,8 +7,32 @@ import java.util.ArrayList;
  */
 public class Turn {
     private ArrayList<Player> players;
-    private Player currentPlayer;
+    private int currentPlayer;
     private boolean lastTurn;
     private boolean endGame;
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public boolean isLastTurn() {
+        return lastTurn;
+    }
+
+    public void setLastTurn(boolean lastTurn) {
+        this.lastTurn = lastTurn;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
 }
 

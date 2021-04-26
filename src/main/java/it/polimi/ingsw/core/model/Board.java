@@ -93,7 +93,6 @@ public class Board {
 
     public void removeLeaderCard(LeaderCard lc){
         leaderCards.remove(lc);
-        //lancia IndexOutofBoundException da gestire nel controller
     }
 
 
@@ -116,11 +115,12 @@ public class Board {
     }
 
     public LeaderCard getLeader(int id){
-        if(leaderCards.get(0).getId() == id)
-            return leaderCards.get(0);
-        else
-            return leaderCards.get(1);
-        /* se non avviene nessuno dei due abbiamo un problema, ci può stare fare un exception */
+        for (LeaderCard lc : leaderCards) {
+            if(lc.getId() == id)
+                return lc;
+        }
+        /* se non avviene nessuno problema, ci può stare fare un exception */
+        return null;
     }
 
     /**

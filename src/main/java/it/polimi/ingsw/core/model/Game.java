@@ -99,4 +99,8 @@ public class Game
     public int getFaithTrackMarker() {
         return faithTrackMarker;
     }
+
+    public Turn getTurn() {
+        return turn;
+    }
 }
