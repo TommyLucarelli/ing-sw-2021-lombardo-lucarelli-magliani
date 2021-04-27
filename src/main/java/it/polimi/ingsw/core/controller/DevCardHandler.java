@@ -46,6 +46,11 @@ public class DevCardHandler{
         //arriva posizione di dove mettere la carta nel devcard slot
         board.getDevCardSlot(index).addCard(devCard);
         devCard = null;
+        //controllo 7 carte ed eventualmente messaggio UPDATE
+        if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
+            controller.getCurrentGame().getTurn().setLastTurn(true);
+            //invio messaggio update
+        }
         //costruzione messagio short update o leader_Activation
         return null;
     }

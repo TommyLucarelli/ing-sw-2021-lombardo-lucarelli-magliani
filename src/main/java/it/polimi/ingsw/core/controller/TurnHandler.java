@@ -1,6 +1,8 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.JsonObject;
 import com.sun.tools.javac.Main;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -13,37 +15,52 @@ public class TurnHandler {
 
     public RequestMsg mainChoice(ResponseMsg ms) {
         controller.getCurrentGame().getTurn().setEndGame(true);
-        if (ms.equals(0)) {
-            //costruzione e invio messaggio Pick
-            return null;
-        } else if (ms.equals(1)) {
-            //costruzione e invio messaggio Choose_Production
-            return null;
+        String actionChoice = ms.getPayload().get("actionChoice").getAsString();
+        if (actionChoice.equals("market")) {
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "PICK");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        } else if (actionChoice.equals("production")) {
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         } else{
-            //costruzione e invio messaggio Choose_DevCard
-            return null;
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         }
     }
 
     public RequestMsg leaderActivation(ResponseMsg ms){
-        if(ms.equals(1)){
-            //costruzione e invio messaggio leader_Action
-            return null;
+        boolean activation = ms.getPayload().get("activation").getAsBoolean();
+        if(activation){
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "LEADER_ACTION");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         }
         else{
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
                 //costruzione e ritorno messaggio update
             } else{
-                //costruzione e invio messaggio mainChoice
+                JsonObject payload = new JsonObject();
+                payload.addProperty("gameAction", "MAIN_CHOICE");
+                return new RequestMsg(MessageType.GAME_MESSAGE, payload);
             }
-            return null;
         }
+        return null;
     }
 
-    public RequestMsg comeBack(ResponseMsg ms){
-        //costruzione e invo messaggio main_choice se siamo all'inizio
-        //o messaggio update se siamo alla fine  [per capire ciò salveremo in turn a che fase siamo del gioco]
+    public RequestMsg comeBack(){
+
+        if(controller.getCurrentGame().getTurn().isEndGame()){
+            //messaggio update
+        }else{
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "MAIN_CHOICE");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        }
+
         return null;
     }
 }

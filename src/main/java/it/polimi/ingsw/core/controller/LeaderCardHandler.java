@@ -25,6 +25,7 @@ public class LeaderCardHandler{
 
     public RequestMsg leaderAction(ResponseMsg rm){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
+        int vp;
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
@@ -39,7 +40,8 @@ public class LeaderCardHandler{
         if(check){
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
-                
+                if(controller.getCurrentGame().getTurn().isLastTurn())
+                    vp = controller.getCurrentPlayer().getBoard().victoryPoints();
                 //costruzione e ritorno messaggio update
             } else{
                 //costruzione e invio messaggio mainChoice

@@ -32,11 +32,6 @@ public class MarketHandler {
         blackList = new ArrayList<>();
     }
 
-    public RequestMsg market(ResponseMsg rm){
-        //preparazione messaggio pick
-        return null;
-    }
-
     public RequestMsg pick(ResponseMsg rm){
         boolean column = false;
         Resource r = Resource.ANY;

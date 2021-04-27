@@ -188,17 +188,27 @@ public class Board {
         int vp=0;
         int cont=0;
         int x[];
-        for (DevCardSlot d : devCardSlots) {
-            vp+=d.numberOfDevCard();
-        }
-        vp+=faithtrack.getPosition();
+        vp+= numberOfDevCard();
+        vp+= faithtrack.getPosition();
         vp+= faithtrack.favourVictoryPoints();
         x = personalResQtyToArray();
         for (int i : x) {
             cont+=i;
         }
+        if(leaderCards.get(0).getAbilityActivation())
+            vp+=leaderCards.get(0).getVictoryPoints();
+        if(leaderCards.get(1).getAbilityActivation())
+            vp+=leaderCards.get(1).getVictoryPoints();
         vp+= (cont/5);
         return vp;
+    }
+
+    public int numberOfDevCard(){
+        int cont=0;
+        for (DevCardSlot d : devCardSlots) {
+            cont+=d.numberOfDevCard();
+        }
+        return cont;
     }
 
 

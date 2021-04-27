@@ -73,4 +73,8 @@ public class LeaderCard extends Card {
     public void setAbilityActivation() {
         this.abilityActivation = true;
     }
+
+    public Boolean getAbilityActivation() {
+        return abilityActivation;
+    }
 }

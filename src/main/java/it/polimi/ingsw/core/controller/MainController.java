@@ -89,7 +89,7 @@ public class MainController{
             case "DEVCARD_PLACEMENT":
                 return devCardHandler.devCardPlacement(responseMsg);
             case "COMEBACK":
-                return turnHandler.comeBack(responseMsg);
+                return turnHandler.comeBack();
         }
         return null;
     }
