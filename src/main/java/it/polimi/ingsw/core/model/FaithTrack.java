@@ -70,5 +70,14 @@ public class FaithTrack {
             return false;
     }
 
+    public int favourVictoryPoints(){
+        int cont=0;
+        for(int i=0; i<3; i++){
+            if(favourCardsFlag[i])
+                cont= cont+i+2;
+        }
+        return cont;
+    }
+
 
 }

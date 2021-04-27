@@ -39,6 +39,7 @@ public class LeaderCardHandler{
         if(check){
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
+                
                 //costruzione e ritorno messaggio update
             } else{
                 //costruzione e invio messaggio mainChoice

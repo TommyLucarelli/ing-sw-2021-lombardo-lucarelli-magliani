@@ -62,4 +62,8 @@ public class DevCardSlot
         }
         return flags;
     }
+
+    public int numberOfDevCard(){
+        return slot.size();
+    }
 }

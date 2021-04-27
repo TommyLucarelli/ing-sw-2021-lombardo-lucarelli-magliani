@@ -184,6 +184,22 @@ public class Board {
         return count;
     }
 
+    public int victoryPoints(){
+        int vp=0;
+        int cont=0;
+        int x[];
+        for (DevCardSlot d : devCardSlots) {
+            vp+=d.numberOfDevCard();
+        }
+        vp+=faithtrack.getPosition();
+        vp+= faithtrack.favourVictoryPoints();
+        x = personalResQtyToArray();
+        for (int i : x) {
+            cont+=i;
+        }
+        vp+= (cont/5);
+        return vp;
+    }
 
 
 }
