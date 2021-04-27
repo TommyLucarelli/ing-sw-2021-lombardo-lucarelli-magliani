@@ -32,16 +32,16 @@ public class MarketHandler {
         blackList = new ArrayList<>();
     }
 
-    public RequestMsg pick(ResponseMsg rm){
-        boolean column = false;
-        Resource r = Resource.ANY;
+    public RequestMsg pick(ResponseMsg ms){
+        String choice = ms.getPayload().get("choice").getAsString();
+        int line = ms.getPayload().get("line").getAsInt();
         int x=0;
-        //risposta di pick con scelta colonna o riga del mercato e il valore x (controllo validità messaggio, potrebbe essere fatto nel client alla composizione del messaggio)
-        if(column)
+        //risposta di pick con scelta colonna o riga del mercato e il valore x
+        /*if()
             resources = market.updateColumnAndGetResources(x);
         else
             resources = market.updateLineAndGetResources(x);
-
+*/
         //nel messaggio c'è anche la risorsa speciale con cui vuole cambiare la bianca "r"
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
                 for (Resource resource : resources) {
