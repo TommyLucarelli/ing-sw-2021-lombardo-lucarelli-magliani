@@ -129,36 +129,10 @@ public class Board {
     public int[] personalResQtyToArray() {
         int[] resPlayer = new int[4];
         for (int i = 0; i < warehouse.getStructure().size(); i++) {
-            switch (warehouse.getStructure().get(i)) {
-                case COIN:
-                    resPlayer[0] ++;
-                    break;
-                case STONE:
-                    resPlayer[1] ++;
-                    break;
-                case SHIELD:
-                    resPlayer[2] ++;
-                    break;
-                case SERVANT:
-                    resPlayer[3] ++;
-                    break;
-            }
+            resPlayer[warehouse.getStructure().get(i).ordinal()] ++;
         }
         for (int i = 0; i < strongbox.getResources().size(); i++) {
-            switch (strongbox.getResources().get(i).getResource()) {
-                case COIN:
-                    resPlayer[0] += strongbox.getResources().get(i).getQty();
-                    break;
-                case STONE:
-                    resPlayer[1] += strongbox.getResources().get(i).getQty();
-                    break;
-                case SHIELD:
-                    resPlayer[2] += strongbox.getResources().get(i).getQty();
-                    break;
-                case SERVANT:
-                    resPlayer[3] += strongbox.getResources().get(i).getQty();
-                    break;
-            }
+            resPlayer[warehouse.getStructure().get(i).ordinal()] += strongbox.getResources().get(i).getQty();
         }
         return resPlayer;
     }

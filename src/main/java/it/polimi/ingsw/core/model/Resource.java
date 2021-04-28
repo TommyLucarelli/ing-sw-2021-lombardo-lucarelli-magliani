@@ -7,8 +7,10 @@ import com.google.gson.annotations.SerializedName;
  * @author Martina Magliani
  */
 public enum Resource {
-    @SerializedName("1")
     COIN,
-    STONE, SERVANT, SHIELD, FAITH, ANY
-
+    STONE,
+    SHIELD,
+    SERVANT,
+    FAITH,
+    ANY
 }

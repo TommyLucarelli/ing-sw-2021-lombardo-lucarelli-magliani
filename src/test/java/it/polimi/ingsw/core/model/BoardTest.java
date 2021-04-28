@@ -41,6 +41,6 @@ public class BoardTest {
         }catch(IndexOutOfBoundsException e){
             System.out.println("Non ci sono carte leader in questo Deck");
         }
-
     }
+
 }
