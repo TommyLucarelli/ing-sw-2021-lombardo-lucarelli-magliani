@@ -63,28 +63,10 @@ public class LeaderCardHandler{
             case 0: //controllo nel warehouse e nello strongbox se ho 5 risorse del tipo r
                 r = lc.getRequiredResources().get(0).getResource();
                 resPlayer = controller.getCurrentPlayer().getBoard().personalResQtyToArray();
-                    switch (r){
-                        case COIN:
-                            if(resPlayer[0] >= 5)
-                                return true;
-                            else
-                                return false;
-                        case STONE:
-                            if(resPlayer[1] >= 5)
-                                return true;
-                            else
-                                return false;
-                        case SHIELD:
-                            if(resPlayer[2] >= 5)
-                                return true;
-                            else
-                                return false;
-                        case SERVANT:
-                            if(resPlayer[3] >= 5)
-                                return true;
-                            else
-                                return false;
-                    }
+                if(resPlayer[r.ordinal()] >= 5)
+                    return true;
+                else
+                    return false;
             case 1: //2 carte di una bandiera e 1 di un altra
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);

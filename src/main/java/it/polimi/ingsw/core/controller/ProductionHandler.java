@@ -72,24 +72,8 @@ public class ProductionHandler {
     }
 
     protected int[] reduceResource(ArrayList<ResourceQty> inputResources, int[] personalResources){
-        for(int i=0; i < inputResources.size(); i++)
-        switch (inputResources.get(i).getResource()) {
-            case COIN: {
-                personalResources[0] -= inputResources.get(i).getQty();
-                break;
-            }
-            case STONE: {
-                personalResources[1] -= inputResources.get(i).getQty();
-                break;
-            }
-            case SHIELD: {
-                personalResources[2] -= inputResources.get(i).getQty();
-                break;
-            }
-            case SERVANT: {
-                personalResources[3] -= inputResources.get(i).getQty();
-                break;
-            }
+        for(int i=0; i < inputResources.size(); i++) {
+            personalResources[inputResources.get(i).getResource().ordinal()] -= inputResources.get(i).getQty();
         }
         return personalResources;
     }

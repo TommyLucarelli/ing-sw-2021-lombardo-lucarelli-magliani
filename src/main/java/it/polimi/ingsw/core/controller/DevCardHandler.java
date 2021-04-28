@@ -73,20 +73,7 @@ public class DevCardHandler{
     public void discount(int x){
         if (controller.getCurrentPlayer().getBoard().isActivated(x) != 0) {
             resource = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(x)).getSpecialAbility().getAbilityResource();
-            switch (resource) {
-                case COIN:
-                    costArray[0]--;
-                    break;
-                case STONE:
-                    costArray[1]--;
-                    break;
-                case SHIELD:
-                    costArray[2]--;
-                    break;
-                case SERVANT:
-                    costArray[3]--;
-                    break;
-            }
+            costArray[resource.ordinal()]--;
         }
     }
 
