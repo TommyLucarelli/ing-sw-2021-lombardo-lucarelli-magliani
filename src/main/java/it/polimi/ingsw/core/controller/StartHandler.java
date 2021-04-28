@@ -13,8 +13,8 @@ public class StartHandler {
         this.controller = controller;
     }
     public RequestMsg startGame(ResponseMsg ms) {
-        //costruzione e invio messaggio Short_update
-        return null;
+        System.out.println("startGame");
+        return controller.handleTestMessage(ms.getPayload());
     }
 
     public RequestMsg join(ResponseMsg ms) {

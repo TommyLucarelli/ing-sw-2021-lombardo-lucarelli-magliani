@@ -18,6 +18,7 @@ public class MainController{
     private TurnHandler turnHandler;
     private ProductionHandler productionHandler;
     private DevCardHandler devCardHandler;
+    private StartHandler startHandler;
 
 
     public MainController(int numPlayers)
@@ -30,6 +31,7 @@ public class MainController{
         this.turnHandler = new TurnHandler(this);
         this.productionHandler = new ProductionHandler(this);
         this.devCardHandler = new DevCardHandler(this);
+        this.startHandler = new StartHandler(this);
     }
 
     public PlayerHandler addPlayer(int id, String username) throws InvalidResponseException {
@@ -44,6 +46,7 @@ public class MainController{
                 notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
             players.add(player);
+            if(players.size() == numPlayers) sendStartGameCommand();
             return player;
         }
     }
@@ -66,10 +69,9 @@ public class MainController{
 
     public synchronized RequestMsg handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
-            case "WAIT_FOR_PLAYERS":
-                return handleWaitForPlayers();
-            case "WAIT_START_GAME":
-                return handleWaitStartGame();
+            case "START_GAME_COMMAND":
+                startHandler.startGame(responseMsg);
+
             case "TESTING_MESSAGE":
                 return handleTestMessage(responseMsg.getPayload());
             case "LEADER_ACTIVATION":
@@ -94,49 +96,22 @@ public class MainController{
         return null;
     }
 
-    public RequestMsg handleWaitForPlayers() {
-        /*
-        while(getPlayersInGame() != numPlayers) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-         */
+    public void sendStartGameCommand() {
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
-        payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
+        payload.addProperty("gameAction", "START_GAME_COMMAND");
+        payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
-        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
-    }
-
-    public RequestMsg handleWaitStartGame(){
-        /*
-        while(!gameInProgress) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-         */
-        JsonObject payload = new JsonObject();
-        payload.addProperty("message", "The game has started!");
-        payload.addProperty("gameAction", "TESTING_MESSAGE");
-        JsonObject expectedResponse = new JsonObject();
-        expectedResponse.addProperty("type", "string");
-        payload.add("expectedResponse", expectedResponse);
-        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        notifyPlayer(players.get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
     public RequestMsg handleTestMessage(JsonObject response){
-        System.out.println("Testing message");
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "Server received: " + response.get("input").toString());
         payload.addProperty("gameAction", "TESTING_MESSAGE");
+        payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
@@ -147,5 +122,9 @@ public class MainController{
         for(PlayerHandler player: players){
             player.update(updateMsg);
         }
+    }
+
+    public void notifyPlayer(PlayerHandler player, RequestMsg updateMsg){
+        player.update(updateMsg);
     }
 }

@@ -2,13 +2,13 @@ package it.polimi.ingsw.net.client;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.msg.MessageType;
-import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Timer;
 
 /**
  * Main class for the client side of the network.
@@ -17,9 +17,10 @@ import java.net.Socket;
 public class Client implements Runnable{
     private final String serverIp;
     private final int portNumber;
-    private ObjectOutputStream outputStream;
-    private ObjectInputStream inputStream;
-    private final RequestHandler requestHandler;
+    private final ResponseManager responseManager;
+    private Socket server;
+    private ObjectOutputStream out;
+    private Timer pingTimer;
 
     /**
      * Class constructor.
@@ -29,7 +30,8 @@ public class Client implements Runnable{
     public Client(String serverIp, int portNumber){
         this.serverIp = serverIp;
         this.portNumber = portNumber;
-        this.requestHandler = new RequestHandler();
+        this.responseManager = new ResponseManager();
+        this.pingTimer = new Timer();
     }
 
     public static void main(String[] args) {
@@ -76,60 +78,40 @@ public class Client implements Runnable{
 
     @Override
     public void run() {
-        Gson gson = new Gson();
 
-        Socket server;
         try{
             server = new Socket(serverIp, portNumber);
-            outputStream = new ObjectOutputStream(server.getOutputStream());
-            inputStream = new ObjectInputStream(server.getInputStream());
+            out = new ObjectOutputStream(server.getOutputStream());
+            ServerListener serverListener = new ServerListener(this,  new ObjectInputStream(server.getInputStream()));
+            new Thread(serverListener).start();
         } catch (IOException e){
             System.err.println("IOException from Client::run - server unreachable");
             return;
         }
         System.out.println("Connected to server successful! Type \"quit\" to close the connection.");
 
-        RequestMsg requestMsg = null;
-        ResponseMsg responseMsg;
+        send(new ResponseMsg(null, MessageType.FIRST_MESSAGE, null));
+        pingTimer.scheduleAtFixedRate(new Ping(this), 1000, 5000);
 
-        /**
-         * Receives the first message from the server
-         */
-        try {
-            requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);
-        } catch (IOException e) {
-            System.err.println("IOException in Client - cannot receive first request");
-        } catch (ClassNotFoundException e) {
-            System.err.println("ClassNotFoundException in Client - cannot receive first request");
-        }
+    }
 
-        /**
-         * Main loop for client-server communication: the client receives the message, passes it to the requestHandler which
-         * returns the response for the message.
-         */
+    protected void closeConnection(){
+        System.out.println("Closing connection with server...");
         try {
-            while(true){
-                try {
-                    responseMsg = requestHandler.handleRequest(requestMsg);
-                    outputStream.writeObject(gson.toJson(responseMsg));
-                } catch (QuitConnectionException e) {
-                    /**
-                     * Whenever the user decides to quit, an exception is thrown: the client sends a "quit" message to
-                     * the server, then proceeds to close the connection.
-                     */
-                    responseMsg = new ResponseMsg(requestMsg.getIdentifier(), MessageType.QUIT_MESSAGE, null);
-                    outputStream.writeObject(gson.toJson(responseMsg));
-                    break;
-                }
-                requestMsg = gson.fromJson((String) inputStream.readObject(), RequestMsg.class);
-            }
-            System.out.println("Closing connection with server...");
             server.close();
-            System.out.println("Connection closed!");
-        } catch (IOException e){
-            System.err.println("IOException in Client - communication with server failed");
-        } catch (ClassNotFoundException e){
-            System.err.println("ClassNotFoundException in Client - communication with server failed");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Connection closed!");
+    }
+
+    protected void send(ResponseMsg msg){
+        Gson gson = new Gson();
+        try {
+            out.writeObject(gson.toJson(msg));
+        } catch (IOException e) {
+            System.err.println("IOException in Client::send - couldn't send message to server");
+            e.printStackTrace();
         }
     }
 }

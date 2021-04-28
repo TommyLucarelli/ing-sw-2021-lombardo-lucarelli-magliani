@@ -80,7 +80,7 @@ public class MarketHandler {
         String json = ms.getPayload().get("placed").getAsString();
         Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
         placed = gson.fromJson(json, collectionType);
-
+        
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);

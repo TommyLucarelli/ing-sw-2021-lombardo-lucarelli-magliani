@@ -7,7 +7,7 @@ import it.polimi.ingsw.net.msg.*;
  * Handles the various requests messages (RequestMsg) from the server.
  * @author Giacomo Lombardo
  */
-public class RequestHandler {
+public class ResponseManager {
 
     /**
      * Main function that acts as a switch, forwarding the request to the relative handling function depending on the

@@ -2,6 +2,7 @@ package it.polimi.ingsw.net.server;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.client.QuitConnectionException;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * This class handles the connection to a client.
@@ -20,8 +23,10 @@ public class ClientHandler implements Runnable{
     private Socket socket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
-    private final ResponseHandler responseHandler;
+    private Timer connectionDroppedTimer;
+    private final RequestManager requestManager;
     private Lobby lobby;
+    private final Gson gson;
 
     /**
      * Class constructor.
@@ -29,9 +34,11 @@ public class ClientHandler implements Runnable{
      * @param id the id of the client assigned automatically by the server
      */
     public ClientHandler(Socket socket, int id){
-        this.responseHandler = new ResponseHandler(this);
+        this.requestManager = new RequestManager(this);
         this.socket = socket;
         this.id = id;
+        this.connectionDroppedTimer = new Timer();
+        this.gson = new Gson();
     }
 
     public int getId() {
@@ -46,12 +53,7 @@ public class ClientHandler implements Runnable{
         this.name = name;
     }
 
-    protected void joinLobby(Lobby lobby){
-        this.lobby = lobby;
-    }
-
     public void run(){
-        Gson gson = new Gson();
         try{
             inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -59,28 +61,26 @@ public class ClientHandler implements Runnable{
             System.err.println("IOException from ClientHandler");
         }
 
-        /**
-         * Preparing the first request to the client
-         */
-        RequestMsg requestMsg = responseHandler.firstMessage();
+        connectionDroppedTimer.schedule(new CloseConnectionTask(), 10000);
 
         /**
          * Main loop for client-server communication
          */
         try{
-            while(true){
-                outputStream.writeObject(gson.toJson(requestMsg));
+            while(!Thread.currentThread().isInterrupted()){
                 ResponseMsg next = gson.fromJson((String)inputStream.readObject(), ResponseMsg.class);
-                try {
-                    requestMsg = responseHandler.handleRequest(next);
-                } catch (InvalidResponseException e) {
-                    outputStream.writeObject(gson.toJson(requestMsg));
-                    //TODO: migliorare la gestione degli errori
-                } catch (QuitConnectionException e) {
-                    ServerUtils.numClients--;
-                    ServerUtils.usernames.remove(name);
-                    System.out.println("[clientId: " + id + "] Connection dropped - number of clients currently connected: " + ServerUtils.numClients);
-                    break;
+                if(next.getMessageType() == MessageType.PING) restoreTimer();
+                else {
+                    try {
+                        requestManager.handleRequest(next);
+                    } catch (InvalidResponseException e) {
+                        e.printStackTrace();
+                    } catch (QuitConnectionException e) {
+                        ServerUtils.numClients--;
+                        ServerUtils.usernames.remove(name);
+                        System.out.println("[clientId: " + id + "] Connection dropped - number of clients currently connected: " + ServerUtils.numClients);
+                        break;
+                    }
                 }
             }
         } catch(IOException e){
@@ -96,6 +96,45 @@ public class ClientHandler implements Runnable{
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected void send(RequestMsg request){
+        try {
+            outputStream.writeObject(gson.toJson(request));
+        } catch (IOException e) {
+            System.err.println("[clientId: " + id + "] IOException in ClientHandler::send");
+            disconnect();
+        }
+    }
+
+    private void restoreTimer(){
+        System.out.println("PInG");
+        connectionDroppedTimer.cancel();
+        connectionDroppedTimer = new Timer();
+        connectionDroppedTimer.schedule(new CloseConnectionTask(), 10000);
+    }
+
+    private void disconnect(){
+        System.out.println("[clientId: " + id + "] Closing connection...");
+
+        try {
+            socket.close();
+        } catch (IOException e) {
+            System.err.println("[clientId: " + id + "] IOException in ClientHandler::disconnect");
+        }
+
+        ServerUtils.numClients--;
+        ServerUtils.usernames.remove(name);
+        System.out.println("[clientId: " + id + "] Connection closed - number of clients currently connected: " + ServerUtils.numClients);
+        Thread.currentThread().interrupt();
+    }
+
+    private class CloseConnectionTask extends TimerTask{
+        @Override
+        public void run(){
+            System.out.println("[clientId: " + id + "] Timeout reached");
+            disconnect();
         }
     }
 }

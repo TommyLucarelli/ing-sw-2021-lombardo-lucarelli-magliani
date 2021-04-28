@@ -5,6 +5,7 @@ public enum MessageType {
     ERROR_MESSAGE, //To signal an incorrect communication/input
     QUIT_MESSAGE,  //To signal the dropping of the communication from the client
     PING,
+    FIRST_MESSAGE,
     REGISTRATION_MESSAGE, //Ask for username
     WELCOME_MESSAGE, //Ask to create/join lobby
     NUMBER_OF_PLAYERS, //Specify the game's number of players
