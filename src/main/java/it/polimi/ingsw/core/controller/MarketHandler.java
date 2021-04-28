@@ -1,7 +1,10 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.Market;
 import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -18,9 +21,9 @@ public class MarketHandler {
     private MainController controller;
     private ArrayList<Resource> resources;
     private ArrayList<Resource> blackList;
-    private ArrayList<Resource> placed;
     private boolean configWorks;
     private Resource r;
+    private ArrayList<Resource> placed;
     int faithP1 = 0, faithP2 = 0;
 
     /**
@@ -34,14 +37,14 @@ public class MarketHandler {
 
     public RequestMsg pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
-        int line = ms.getPayload().get("line").getAsInt();
+        int number = ms.getPayload().get("line").getAsInt();
         int x=0;
         //risposta di pick con scelta colonna o riga del mercato e il valore x
-        /*if()
-            resources = market.updateColumnAndGetResources(x);
+        if(choice.equals("column"))
+            resources = market.updateColumnAndGetResources(number);
         else
-            resources = market.updateLineAndGetResources(x);
-*/
+            resources = market.updateLineAndGetResources(number);
+
         //nel messaggio c'è anche la risorsa speciale con cui vuole cambiare la bianca "r"
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
                 for (Resource resource : resources) {
@@ -58,12 +61,19 @@ public class MarketHandler {
                 faithP1++;
             }
         }
+
+
         //preparazione messaggio placement con array risorse
-        return null;
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
+        Gson output = new Gson();
+        payload.add("ResourcesArray", output.toJsonTree(resources));
+        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
     public RequestMsg warehousePlacement(ResponseMsg rm){
         //arrivo messaggio con il piazzamento
+
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
