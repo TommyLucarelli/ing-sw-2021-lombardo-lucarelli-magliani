@@ -1,8 +1,10 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.Flag;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -26,6 +28,7 @@ public class LeaderCardHandler{
     public RequestMsg leaderAction(ResponseMsg rm){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
         int vp;
+        JsonObject payload = new JsonObject();
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
@@ -44,11 +47,12 @@ public class LeaderCardHandler{
                     vp = controller.getCurrentPlayer().getBoard().victoryPoints();
                 //costruzione e ritorno messaggio update
             } else{
-                //costruzione e invio messaggio mainChoice
+                payload.addProperty("gameAction", "MAIN_CHOICE");
+                return new RequestMsg(MessageType.GAME_MESSAGE, payload);
             }
-
         }else{
-            //costruzione e ritorno messaggio leaderAction
+            payload.addProperty("gameAction", "LEADER_ACTION");
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         }
 
          return null;

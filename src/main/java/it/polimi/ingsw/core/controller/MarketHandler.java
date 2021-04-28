@@ -41,6 +41,7 @@ public class MarketHandler {
     public RequestMsg pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
         int number = ms.getPayload().get("line").getAsInt();
+
         //risposta di pick con scelta colonna o riga del mercato e il valore x
         if(choice.equals("column"))
             resources = market.updateColumnAndGetResources(number);
@@ -49,7 +50,10 @@ public class MarketHandler {
 
         //nel messaggio c'è anche la risorsa speciale con cui vuole cambiare la bianca "r"
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
-                for (Resource resource : resources) {
+            Gson gson = new Gson();
+            String json = ms.getPayload().get("resource").getAsString();
+            r = gson.fromJson(json, Resource.class);
+            for (Resource resource : resources) {
                     if (resource == Resource.ANY)
                         resource = r;
                 }
@@ -64,7 +68,6 @@ public class MarketHandler {
             }
         }
 
-
         //preparazione messaggio placement con array risorse
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
@@ -76,11 +79,11 @@ public class MarketHandler {
 
     public RequestMsg warehousePlacement(ResponseMsg ms){
         //arrivo ARRAY di RESOURCES con il piazzamento int numero risorse scartate
+        faithP2 = ms.getPayload().get("discarded").getAsInt();
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
         Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
         placed = gson.fromJson(json, collectionType);
-
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
@@ -88,13 +91,11 @@ public class MarketHandler {
             //aggiornamento punti fede
             controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
             //prep messaggio ShortUpdate / leader activation
-
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
-            Gson output = new Gson();
-            payload.add("ResourcesArray", output.toJsonTree(placed));
-            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+            json = gson.toJson(resources);
+            payload.addProperty("resources array", json);
         }
 
         return null;
