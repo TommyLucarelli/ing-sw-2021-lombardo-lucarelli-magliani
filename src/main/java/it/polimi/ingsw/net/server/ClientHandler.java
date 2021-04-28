@@ -63,8 +63,9 @@ public class ClientHandler implements Runnable{
 
         connectionDroppedTimer.schedule(new CloseConnectionTask(), 10000);
 
-        /**
-         * Main loop for client-server communication
+        /*
+         * Main loop for client-server communication: if the received message is a PING, the timer to keep
+         * track of the connection status resets, otherwise the message is processed by the requestManager.
          */
         try{
             while(!Thread.currentThread().isInterrupted()){
@@ -89,7 +90,7 @@ public class ClientHandler implements Runnable{
             System.err.println("ClassNotFoundException from ClientHandler - Client ID: " + id);
         }
 
-        /**
+        /*
          * Closes the connection.
          */
         try {
@@ -99,6 +100,10 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * Method used to send a request message to the client.
+     * @param request the request message to be sent.
+     */
     protected void send(RequestMsg request){
         try {
             outputStream.writeObject(gson.toJson(request));
@@ -108,13 +113,18 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    /**
+     * Method invoked whenever a PING message is received: restarts the timer.
+     */
     private void restoreTimer(){
-        System.out.println("PInG");
         connectionDroppedTimer.cancel();
         connectionDroppedTimer = new Timer();
         connectionDroppedTimer.schedule(new CloseConnectionTask(), 10000);
     }
 
+    /**
+     * Method invoked to close the connection to the client.
+     */
     private void disconnect(){
         System.out.println("[clientId: " + id + "] Closing connection...");
 
@@ -130,6 +140,9 @@ public class ClientHandler implements Runnable{
         Thread.currentThread().interrupt();
     }
 
+    /**
+     * Task that closes the connection the client does not send a PING message for 10 seconds.
+     */
     private class CloseConnectionTask extends TimerTask{
         @Override
         public void run(){

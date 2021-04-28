@@ -38,7 +38,7 @@ public class Client implements Runnable{
         String ip;
         int port;
 
-        /**
+        /*
          * Checks that the arguments passed are correct. If some arguments are missing or there are invalid arguments
          * prints a help message and ends the execution.
          */
@@ -59,7 +59,7 @@ public class Client implements Runnable{
             return;
         }
 
-        /**
+        /*
          * Sets the IP address and the port number passed as arguments, then starts the client execution.
          */
         Client client = new Client(ip, port);
@@ -78,7 +78,10 @@ public class Client implements Runnable{
 
     @Override
     public void run() {
-
+        /*
+         * Establishes the connection to the server, then launches the listener thread to catch the messages sent by
+         * the server.
+         */
         try{
             server = new Socket(serverIp, portNumber);
             out = new ObjectOutputStream(server.getOutputStream());
@@ -90,11 +93,21 @@ public class Client implements Runnable{
         }
         System.out.println("Connected to server successful! Type \"quit\" to close the connection.");
 
+        /*
+         * Sends the first message to the server.
+         */
         send(new ResponseMsg(null, MessageType.FIRST_MESSAGE, null));
+
+        /*
+         * Starts pinging the server.
+         */
         pingTimer.scheduleAtFixedRate(new Ping(this), 1000, 5000);
 
     }
 
+    /**
+     * Method used to close the connection to the server safely.
+     */
     protected void closeConnection(){
         System.out.println("Closing connection with server...");
         try {
@@ -105,13 +118,17 @@ public class Client implements Runnable{
         System.out.println("Connection closed!");
     }
 
+    /**
+     * Method used to send a message to the server.
+     * @param msg the message to be sent.
+     */
     protected void send(ResponseMsg msg){
         Gson gson = new Gson();
         try {
             out.writeObject(gson.toJson(msg));
         } catch (IOException e) {
             System.err.println("IOException in Client::send - couldn't send message to server");
-            e.printStackTrace();
+            closeConnection();
         }
     }
 }
