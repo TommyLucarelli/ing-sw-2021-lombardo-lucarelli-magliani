@@ -22,17 +22,21 @@ public class ProductionHandler {
         //ms è un array list di integer da 1 a 6 , rappresentatnti gli slot di attivazione
         //più un recipe per la prod base e due ResourceQty per le special ability
         boolean check = true;
-        board = controller.getCurrentPlayer().getBoard();
-        ArrayList<Integer> response = new ArrayList<>();
-        int[] personalResources = board.personalResQtyToArray();
-        int[] copyPersonalResources = board.personalResQtyToArray();
+
         ArrayList<ResourceQty> inputResources;
         ArrayList<ResourceQty> specialResources = new ArrayList<>();
         ArrayList<ResourceQty> outputResources= new ArrayList<>();
+
+        board = controller.getCurrentPlayer().getBoard();
+        int[] personalResources = board.personalResQtyToArray();
+        int[] copyPersonalResources = board.personalResQtyToArray();
+
+        ArrayList<Integer> response = new ArrayList<>();
+
         for(int i=0; i<response.size(); i++){
             if(response.get(i)==1){
                 //recipe mex
-                //inResource = recipeBasicProduction.getInputResources();
+                //inputResource = recipeBasicProduction.getInputResources();
                 //personalResources = reduceResource(inResources, personalResources);
                 //outputResources.add(recipeBasicProduction.getOutputResources());
             }else if(response.get(i)>=2 && response.get(i)<5){

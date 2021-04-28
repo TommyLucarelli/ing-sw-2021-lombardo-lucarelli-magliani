@@ -72,7 +72,7 @@ public class MarketHandler {
     }
 
     public RequestMsg warehousePlacement(ResponseMsg rm){
-        //arrivo messaggio con il piazzamento
+        //arrivo ARRAY di RESOURCES con il piazzamento
 
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
@@ -81,8 +81,13 @@ public class MarketHandler {
             //aggiornamento punti fede
             controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
             //prep messaggio ShortUpdate / leader activation
+
         }else{
-            //reinvia messaggio placement
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
+            Gson output = new Gson();
+            payload.add("ResourcesArray", output.toJsonTree(placed));
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         }
 
         return null;
