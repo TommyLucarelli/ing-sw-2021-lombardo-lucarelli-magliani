@@ -2,13 +2,16 @@ package it.polimi.ingsw.core.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.Market;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +41,6 @@ public class MarketHandler {
     public RequestMsg pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
         int number = ms.getPayload().get("line").getAsInt();
-        int x=0;
         //risposta di pick con scelta colonna o riga del mercato e il valore x
         if(choice.equals("column"))
             resources = market.updateColumnAndGetResources(number);
@@ -66,13 +68,18 @@ public class MarketHandler {
         //preparazione messaggio placement con array risorse
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
-        Gson output = new Gson();
-        payload.add("ResourcesArray", output.toJsonTree(resources));
+        Gson gson = new Gson();
+        String json = gson.toJson(resources);
+        payload.addProperty("resources array", json);
         return new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
-    public RequestMsg warehousePlacement(ResponseMsg rm){
-        //arrivo ARRAY di RESOURCES con il piazzamento
+    public RequestMsg warehousePlacement(ResponseMsg ms){
+        //arrivo ARRAY di RESOURCES con il piazzamento int numero risorse scartate
+        Gson gson = new Gson();
+        String json = ms.getPayload().get("placed").getAsString();
+        Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+        placed = gson.fromJson(json, collectionType);
 
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
