@@ -1,10 +1,12 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.core.model.Market;
-
 public class Cli {
 
-        private Market market;
+    /**
+        private CompactMarket market;
+        private CompactDevCardSlot devCardSlot;
+        private CompactWarehouse warehouse;
+        private CompacStrongbox strongbox;
 
         public Cli(){}
 
@@ -15,10 +17,9 @@ public class Cli {
         }
 
         public void printMarket(){
-
             System.out.println("------------------------------" + "\n");
-            for (int i = 0; i < market.getStructureAsArray().length; i++) {
-                System.out.println("| " +market.getStructureAsArray()[i].toString());
+            for (int i = 0; i < market.getStructure().length; i++) {
+                System.out.println("| " +market.getStructure()[i].toString());
                 if (i==3 || i==7){
                     System.out.println("------------------------------" + "\n");
                 }
@@ -26,11 +27,41 @@ public class Cli {
             //CAPIRE COME STAMPARE A COLORI SULLA CLI UNA STRINGA
         }
 
-        public void printDevCardSlot(){}
+        public void printDevCardSlot(){
+            for (int i = 0; i < 3; i++) {
+                    System.out.println("" + devCardSlot[i][0].toString());
+                    System.out.println("" + devCardSlot[i][1].getSlotFlag().toString());
+                    System.out.println("" + devCardSlot[i][2].getSlotFlag().toString());
+            }
+        }
 
-        public void printWarehouse(){}
+        public void printDevCardStructure(){
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 4; j++) {
+                    //come??? matrice di id ma come stampo carta??
+                }
+            }
+        }
 
-        private void printStrongbox(){}
+        public void printWarehouse(){
+            System.out.println("\t\t" + warehouse.getStructure().get(0).toString() + "\n");
+            System.out.println("\t" + warehouse.getStructure().get(1).toString() + warehouse.getStructure().get(2).toString() + "\n");
+            System.out.println("" + warehouse.getStructure().get(3).toString() + warehouse.getStructure().get(4).toString() + warehouse.getStructure().get(5).toString());
+
+            if(warehouse.specialWarehouse().equals(true)){
+                System.out.println();
+            }
+        }
+
+        public void printStrongbox(){
+            for (int i = 0; i < strongbox.getStructure().lenght; i++) {
+                System.out.println("" + strongbox.getStructure().get(i));
+            }
+        }
+
+        public void printFaithTrack(){
+
+        }
 
         public void printPersonalBoard(){}
 
@@ -51,4 +82,6 @@ public class Cli {
     public static void main(String[] args) {
 
     }
+     **/
 }
+
