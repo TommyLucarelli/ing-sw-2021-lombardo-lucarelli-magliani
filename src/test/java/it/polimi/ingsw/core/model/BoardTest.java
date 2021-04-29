@@ -43,4 +43,37 @@ public class BoardTest {
         }
     }
 
+    @Test
+    public void testPersonalResQtyToArray() {
+        Board b = new Board();
+        int[] output = {3,2,4,1};
+        int[] test = new int[4];
+
+        for (int i = 0; i < 3; i++) {
+            b.getWarehouse().getStructure().set(i,Resource.COIN);
+        }
+        for (int i = 3; i < 5; i++) {
+            b.getWarehouse().getStructure().set(i,Resource.STONE);
+        }
+        for (int i = 5; i < 9; i++) {
+            b.getWarehouse().getStructure().set(i,Resource.SHIELD);
+        }
+        b.getWarehouse().getStructure().set(9,Resource.SERVANT);
+
+        test = b.personalResQtyToArray();
+
+        assertArrayEquals(output,test);
+    }
+
+    @Test
+    public void countFlags() {
+    }
+
+    @Test
+    public void victoryPoints() {
+    }
+
+    @Test
+    public void numberOfDevCard() {
+    }
 }
