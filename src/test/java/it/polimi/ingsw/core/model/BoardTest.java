@@ -47,19 +47,21 @@ public class BoardTest {
     public void testPersonalResQtyToArray() {
         Board b = new Board();
         int[] output = {3,2,4,1};
-        int[] test = new int[4];
+        int[] test;
+        ArrayList<Resource> update = new ArrayList<Resource>();
 
         for (int i = 0; i < 3; i++) {
-            b.getWarehouse().getStructure().set(i,Resource.COIN);
+           update.add(Resource.COIN);
         }
         for (int i = 3; i < 5; i++) {
-            b.getWarehouse().getStructure().set(i,Resource.STONE);
+            update.add(Resource.STONE);
         }
         for (int i = 5; i < 9; i++) {
-            b.getWarehouse().getStructure().set(i,Resource.SHIELD);
+            update.add(Resource.SHIELD);
         }
-        b.getWarehouse().getStructure().set(9,Resource.SERVANT);
+        update.add(Resource.SERVANT);
 
+        b.getWarehouse().updateConfiguration(update);
         test = b.personalResQtyToArray();
 
         assertArrayEquals(output,test);
@@ -67,6 +69,8 @@ public class BoardTest {
 
     @Test
     public void countFlags() {
+        DevCardSlot devCardSlot;
+        DevCard devCard1;
     }
 
     @Test
