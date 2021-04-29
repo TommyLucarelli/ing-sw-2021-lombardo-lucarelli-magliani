@@ -74,8 +74,7 @@ public class ProductionHandler {
 
         if(check){
             //rimozione risorse
-            board.getWarehouse().decResWarehouse(copyPersonalResources, false);
-            board.getWarehouse().decResWarehouse(copyPersonalResources, true);
+            board.getWarehouse().decResWarehouse(copyPersonalResources);
             board.getStrongbox().decreaseResource(copyPersonalResources);
             //aggiunta risorse della produzione
             board.getStrongbox().addResource(outputResources);

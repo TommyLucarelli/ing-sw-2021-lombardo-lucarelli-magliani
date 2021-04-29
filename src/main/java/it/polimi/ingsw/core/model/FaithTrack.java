@@ -70,6 +70,10 @@ public class FaithTrack {
             return false;
     }
 
+    /**
+     * Method to compute the victory points based on the favour cards activated in the faith track
+     * @return victory points
+     */
     public int favourVictoryPoints(){
         int cont=0;
         for(int i=0; i<3; i++){
@@ -78,6 +82,5 @@ public class FaithTrack {
         }
         return cont;
     }
-
 
 }

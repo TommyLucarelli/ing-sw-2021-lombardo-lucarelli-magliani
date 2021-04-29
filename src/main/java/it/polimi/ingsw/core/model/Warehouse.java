@@ -21,16 +21,8 @@ public class Warehouse
      */
     public Warehouse(){
         structure = new ArrayList<Resource>();
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
-        structure.add(Resource.ANY);
+        for(int i=0; i<10; i++)
+            structure.add(Resource.ANY);
     }
 
     /**
@@ -49,18 +41,14 @@ public class Warehouse
         return (ArrayList<Resource>) structure.clone();
     }
 
-    public void decResWarehouse(int[] a, boolean specialWarehouse){
-        int x, y;
-        if (specialWarehouse){
-            x = 9;
-            y = 6;
-        }
-        else{
-            x = 5;
-            y = 0;
-        }
-        for (int i=x; i>=y; i--){
-            if(a[structure.get(i).ordinal()]>0) {
+    /**
+     * Method used to decrease Resources inside the warehouse
+     * @param a Array with the amount of resource we have to take from the warehouse
+     */
+    public void decResWarehouse(int[] a){
+        int x;
+        for (int i=9; i>=0; i--){
+            if(structure.get(i) != Resource.ANY && a[structure.get(i).ordinal()]>0) {
                 a[structure.get(i).ordinal()]--;
                 structure.set(i,Resource.ANY);
             }

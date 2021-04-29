@@ -15,7 +15,9 @@ public class FaithTrackTest {
         assertEquals(ft.getFavourCardsFlag(1), false);
         assertEquals(ft.getFavourCardsFlag(2), false);
 
-        ft.setFavourCardsFlag(1);
+        for(int i=0; i<14; i++)
+            ft.moveFaithIndicator();
+        ft.setFavourCardsFlag(16);
 
         assertEquals(ft.getFavourCardsFlag(0), false);
         assertEquals(ft.getFavourCardsFlag(1), true);
@@ -31,5 +33,15 @@ public class FaithTrackTest {
         ft.moveFaithIndicator();
 
         assertEquals(3, ft.getPosition());
+    }
+
+    @Test
+    public void testFavourVictoryPoints(){
+        FaithTrack ft = new FaithTrack();
+        for(int i=0; i<14; i++)
+            ft.moveFaithIndicator();
+        ft.setFavourCardsFlag(16);
+
+        assertEquals(3, ft.favourVictoryPoints());
     }
 }
