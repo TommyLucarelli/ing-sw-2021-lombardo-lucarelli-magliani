@@ -177,8 +177,13 @@ public class Board {
     public int victoryPoints(){
         int vp=0;
         int cont=0;
-        int x[];
-        vp+= numberOfDevCard();
+        int x[], dim;
+        for(int i=0; i<3; i++){
+            dim = devCardSlots.get(i).getSlot().size();
+            for (int j = 0; j < dim; j++) {
+                vp+=devCardSlots.get(i).getSlot().get(j).getVictoryPoints();
+            }
+        }
         vp+= faithtrack.getPosition();
         vp+= faithtrack.favourVictoryPoints();
         x = personalResQtyToArray();
