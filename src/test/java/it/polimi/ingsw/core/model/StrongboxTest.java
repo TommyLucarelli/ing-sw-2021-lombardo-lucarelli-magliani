@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class StrongboxTest {
 
     @Test
-    public void testAdderGetterResource() {
+    public void testAdderGetterResource(){
         Strongbox sb = new Strongbox();
         ResourceQty rq = new ResourceQty(Resource.COIN, 3);
         sb.addResource(rq);
@@ -20,7 +20,7 @@ public class StrongboxTest {
     }
 
     @Test
-    public void testUseResource() {
+    public void testUseResource(){
         Strongbox sb = new Strongbox();
         ResourceQty rq = new ResourceQty(Resource.COIN, 3);
         ResourceQty rq2 = new ResourceQty(Resource.COIN, 2);
@@ -31,6 +31,25 @@ public class StrongboxTest {
         assertEquals(1, sb.getResourceQtyX(Resource.COIN));
 
     }
+
+    @Test
+    public void testDecreaseResource(){
+        Strongbox sb = new Strongbox();
+        ResourceQty rq = new ResourceQty(Resource.COIN, 3);
+        ResourceQty rq2 = new ResourceQty(Resource.STONE, 2);
+        int a[] = new int[4];
+        a[0] = 1;
+        a[1] = 2;
+
+        sb.addResource(rq);
+        sb.addResource(rq2);
+
+        sb.decreaseResource(a);
+
+        assertEquals(sb.getResourceQtyX(Resource.COIN), 2);
+        assertEquals(sb.getResourceQtyX(Resource.STONE), 0);
+    }
+
 
 
 

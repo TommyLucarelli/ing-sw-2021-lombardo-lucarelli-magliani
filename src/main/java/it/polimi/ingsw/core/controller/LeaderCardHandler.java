@@ -38,7 +38,7 @@ public class LeaderCardHandler{
             }
         } else {
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
-            controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
+            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
         }
         if(check){
             if(controller.getCurrentGame().getTurn().isEndGame()){

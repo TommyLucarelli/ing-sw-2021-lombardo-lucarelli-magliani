@@ -24,8 +24,9 @@ public class Game
      */
     public Game(int id, ArrayList<String> playerNames) throws FileNotFoundException {
         this.gameId = id;
+        this.players = new ArrayList<Player>();
         for(int i = 0; i < playerNames.size(); i++){
-            getPlayers().add(new Player(i, playerNames.get(i)));
+            players.add(new Player(i, playerNames.get(i)));
         }
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
@@ -44,7 +45,7 @@ public class Game
     }
 
     public ArrayList<Player> getPlayers() {
-        return players;
+        return (ArrayList<Player>) players.clone();
     }
 
     public Market getMarket() {
@@ -60,31 +61,37 @@ public class Game
     }
 
     /**
+     * Method to update the faithrack of all player simultaneously, in order to handle the pope actions
      * p represent the value of faithtrack movement
      * @param p1 main player
      * @param p2 other player
      * @return true if Favour Cards have been flipped, it's useful for shortupdate
      */
-    public boolean FaithTrackUpdate(Player play, int p1, int p2){
+    public boolean faithTrackUpdate(Player play, int p1, int p2){
         boolean marker = false;
+        boolean flag = false;
         int val = 0;
         for(int i = 0; i < players.size(); i++)
         {
-            if(players.get(i) == play){
+            if(players.get(i).equals(play)){
                 for(int j = 0; j < p1; j++) {
                     marker = play.getBoard().getFaithTrack().moveFaithIndicator();
+                    if(!flag)
+                        flag = marker;
                     if (marker && (play.getBoard().getFaithTrack().getPosition() > val))
-                        val = play.getBoard().getFaithTrack().getPosition();
+                        val = play.getBoard().getFaithTrack().getPosition();;
                 }
             }else{
                 for(int j = 0; j < p2; j++) {
                     marker = players.get(i).getBoard().getFaithTrack().moveFaithIndicator();
+                    if(!flag)
+                        flag = marker;
                     if (marker && (players.get(i).getBoard().getFaithTrack().getPosition() > val))
                         val = players.get(i).getBoard().getFaithTrack().getPosition();
                 }
             }
         }
-        if(marker && (val > faithTrackMarker)){
+        if(flag && (val > faithTrackMarker)){
             faithTrackMarker = val;
             for(int i = 0; i < players.size(); i++){
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update

@@ -44,7 +44,7 @@ public class Strongbox
         }
     }
     /**
-     * this method use the resources of the strongbox that the client choose to buy a devcard
+     * This method use the resources of the strongbox that the client has chosen to buy a devcard
      * @param a(i) quantity of resources required
      */
     public void decreaseResource(int[] a){
@@ -84,7 +84,6 @@ public class Strongbox
             }
         }
         return 0;
-
     }
 
     /**
