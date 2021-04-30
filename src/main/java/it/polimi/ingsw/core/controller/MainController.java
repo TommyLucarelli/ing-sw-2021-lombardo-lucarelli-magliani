@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.*;
 import it.polimi.ingsw.net.server.InvalidResponseException;
+import it.polimi.ingsw.net.server.RequestManager;
 
 import java.util.ArrayList;
 
@@ -34,10 +35,10 @@ public class MainController{
         this.startHandler = new StartHandler(this);
     }
 
-    public PlayerHandler addPlayer(int id, String username) throws InvalidResponseException {
+    public PlayerHandler addPlayer(int id, String username, RequestManager manager) throws InvalidResponseException {
         if(players.size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
         else {
-            PlayerHandler player = new PlayerHandler(id, username,this);
+            PlayerHandler player = new PlayerHandler(id, username,this, manager);
             if(players.size() != 0){
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "SHORT_UPDATE");
