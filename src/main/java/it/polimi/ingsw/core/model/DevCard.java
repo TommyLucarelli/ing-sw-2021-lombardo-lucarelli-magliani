@@ -83,24 +83,11 @@ public class DevCard extends Card {
     }
 
     /**
-     * @return he cost of the card with the following layout: COIN|STONE|SHIELD|SERVANT
+     * @return the resources cost of the card with the following layout: COIN|STONE|SHIELD|SERVANT
      */
     public int[] resQtyToArray() {
         for (int i = 0; i < cost.size(); i++) {
-            switch (cost.get(i).getResource()) {
-                case COIN:
-                    resDevCard[0] += cost.get(i).getQty();
-                    break;
-                case STONE:
-                    resDevCard[1] += cost.get(i).getQty();
-                    break;
-                case SHIELD:
-                    resDevCard[2] += cost.get(i).getQty();
-                    break;
-                case SERVANT:
-                    resDevCard[3] += cost.get(i).getQty();
-                    break;
-            }
+            resDevCard[cost.get(i).getResource().ordinal()] += cost.get(i).getQty();
         }
         return resDevCard;
     }

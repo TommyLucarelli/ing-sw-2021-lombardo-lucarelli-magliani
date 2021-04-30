@@ -89,7 +89,7 @@ public class MarketHandler {
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
 
             //aggiornamento punti fede
-            controller.getCurrentGame().FaithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
+            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
             //prep messaggio ShortUpdate / leader activation
         }else{
             JsonObject payload = new JsonObject();

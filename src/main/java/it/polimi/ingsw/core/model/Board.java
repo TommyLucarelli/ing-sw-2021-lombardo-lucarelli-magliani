@@ -114,6 +114,11 @@ public class Board {
         return abilityActivationFlag[i];
     }
 
+    /**
+     * Getter method
+     * @param id of the LeaderCard
+     * @return the LeaderCard
+     */
     public LeaderCard getLeader(int id){
         for (LeaderCard lc : leaderCards) {
             if(lc.getId() == id)
@@ -128,15 +133,23 @@ public class Board {
      */
     public int[] personalResQtyToArray() {
         int[] resPlayer = new int[4];
+
         for (int i = 0; i < warehouse.getStructure().size(); i++) {
-            resPlayer[warehouse.getStructure().get(i).ordinal()] ++;
+            if (!warehouse.getStructure().get(i).equals(Resource.ANY)) {
+                resPlayer[warehouse.getStructure().get(i).ordinal()]++;
+            }
         }
         for (int i = 0; i < strongbox.getResources().size(); i++) {
-            resPlayer[warehouse.getStructure().get(i).ordinal()] += strongbox.getResources().get(i).getQty();
+                resPlayer[warehouse.getStructure().get(i).ordinal()] += strongbox.getResources().get(i).getQty();
         }
         return resPlayer;
     }
 
+    /**
+     * @param f
+     * @param level
+     * @return number of required flags to buy a leaderCard
+     */
     public int countFlags(Flag f, boolean level) {
         int count = 0;
         ArrayList<Flag> flags;
@@ -158,11 +171,19 @@ public class Board {
         return count;
     }
 
+    /**
+     * @return the number of total victoryPoints acquired in the game
+     */
     public int victoryPoints(){
         int vp=0;
         int cont=0;
-        int x[];
-        vp+= numberOfDevCard();
+        int x[], dim;
+        for(int i=0; i<3; i++){
+            dim = devCardSlots.get(i).getSlot().size();
+            for (int j = 0; j < dim; j++) {
+                vp+=devCardSlots.get(i).getSlot().get(j).getVictoryPoints();
+            }
+        }
         vp+= faithtrack.getPosition();
         vp+= faithtrack.favourVictoryPoints();
         x = personalResQtyToArray();
@@ -177,6 +198,9 @@ public class Board {
         return vp;
     }
 
+    /**
+     * @return the number of DecCard in the player devCardSlot
+     */
     public int numberOfDevCard(){
         int cont=0;
         for (DevCardSlot d : devCardSlots) {

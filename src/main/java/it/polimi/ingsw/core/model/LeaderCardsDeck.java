@@ -14,7 +14,7 @@ public class LeaderCardsDeck {
      * Class constructor. Generates the 16 leader cards.
      */
     public LeaderCardsDeck(){
-
+        //TODO: (jack) bisogna creare le carte leader json
     }
 
     /**
