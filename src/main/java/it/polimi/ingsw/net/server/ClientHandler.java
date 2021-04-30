@@ -105,6 +105,11 @@ public class ClientHandler implements Runnable{
      * @param request the request message to be sent.
      */
     protected void send(RequestMsg request){
+        if(request.getMessageType() == MessageType.GAME_MESSAGE){
+            System.out.println("[to ClientId: " + id + "]" + request.getMessageType() + " - " + request.getPayload().get("gameAction"));
+        } else {
+            System.out.println("[to ClientId: " + id + "]" + request.getMessageType());
+        }
         try {
             outputStream.writeObject(gson.toJson(request));
         } catch (IOException e) {

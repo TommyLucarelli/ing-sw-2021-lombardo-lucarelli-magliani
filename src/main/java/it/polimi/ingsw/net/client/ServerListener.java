@@ -15,7 +15,6 @@ import java.io.ObjectInputStream;
  */
 public class ServerListener implements Runnable {
     private final ObjectInputStream in;
-    private final ResponseManager responseManager;
     private final Client client;
 
     /**
@@ -26,7 +25,6 @@ public class ServerListener implements Runnable {
     protected ServerListener(Client client, ObjectInputStream in) {
         this.client = client;
         this.in = in;
-        this.responseManager = new ResponseManager();
     }
 
 
@@ -41,21 +39,10 @@ public class ServerListener implements Runnable {
              * then sends the response to the server.
              */
             while (true) {
-                try {
-                    serverRequest = gson.fromJson((String) in.readObject(), RequestMsg.class);
-                    response = responseManager.handleRequest(serverRequest);
-                    client.send(response);
-                } catch (QuitConnectionException e) {
-                    /*
-                     * Whenever the user decides to quit, an exception is thrown: the client sends a "quit" message to
-                     * the server, then proceeds to close the connection.
-                     */
-                    response = new ResponseMsg(serverRequest.getIdentifier(), MessageType.QUIT_MESSAGE, null);
-                    client.send(response);
-                    break;
-                }
+                serverRequest = gson.fromJson((String) in.readObject(), RequestMsg.class);
+                ResponseManager responseManager = new ResponseManager(client, serverRequest);
+                new Thread(responseManager).start();
             }
-            client.closeConnection();
         } catch (IOException e){
             System.err.println("IOException in ServerListener - communication with server failed");
         } catch (ClassNotFoundException e){

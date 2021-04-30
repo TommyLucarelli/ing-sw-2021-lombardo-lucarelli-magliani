@@ -2,47 +2,34 @@ package it.polimi.ingsw.core.controller;
 
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
+import it.polimi.ingsw.net.server.RequestManager;
 
 public class PlayerHandler {
     private final int playerId;
     private final String username;
     private final MainController controller;
-    private boolean activePlayer;
-    private boolean newUpdate;
-    private RequestMsg update;
+    private final RequestManager manager;
 
-    protected PlayerHandler(int playerId, String username, MainController controller){
+    protected PlayerHandler(int playerId, String username, MainController controller, RequestManager manager){
         this.username = username;
         this.playerId = playerId;
         this.controller = controller;
-        this.activePlayer = false;
-        this.newUpdate = false;
+        this.manager = manager;
     }
 
     public int getPlayerId() {
         return playerId;
     }
 
-    public RequestMsg nextMessage(ResponseMsg responseMsg){
-        if(newUpdate){
-            newUpdate = false;
-            return update;
-        } else {
-            return controller.handle(responseMsg);
-        }
+    protected void newMessage(RequestMsg msg){
+        manager.sendGameMessage(msg);
     }
 
-    public boolean isNewUpdate() {
-        return newUpdate;
-    }
-
-    public boolean isActivePlayer() {
-        return activePlayer;
+    public void handleMessage(ResponseMsg msg){
+        controller.handle(msg);
     }
 
     public void update(RequestMsg updateMsg){
-        this.update = updateMsg;
-        this.newUpdate = true;
-        activePlayer = updateMsg.getPayload().get("activePlayerId").getAsInt() == playerId;
+        newMessage(updateMsg);
     }
 }

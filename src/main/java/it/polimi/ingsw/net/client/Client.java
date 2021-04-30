@@ -17,7 +17,6 @@ import java.util.Timer;
 public class Client implements Runnable{
     private final String serverIp;
     private final int portNumber;
-    private final ResponseManager responseManager;
     private Socket server;
     private ObjectOutputStream out;
     private Timer pingTimer;
@@ -30,7 +29,6 @@ public class Client implements Runnable{
     public Client(String serverIp, int portNumber){
         this.serverIp = serverIp;
         this.portNumber = portNumber;
-        this.responseManager = new ResponseManager();
         this.pingTimer = new Timer();
     }
 

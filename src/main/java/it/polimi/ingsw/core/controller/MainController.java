@@ -6,7 +6,7 @@ import it.polimi.ingsw.net.msg.*;
 import it.polimi.ingsw.net.server.InvalidResponseException;
 
 import java.util.ArrayList;
-//TODO: bisogna decidere come passare il currentPlayer e come cambiarlo
+
 public class MainController{
     private Game currentGame;
     private int numPlayers;
