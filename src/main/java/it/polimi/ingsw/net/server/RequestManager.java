@@ -33,6 +33,11 @@ public class RequestManager {
      * @throws QuitConnectionException if the received message signals the end of the connection from the client.
      */
     public void handleRequest(ResponseMsg response) throws InvalidResponseException, QuitConnectionException {
+        if(response.getMessageType() == MessageType.GAME_MESSAGE){
+            System.out.println("[from ClientId: " + client.getId() + "]" + response.getMessageType() + " - " + response.getPayload().get("gameAction"));
+        } else {
+            System.out.println("[from ClientId: " + client.getId() + "]" + response.getMessageType());
+        }
         switch (response.getMessageType()){
             case QUIT_MESSAGE:
                 throw new QuitConnectionException();
@@ -49,8 +54,7 @@ public class RequestManager {
                 handleCreateGame(response.getPayload());
                 break;
             case GAME_MESSAGE:
-                if(playerHandler.isActivePlayer() || playerHandler.isNewUpdate())
-                    playerHandler.nextMessage(response);
+                playerHandler.handleMessage(response);
                 break;
             case JOIN_GAME:
                 handleJoinGame(response.getPayload());
@@ -138,12 +142,17 @@ public class RequestManager {
 
     private void handleCreateGame(JsonObject response) throws InvalidResponseException {
         Lobby lobby = new Lobby(response.get("input").getAsInt());
-        playerHandler = lobby.addPlayer(client.getId(), client.getName());
         ServerUtils.lobbies.add(lobby);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
         payload.addProperty("message", "Lobby created successfully! Lobby ID: " + lobby.getId() + " - Waiting for other players to join");
         client.send(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        playerHandler = lobby.addPlayer(client.getId(), client.getName(), this);
     }
 
     private void handleJoinGame(JsonObject response){
@@ -152,7 +161,7 @@ public class RequestManager {
         for(Lobby lobby: ServerUtils.lobbies){
             if(lobby.getId() == id){
                 try{
-                    playerHandler = lobby.addPlayer(client.getId(), client.getName());
+                    playerHandler = lobby.addPlayer(client.getId(), client.getName(), this);
                 } catch (InvalidResponseException e){
                     payload.addProperty("message", e.getErrorMessage());
                     client.send(new RequestMsg(MessageType.ERROR_MESSAGE, payload));
@@ -161,6 +170,7 @@ public class RequestManager {
                         " --- The game will be starting soon!");
                 payload.addProperty("gameAction", "WAIT_START_GAME");
                 client.send(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                return;
             }
         }
         payload.addProperty("message", "The specified lobby does not exist! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
@@ -170,6 +180,10 @@ public class RequestManager {
         expectedResponse.addProperty("max", 2);
         payload.add("expectedResponse", expectedResponse);
         client.send(new RequestMsg(MessageType.WELCOME_MESSAGE, payload));
+    }
+
+    public void sendGameMessage(RequestMsg msg){
+        client.send(msg);
     }
 
     /**
@@ -186,7 +200,4 @@ public class RequestManager {
         payload.add("expectedResponse", expectedResponse);
         client.send(new RequestMsg(MessageType.TESTING_MESSAGE, payload));
     }
-
-
-
 }

@@ -4,8 +4,10 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.*;
 import it.polimi.ingsw.net.server.InvalidResponseException;
+import it.polimi.ingsw.net.server.RequestManager;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MainController{
     private Game currentGame;
@@ -34,10 +36,10 @@ public class MainController{
         this.startHandler = new StartHandler(this);
     }
 
-    public PlayerHandler addPlayer(int id, String username) throws InvalidResponseException {
+    public PlayerHandler addPlayer(int id, String username, RequestManager manager) throws InvalidResponseException {
         if(players.size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
         else {
-            PlayerHandler player = new PlayerHandler(id, username,this);
+            PlayerHandler player = new PlayerHandler(id, username,this, manager);
             if(players.size() != 0){
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "SHORT_UPDATE");
@@ -67,40 +69,47 @@ public class MainController{
         return currentPlayer;
     }
 
-    public synchronized RequestMsg handle(ResponseMsg responseMsg){
+    public void handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
             case "START_GAME_COMMAND":
                 startHandler.startGame(responseMsg);
-
-            case "TESTING_MESSAGE":
-                return handleTestMessage(responseMsg.getPayload());
+                break;
             case "LEADER_ACTIVATION":
-                return turnHandler.leaderActivation(responseMsg);
+                turnHandler.leaderActivation(responseMsg);
+                break;
             case "LEADER_ACTION":
-                return leaderCardHandler.leaderAction(responseMsg);
+                leaderCardHandler.leaderAction(responseMsg);
+                break;
             case "MAIN_CHOICE":
-                return turnHandler.mainChoice(responseMsg);
+                turnHandler.mainChoice(responseMsg);
+                break;
             case "PICK":
-                return marketHandler.pick(responseMsg);
+                marketHandler.pick(responseMsg);
+                break;
             case "WAREHOUSE_PLACEMENT":
-                return marketHandler.warehousePlacement(responseMsg);
+                marketHandler.warehousePlacement(responseMsg);
+                break;
             case "CHOOSE_PRODUCTION":
-                return productionHandler.chooseProduction(responseMsg);
+                productionHandler.chooseProduction(responseMsg);
+                break;
             case "CHOOSE_DEVCARD":
-                return devCardHandler.chooseDevCard(responseMsg);
+                devCardHandler.chooseDevCard(responseMsg);
+                break;
             case "DEVCARD_PLACEMENT":
-                return devCardHandler.devCardPlacement(responseMsg);
+                devCardHandler.devCardPlacement(responseMsg);
+                break;
             case "COMEBACK":
-                return turnHandler.comeBack();
+                turnHandler.comeBack();
+                break;
+            default:
+                break;
         }
-        return null;
     }
 
     public void sendStartGameCommand() {
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
         payload.addProperty("gameAction", "START_GAME_COMMAND");
-        payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
