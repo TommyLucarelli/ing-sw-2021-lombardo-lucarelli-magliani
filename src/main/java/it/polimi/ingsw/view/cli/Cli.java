@@ -21,32 +21,44 @@ public class Cli {
         }
 
         public void printMarket() {
-            System.out.println("----------------------------------------" + "\n");
-            System.out.println("\t" + 1 + " \t" + 2 + "\t" + 3 + "\t" + 4 + "\n");
+            CompactMarket market = new CompactMarket();
+            int[] newMarket = {1,3,5,2,6,5,1,2,3,4,1,1};
+            market.setMarket(newMarket);
+
+            System.out.println("\t\t" + 1 + " \t\t" + 2 + "\t\t" + 3 + "\t\t" + 4 + "\n");
+            System.out.println("\t------------------------------------" + "\n");
+
             System.out.println("" + 1 + "   |\t");
             for (int i = 0; i < 12; i++) {
                 switch (market.getMarket()[i]) {
                     case 1:
                         System.out.println("\t" + Color.WHITE_BOLD + "●");
+                        break;
                     case 2:
                         System.out.println("\t" + Color.PURPLE_BOLD + "●");
+                        break;
                     case 3:
                         System.out.println("\t" + Color.YELLOW_BOLD + "●");
+                        break;
                     case 4:
                         System.out.println("\t" + Color.BLUE_BOLD + "●");
+                        break;
                     case 5:
                         System.out.println("\t" + Color.BLACK_BOLD + "●");
+                        break;
                     case 6:
                         System.out.println("\t" + Color.RED_BOLD + "●");
+                        break;
+                }
 
-                        if (i == 3) {
-                            System.out.println("\t|\n" + "------------------------------" + "\n" + 2 + "   |\t");
-                        } else if (i == 7) {
-                            System.out.println("\n" + "------------------------------" + "\n" + 3 + "   |\t");
-                        }
+                if (i == 3) {
+                    System.out.println("\t|\n" + "------------------------------" + "\n" + 2 + "   |\t");
+                } else if (i == 7) {
+                    System.out.println("\n" + "------------------------------" + "\n" + 3 + "   |\t");
                 }
             }
         }
+
 
         public void printDevCardSlot(){
             for (int i = 0; i < 3; i++) {
@@ -101,4 +113,3 @@ public class Cli {
         public static void clearScreen(){}
 
 }
-
