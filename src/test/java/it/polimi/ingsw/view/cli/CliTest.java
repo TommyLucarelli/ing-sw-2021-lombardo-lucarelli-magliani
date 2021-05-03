@@ -23,10 +23,14 @@ public class CliTest {
 
     @Test
     public void printWarehouse() {
+        Cli cli = new Cli();
+        cli.printWarehouse();
     }
 
     @Test
     public void printStrongbox() {
+        Cli cli = new Cli();
+        cli.printStrongbox();
     }
 
     @Test

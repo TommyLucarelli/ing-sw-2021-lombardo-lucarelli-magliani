@@ -5,7 +5,7 @@ public class CompactMarket {
     private char reserveMarble;
 
     public CompactMarket(){
-        setMarket(new int[12]);
+        setMarket(new int[13]);
     }
 
     public int[] getMarket() {

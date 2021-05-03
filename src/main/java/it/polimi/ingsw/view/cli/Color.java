@@ -22,6 +22,8 @@ public enum Color {
         HEAVENLY_BOLD("\033[1;36m"),   // HEAVENLY
         WHITE_BOLD("\033[1;37m");  // WHITE
 
+        static final String RESET = "\u001B[0m";
+
         private String color;
 
         Color(String color) {
