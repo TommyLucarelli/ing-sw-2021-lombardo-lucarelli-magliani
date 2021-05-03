@@ -21,13 +21,13 @@ public class LeaderCardHandler{
 
     public LeaderCardHandler(MainController controller){
         this.controller = controller;
-        check = true;
     }
 
 
     public RequestMsg leaderAction(ResponseMsg rm){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
         int vp;
+        check = false;
         JsonObject payload = new JsonObject();
         if (action) {
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
@@ -39,6 +39,9 @@ public class LeaderCardHandler{
         } else {
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
+            payload.addProperty("gameAction", "MAIN_CHOICE");
+            payload.addProperty("leader Card", 0);
+            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
         }
         if(check){
             if(controller.getCurrentGame().getTurn().isEndGame()){
@@ -48,6 +51,7 @@ public class LeaderCardHandler{
                 //costruzione e ritorno messaggio update
             } else{
                 payload.addProperty("gameAction", "MAIN_CHOICE");
+                payload.addProperty("leader Card", lc.getId());
                 return new RequestMsg(MessageType.GAME_MESSAGE, payload);
             }
         }else{

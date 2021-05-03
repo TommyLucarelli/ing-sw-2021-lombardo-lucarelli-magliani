@@ -45,6 +45,7 @@ public class TurnHandler {
             } else{
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "MAIN_CHOICE");
+                payload.addProperty("leader Card", 0);
                 return new RequestMsg(MessageType.GAME_MESSAGE, payload);
             }
         }
