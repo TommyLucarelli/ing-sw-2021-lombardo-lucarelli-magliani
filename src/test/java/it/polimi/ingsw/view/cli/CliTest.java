@@ -35,9 +35,13 @@ public class CliTest {
 
     @Test
     public void printFaithTrack() {
+        Cli cli = new Cli();
+        cli.printFaithTrack();
     }
 
     @Test
     public void printPersonalBoard() {
+        Cli cli = new Cli();
+        cli.printPersonalBoard();
     }
 }
