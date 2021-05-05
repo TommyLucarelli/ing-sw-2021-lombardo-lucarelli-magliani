@@ -68,33 +68,40 @@ public class MainController{
         return currentPlayer;
     }
 
-    public synchronized RequestMsg handle(ResponseMsg responseMsg){
+    public synchronized void handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
             case "START_GAME_COMMAND":
                 startHandler.startGame(responseMsg);
-
             case "TESTING_MESSAGE":
-                return handleTestMessage(responseMsg.getPayload());
+                handleTestMessage(responseMsg.getPayload());
+                return;
             case "LEADER_ACTIVATION":
-                return turnHandler.leaderActivation(responseMsg);
+                turnHandler.leaderActivation(responseMsg);
+                return;
             case "LEADER_ACTION":
-                return leaderCardHandler.leaderAction(responseMsg);
+                leaderCardHandler.leaderAction(responseMsg);
+                return;
             case "MAIN_CHOICE":
-                return turnHandler.mainChoice(responseMsg);
+                turnHandler.mainChoice(responseMsg);
+                return;
             case "PICK":
-                return marketHandler.pick(responseMsg);
+                marketHandler.pick(responseMsg);
+                return;
             case "WAREHOUSE_PLACEMENT":
-                return marketHandler.warehousePlacement(responseMsg);
+                marketHandler.warehousePlacement(responseMsg);
+                return;
             case "CHOOSE_PRODUCTION":
-                return productionHandler.chooseProduction(responseMsg);
+                productionHandler.chooseProduction(responseMsg);
+                return;
             case "CHOOSE_DEVCARD":
-                return devCardHandler.chooseDevCard(responseMsg);
+                devCardHandler.chooseDevCard(responseMsg);
+                return;
             case "DEVCARD_PLACEMENT":
-                return devCardHandler.devCardPlacement(responseMsg);
+                devCardHandler.devCardPlacement(responseMsg);
+                return;
             case "COMEBACK":
-                return turnHandler.comeBack();
+                turnHandler.comeBack();
         }
-        return null;
     }
 
     public void sendStartGameCommand() {

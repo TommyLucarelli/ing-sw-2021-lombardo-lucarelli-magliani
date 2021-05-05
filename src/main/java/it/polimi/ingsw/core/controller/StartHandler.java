@@ -13,13 +13,9 @@ public class StartHandler {
         this.controller = controller;
     }
     public RequestMsg startGame(ResponseMsg ms) {
+        //TODO: create game
         System.out.println("startGame");
         return controller.handleTestMessage(ms.getPayload());
-    }
-
-    public RequestMsg join(ResponseMsg ms) {
-        //costruzione e invio messaggio Short_Update
-        return null;
     }
 
     public RequestMsg startMatch(ResponseMsg ms) {
