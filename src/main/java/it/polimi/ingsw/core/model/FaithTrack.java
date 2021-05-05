@@ -1,5 +1,8 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -82,5 +85,17 @@ public class FaithTrack {
         }
         return cont;
     }
+
+    public JsonObject toCompactFaithTrack(){
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(favourCardsFlag);
+        payload.addProperty("index", position);
+        payload.addProperty("favCards", json);
+
+        return payload;
+    }
+
 
 }

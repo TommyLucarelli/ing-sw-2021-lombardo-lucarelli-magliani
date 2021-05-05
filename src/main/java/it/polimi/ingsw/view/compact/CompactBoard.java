@@ -5,12 +5,12 @@ import it.polimi.ingsw.core.model.Resource;
 public class CompactBoard {
     private int[] strongbox; //impostato come abbiamo fatto nel controller
     private Resource[] warehouse;
-    private int[][] devCardSlots;
+    private int[][] devCardSlots; //disposizione??
     private int[] leaderCards;
     private int[] leaderCardsActivated;
     private int faithTrackIndex;
     private boolean[] favCards;
-    //servono dei flags per warehouse estesa cazzi e mazzi (ci penso io)
+    //servono dei flags per specialAbility
 
     public CompactBoard(){
         setStrongbox(new int[4]);

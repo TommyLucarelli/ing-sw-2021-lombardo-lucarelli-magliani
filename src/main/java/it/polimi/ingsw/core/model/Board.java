@@ -1,4 +1,7 @@
 package it.polimi.ingsw.core.model;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -207,6 +210,25 @@ public class Board {
             cont+=d.numberOfDevCard();
         }
         return cont;
+    }
+
+    public JsonObject toCompactDevCardSlots(){
+        int[][] mat = new int[3][3]; //sono tutti 0 giusto??
+        ArrayList<DevCard> arr;
+
+        for(int i=0; i<devCardSlots.size(); i++) {
+            arr = devCardSlots.get(i).getSlot();
+            for (int j = 0; j < arr.size(); j++) {
+                mat[i][j] = arr.get(j).getId(); //da capire se la disposizione è giusta
+            }
+        }
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(mat);
+        payload.addProperty("devCardSlots", json);
+
+        return payload;
     }
 
 

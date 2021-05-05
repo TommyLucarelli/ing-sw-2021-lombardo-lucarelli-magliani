@@ -1,5 +1,8 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -92,6 +95,21 @@ public class Strongbox
      */
     public ArrayList<ResourceQty> getResources() {
         return (ArrayList<ResourceQty>) resources.clone();
+    }
+
+    public JsonObject toCompactStrongBox(){
+        int[] arr = new int[4];
+
+        for (int i = 0; i < resources.size(); i++) {
+            arr[resources.get(i).getResource().ordinal()] = resources.get(i).getQty();
+        }
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(arr);
+        payload.addProperty("strongbox", json);
+
+        return payload;
     }
 
 }

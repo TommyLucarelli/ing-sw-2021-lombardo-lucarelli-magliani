@@ -1,5 +1,8 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 /**
@@ -53,5 +56,17 @@ public class Warehouse
                 structure.set(i,Resource.ANY);
             }
         }
+    }
+
+    public JsonObject toCompactWarehouse(){
+        Resource[] arr = new Resource[10];
+        arr = structure.toArray(arr);
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(arr);
+        payload.addProperty("warehouse", json);
+
+        return payload;
     }
 }

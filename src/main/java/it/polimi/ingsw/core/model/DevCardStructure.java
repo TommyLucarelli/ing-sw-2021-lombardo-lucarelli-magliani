@@ -1,6 +1,7 @@
 package it.polimi.ingsw.core.model;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
@@ -67,6 +68,7 @@ public class DevCardStructure {
     public DevCard getTopCard(int row, int column){
         return (DevCard) structure[row][column].peek();
     }
+    //TODO: se non c'è la carta?
 
     /**
      * Pop method. Returns the card on top of the stack at the specified coordinates and removes it from the stack.
@@ -90,5 +92,22 @@ public class DevCardStructure {
         }
         str.append("}");
         return str.toString();
+    }
+
+    public JsonObject toCompactDevCardStructure(){
+        int[][] mat = new int[3][4];
+
+        for (int i = 0; i < 3; i++){
+            for (int ii = 0; ii < 4; ii++){
+                mat[3][4] = getTopCard(i,ii).getId();
+            }
+        }
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(mat);
+        payload.addProperty("structure", json);
+        //capire come serializza la matrice
+        return payload;
     }
 }
