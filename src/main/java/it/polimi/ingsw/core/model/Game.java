@@ -31,7 +31,7 @@ public class Game
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
-        this.turn = new Turn();
+        this.turn = new Turn(this.players);
         faithTrackMarker = 0;
     }
 
