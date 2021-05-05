@@ -1,10 +1,8 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.core.model.DevCard;
 import it.polimi.ingsw.view.compact.CompactBoard;
-import it.polimi.ingsw.view.compact.CompactDevCardStructure;
 import it.polimi.ingsw.view.compact.CompactMarket;
-import it.polimi.ingsw.view.compact.CompactPlayer;
 
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -25,10 +23,7 @@ public class Cli {
             //This method ask the PlayerID and set a connection with the server
         }
 
-        public void printMarket() {
-            CompactMarket market = new CompactMarket();
-            int[] newMarket = {1, 3, 5, 2, 6, 5, 1, 2, 3, 4, 1, 1, 4};
-            market.setMarket(newMarket);
+        public void printMarket(CompactMarket market) {
 
             StringBuilder string = new StringBuilder();
             string.append("\t\t" + 1 + " \t\t" + 2 + "\t\t" + 3 + "\t\t" + 4 + "\n");
@@ -61,7 +56,7 @@ public class Cli {
                 } else if (i == 7) {
                     string.append(Color.RESET + "|\n" + 3 + "\t|");
                 } else if (i == 11) {
-                    string.append("|\t");
+                    string.append(Color.RESET + "|\t");
                 }
             }
 
@@ -69,10 +64,98 @@ public class Cli {
             stream.print(string);
         }
 
+        public void printDevCard(DevCard devCard) {
+            StringBuilder string = new StringBuilder();
 
-    public void printDevCardSlot(){
+            string.append("\t┌───────────────────┐\n\t│  ");
+
+            switch (devCard.getFlag().getColour()) {
+                case YELLOW:
+                    string.append(Color.YELLOW_BOLD.color() + "▓  " + Color.RESET); break;
+                case BLUE:
+                    string.append(Color.HEAVENLY_BOLD.color() + "▓  " + Color.RESET); break;
+                case GREEN:
+                    string.append(Color.GREEN_BOLD.color() + "▓  " + Color.RESET); break;
+                case PURPLE:
+                    string.append(Color.PURPLE_BOLD.color() + "▓  " + Color.RESET); break;
+            }
+
+            for (int i = 0; i < devCard.getCost().size(); i++) {
+                int qty = devCard.getCost().get(i).getQty();
+                switch (devCard.getCost().get(i).getResource()) {
+                    case COIN:
+                        string.append(Color.YELLOW_BOLD.color() + qty + " $  " + Color.RESET);
+                        break;
+                    case SERVANT:
+                        string.append(Color.PURPLE_BOLD.color() + qty + " ■  " + Color.RESET);
+                        break;
+                    case SHIELD:
+                        string.append(Color.HEAVENLY_BOLD.color() + qty + " ◊  " + Color.RESET);
+                        break;
+                    case STONE:
+                        string.append(Color.WHITE_BOLD.color() + qty + " ⌂  " + Color.RESET);
+                        break;
+                }
+            }
+
+            switch (devCard.getFlag().getColour()) {
+                case YELLOW:
+                        string.append(Color.YELLOW_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                    case BLUE:
+                        string.append(Color.HEAVENLY_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                    case GREEN:
+                        string.append(Color.GREEN_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                    case PURPLE:
+                        string.append(Color.PURPLE_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+            }
+
+            for (int i = 0; i < devCard.getRecipe().getInputResources().size(); i++) {
+                int qtyIn = devCard.getRecipe().getInputResources().get(i).getQty();
+                switch (devCard.getRecipe().getInputResources().get(i).getResource()){
+                    case COIN:
+                        string.append(Color.YELLOW_BOLD.color() + qtyIn + " $  " + Color.RESET);
+                        break;
+                    case SERVANT:
+                        string.append(Color.PURPLE_BOLD.color() + qtyIn + " ■  " + Color.RESET);
+                        break;
+                    case SHIELD:
+                        string.append(Color.HEAVENLY_BOLD.color() + qtyIn + " ◊  " + Color.RESET);
+                        break;
+                    case STONE:
+                        string.append(Color.WHITE_BOLD.color() + qtyIn + " ⌂  " + Color.RESET);
+                        break;
+                }
+            }
+
+            string.append("\n\t│\t─►\t");
+
+            for (int i = 0; i < devCard.getRecipe().getOutputResources().size(); i++) {
+                int qty = devCard.getRecipe().getOutputResources().get(i).getQty();
+                switch (devCard.getRecipe().getOutputResources().get(i).getResource()){
+                    case COIN:
+                        string.append(Color.YELLOW_BOLD.color() + qty + " $  " + Color.RESET);
+                        break;
+                    case SERVANT:
+                        string.append(Color.PURPLE_BOLD.color() + qty + " ■  " + Color.RESET);
+                        break;
+                    case SHIELD:
+                        string.append(Color.HEAVENLY_BOLD.color() + qty + " ◊  " + Color.RESET);
+                        break;
+                    case STONE:
+                        string.append(Color.WHITE_BOLD.color() + qty + " ⌂  " + Color.RESET);
+                        break;
+                }
+            }
+
+            string.append("\n\t│\tVictoryPoints:" + devCard.getVictoryPoints() + "\t\t│\n");
+
+            string.append("\t└───────────────────┘");
+            stream.print(string);
+        }
+
+    public void printDevCardSlot(CompactBoard board){
         StringBuilder string = new StringBuilder();
-        CompactBoard board= new CompactBoard();
+
             for (int i = 0; i < 3; i++) {
                 string.append("" + board.getDevCardSlots()[i][0]);
                 string.append("" + board.getDevCardSlots()[i][1]);
@@ -88,10 +171,7 @@ public class Cli {
             }
         }
 
-        public void printWarehouse(){
-            CompactBoard board = new CompactBoard();
-            Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
-            board.setWarehouse(resources);
+        public void printWarehouse(CompactBoard board){
             StringBuilder string = new StringBuilder();
 
             string.append("\n" + Color.GREEN_BOLD.color() + "\t\t\t\t\tWAREHOUSE\n");
@@ -127,10 +207,7 @@ public class Cli {
             stream.print(string);
         }
 
-        public void printStrongbox(){
-            CompactBoard board = new CompactBoard();
-            int[] strongbox = {0,1,3,1};
-            board.setStrongbox(strongbox);
+        public void printStrongbox(CompactBoard board){
 
             StringBuilder string = new StringBuilder();
             string.append("\n" + Color.GREEN_BOLD.color() + "\t\t\t\t\tSTRONGBOX\n");
@@ -167,10 +244,8 @@ public class Cli {
             stream.print(string);
         }
 
-        public void printFaithTrack(){
+        public void printFaithTrack(CompactBoard board){
             StringBuilder string = new StringBuilder();
-            CompactBoard board = new CompactBoard();
-            board.setFaithTrackIndex(10);
 
             string.append(Color.YELLOW_BOLD.color() + "{●} = Victory Points Space\t" + Color.RESET + Color.LIME.color() + "{†} = Faith Marker\n" + Color.RESET
                             + Color.HEAVENLY_BOLD.color() + "{☼} = Pope's Favor tiles\t" + Color.RESET + Color.RED_BOLD.color() + "{♣} = Pope Space\t" + Color.RESET
@@ -198,14 +273,17 @@ public class Cli {
                     string.append(Color.YELLOW_BOLD.color()+"{●" + Color.RED_BOLD.color() + " ♣}" + Color.PURPLE_BOLD.color() +" |" +Color.RESET);
                 }
             }
-            string.append("\n\t\t\t\t\t" + Color.PURPLE_BOLD.color() + "|\t\t\t\t  |\t\t\t   |\t\t\t\t\t\t|\t\t  |\t\t\t\t\t\t\t\t   |");
-
+            string.append("\n\t\t\t\t\t" + Color.PURPLE_BOLD.color() + "└────┐ \t\t ┌────┘\t\t\t   └──────┐\t\t\t┌───────┘\t\t  └──────────┐\t\t\t┌──────────┘");
+            string.append("\n\t\t\t\t\t     " + Color.PURPLE_BOLD.color() + "|  " + Color.HEAVENLY_BOLD.color() + "{☼}" + Color.PURPLE_BOLD.color() +
+                            "  |\t\t\t\t\t\t  |  " + Color.HEAVENLY_BOLD.color() + " {☼}  " + Color.PURPLE_BOLD.color() + " |\t\t\t\t\t\t\t |   " +
+                    Color.HEAVENLY_BOLD.color() + "{☼}" + Color.PURPLE_BOLD.color() + "   |" + "\n\t\t\t\t\t     └───────┘" + "\t\t\t\t\t\t  └─────────┘" +
+                            "\t\t\t\t\t\t\t └──────────┘");
             stream.print(string);
         }
 
-        public void printPersonalBoard(){
-            printWarehouse();
-            printStrongbox();
+        public void printPersonalBoard(CompactBoard board){
+            printWarehouse(board);
+            printStrongbox(board);
         }
 
         public void changePlayerTurn(){
