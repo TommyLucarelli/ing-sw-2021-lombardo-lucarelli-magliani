@@ -121,11 +121,20 @@ public class MainController{
 
     public void notifyAllPlayers(RequestMsg updateMsg){
         for(PlayerHandler player: players){
-            player.update(updateMsg);
+            player.newMessage(updateMsg);
         }
     }
 
     public void notifyPlayer(PlayerHandler player, RequestMsg updateMsg){
-        player.update(updateMsg);
+        player.newMessage(updateMsg);
+    }
+
+    public void notifyCurrentPlayer(RequestMsg updateMsg){
+        for(PlayerHandler player: players){
+            if(player.getPlayerId() == currentPlayer.getPlayerID()) {
+                player.newMessage(updateMsg);
+                break;
+            }
+        }
     }
 }
