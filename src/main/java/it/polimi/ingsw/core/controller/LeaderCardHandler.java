@@ -8,15 +8,12 @@ import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class LeaderCardHandler{
 
     private MainController controller;
-    private boolean action;
     private boolean check;
-    private int lcID;
     private LeaderCard lc;
 
     public LeaderCardHandler(MainController controller){
@@ -24,8 +21,10 @@ public class LeaderCardHandler{
     }
 
 
-    public RequestMsg leaderAction(ResponseMsg rm){
+    public void leaderAction(ResponseMsg ms){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
+        boolean action = ms.getPayload().getAsBoolean();
+        int lcID = ms.getPayload().getAsInt();
         int vp;
         check = false;
         JsonObject payload = new JsonObject();
@@ -41,32 +40,32 @@ public class LeaderCardHandler{
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
             payload.addProperty("gameAction", "MAIN_CHOICE");
             payload.addProperty("leader Card", 0);
-            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            return;
         }
         if(check){
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
                 if(controller.getCurrentGame().getTurn().isLastTurn())
                     vp = controller.getCurrentPlayer().getBoard().victoryPoints();
-                //costruzione e ritorno messaggio update
+                //TODO: messaggio update
             } else{
                 payload.addProperty("gameAction", "MAIN_CHOICE");
                 payload.addProperty("leader Card", lc.getId());
-                return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         }else{
             payload.addProperty("gameAction", "LEADER_ACTION");
-            return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
 
-         return null;
     }
 
     protected boolean checkRequirements(LeaderCard lc){
         int check1, check2;
         Resource r;
         ArrayList<Flag> flags;
-        int resPlayer[] ;
+        int resPlayer[];
         switch (lc.getSpecialAbility().getAbilityType()){
             case 0: //controllo nel warehouse e nello strongbox se ho 5 risorse del tipo r
                 r = lc.getRequiredResources().get(0).getResource();

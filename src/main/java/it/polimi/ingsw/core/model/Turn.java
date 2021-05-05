@@ -1,6 +1,8 @@
 package it.polimi.ingsw.core.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Class to save the state of the turn. Also have a method that compute the next player
@@ -12,12 +14,11 @@ public class Turn {
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare
 
+    public Turn(ArrayList<Player> players){
+        this.players = players;
+    }
     public int getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
     }
 
     public boolean isLastTurn() {
@@ -35,5 +36,17 @@ public class Turn {
     public void setEndGame(boolean endGame) {
         this.endGame = endGame;
     }
+
+
+    public Player nextPlayer(){
+        int x;
+        x = currentPlayer+1;
+        if(x==4)
+            x=0;
+        currentPlayer = x;
+        return  players.get(x);
+    }
+
+
 }
 

@@ -69,26 +69,7 @@ Server --> Client
 ```
 messageType: MessageType.GAME_MESSAGE
 payload: {
-    "gameAction": CHOOSE_PRODUCTION,
-    "productions": [
-        {
-            "startResources": [
-                {
-                    "resource": //the type of the resource
-                    "qty": //the required quantity 
-                },
-                ...
-            ],
-            "endResources": [
-                {
-                    "resource": //the type of the resource
-                    "qty": //the required quantity 
-                },
-                ...
-            ]
-        },
-        ...
-    ]
+    "gameAction": CHOOSE_PRODUCTION
 }
 ```
 

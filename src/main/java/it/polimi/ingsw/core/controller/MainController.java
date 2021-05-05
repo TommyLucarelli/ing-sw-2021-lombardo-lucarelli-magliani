@@ -6,9 +6,11 @@ import it.polimi.ingsw.net.msg.*;
 import it.polimi.ingsw.net.server.InvalidResponseException;
 import it.polimi.ingsw.net.server.RequestManager;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainController{
+    private int id;
     private Game currentGame;
     private int numPlayers;
     private Player currentPlayer;
@@ -22,8 +24,9 @@ public class MainController{
     private StartHandler startHandler;
 
 
-    public MainController(int numPlayers)
+    public MainController(int id, int numPlayers)
     {
+        this.id = id;
         this.numPlayers = numPlayers;
         this.gameInProgress = false;
         this.players = new ArrayList<>();
@@ -68,33 +71,51 @@ public class MainController{
         return currentPlayer;
     }
 
-    public synchronized RequestMsg handle(ResponseMsg responseMsg){
+    public synchronized void handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
             case "START_GAME_COMMAND":
                 startHandler.startGame(responseMsg);
-
             case "TESTING_MESSAGE":
-                return handleTestMessage(responseMsg.getPayload());
+                handleTestMessage(responseMsg.getPayload());
+                return;
             case "LEADER_ACTIVATION":
-                return turnHandler.leaderActivation(responseMsg);
+                turnHandler.leaderActivation(responseMsg);
+                return;
             case "LEADER_ACTION":
-                return leaderCardHandler.leaderAction(responseMsg);
+                leaderCardHandler.leaderAction(responseMsg);
+                return;
             case "MAIN_CHOICE":
-                return turnHandler.mainChoice(responseMsg);
+                turnHandler.mainChoice(responseMsg);
+                return;
             case "PICK":
-                return marketHandler.pick(responseMsg);
+                marketHandler.pick(responseMsg);
+                return;
             case "WAREHOUSE_PLACEMENT":
-                return marketHandler.warehousePlacement(responseMsg);
+                marketHandler.warehousePlacement(responseMsg);
+                return;
             case "CHOOSE_PRODUCTION":
-                return productionHandler.chooseProduction(responseMsg);
+                productionHandler.chooseProduction(responseMsg);
+                return;
             case "CHOOSE_DEVCARD":
-                return devCardHandler.chooseDevCard(responseMsg);
+                devCardHandler.chooseDevCard(responseMsg);
+                return;
             case "DEVCARD_PLACEMENT":
-                return devCardHandler.devCardPlacement(responseMsg);
+                devCardHandler.devCardPlacement(responseMsg);
+                return;
             case "COMEBACK":
-                return turnHandler.comeBack();
+                turnHandler.comeBack();
         }
-        return null;
+    }
+
+    private void startGame(){
+        ArrayList<String> usernames = new ArrayList<>();
+        for(PlayerHandler player: players) usernames.add(player.getUsername());
+        try {
+            currentGame = new Game(this.id, usernames);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //startHandler.startMatch()
     }
 
     public void sendStartGameCommand() {
@@ -121,11 +142,20 @@ public class MainController{
 
     public void notifyAllPlayers(RequestMsg updateMsg){
         for(PlayerHandler player: players){
-            player.update(updateMsg);
+            player.newMessage(updateMsg);
         }
     }
 
     public void notifyPlayer(PlayerHandler player, RequestMsg updateMsg){
-        player.update(updateMsg);
+        player.newMessage(updateMsg);
+    }
+
+    public void notifyCurrentPlayer(RequestMsg updateMsg){
+        for(PlayerHandler player: players){
+            if(player.getPlayerId() == currentPlayer.getPlayerID()) {
+                player.newMessage(updateMsg);
+                break;
+            }
+        }
     }
 }

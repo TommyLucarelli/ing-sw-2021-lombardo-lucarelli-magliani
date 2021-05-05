@@ -11,7 +11,6 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
@@ -38,25 +37,23 @@ public class MarketHandler {
         blackList = new ArrayList<>();
     }
 
-    public RequestMsg pick(ResponseMsg ms){
+    public void pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
-        int number = ms.getPayload().get("line").getAsInt();
+        int number = ms.getPayload().get("number").getAsInt();
 
-        //risposta di pick con scelta colonna o riga del mercato e il valore x
         if(choice.equals("column"))
             resources = market.updateColumnAndGetResources(number);
         else
             resources = market.updateLineAndGetResources(number);
 
-        //nel messaggio c'è anche la risorsa speciale con cui vuole cambiare la bianca "r"
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
             Gson gson = new Gson();
             String json = ms.getPayload().get("resource").getAsString();
             r = gson.fromJson(json, Resource.class);
-            for (Resource resource : resources) {
-                    if (resource == Resource.ANY)
-                        resource = r;
-                }
+            for (int i = 0; i < resources.size(); i++) {
+                if (resources.get(i) == Resource.ANY)
+                    resources.set(i,r);
+            }
             }
         resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
 
@@ -68,17 +65,15 @@ public class MarketHandler {
             }
         }
 
-        //preparazione messaggio placement con array risorse
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
         Gson gson = new Gson();
         String json = gson.toJson(resources);
-        payload.addProperty("resources array", json);
-        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        payload.addProperty("resourcesArray", json);
+        controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
-    public RequestMsg warehousePlacement(ResponseMsg ms){
-        //arrivo ARRAY di RESOURCES con il piazzamento int numero risorse scartate
+    public void warehousePlacement(ResponseMsg ms){
         faithP2 = ms.getPayload().get("discarded").getAsInt();
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
@@ -87,18 +82,20 @@ public class MarketHandler {
         if(checkPlacement(placed)){
             //aggiornamento struttura warehouse
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
-
             //aggiornamento punti fede
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
             //prep messaggio ShortUpdate / leader activation
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "LEADER_ACTIVATION");
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
             json = gson.toJson(resources);
             payload.addProperty("resources array", json);
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
 
-        return null;
     }
 
     /**

@@ -13,7 +13,7 @@ public class Lobby {
     public Lobby(int lobbySize){
         id = (int)Math.floor(Math.random()*(99999-10000+1)+10000);
         this.lobbySize = lobbySize;
-        this.controller = new MainController(lobbySize);
+        this.controller = new MainController(id, lobbySize);
     }
 
     public int getId() {

@@ -21,15 +21,15 @@ public class PlayerHandler {
         return playerId;
     }
 
-    protected void newMessage(RequestMsg msg){
-        manager.sendGameMessage(msg);
+    public String getUsername() {
+        return username;
     }
 
     public void handleMessage(ResponseMsg msg){
         controller.handle(msg);
     }
 
-    public void update(RequestMsg updateMsg){
-        newMessage(updateMsg);
+    public void newMessage(RequestMsg updateMsg){
+        manager.sendGameMessage(updateMsg);
     }
 }

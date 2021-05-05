@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.Board;
-import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.core.model.Recipe;
 import it.polimi.ingsw.core.model.ResourceQty;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -22,11 +23,8 @@ public class ProductionHandler {
     }
 
 
-    public RequestMsg chooseProduction(ResponseMsg ms){
-        //ms è un array list di integer da 1 a 6 , rappresentatnti gli slot di attivazione
-        //più un recipe per la prod base e due ResourceQty per le special ability
+    public void chooseProduction(ResponseMsg ms){
         boolean check = true;
-
         ArrayList<ResourceQty> inputResources = new ArrayList<>();
         ArrayList<ResourceQty> specialResources = new ArrayList<>();
         ArrayList<ResourceQty> outputResources= new ArrayList<>();
@@ -36,7 +34,7 @@ public class ProductionHandler {
         int[] copyPersonalResources = board.personalResQtyToArray();
 
         //Resources Array as Response
-        ArrayList<Integer> response = new ArrayList<>();
+        ArrayList<Integer> response;
         Gson gson = new Gson();
         String json = ms.getPayload().get("response").getAsString();
         Type collectionType = new TypeToken<ArrayList<Integer>>(){}.getType();
@@ -44,10 +42,13 @@ public class ProductionHandler {
 
         for(int i=0; i<response.size(); i++){
             if(response.get(i)==1){
-                //recipe mex
-                //inputResource = recipeBasicProduction.getInputResources();
+                Recipe recipeBasicProduction;
+                Gson gson2 = new Gson();
+                String json2 = ms.getPayload().get("basicProduction").getAsString();
+                recipeBasicProduction = gson.fromJson(json, Recipe.class);
+                inputResources = recipeBasicProduction.getInputResources();
                 personalResources = reduceResource(inputResources, personalResources);
-                //outputResources.add(recipeBasicProduction.getOutputResources());
+                outputResources.addAll(recipeBasicProduction.getOutputResources());
             }else if(response.get(i)>=2 && response.get(i)<5){
                 //recipe devcard
                 inputResources = board.getDevCardSlot(response.get(i)-2).getTopCard().getRecipe().getInputResources();
@@ -56,9 +57,13 @@ public class ProductionHandler {
             }else{
                 //se sono attivate vedi input res
                 if(board.isActivated(i+1) != 0){
+                    ResourceQty rq;
+                    Gson gson2 = new Gson();
+                    String json2 = ms.getPayload().get("specialProduction"+(i-5)).getAsString(); //special ability 1 o 2
+                    rq = gson.fromJson(json, ResourceQty.class);
                     specialResources.add(new ResourceQty(board.getLeader(board.isActivated(i+1)).getSpecialAbility().getAbilityResource(),1));
                     personalResources = reduceResource(specialResources, personalResources);
-                    outputResources.addAll(specialResources);
+                    outputResources.add(rq);
                 }else{
                     check = false;
                     break;
@@ -79,10 +84,15 @@ public class ProductionHandler {
             //aggiunta risorse della produzione
             board.getStrongbox().addResource(outputResources);
             //costruzione messaggio ShortUpdate / LeaderActivation
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "LEADER_ACTIVATION");
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{
            //costruzione messaggio choose_production e invio
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
-        return null;
     }
 
     protected int[] reduceResource(ArrayList<ResourceQty> inputResources, int[] personalResources){

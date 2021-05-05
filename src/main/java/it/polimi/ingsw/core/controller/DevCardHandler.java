@@ -1,6 +1,9 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
+import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -19,11 +22,12 @@ public class DevCardHandler{
     }
 
 
-    public RequestMsg chooseDevCard(ResponseMsg rm) {
+    public void chooseDevCard(ResponseMsg ms) {
         board = controller.getCurrentPlayer().getBoard();
         ArrayList<Integer> checkPlace;
-        int i=0,j=0;
         //arriva il messaggio dal client con la scelta della carta sviluppo come pos (i,j) nel devcardstructure
+        int i = ms.getPayload().get("line").getAsInt();
+        int j = ms.getPayload().get("column").getAsInt();
         devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i,j);
         costArray = devCard.resQtyToArray();
         discount(4);
@@ -34,24 +38,32 @@ public class DevCardHandler{
             board.getStrongbox().decreaseResource(costArray);
             devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i,j);
             //preparazione invio messaggio placement con payload devCardPlacement
+            Gson gson = new Gson();
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
+            String json = gson.toJson(checkPlace);
+            payload.addProperty("freeSpots", json);
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else {
-            //preparazione e invio messaggio CHOOSE_DEVCARD
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
-        return null;
     }
 
-    public RequestMsg devCardPlacement(ResponseMsg ms){
-        int index = 0;
+    public void devCardPlacement(ResponseMsg ms){
         //arriva posizione di dove mettere la carta nel devcard slot
+        int index = ms.getPayload().get("index").getAsInt();
         board.getDevCardSlot(index).addCard(devCard);
         devCard = null;
-        //controllo 7 carte ed eventualmente messaggio UPDATE
+        //controllo 7 carte ed eventualmente messaggio UPDATE -> fine turno
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
             controller.getCurrentGame().getTurn().setLastTurn(true);
-            //invio messaggio update
+            //TODO: messaggio update
         }
-        //costruzione messagio short update o leader_Activation
-        return null;
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "LEADER_ACTIVATION");
+        controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
     /**
