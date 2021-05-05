@@ -1,5 +1,8 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -155,6 +158,25 @@ public class Market {
      */
     public Marble getMarble(int row, int column){
         return structure[row][column];
+    }
+
+    public JsonObject toCompactMarket(){
+        int [] compact = new int[12];
+        int x = reserveMarble.ordinal();
+
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                compact[i+j] = structure[i][j].ordinal();
+            }
+        }
+
+        Gson gson = new Gson();
+        JsonObject payload = new JsonObject();
+        String json = gson.toJson(compact);
+        payload.addProperty("structure", json);
+        payload.addProperty("reserveMarble", x);
+
+        return payload;
     }
 
 }
