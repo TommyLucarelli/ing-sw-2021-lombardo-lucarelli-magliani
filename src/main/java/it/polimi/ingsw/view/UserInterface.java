@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view;
 
-public interface UserInterface {
-    public void chooseStartLeaders();
+import it.polimi.ingsw.net.msg.RequestMsg;
 
-    public void chooseStartResources();
+public interface UserInterface {
+
 }

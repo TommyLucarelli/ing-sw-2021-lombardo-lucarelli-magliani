@@ -6,9 +6,11 @@ import it.polimi.ingsw.net.msg.*;
 import it.polimi.ingsw.net.server.InvalidResponseException;
 import it.polimi.ingsw.net.server.RequestManager;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainController{
+    private int id;
     private Game currentGame;
     private int numPlayers;
     private Player currentPlayer;
@@ -22,8 +24,9 @@ public class MainController{
     private StartHandler startHandler;
 
 
-    public MainController(int numPlayers)
+    public MainController(int id, int numPlayers)
     {
+        this.id = id;
         this.numPlayers = numPlayers;
         this.gameInProgress = false;
         this.players = new ArrayList<>();
@@ -102,6 +105,17 @@ public class MainController{
             case "COMEBACK":
                 turnHandler.comeBack();
         }
+    }
+
+    private void startGame(){
+        ArrayList<String> usernames = new ArrayList<>();
+        for(PlayerHandler player: players) usernames.add(player.getUsername());
+        try {
+            currentGame = new Game(this.id, usernames);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //startHandler.startMatch()
     }
 
     public void sendStartGameCommand() {

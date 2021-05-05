@@ -3,6 +3,7 @@ package it.polimi.ingsw.net.client;
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.ResponseMsg;
+import it.polimi.ingsw.view.UserInterface;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,6 +19,7 @@ public class Client implements Runnable{
     private final String serverIp;
     private final int portNumber;
     private Socket server;
+    private UserInterface ui;
     private ObjectOutputStream out;
     private Timer pingTimer;
 
