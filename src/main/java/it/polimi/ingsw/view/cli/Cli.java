@@ -26,8 +26,8 @@ public class Cli {
         public void printMarket(CompactMarket market) {
 
             StringBuilder string = new StringBuilder();
-            string.append("\t\t" + 1 + " \t\t" + 2 + "\t\t" + 3 + "\t\t" + 4 + "\n");
-            string.append("\t -------------------------------\n" + 1 + "\t|");
+            string.append("\t\t").append(1).append(" \t\t").append(2).append("\t\t").append(3).append("\t\t").append(4).append("\n");
+            string.append("\t -------------------------------\n").append(1).append("\t|");
 
             for (int i = 0; i < 13; i++) {
                 switch (market.getMarket()[i]) {
