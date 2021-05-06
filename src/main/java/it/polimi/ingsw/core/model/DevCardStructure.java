@@ -65,10 +65,10 @@ public class DevCardStructure {
      * @param column the column of the stack
      * @return the DevCard at the specified coordinates.
      */
-    public DevCard getTopCard(int row, int column){
+    public DevCard getTopCard(int row, int column) throws IndexOutOfBoundsException{
+        if(structure[row][column].size() == 0) throw new IndexOutOfBoundsException();
         return (DevCard) structure[row][column].peek();
     }
-    //TODO: se non c'è la carta?
 
     /**
      * Pop method. Returns the card on top of the stack at the specified coordinates and removes it from the stack.
@@ -76,7 +76,8 @@ public class DevCardStructure {
      * @param column the column of the stack
      * @return the DevCard at the specified coordinates.
      */
-    public DevCard drawCard(int row, int column){
+    public DevCard drawCard(int row, int column) throws IndexOutOfBoundsException{
+        if(structure[row][column].size() == 0) throw new IndexOutOfBoundsException();
         return (DevCard) structure[row][column].pop();
     }
 
@@ -99,7 +100,11 @@ public class DevCardStructure {
 
         for (int i = 0; i < 3; i++){
             for (int ii = 0; ii < 4; ii++){
-                mat[3][4] = getTopCard(i,ii).getId();
+                try{
+                    mat[i][ii] = getTopCard(i,ii).getId();
+                } catch (IndexOutOfBoundsException e){
+                    mat[i][ii] = 0;
+                }
             }
         }
 
