@@ -15,6 +15,8 @@ import java.util.List;
  * This class contains the Development and Leader cards present in the game. It will be used to retrieve the details
  * about a specific leader/development card sent by the server since the only information passed in the message will be
  * the card ID.
+ *
+ * @author Giacomo Lombardo
  */
 public class CardCollector {
     private final List<DevCard> devCards;
