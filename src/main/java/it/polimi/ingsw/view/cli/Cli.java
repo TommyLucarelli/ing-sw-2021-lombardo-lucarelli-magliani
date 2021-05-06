@@ -32,35 +32,36 @@ public class Cli {
             for (int i = 0; i < 13; i++) {
                 switch (market.getMarket()[i]) {
                     case 1:
-                        string.append("\t" + Color.WHITE_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.WHITE_BOLD.color()).append("●\t");
+
                         break;
                     case 2:
-                        string.append("\t" + Color.PURPLE_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("●\t");
                         break;
                     case 3:
-                        string.append("\t" + Color.YELLOW_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.YELLOW_BOLD.color()).append("●\t");
                         break;
                     case 4:
-                        string.append("\t" + Color.BLUE_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.BLUE_BOLD.color()).append("●\t");
                         break;
                     case 5:
-                        string.append("\t" + Color.BLACK_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.BLACK_BOLD.color()).append("●\t");
                         break;
                     case 6:
-                        string.append("\t" + Color.RED_BOLD.color() + "●\t");
+                        string.append("\t").append(Color.RED_BOLD.color()).append("●\t");
                         break;
             }
 
                 if (i == 3) {
-                    string.append(Color.RESET + "|\n" + 2 + "\t|");
+                    string.append(Color.RESET).append("|\n").append(2).append("\t|");
                 } else if (i == 7) {
-                    string.append(Color.RESET + "|\n" + 3 + "\t|");
+                    string.append(Color.RESET).append("|\n").append(3).append("\t|");
                 } else if (i == 11) {
-                    string.append(Color.RESET + "|\t");
+                    string.append(Color.RESET).append("|\t");
                 }
             }
 
-            string.append(Color.RESET + "\n\t -------------------------------");
+            string.append(Color.RESET).append("\n\t -------------------------------");
             stream.print(string);
         }
 
@@ -71,58 +72,58 @@ public class Cli {
 
             switch (devCard.getFlag().getColour()) {
                 case YELLOW:
-                    string.append(Color.YELLOW_BOLD.color() + "▓  " + Color.RESET); break;
+                    string.append(Color.YELLOW_BOLD.color()).append("▓  ").append(Color.RESET); break;
                 case BLUE:
-                    string.append(Color.HEAVENLY_BOLD.color() + "▓  " + Color.RESET); break;
+                    string.append(Color.HEAVENLY_BOLD.color()).append("▓  ").append(Color.RESET); break;
                 case GREEN:
-                    string.append(Color.GREEN_BOLD.color() + "▓  " + Color.RESET); break;
+                    string.append(Color.GREEN_BOLD.color()).append("▓  ").append(Color.RESET); break;
                 case PURPLE:
-                    string.append(Color.PURPLE_BOLD.color() + "▓  " + Color.RESET); break;
+                    string.append(Color.PURPLE_BOLD.color()).append("▓  ").append(Color.RESET); break;
             }
 
             for (int i = 0; i < devCard.getCost().size(); i++) {
                 int qty = devCard.getCost().get(i).getQty();
                 switch (devCard.getCost().get(i).getResource()) {
                     case COIN:
-                        string.append(Color.YELLOW_BOLD.color() + qty + " $  " + Color.RESET);
+                        string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $  ").append(Color.RESET);
                         break;
                     case SERVANT:
-                        string.append(Color.PURPLE_BOLD.color() + qty + " ■  " + Color.RESET);
+                        string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■  ").append(Color.RESET);
                         break;
                     case SHIELD:
-                        string.append(Color.HEAVENLY_BOLD.color() + qty + " ◊  " + Color.RESET);
+                        string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊  ").append(Color.RESET);
                         break;
                     case STONE:
-                        string.append(Color.WHITE_BOLD.color() + qty + " ⌂  " + Color.RESET);
+                        string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂  ").append(Color.RESET);
                         break;
                 }
             }
 
             switch (devCard.getFlag().getColour()) {
                 case YELLOW:
-                        string.append(Color.YELLOW_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                    string.append(Color.YELLOW_BOLD.color()).append("▓ \t").append(Color.RESET).append("│\n\t|\n\t│\t"); break;
                     case BLUE:
-                        string.append(Color.HEAVENLY_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                        string.append(Color.HEAVENLY_BOLD.color()).append("▓ \t").append(Color.RESET).append("│\n\t|\n\t│\t"); break;
                     case GREEN:
-                        string.append(Color.GREEN_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                        string.append(Color.GREEN_BOLD.color()).append("▓ \t").append(Color.RESET).append("│\n\t|\n\t│\t"); break;
                     case PURPLE:
-                        string.append(Color.PURPLE_BOLD.color() + "▓ \t" + Color.RESET + "│\n\t|\n\t│\t"); break;
+                        string.append(Color.PURPLE_BOLD.color()).append("▓ \t").append(Color.RESET).append("│\n\t|\n\t│\t"); break;
             }
 
             for (int i = 0; i < devCard.getRecipe().getInputResources().size(); i++) {
                 int qtyIn = devCard.getRecipe().getInputResources().get(i).getQty();
                 switch (devCard.getRecipe().getInputResources().get(i).getResource()){
                     case COIN:
-                        string.append(Color.YELLOW_BOLD.color() + qtyIn + " $  " + Color.RESET);
+                        string.append(Color.YELLOW_BOLD.color()).append(qtyIn).append(" $  ").append(Color.RESET);
                         break;
                     case SERVANT:
-                        string.append(Color.PURPLE_BOLD.color() + qtyIn + " ■  " + Color.RESET);
+                        string.append(Color.PURPLE_BOLD.color()).append(qtyIn).append(" ■  ").append(Color.RESET);
                         break;
                     case SHIELD:
-                        string.append(Color.HEAVENLY_BOLD.color() + qtyIn + " ◊  " + Color.RESET);
+                        string.append(Color.HEAVENLY_BOLD.color()).append(qtyIn).append(" ◊  ").append(Color.RESET);
                         break;
                     case STONE:
-                        string.append(Color.WHITE_BOLD.color() + qtyIn + " ⌂  " + Color.RESET);
+                        string.append(Color.WHITE_BOLD.color()).append(qtyIn).append(" ⌂  ").append(Color.RESET);
                         break;
                 }
             }
@@ -133,21 +134,21 @@ public class Cli {
                 int qty = devCard.getRecipe().getOutputResources().get(i).getQty();
                 switch (devCard.getRecipe().getOutputResources().get(i).getResource()){
                     case COIN:
-                        string.append(Color.YELLOW_BOLD.color() + qty + " $  " + Color.RESET);
+                        string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $  ").append(Color.RESET);
                         break;
                     case SERVANT:
-                        string.append(Color.PURPLE_BOLD.color() + qty + " ■  " + Color.RESET);
+                        string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■  ").append(Color.RESET);
                         break;
                     case SHIELD:
-                        string.append(Color.HEAVENLY_BOLD.color() + qty + " ◊  " + Color.RESET);
+                        string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊  ").append(Color.RESET);
                         break;
                     case STONE:
-                        string.append(Color.WHITE_BOLD.color() + qty + " ⌂  " + Color.RESET);
+                        string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂  ").append(Color.RESET);
                         break;
                 }
             }
 
-            string.append("\n\t│\tVictoryPoints:" + devCard.getVictoryPoints() + "\t\t│\n");
+            string.append("\n\t│\tVictoryPoints:").append(devCard.getVictoryPoints()).append("\t\t│\n");
 
             string.append("\t└───────────────────┘");
             stream.print(string);
@@ -157,9 +158,9 @@ public class Cli {
         StringBuilder string = new StringBuilder();
 
             for (int i = 0; i < 3; i++) {
-                string.append("" + board.getDevCardSlots()[i][0]);
-                string.append("" + board.getDevCardSlots()[i][1]);
-                string.append("" + board.getDevCardSlots()[i][2]);
+                string.append(board.getDevCardSlots()[i][0]);
+                string.append(board.getDevCardSlots()[i][1]);
+                string.append(board.getDevCardSlots()[i][2]);
             }
         }
 
@@ -174,22 +175,22 @@ public class Cli {
         public void printWarehouse(CompactBoard board){
             StringBuilder string = new StringBuilder();
 
-            string.append("\n" + Color.GREEN_BOLD.color() + "\t\t\t\t\tWAREHOUSE\n");
+            string.append("\n").append(Color.GREEN_BOLD.color()).append("\t\t\t\t\tWAREHOUSE\n");
             string.append("\t\t\t\t");
 
             for (int i = 0; i < 10; i++) {
                 switch (board.getWarehouse()[i]) {
                     case STONE:
-                        string.append("\t" + Color.WHITE_BOLD.color() + " STONE");
+                        string.append("\t").append(Color.WHITE_BOLD.color()).append(" STONE");
                         break;
                     case SERVANT:
-                        string.append("\t" + Color.PURPLE_BOLD.color() + "SERVANT");
+                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT");
                         break;
                     case COIN:
-                        string.append("\t" + Color.YELLOW_BOLD.color() + " COIN");
+                        string.append("\t").append(Color.YELLOW_BOLD.color()).append(" COIN");
                         break;
                     case SHIELD:
-                        string.append("\t" + Color.BLUE_BOLD.color() + "SHIELD");
+                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD");
                         break;
                     case ANY:
                         string.append("");
@@ -200,7 +201,7 @@ public class Cli {
                 } else if(i==2){
                     string.append("\n\t\t");
                 } else if(i==5){
-                    string.append(Color.RESET + "\n\t----------------------------------------\n\t");
+                    string.append(Color.RESET).append("\n\t----------------------------------------\n\t");
                 }
             }
             string.append("\n");
@@ -237,47 +238,41 @@ public class Cli {
                         }
                 }
                 if(i<3) {
-                    string.append(Color.RESET + "\n\t|");
+                    string.append(Color.RESET).append("\n\t|");
                 }
             }
-            string.append(Color.RESET + "\n\t-----------------------------------------");
+            string.append(Color.RESET).append("\n\t-----------------------------------------");
             stream.print(string);
         }
 
         public void printFaithTrack(CompactBoard board){
             StringBuilder string = new StringBuilder();
 
-            string.append(Color.YELLOW_BOLD.color() + "{●} = Victory Points Space\t" + Color.RESET + Color.LIME.color() + "{†} = Faith Marker\n" + Color.RESET
-                            + Color.HEAVENLY_BOLD.color() + "{☼} = Pope's Favor tiles\t" + Color.RESET + Color.RED_BOLD.color() + "{♣} = Pope Space\t" + Color.RESET
-                            + Color.PURPLE_BOLD.color() + "─── = Vatican Report section\n\n" + Color.RESET);
+            string.append(Color.YELLOW_BOLD.color()).append("{●} = Victory Points Space\t").append(Color.RESET).append(Color.LIME.color()).append("{†} = Faith Marker\n").append(Color.RESET).append(Color.HEAVENLY_BOLD.color()).append("{☼} = Pope's Favor tiles\t").append(Color.RESET).append(Color.RED_BOLD.color()).append("{♣} = Pope Space\t").append(Color.RESET).append(Color.PURPLE_BOLD.color()).append("─── = Vatican Report section\n\n").append(Color.RESET);
 
-            string.append(Color.PURPLE_BOLD.color() + "\t\t\t\t\t┌" + "─".repeat(17) +"┐"
-                            + "\t\t\t   ┌" + "────".repeat(6) +"┐" + "\t\t  ┌─" + "───".repeat(10) +"─┐" + "\n" + Color.RESET);
+            string.append(Color.PURPLE_BOLD.color()).append("\t\t\t\t\t┌").append("─".repeat(17)).append("┐").append("\t\t\t   ┌").append("────".repeat(6)).append("┐").append("\t\t  ┌─").append("───".repeat(10)).append("─┐").append("\n").append(Color.RESET);
 
             for (int i = 0; i < 25; i++) {
                 if(i==5 || i==9 || i==12 || i==17 || i==19){
-                    string.append(Color.PURPLE_BOLD.color() +"| " +Color.RESET);
+                    string.append(Color.PURPLE_BOLD.color()).append("| ").append(Color.RESET);
                 }
 
                 if(board.getFaithTrackIndex()==i){
-                    string.append(Color.LIME.color() + "† " + Color.RESET);
+                    string.append(Color.LIME.color()).append("† ").append(Color.RESET);
                 } else if(i%3==0 && i!=0 && i!=24) {
-                    string.append(Color.YELLOW_BOLD.color() + "{●} " + Color.RESET);
+                    string.append(Color.YELLOW_BOLD.color()).append("{●} ").append(Color.RESET);
                 } else if(i%8==0 && i!=0 && i!=24) {
-                    string.append(Color.RED_BOLD.color() + "{♣} " + Color.RESET);
+                    string.append(Color.RED_BOLD.color()).append("{♣} ").append(Color.RESET);
                 } else if(i!=24) {
-                    string.append("{" + i + "} " + Color.RESET);
+                    string.append("{").append(i).append("} ").append(Color.RESET);
                 }
 
                 if(i==24){
-                    string.append(Color.YELLOW_BOLD.color()+"{●" + Color.RED_BOLD.color() + " ♣}" + Color.PURPLE_BOLD.color() +" |" +Color.RESET);
+                    string.append(Color.YELLOW_BOLD.color()).append("{●").append(Color.RED_BOLD.color()).append(" ♣}").append(Color.PURPLE_BOLD.color()).append(" |").append(Color.RESET);
                 }
             }
-            string.append("\n\t\t\t\t\t" + Color.PURPLE_BOLD.color() + "└────┐ \t\t ┌────┘\t\t\t   └──────┐\t\t\t┌───────┘\t\t  └──────────┐\t\t\t┌──────────┘");
-            string.append("\n\t\t\t\t\t     " + Color.PURPLE_BOLD.color() + "|  " + Color.HEAVENLY_BOLD.color() + "{☼}" + Color.PURPLE_BOLD.color() +
-                            "  |\t\t\t\t\t\t  |  " + Color.HEAVENLY_BOLD.color() + " {☼}  " + Color.PURPLE_BOLD.color() + " |\t\t\t\t\t\t\t |   " +
-                    Color.HEAVENLY_BOLD.color() + "{☼}" + Color.PURPLE_BOLD.color() + "   |" + "\n\t\t\t\t\t     └───────┘" + "\t\t\t\t\t\t  └─────────┘" +
-                            "\t\t\t\t\t\t\t └──────────┘");
+            string.append("\n\t\t\t\t\t").append(Color.PURPLE_BOLD.color()).append("└────┐ \t\t ┌────┘\t\t\t   └──────┐\t\t\t┌───────┘\t\t  └──────────┐\t\t\t┌──────────┘");
+            string.append("\n\t\t\t\t\t     ").append(Color.PURPLE_BOLD.color()).append("|  ").append(Color.HEAVENLY_BOLD.color()).append("{☼}").append(Color.PURPLE_BOLD.color()).append("  |\t\t\t\t\t\t  |  ").append(Color.HEAVENLY_BOLD.color()).append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append(" |\t\t\t\t\t\t\t |   ").append(Color.HEAVENLY_BOLD.color()).append("{☼}").append(Color.PURPLE_BOLD.color()).append("   |").append("\n\t\t\t\t\t     └───────┘").append("\t\t\t\t\t\t  └─────────┘").append("\t\t\t\t\t\t\t └──────────┘");
             stream.print(string);
         }
 
