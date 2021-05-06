@@ -2,6 +2,7 @@ package it.polimi.ingsw.net.client;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.msg.MessageType;
+import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 
@@ -22,6 +23,7 @@ public class Client implements Runnable{
     private UserInterface ui;
     private ObjectOutputStream out;
     private Timer pingTimer;
+    private RequestHandler requestHandler;
 
     /**
      * Class constructor.
@@ -74,6 +76,14 @@ public class Client implements Runnable{
         System.out.println("-s the IP address of the server");
         System.out.println("-p the port of the server");
         System.out.println("Example: java Client -s 127.0.0.1 -p 7777");
+    }
+
+    public void setRequestHandler(RequestHandler requestHandler){
+        this.requestHandler = requestHandler;
+    }
+
+    protected void handleRequest(RequestMsg requestMsg){
+        this.requestHandler.handleRequest(requestMsg);
     }
 
     @Override

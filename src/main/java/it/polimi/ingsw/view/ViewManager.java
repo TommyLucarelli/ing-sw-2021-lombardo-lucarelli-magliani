@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.net.client.Client;
+import it.polimi.ingsw.net.client.RequestHandler;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.view.compact.CompactBoard;
 import it.polimi.ingsw.view.compact.CompactDevCardStructure;
@@ -9,7 +10,7 @@ import it.polimi.ingsw.view.compact.CompactPlayer;
 
 import java.util.ArrayList;
 
-public class ViewManager {
+public class ViewManager implements RequestHandler {
     private CompactBoard board;
     private CompactMarket market;
     private CompactDevCardStructure devCardStructure;
@@ -19,6 +20,7 @@ public class ViewManager {
 
     public ViewManager(String ip, int port, boolean CLI_ON){
         this.client = new Client(ip, port);
+        this.client.setRequestHandler(this);
         this.client.run();
         if(CLI_ON){
             // this.ui = new Cli();
@@ -27,7 +29,8 @@ public class ViewManager {
         }
     }
 
-    public void handle(RequestMsg request){
+    @Override
+    public void handleRequest(RequestMsg request){
 
     }
 }
