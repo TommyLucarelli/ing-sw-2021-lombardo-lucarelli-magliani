@@ -35,13 +35,11 @@ public class ServerListener implements Runnable {
         ResponseMsg response;
         try {
             /*
-             * Main loop: reads the message from the server, passes the request to the ResponseManager,
-             * then sends the response to the server.
+             * Main loop: reads the message from the server, passes the request to the RequestHandler
              */
             while (true) {
                 serverRequest = gson.fromJson((String) in.readObject(), RequestMsg.class);
-                ResponseManager responseManager = new ResponseManager(client, serverRequest);
-                new Thread(responseManager).start();
+                this.client.handleRequest(serverRequest);
             }
         } catch (IOException e){
             System.err.println("IOException in ServerListener - communication with server failed");

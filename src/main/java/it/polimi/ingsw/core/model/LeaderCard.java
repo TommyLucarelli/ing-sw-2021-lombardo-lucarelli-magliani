@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class LeaderCard extends Card {
     private ArrayList<Flag> requiredFlags;
-    private ArrayList<ResourceQty> requiredResources;
+    private ResourceQty requiredResources;
     private int victoryPoints;
     private SpecialAbility specialAbility;
     private Boolean abilityActivation;
@@ -19,7 +19,7 @@ public class LeaderCard extends Card {
      * @param victoryPoints quantity of victory points assigned from the leader card
      * @param specialAbility type of special ability and resource
      */
-    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ArrayList<ResourceQty> requiredResources, int victoryPoints,
+    public LeaderCard(int id, ArrayList<Flag> requiredFlags, ResourceQty requiredResources, int victoryPoints,
                       SpecialAbility specialAbility) {
         super(id);
         this.requiredFlags = requiredFlags;
@@ -41,8 +41,8 @@ public class LeaderCard extends Card {
      * Getter method
      * @return an ArrayList of integers indicating the quantity of each flag required to play the card
      */
-    public ArrayList<ResourceQty> getRequiredResources() {
-        return (ArrayList<ResourceQty>) requiredResources.clone();
+    public ResourceQty getRequiredResources() {
+        return requiredResources;
     }
 
     /**
