@@ -1,5 +1,6 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.core.model.*;
 import org.junit.Test;
 
@@ -25,31 +26,25 @@ public class LeaderCardTest {
 
     @Test
     public void getRequiredQty() {
-        ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
-        requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
         SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, new ResourceQty(Resource.SERVANT, 5), 3, specialAbility);
 
-        assertEquals(leaderCard.getRequiredResources().get(0).getQty(), 5);
-        assertEquals(leaderCard.getRequiredResources().get(0).getResource(), Resource.SERVANT);
+        assertEquals(leaderCard.getRequiredResources().getQty(), 5);
+        assertEquals(leaderCard.getRequiredResources().getResource(), Resource.SERVANT);
     }
 
     @Test
     public void getVictoryPoints() {
-        ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
-        requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
         SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, new ResourceQty(Resource.SERVANT, 5), 3, specialAbility);
 
         assertEquals(leaderCard.getVictoryPoints(),3);
     }
 
     @Test
     public void getSpecialAbility() {
-        ArrayList<ResourceQty> requiredResources = new ArrayList<ResourceQty>();
-        requiredResources.add(new ResourceQty(Resource.SERVANT, 5));
         SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
-        LeaderCard leaderCard = new LeaderCard(1, null, requiredResources, 3, specialAbility);
+        LeaderCard leaderCard = new LeaderCard(1, null, new ResourceQty(Resource.SERVANT, 5), 3, specialAbility);
 
         assertEquals(leaderCard.getSpecialAbility().getAbilityResource(), Resource.COIN);
     }

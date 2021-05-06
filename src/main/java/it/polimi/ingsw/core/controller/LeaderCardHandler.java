@@ -68,7 +68,7 @@ public class LeaderCardHandler{
         int resPlayer[];
         switch (lc.getSpecialAbility().getAbilityType()){
             case 0: //controllo nel warehouse e nello strongbox se ho 5 risorse del tipo r
-                r = lc.getRequiredResources().get(0).getResource();
+                r = lc.getRequiredResources().getResource();
                 resPlayer = controller.getCurrentPlayer().getBoard().personalResQtyToArray();
                 if(resPlayer[r.ordinal()] >= 5)
                     return true;
