@@ -1,5 +1,12 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -9,12 +16,18 @@ import java.util.Stack;
  */
 public class LeaderCardsDeck {
     private Stack<LeaderCard> deck;
+    private static final String filename = "src/main/resources/leadercards.json";
 
     /**
      * Class constructor. Generates the 16 leader cards.
      */
-    public LeaderCardsDeck(){
-        //TODO: (jack) bisogna creare le carte leader json
+    public LeaderCardsDeck() throws FileNotFoundException {
+        Type CARD_TYPE = new TypeToken<Stack<LeaderCard>>() {}.getType();
+        Gson g = new Gson();
+        JsonReader jsonReader = new JsonReader(new FileReader(filename));
+        deck = g.fromJson(jsonReader, CARD_TYPE);
+
+        Collections.shuffle(deck);
     }
 
     /**
