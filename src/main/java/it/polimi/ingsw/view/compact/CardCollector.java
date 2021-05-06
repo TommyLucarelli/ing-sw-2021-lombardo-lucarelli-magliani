@@ -11,12 +11,23 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * This class contains the Development and Leader cards present in the game. It will be used to retrieve the details
+ * about a specific leader/development card sent by the server since the only information passed in the message will be
+ * the card ID.
+ *
+ * @author Giacomo Lombardo
+ */
 public class CardCollector {
-    private List<DevCard> devCards;
-    private List<LeaderCard> leaderCards;
+    private final List<DevCard> devCards;
+    private final List<LeaderCard> leaderCards;
     private static final String leaderCardsURI = "src/main/resources/leadercards.json";
     private static final String devCardsURI = "src/main/resources/devcards.json";
 
+    /**
+     * Class constructor.
+     * @throws FileNotFoundException if the URIs are invalid.
+     */
     public CardCollector() throws FileNotFoundException {
         Type DEVCARD_TYPE = new TypeToken<List<DevCard>>() {}.getType();
         Type LEADERCARD_TYPE = new TypeToken<List<LeaderCard>>() {}.getType();
@@ -29,11 +40,21 @@ public class CardCollector {
         devCards = g.fromJson(jsonReader, DEVCARD_TYPE);
     }
 
+    /**
+     * Development cards getter.
+     * @param id the id of the desired devCard.
+     * @return the devCard having the specified id.
+     */
     public DevCard getDevCard(int id) {
         if(id < 1 || id > 48) throw new IndexOutOfBoundsException();
         return devCards.get(id - 1);
     }
 
+    /**
+     * Leader cards getter.
+     * @param id the id of the desired leader Card.
+     * @return the leader card having the specified id.
+     */
     public LeaderCard getLeaderCard(int id){
         if(id < 49 || id > 64) throw new IndexOutOfBoundsException();
         return leaderCards.get(id - 49);
