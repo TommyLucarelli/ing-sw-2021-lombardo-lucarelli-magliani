@@ -33,9 +33,11 @@ public class LeaderCardHandler{
             check = checkRequirements(lc);
             if(check){
                 lc.setAbilityActivation();
+                controller.getCurrentGame().getTurn().setLeaderCardActivated(lc.getId());
                 controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
             }
         } else {
+            controller.getCurrentGame().getTurn().setLeaderCardDiscarded(lc.getId());
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
             payload.addProperty("gameAction", "MAIN_CHOICE");

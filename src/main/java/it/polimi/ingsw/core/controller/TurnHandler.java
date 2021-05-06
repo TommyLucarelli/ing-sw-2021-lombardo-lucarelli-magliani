@@ -16,14 +16,17 @@ public class TurnHandler {
         controller.getCurrentGame().getTurn().setEndGame(true);
         String actionChoice = ms.getPayload().get("actionChoice").getAsString();
         if (actionChoice.equals("market")) {
+            controller.getCurrentGame().getTurn().setTypeOfAction(0);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "PICK");
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else if (actionChoice.equals("production")) {
+            controller.getCurrentGame().getTurn().setTypeOfAction(1);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else{
+            controller.getCurrentGame().getTurn().setTypeOfAction(2);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_DEVCARD");
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));

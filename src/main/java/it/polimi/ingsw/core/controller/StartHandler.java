@@ -12,6 +12,7 @@ public class StartHandler {
     public StartHandler(MainController controller){
         this.controller = controller;
     }
+
     public RequestMsg startGame(ResponseMsg ms) {
         //TODO: create game
         System.out.println("startGame");

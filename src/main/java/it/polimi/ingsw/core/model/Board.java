@@ -14,6 +14,7 @@ public class Board {
     private FaithTrack faithtrack;
     private ArrayList<DevCardSlot> devCardSlots;
     private ArrayList<LeaderCard> leaderCards;
+    private Player player;
 
     /**
      * 0 if the ability isn't activated, a number representing the id of the card is the ability is activated
@@ -106,6 +107,7 @@ public class Board {
      */
     public void setAbilityActivationFlag(int i, int id) {
         abilityActivationFlag[i] = id;
+
     }
 
     /**
