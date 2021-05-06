@@ -104,6 +104,8 @@ public class MainController{
                 return;
             case "COMEBACK":
                 turnHandler.comeBack();
+            case "UPDATE":
+                turnHandler.update();
         }
     }
 

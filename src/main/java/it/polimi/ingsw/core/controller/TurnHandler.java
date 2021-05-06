@@ -61,4 +61,11 @@ public class TurnHandler {
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
     }
+
+    public void update(){
+        controller.getCurrentGame().getTurn().setEndGame(false);
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "LEADER_ACTIVATION");
+        controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+    }
 }

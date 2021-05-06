@@ -99,7 +99,7 @@ public class DevCardStructure {
 
         for (int i = 0; i < 3; i++){
             for (int ii = 0; ii < 4; ii++){
-                mat[i][ii] = getTopCard(i,ii).getId();
+                mat[3][4] = getTopCard(i,ii).getId();
             }
         }
 
