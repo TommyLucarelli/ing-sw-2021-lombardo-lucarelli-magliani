@@ -26,7 +26,7 @@ public class Game
         this.gameId = id;
         this.players = new ArrayList<Player>();
         for(int i = 0; i < playerNames.size(); i++){
-            players.add(new Player(i, playerNames.get(i)));
+            players.add(new Player(i, playerNames.get(i), this));
         }
         this.market = new Market();
         this.devCardStructure = new DevCardStructure();

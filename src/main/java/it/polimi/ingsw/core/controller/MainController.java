@@ -158,4 +158,34 @@ public class MainController{
             }
         }
     }
+
+
+    public void updateBuilder(){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "UPDATE");
+        int x = currentGame.getTurn().getTypeOfAction();
+        if(x == 0)
+            payload.addProperty("message", currentPlayer.getNickname()+" ha preso risorse dal mercato");
+        else if(x == 1)
+            payload.addProperty("message", currentPlayer.getNickname()+" ha acquistato una carta sviluppo");
+        else
+            payload.addProperty("message", currentPlayer.getNickname()+" ha attivato la produzione");
+
+        payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
+
+        //compute next player
+        Player oldPlayer = currentPlayer;
+        currentPlayer = currentGame.getTurn().nextPlayer();
+
+        payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
+
+        if(x == 0)
+            payload.add("market", currentGame.getMarket().toCompactMarket());
+        else if(x == 1)
+            payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
+
+        payload.add("player", oldPlayer.toCompactPlayer());
+
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+    }
 }

@@ -40,7 +40,8 @@ public class TurnHandler {
         else{
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
-                //TODO: messaggio update
+                //update
+                controller.updateBuilder();
             } else{
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "MAIN_CHOICE");
@@ -51,9 +52,9 @@ public class TurnHandler {
     }
 
     public void comeBack(){
-
         if(controller.getCurrentGame().getTurn().isEndGame()){
-            //TODO: messaggio update
+            //update
+            controller.updateBuilder();
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "MAIN_CHOICE");
