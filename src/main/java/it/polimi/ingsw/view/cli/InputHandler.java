@@ -4,9 +4,18 @@ import com.google.gson.JsonObject;
 
 import java.util.Scanner;
 
+/**
+ * Class that handles the input operations.
+ */
 public class InputHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Main method used to get the user input.
+     * @param expectedResponse a JsonObject containing the information on the desired input (e.g. a integer between 1
+     *                         and 4, a string of at least 4 characters)
+     * @return a JsonObject containing the user input.
+     */
     public static JsonObject getInput(JsonObject expectedResponse){
         JsonObject payload = new JsonObject();
 
@@ -28,6 +37,12 @@ public class InputHandler {
         return payload;
     }
 
+    /**
+     * Method used to get an integer.
+     * @param min if !=-1, the minimum accepted value.
+     * @param max if !=-1, the maximum accepted value.
+     * @return the user's input.
+     */
     private static int getInt(int min, int max){
         boolean hasMin = min != -1;
         boolean hasMax = max != -1;
@@ -72,10 +87,20 @@ public class InputHandler {
         return input;
     }
 
+    /**
+     * Method used to get a choice between various options.
+     * @param choices the array of possible options.
+     * @return the index of the chosen option.
+     */
     private static int getChoice(String[] choices){
         return 0;
     }
 
+    /**
+     * Method used to get a string.
+     * @param regex if !isBlank(), the regex pattern that the string needs to match.
+     * @return the user's input.
+     */
     private static String getString(String regex){
         String input;
         if(!regex.isBlank()){
