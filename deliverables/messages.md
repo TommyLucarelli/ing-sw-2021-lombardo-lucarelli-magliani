@@ -61,6 +61,65 @@ payload: {
 }
 ```
 
+#### LEADER_ACTIVATION
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": LEADER_ACTIVATION,
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": LEADER_ACTIVATION,
+    "activation": yes // boolean representing the choice of activate/discard a leader card or not
+}
+```
+
+#### LEADER_ACTION
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": LEADER_ACTION,
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": LEADER_ACTION,
+    "cardId": 1 //the ID of the chosen leader card
+    "action": "ACTIVATE" //or "DISCARD"
+}
+```
+#### MAIN_CHOICE
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": MAIN_CHOICE,
+    "leaderCard": 15 //the id of the leader card activated or discarded in that very turn 
+    "action": true // actvivate or discard
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": MAIN_CHOICE,
+    "actionChoice": "market" | "production" | "buyDevCard" //action chosen by the user
+}
+```
+
 #### CHOOSE_DEVCARD
 
 Server --> Client
@@ -104,25 +163,6 @@ payload: {
 }
 ```
 
-#### LEADER_ACTION
 
-Server --> Client
-```
-messageType: MessageType.GAME_MESSAGE
-payload: {
-    "gameAction": LEADER_ACTION,
-    "leaderCards": [1, 2] //the IDs of possessed leader cards
-}
-```
-
-Client --> Server
-```
-messageType: MessageType.GAME_MESSAGE
-payload: {
-    "gameAction": LEADER_ACTION,
-    "cardId": 1 //the ID of the chosen leader card
-    "action": "ACTIVATE" //or "DISCARD"
-}
-```
 
 *Work in progress: more messages to be added soon!*
