@@ -168,31 +168,34 @@ public class MainController{
     }
 
 
-    public void updateBuilder(){
+    public void updateBuilder(boolean start){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "UPDATE");
         int x = currentGame.getTurn().getTypeOfAction();
-        if(x == 0)
-            payload.addProperty("message", currentPlayer.getNickname()+" ha preso risorse dal mercato");
-        else if(x == 1)
-            payload.addProperty("message", currentPlayer.getNickname()+" ha acquistato una carta sviluppo");
-        else
-            payload.addProperty("message", currentPlayer.getNickname()+" ha attivato la produzione");
+
+        if(!start) {
+            if (x == 0)
+                payload.addProperty("message", currentPlayer.getNickname() + " ha preso risorse dal mercato");
+            else if (x == 1)
+                payload.addProperty("message", currentPlayer.getNickname() + " ha acquistato una carta sviluppo");
+            else
+                payload.addProperty("message", currentPlayer.getNickname() + " ha attivato la produzione");
+        }
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
-
         //compute next player
         Player oldPlayer = currentPlayer;
         currentPlayer = currentGame.getTurn().nextPlayer();
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
 
-        if(x == 0)
+        if(x == 0 || start)
             payload.add("market", currentGame.getMarket().toCompactMarket());
-        if(x == 1)
+        if(x == 1 || start)
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
 
-        payload.add("player", oldPlayer.toCompactPlayer());
+        if(!start)
+            payload.add("player", oldPlayer.toCompactPlayer());
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }

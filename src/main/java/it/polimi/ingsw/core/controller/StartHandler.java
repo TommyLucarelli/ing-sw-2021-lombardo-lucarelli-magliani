@@ -69,6 +69,11 @@ public class StartHandler {
         switch (controller.getPlayers().indexOf(playerHandler)){
             case 1: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();
+                if(check){
+                    controller.updateBuilder(true);
+                }else{
+                    //messaggio di attesa inizio gioco
+                }
                 break;
             case 2: //messaggio choose resources 1
                 payload.addProperty("resources", 1);
@@ -109,8 +114,7 @@ public class StartHandler {
         JsonObject payload = new JsonObject();
 
         if(check){
-            payload.addProperty("gameAction", "LEADER_ACTIVATION");
-            controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            controller.updateBuilder(true);
         }else{
             //messaggio di attesa inizio gioco
         }

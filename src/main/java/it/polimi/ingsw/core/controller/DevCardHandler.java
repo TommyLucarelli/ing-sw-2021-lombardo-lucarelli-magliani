@@ -60,7 +60,7 @@ public class DevCardHandler{
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
             controller.getCurrentGame().getTurn().setLastTurn(true);
             //update
-            controller.updateBuilder();
+            controller.updateBuilder(false);
         }
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");

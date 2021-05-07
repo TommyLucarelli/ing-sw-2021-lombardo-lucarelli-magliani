@@ -19,6 +19,7 @@ public class Turn {
         this.players = players;
         leaderCardActivated = new int[2]; //controlla se sono 0
         leaderCardDiscarded = new int[2];
+        currentPlayer = 0;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
