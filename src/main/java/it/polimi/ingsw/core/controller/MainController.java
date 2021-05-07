@@ -8,6 +8,7 @@ import it.polimi.ingsw.net.server.RequestManager;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainController{
     private int id;
@@ -22,7 +23,8 @@ public class MainController{
     private ProductionHandler productionHandler;
     private DevCardHandler devCardHandler;
     private StartHandler startHandler;
-
+    private int countStartPhase;
+    //WARNING: non confondersi tra istanze di player e di playerHandler
 
     public MainController(int id, int numPlayers)
     {
@@ -36,27 +38,28 @@ public class MainController{
         this.productionHandler = new ProductionHandler(this);
         this.devCardHandler = new DevCardHandler(this);
         this.startHandler = new StartHandler(this);
+        countStartPhase = 0;
     }
 
     public PlayerHandler addPlayer(int id, String username, RequestManager manager) throws InvalidResponseException {
-        if(players.size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
+        if(getPlayers().size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
         else {
             PlayerHandler player = new PlayerHandler(id, username,this, manager);
-            if(players.size() != 0){
+            if(getPlayers().size() != 0){
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "SHORT_UPDATE");
                 payload.addProperty("message", username + " has joined the lobby.");
                 payload.addProperty("activePlayerId", 0);
                 notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
-            players.add(player);
-            if(players.size() == numPlayers) sendStartGameCommand();
+            getPlayers().add(player);
+            if(getPlayers().size() == numPlayers) sendStartGameCommand();
             return player;
         }
     }
 
     public int getPlayersInGame(){
-        return players.size();
+        return getPlayers().size();
     }
 
     public boolean isGameInProgress() {
@@ -74,7 +77,8 @@ public class MainController{
     public synchronized void handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
             case "START_GAME_COMMAND":
-                startHandler.startGame(responseMsg);
+                startGame();
+                return;
             case "TESTING_MESSAGE":
                 handleTestMessage(responseMsg.getPayload());
                 return;
@@ -111,13 +115,15 @@ public class MainController{
 
     private void startGame(){
         ArrayList<String> usernames = new ArrayList<>();
-        for(PlayerHandler player: players) usernames.add(player.getUsername());
+        Collections.shuffle(getPlayers());
+        for(PlayerHandler player: getPlayers()) usernames.add(player.getUsername());
         try {
             currentGame = new Game(this.id, usernames);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        //startHandler.startMatch()
+        currentPlayer = currentGame.fromIdToPlayer(players.get(0).getPlayerId());
+        startHandler.startMatch();
     }
 
     public void sendStartGameCommand() {
@@ -128,7 +134,7 @@ public class MainController{
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
-        notifyPlayer(players.get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        notifyPlayer(getPlayers().get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
     public RequestMsg handleTestMessage(JsonObject response){
@@ -143,7 +149,7 @@ public class MainController{
     }
 
     public void notifyAllPlayers(RequestMsg updateMsg){
-        for(PlayerHandler player: players){
+        for(PlayerHandler player: getPlayers()){
             player.newMessage(updateMsg);
         }
     }
@@ -153,7 +159,7 @@ public class MainController{
     }
 
     public void notifyCurrentPlayer(RequestMsg updateMsg){
-        for(PlayerHandler player: players){
+        for(PlayerHandler player: getPlayers()){
             if(player.getPlayerId() == currentPlayer.getPlayerID()) {
                 player.newMessage(updateMsg);
                 break;
@@ -183,11 +189,32 @@ public class MainController{
 
         if(x == 0)
             payload.add("market", currentGame.getMarket().toCompactMarket());
-        else if(x == 1)
+        if(x == 1)
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
 
         payload.add("player", oldPlayer.toCompactPlayer());
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+    }
+
+    public ArrayList<PlayerHandler> getPlayers() {
+        return players;
+    }
+
+    public PlayerHandler fromIdToPlayerHandler(int id){
+        for (int i = 0; i < players.size(); i++) {
+            if(players.get(0).getPlayerId() == id)
+                return players.get(0); //clone
+        }
+        //gestire exception
+        return null;
+    }
+
+    public boolean setCountStartPhase() {
+        countStartPhase++;
+        if(countStartPhase==4)
+            return true;
+        else
+            return false;
     }
 }

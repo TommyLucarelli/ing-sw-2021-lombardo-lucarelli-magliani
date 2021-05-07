@@ -110,4 +110,13 @@ public class Game
     public Turn getTurn() {
         return turn;
     }
+
+    public Player fromIdToPlayer(int id){
+        for (int i = 0; i < players.size(); i++) {
+            if(players.get(0).getPlayerID() == id)
+                return players.get(0); //clone
+        }
+        //gestire exception
+        return null;
+    }
 }
