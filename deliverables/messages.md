@@ -26,7 +26,8 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
-    "leaderCards": [1, 2, 3, 4] //the IDs of the 4 drafted leader cards
+    "playerOrder": int //the order of the player in the turn
+    "leaderCards": int[4] //the IDs of the 4 drafted leader cards
 }
 ```
 
@@ -35,22 +36,19 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
-    "leaderCards": [2, 3] //the IDs of the 2 selected leader cards
+    "discardedLeaders": int[2] //the IDs of the 2 leader cards discarded by the player
 }
 ```
 
-#### CHOOSE_DEVCARD
+#### CHOOSE_START_RESOURCES
 
 Server --> Client
 ```
 messageType: MessageType.GAME_MESSAGE
 payload: {
-    "gameAction": CHOOSE_DEVCARD,
-    "structure": {
-        "level1": [10, 11, 12, 13],
-        "level2": [20, 21, 22, 23],
-        "level3": [30, 31, 32, 33]
-    }
+    "gameAction": CHOOSE_START_RESOURCES,
+    "resources": int //the number of resources the player can take
+    "faithPoints": int //the number of faith points for the player
 }
 ```
 
@@ -58,18 +56,18 @@ Client --> Server
 ```
 messageType: MessageType.GAME_MESSAGE
 payload: {
-    "gameAction": CHOOSE_DEVCARD,
-    "cardId": //the id of the chosen development card
+    "gameAction": CHOOSE_START_RESOURCES,
+    "placed": ArrayList<Resource> //the array with the placement of the acquired resources into the warehouse
 }
 ```
 
-#### CHOOSE_PRODUCTION
+#### LEADER_ACTIVATION
 
 Server --> Client
 ```
 messageType: MessageType.GAME_MESSAGE
 payload: {
-    "gameAction": CHOOSE_PRODUCTION
+    "gameAction": LEADER_ACTIVATION,
 }
 ```
 
@@ -77,8 +75,8 @@ Client --> Server
 ```
 messageType: MessageType.GAME_MESSAGE
 payload: {
-    "gameAction": CHOOSE_PRODUCTION,
-    "productions": [1, 3, ...]
+    "gameAction": LEADER_ACTIVATION,
+    "activation": boolean //representing the choice of activate/discard a leader card or not
 }
 ```
 
@@ -89,7 +87,6 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTION,
-    "leaderCards": [1, 2] //the IDs of possessed leader cards
 }
 ```
 
@@ -98,9 +95,170 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTION,
-    "cardId": 1 //the ID of the chosen leader card
-    "action": "ACTIVATE" //or "DISCARD"
+    "cardId": int //the ID of the chosen leader card
+    "action": boolean // actvivate or discard
 }
 ```
+#### MAIN_CHOICE
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": MAIN_CHOICE,
+    "leaderCard": int //the id of the leader card activated or discarded in that very turn 
+    "action": boolean // actvivate or discard
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": MAIN_CHOICE,
+    "actionChoice": "market" | "production" | "buyDevCard" //action chosen by the user
+}
+```
+
+#### CHOOSE_DEVCARD
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_DEVCARD,
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_DEVCARD,
+    "line": int //line of devCard structure
+    "column": int //column of devCard structure
+}
+```
+
+#### DEVCARD_PLACEMENT
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": DEVCARD_PLACEMENT,
+    "freeSpots": ArrayList<Integer> //representing the free spots where the player can put the devCard
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": DEVCARD_PLACEMENT,
+    "index": int //chosen spot for the devCard
+}
+```
+
+#### CHOOSE_PRODUCTION
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_PRODUCTION,
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_PRODUCTION,
+    "productions": ArrayList<Integer> //with the selected productions (included basics and specials)
+}
+```
+
+#### PICK
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": PICK,
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": PICK,
+    "choice": "line" | "column" //relative to the market
+    "number": int //for the line/column number
+    "reource": Resource //representing the special resource to swop with the white one
+}
+```
+
+#### WAREHOUSE_PLACEMENT
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": WAREHOUSE_PLACEMENT,
+    "resourcesArray": ArrayList<Resource> //representing the resources that the player can dispose in the warehouse
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": WAREHOUSE_PLACEMENT,
+    "placed": ArrayList<Resource> //the array with the placement of the acquired resources into the warehouse
+}
+```
+
+#### UPDATE
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": UPDATE,
+    "currentPlayerID": int, //player who has just finished the turn
+    "nextPlayerID": int, //player who is going to play in the next turn
+    "message": "Giocatore 1 ha attivato la produzione", //basic message for info
+    "market":{
+        "structure": int[12], //array representing arrangement of marbles in the market
+        "reserveMarble": int 
+    },
+    "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+    "player": {
+        "faithTrack":{
+            "points": 12,
+            "favourCards": boolean[3], //favourCards activation
+        },
+
+        "devCardSlots":{
+            "structure": int[3][3],
+        },
+        "warehouse":{
+            "structure": ArrayList<Resource>,
+        },
+        "strongbox":{
+            "structure": int[4],
+        },
+        "activatedLeaderCards":int[2],
+        "discardedLeaderCards":int[2],
+}
+    
+}
+```
+
+
+
+
 
 *Work in progress: more messages to be added soon!*
