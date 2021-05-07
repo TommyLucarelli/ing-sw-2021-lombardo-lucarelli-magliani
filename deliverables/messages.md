@@ -26,6 +26,7 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
+    "playerOrder": 1 //the order of the player in the turn
     "leaderCards": [1, 2, 3, 4] //the IDs of the 4 drafted leader cards
 }
 ```
@@ -35,7 +36,7 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
-    "leaderCards": [2, 3] //the IDs of the 2 selected leader cards
+    "leaderCards": [2, 3] //the IDs of the 2 leader cards discarded by the player
 }
 ```
 
