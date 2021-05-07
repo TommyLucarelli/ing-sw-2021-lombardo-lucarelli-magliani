@@ -227,6 +227,32 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": UPDATE,
+    "currentPlayerID": int, //player who has just finished the turn
+    "nextPlayerID": int, //player who is going to play in the next turn
+    "message": "Giocatore 1 ha attivato la produzione", //basic message for info
+    "market":{
+        "structure": int[12], //array representing arrangement of marbles in the market
+        "reserveMarble": int 
+    },
+    "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+    "player": {
+        "faithTrack":{
+            "points": 12,
+            "favourCards": boolean[3], //favourCards activation
+        },
+
+        "devCardSlots":{
+            "structure": int[3][3],
+        },
+        "warehouse":{
+            "structure": ArrayList<Resource>,
+        },
+        "strongbox":{
+            "structure": int[4],
+        },
+        "activatedLeaderCards":int[2],
+        "discardedLeaderCards":int[2],
+}
     
 }
 ```
