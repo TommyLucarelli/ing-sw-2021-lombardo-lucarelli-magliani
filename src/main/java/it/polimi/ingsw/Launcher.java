@@ -2,10 +2,13 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.server.Server;
-import it.polimi.ingsw.view.ViewManager;
 
 import java.util.Arrays;
 
+/**
+ * Application launcher. Depending on the args launches the server or the client with GUI or CLI.
+ * If the parameters are invalid or missing prints a help message and then exits.
+ */
 public class Launcher {
     public static void main(String[] args) {
         if(args.length == 0){

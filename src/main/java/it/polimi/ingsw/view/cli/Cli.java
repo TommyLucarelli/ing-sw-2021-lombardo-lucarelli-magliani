@@ -7,11 +7,16 @@ import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 
-import java.util.Scanner;
-
+/**
+ * Main class for CLI operations.
+ */
 public class Cli implements UserInterface {
     Client client;
 
+    /**
+     * Class constructor.
+     * @param client the client socket used to send messages to the server.
+     */
     public Cli(Client client) {
         this.client = client;
     }
@@ -45,6 +50,11 @@ public class Cli implements UserInterface {
         }
     }
 
+    /**
+     * Method used to handle "simple" requests from the server: a simple request consists in a message and an expected
+     * response such as a number or a string, with no collateral effects on the client.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleSimpleRequest(RequestMsg requestMsg) {
         System.out.println(requestMsg.getPayload().get("message").getAsString());
         JsonObject payload = InputHandler.getInput(requestMsg.getPayload().getAsJsonObject("expectedResponse"));
@@ -53,6 +63,11 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), requestMsg.getMessageType(), payload));
     }
 
+    /**
+     * Method used to handle "simple" requests from the server which need only an acknowledgment. These requests consist
+     * of a simple text message with no collateral effects.
+     * @param requestMsg the request sent by the server.
+     */
     private void ackSimpleRequest(RequestMsg requestMsg) {
         System.out.println(requestMsg.getPayload().get("message").getAsString());
         if(requestMsg.getMessageType() == MessageType.GAME_MESSAGE){
