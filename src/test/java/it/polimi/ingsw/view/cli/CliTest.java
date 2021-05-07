@@ -120,4 +120,17 @@ public class CliTest {
         fancyPrinter.printDevCard(devCard);
 
     }
+
+    @Test
+    public void printLeaderCard() {
+        ArrayList<Flag> requiredFlags = new ArrayList<Flag>();
+        requiredFlags.add(new Flag(Colour.GREEN));
+        requiredFlags.add(new Flag(Colour.GREEN));
+        requiredFlags.add(new Flag(Colour.PURPLE));
+        SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
+        LeaderCard leaderCard = new LeaderCard(1, requiredFlags, null, 5, specialAbility);
+        FancyPrinter fancyprinter = new FancyPrinter();
+
+        fancyprinter.printLeaderCard(leaderCard);
+    }
 }

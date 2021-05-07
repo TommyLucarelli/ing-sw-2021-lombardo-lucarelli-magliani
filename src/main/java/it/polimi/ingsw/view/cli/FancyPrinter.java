@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.core.model.DevCard;
+import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.view.compact.CompactBoard;
 import it.polimi.ingsw.view.compact.CompactMarket;
 
@@ -116,7 +117,7 @@ public class FancyPrinter {
                 case GREEN:
                     string.append(Color.GREEN_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
                 case PURPLE:
-                    string.append(Color.PURPLE_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
+                    string.append(Color.PURPLE_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t\t\t\t\t│\n\t"); break;
         }
 
         for (int i = 0; i < devCard.getRecipe().getInputResources().size(); i++) {
@@ -172,8 +173,7 @@ public class FancyPrinter {
             }
         }
         string.append("\t│\n\t│\t\t\t\t\t│");
-        string.append("\n\t│VictoryPoints:").append(devCard.getVictoryPoints()).append("\t│\n");
-        string.append("\t│\t\t\t\t ").append(devCard.getId()).append(" │\n");
+        string.append("\n\t│ VictoryPoints:").append(devCard.getVictoryPoints()).append("\t│\n");
         string.append("\t└───────────────────┘");
         stream.print(string);
     }
@@ -183,13 +183,7 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printDevCardSlot(CompactBoard board){
-    StringBuilder string = new StringBuilder();
 
-        for (int i = 0; i < 3; i++) {
-            string.append(board.getDevCardSlots()[i][0]);
-            string.append(board.getDevCardSlots()[i][1]);
-            string.append(board.getDevCardSlots()[i][2]);
-        }
     }
 
     /**
@@ -201,6 +195,40 @@ public class FancyPrinter {
                 //come??? matrice di id ma come stampo carta??
             }
         }
+    }
+
+    public void printLeaderCard(LeaderCard leaderCard){
+        StringBuilder string = new StringBuilder();
+
+        string.append("\t┌───────────────────┐\n\t│  ");
+
+        for (int i = 0; i < leaderCard.getRequiredFlags().size(); i++) {
+            switch (leaderCard.getRequiredFlags().get(i).getColour()) {
+                case GREEN:
+                    string.append(Color.GREEN_BOLD.color()).append("▓   ").append(Color.RESET);
+                    break;
+                case YELLOW:
+                    string.append(Color.YELLOW_BOLD.color()).append("▓   ").append(Color.RESET);
+                    break;
+                case PURPLE:
+                    string.append(Color.PURPLE_BOLD.color()).append("▓   ").append(Color.RESET);
+                    break;
+                case BLUE:
+                    string.append(Color.HEAVENLY_BOLD.color()).append("▓  ").append(Color.RESET);
+                    break;
+            }
+        }
+        string.append("\t│");
+        switch (leaderCard.getRequiredFlags().size()){
+            case 1: string.append("\t\t│");
+            case 2: string.append("  \t│");
+        }
+        string.append("\n\t│\t\t\t\t\t│").append("\n\t│\t\t\t\t\t│").append("\n\t│\t\t\t\t\t│");
+        string.append("\n\t│ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("\t│\n\t│\t\t\t\t\t│");
+        string.append("\n\t│ SpecialAbility:\t│\n\t│\t\t").append(leaderCard.getSpecialAbility().getAbilityType()).append(" ").append(leaderCard.getSpecialAbility().getAbilityResource().toString()).append("\t\t│\n");
+        string.append("\t└───────────────────┘");
+
+        stream.print(string);
     }
 
     /**
