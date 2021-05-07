@@ -60,9 +60,11 @@ public class Player {
 
         Gson gson = new Gson();
         String json = gson.toJson(game.getTurn().getLeaderCardActivated());
-        payload.addProperty("leaderCardActivated", json);
+        payload.addProperty("activatedLeaderCard", json);
         json = gson.toJson(game.getTurn().getLeaderCardDiscarded());
-        payload.addProperty("leaderCardDiscarded", json);
+        payload.addProperty("discardedLeaderCard", json);
+        //TODO: controllo su questa parte dell'update perchè l'informazione delle carte scartate e attivate
+        // a inizio turno l'utente ce l'ha già. Però gli altri no quindi va gestita sul client
 
         return payload;
     }

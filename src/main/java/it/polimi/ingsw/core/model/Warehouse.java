@@ -65,7 +65,7 @@ public class Warehouse
         Gson gson = new Gson();
         JsonObject payload = new JsonObject();
         String json = gson.toJson(arr);
-        payload.addProperty("warehouse", json);
+        payload.addProperty("structure", json);
 
         return payload;
     }

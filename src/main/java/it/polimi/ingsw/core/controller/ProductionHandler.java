@@ -33,15 +33,15 @@ public class ProductionHandler {
         int[] personalResources = board.personalResQtyToArray();
         int[] copyPersonalResources = board.personalResQtyToArray();
 
-        //Resources Array as Response
-        ArrayList<Integer> response;
-        Gson gson = new Gson();
-        String json = ms.getPayload().get("response").getAsString();
-        Type collectionType = new TypeToken<ArrayList<Integer>>(){}.getType();
-        response = gson.fromJson(json, collectionType);
 
-        for(int i=0; i<response.size(); i++){
-            if(response.get(i)==1){
+        ArrayList<Integer> productions;
+        Gson gson = new Gson();
+        String json = ms.getPayload().get("productions").getAsString();
+        Type collectionType = new TypeToken<ArrayList<Integer>>(){}.getType();
+        productions = gson.fromJson(json, collectionType);
+
+        for(int i=0; i<productions.size(); i++){
+            if(productions.get(i)==1){
                 Recipe recipeBasicProduction;
                 Gson gson2 = new Gson();
                 String json2 = ms.getPayload().get("basicProduction").getAsString();
@@ -49,11 +49,11 @@ public class ProductionHandler {
                 inputResources = recipeBasicProduction.getInputResources();
                 personalResources = reduceResource(inputResources, personalResources);
                 outputResources.addAll(recipeBasicProduction.getOutputResources());
-            }else if(response.get(i)>=2 && response.get(i)<5){
+            }else if(productions.get(i)>=2 && productions.get(i)<5){
                 //recipe devcard
-                inputResources = board.getDevCardSlot(response.get(i)-2).getTopCard().getRecipe().getInputResources();
+                inputResources = board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getInputResources();
                 personalResources = reduceResource(inputResources, personalResources);
-                outputResources.addAll(board.getDevCardSlot(response.get(i)-2).getTopCard().getRecipe().getOutputResources());
+                outputResources.addAll(board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getOutputResources());
             }else{
                 //se sono attivate vedi input res
                 if(board.isActivated(i+1) != 0){
