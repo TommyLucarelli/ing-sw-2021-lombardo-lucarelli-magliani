@@ -82,6 +82,12 @@ public class MainController{
             case "TESTING_MESSAGE":
                 handleTestMessage(responseMsg.getPayload());
                 return;
+            case "CHOOSE_START_LEADERS":
+                startHandler.chooseStartLeaders(responseMsg);
+                return;
+            case "CHOOSE_START_RESOURCES":
+                startHandler.chooseStartResources(responseMsg);
+                return;
             case "LEADER_ACTIVATION":
                 turnHandler.leaderActivation(responseMsg);
                 return;
