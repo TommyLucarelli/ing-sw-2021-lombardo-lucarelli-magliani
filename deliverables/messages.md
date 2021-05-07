@@ -36,7 +36,28 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
-    "leaderCards": [2, 3] //the IDs of the 2 leader cards discarded by the player
+    "discardedLeaders": [2, 3] //the IDs of the 2 leader cards discarded by the player
+}
+```
+
+#### CHOOSE_START_RESOURCES
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_START_RESOURCES,
+    "resources": 2 //the number of resources the player can take
+    "faithPoints": 1 //the number of faith points for the player
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": CHOOSE_START_RESOURCES,
+    "placed": ArrayList<Resource> //the array with the placement of the acquired resources into the warehouse
 }
 ```
 
