@@ -5,6 +5,7 @@ import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
+import it.polimi.ingsw.view.cli.Cli;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,51 +21,46 @@ public class Client implements Runnable{
     private final String serverIp;
     private final int portNumber;
     private Socket server;
-    private UserInterface ui;
     private ObjectOutputStream out;
     private Timer pingTimer;
     private RequestHandler requestHandler;
+    private UserInterface ui;
 
     /**
      * Class constructor.
      * @param serverIp the IP address of the server
      * @param portNumber the port number of the server.
      */
-    public Client(String serverIp, int portNumber){
+    public Client(String serverIp, int portNumber, boolean CLI_ON){
         this.serverIp = serverIp;
         this.portNumber = portNumber;
         this.pingTimer = new Timer();
+        /*
+        if(CLI_ON){
+            ui = new Cli(this);
+        } else {
+            ui = new Gui(this);
+        }
+         */
+        this.ui = new Cli(this);
     }
 
     public static void main(String[] args) {
-        String ip;
-        int port;
-
-        /*
-         * Checks that the arguments passed are correct. If some arguments are missing or there are invalid arguments
-         * prints a help message and ends the execution.
-         */
-        if(args.length != 4){
-            printHelpMessage();
-            return;
-        }
-        if(args[0].equals("-s")){
-            ip = args[1];
-        } else {
-            printHelpMessage();
-            return;
-        }
-        if(args[2].equals("-p")){
-            port = Integer.parseInt(args[3]);
-        } else {
-            printHelpMessage();
-            return;
-        }
+        Client client;
 
         /*
          * Sets the IP address and the port number passed as arguments, then starts the client execution.
          */
-        Client client = new Client(ip, port);
+        if(args.length == 2){
+            System.out.println("Launching with CLI on...");
+            String[] parts = args[1].split(":");
+            client = new Client(parts[0], Integer.parseInt(parts[1]), true);
+        } else {
+            System.out.println("Launching with CLI off...");
+            String[] parts = args[0].split(":");
+            client = new Client(parts[0], Integer.parseInt(parts[1]), false);
+        }
+
         client.run();
     }
 
@@ -83,7 +79,7 @@ public class Client implements Runnable{
     }
 
     protected void handleRequest(RequestMsg requestMsg){
-        this.requestHandler.handleRequest(requestMsg);
+        this.ui.handleRequest(requestMsg);
     }
 
     @Override
@@ -132,7 +128,7 @@ public class Client implements Runnable{
      * Method used to send a message to the server.
      * @param msg the message to be sent.
      */
-    protected void send(ResponseMsg msg){
+    public void send(ResponseMsg msg){
         Gson gson = new Gson();
         try {
             out.writeObject(gson.toJson(msg));

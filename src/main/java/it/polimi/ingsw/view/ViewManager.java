@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.client.RequestHandler;
 import it.polimi.ingsw.net.msg.RequestMsg;
+import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.compact.CompactBoard;
 import it.polimi.ingsw.view.compact.CompactDevCardStructure;
 import it.polimi.ingsw.view.compact.CompactMarket;
@@ -19,14 +20,17 @@ public class ViewManager implements RequestHandler {
     private UserInterface ui;
 
     public ViewManager(String ip, int port, boolean CLI_ON){
-        this.client = new Client(ip, port);
+        this.client = new Client(ip, port, CLI_ON);
         this.client.setRequestHandler(this);
         this.client.run();
+        /*
         if(CLI_ON){
-            // this.ui = new Cli();
+            this.ui = new Cli();
         } else {
             // this.ui = new Gui();
         }
+         */
+        this.ui = new Cli(this.client);
     }
 
     @Override

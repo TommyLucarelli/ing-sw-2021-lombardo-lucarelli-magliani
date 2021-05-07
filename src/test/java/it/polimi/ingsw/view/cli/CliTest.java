@@ -7,17 +7,15 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class CliTest {
 
     @Test
     public void printMarket() {
-        Cli cli = new Cli();
+        FancyPrinter fancyPrinter = new FancyPrinter();
         CompactMarket market = new CompactMarket();
         int[] newMarket = {1, 3, 5, 2, 6, 5, 1, 2, 3, 4, 1, 1, 4};
         market.setMarket(newMarket);
-        cli.printMarket(market);
+        fancyPrinter.printMarket(market);
     }
 
     @Test
@@ -68,11 +66,11 @@ public class CliTest {
 
     @Test
     public void printWarehouse() {
-        Cli cli = new Cli();
+        FancyPrinter fancyPrinter = new FancyPrinter();
         CompactBoard board = new CompactBoard();
         Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
         board.setWarehouse(resources);
-        cli.printWarehouse(board);
+        fancyPrinter.printWarehouse(board);
     }
 
     @Test
@@ -80,27 +78,27 @@ public class CliTest {
         CompactBoard board = new CompactBoard();
         int[] strongbox = {0,1,3,1};
         board.setStrongbox(strongbox);
-        Cli cli = new Cli();
-        cli.printStrongbox(board);
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        fancyPrinter.printStrongbox(board);
     }
 
     @Test
     public void printFaithTrack() {
         CompactBoard board = new CompactBoard();
         board.setFaithTrackIndex(10);
-        Cli cli = new Cli();
-        cli.printFaithTrack(board);
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        fancyPrinter.printFaithTrack(board);
     }
 
     @Test
     public void printPersonalBoard() {
         CompactBoard board = new CompactBoard();
-        Cli cli = new Cli();
+        FancyPrinter fancyPrinter = new FancyPrinter();
         Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
         board.setWarehouse(resources);
         int[] strongbox = {0,1,3,1};
         board.setStrongbox(strongbox);
-        cli.printPersonalBoard(board);
+        fancyPrinter.printPersonalBoard(board);
     }
 
     @Test
@@ -118,8 +116,8 @@ public class CliTest {
         Recipe recipe = new Recipe(startRes, endRes);
         DevCard devCard = new DevCard(39, new Flag(1, Colour.GREEN), recipe, cost, 10);
 
-        Cli cli =new Cli();
-        cli.printDevCard(devCard);
+        FancyPrinter fancyPrinter =new FancyPrinter();
+        fancyPrinter.printDevCard(devCard);
 
     }
 }

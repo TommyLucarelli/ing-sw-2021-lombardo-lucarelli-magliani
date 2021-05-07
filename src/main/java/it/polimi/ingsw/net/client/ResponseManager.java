@@ -2,6 +2,7 @@ package it.polimi.ingsw.net.client;
 
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.net.msg.*;
+import it.polimi.ingsw.view.cli.InputHandler;
 
 /**
  * Handles the various requests messages (RequestMsg) from the server.

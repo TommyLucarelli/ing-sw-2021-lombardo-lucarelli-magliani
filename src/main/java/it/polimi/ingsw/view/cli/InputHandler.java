@@ -1,4 +1,4 @@
-package it.polimi.ingsw.net.client;
+package it.polimi.ingsw.view.cli;
 
 import com.google.gson.JsonObject;
 
@@ -9,6 +9,7 @@ public class InputHandler {
 
     public static JsonObject getInput(JsonObject expectedResponse){
         JsonObject payload = new JsonObject();
+
         switch (expectedResponse.get("type").getAsString()){
             case "int":
                 payload.addProperty("input", getInt(

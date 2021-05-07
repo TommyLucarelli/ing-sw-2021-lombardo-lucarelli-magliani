@@ -1,7 +1,10 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.server.Server;
 import it.polimi.ingsw.view.ViewManager;
+
+import java.util.Arrays;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -20,14 +23,15 @@ public class Launcher {
                 }
                 if(args[1].equals("-cli")){
                     if(args[2].matches("(\\d+\\.\\d+\\.\\d+\\.\\d+):(\\d+)")){
-                        String[] parts = args[2].split(":");
-                        new ViewManager(parts[0], Integer.parseInt(parts[1]), true);
+                        Client.main(Arrays.copyOfRange(args, 1, 3));
+                        return;
                     } else {
                         printHelpMessage("Invalid argument.");
                     }
                 } else if (args[1].matches("(\\d+\\.\\d+\\.\\d+\\.\\d+):(\\d+)")){
                     String[] parts = args[1].split(":");
-                    new ViewManager(parts[0], Integer.parseInt(parts[1]), false);
+                    Client.main(Arrays.copyOfRange(args, 1, 2));
+                    return;
                 } else {
                     printHelpMessage("Invalid argument.");
                 }
