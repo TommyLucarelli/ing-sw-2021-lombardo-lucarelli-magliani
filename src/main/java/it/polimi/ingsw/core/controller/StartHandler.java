@@ -64,8 +64,7 @@ public class StartHandler {
         player.getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(discardedID[1]));
 
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
-        payload.addProperty("resources array", json);
+        payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
         switch (controller.getPlayers().indexOf(playerHandler)){
             case 1: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();

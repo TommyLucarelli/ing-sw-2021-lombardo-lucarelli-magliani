@@ -107,7 +107,7 @@ public class Strongbox
         Gson gson = new Gson();
         JsonObject payload = new JsonObject();
         String json = gson.toJson(arr);
-        payload.addProperty("strongbox", json);
+        payload.addProperty("structure", json);
 
         return payload;
     }

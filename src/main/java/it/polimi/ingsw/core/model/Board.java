@@ -228,7 +228,7 @@ public class Board {
         Gson gson = new Gson();
         JsonObject payload = new JsonObject();
         String json = gson.toJson(mat);
-        payload.addProperty("devCardSlots", json);
+        payload.addProperty("structure", json);
 
         return payload;
     }
