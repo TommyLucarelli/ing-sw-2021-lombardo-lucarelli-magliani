@@ -10,4 +10,16 @@ public class CompactPlayer {
         this.playerID = playerID;
         this.playerName = playerName;
     }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public CompactBoard getCompactBoard() {
+        return compactBoard;
+    }
 }

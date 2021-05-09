@@ -7,6 +7,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 import it.polimi.ingsw.view.cli.Cli;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,7 +43,11 @@ public class Client implements Runnable{
             ui = new Gui(this);
         }
          */
-        this.ui = new Cli(this);
+        try {
+            this.ui = new Cli(this);
+        }catch(FileNotFoundException e){
+            System.out.println("\nFILE NON TROVATO");
+        }
     }
 
     public static void main(String[] args) {

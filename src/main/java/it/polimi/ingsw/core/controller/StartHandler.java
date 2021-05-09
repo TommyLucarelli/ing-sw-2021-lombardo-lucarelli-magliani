@@ -38,6 +38,8 @@ public class StartHandler {
             Gson gson = new Gson();
             String json = gson.toJson(cardID); //forse sarebbe meglio trasformarlo in array
             payload.addProperty("leaderCards", json);
+            payload.addProperty("playerID", player.getPlayerID());
+            payload.addProperty("playerName", player.getNickname());
             controller.notifyPlayer(controller.getPlayers().get(j), new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
     }
