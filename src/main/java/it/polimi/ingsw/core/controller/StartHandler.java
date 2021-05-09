@@ -48,7 +48,6 @@ public class StartHandler {
     public void chooseStartLeaders(ResponseMsg ms) {
         //arrivo scelta carte leader array con id carte scartate
         //invio messaggio start resources
-        System.out.println("QUIIIII");
         PlayerHandler playerHandler;
         Player player;
         int playerID = ms.getPayload().get("playerID").getAsInt();
@@ -66,9 +65,7 @@ public class StartHandler {
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
-        int x = controller.getPlayers().indexOf(playerHandler);
-        System.out.println(x);
-        switch (x){
+        switch (controller.getPlayers().indexOf(playerHandler)){
             case 0: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();
                 if(check){
@@ -109,7 +106,8 @@ public class StartHandler {
 
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
-        Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+        Type collectionType = new TypeToken<ArrayList<Resource>>() {
+        }.getType();
         ArrayList<Resource> placed = gson.fromJson(json, collectionType);
         player.getBoard().getWarehouse().updateConfiguration(placed);
 
@@ -117,12 +115,9 @@ public class StartHandler {
 
         JsonObject payload = new JsonObject();
 
-        if(check){
+        if (check) {
             controller.initialUpdate();
-        }else{
-            //messaggio di attesa inizio gioco
         }
+
     }
-
-
 }

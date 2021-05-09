@@ -196,6 +196,8 @@ public class Cli implements UserInterface {
                 placed1[0] = a;
             }
 
+            System.out.println("\nWait for the other players to finish their initial turn");
+
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
             payload.addProperty("playerID", mySelf.getPlayerID());

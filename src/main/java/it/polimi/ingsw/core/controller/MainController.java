@@ -84,7 +84,6 @@ public class MainController{
                 handleTestMessage(responseMsg.getPayload());
                 return;
             case "CHOOSE_START_LEADERS":
-                System.out.println("QUAUUAU");
                 startHandler.chooseStartLeaders(responseMsg);
                 return;
             case "CHOOSE_START_RESOURCES":

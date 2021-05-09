@@ -26,12 +26,10 @@ public class PlayerHandler {
     }
 
     public void handleMessage(ResponseMsg msg){
-        System.out.println("quiii");
         controller.handle(msg);
     }
 
     public void newMessage(RequestMsg updateMsg){
-        System.out.println("qua non credo");
         manager.sendGameMessage(updateMsg);
     }
 }
