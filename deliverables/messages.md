@@ -37,6 +37,7 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_LEADERS,
     "discardedLeaders": int[2] //the IDs of the 2 leader cards discarded by the player
+    "playerID": int //player id
 }
 ```
 
@@ -58,6 +59,7 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_START_RESOURCES,
     "placed": ArrayList<Resource> //the array with the placement of the acquired resources into the warehouse
+    "playerID": int //player id
 }
 ```
 

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
+import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
@@ -14,6 +15,8 @@ import it.polimi.ingsw.view.compact.CompactPlayer;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -26,6 +29,7 @@ public class Cli implements UserInterface {
     CardCollector cardCollector;
     FancyPrinter fancyPrinter;
     InputHandler inputHandler;
+    Scanner scan = new Scanner(System.in);
 
     /**
      * Class constructor.
@@ -63,6 +67,12 @@ public class Cli implements UserInterface {
                         break;
                     case "CHOOSE_START_LEADERS":
                         handleChooseStartLeaders(request);
+                        break;
+                    case "CHOOSE_START_RESOURCES":
+                        handleChooseStartResources(request);
+                        break;
+                    case "INITIAL_UPDATE":
+                        handleInitialUpdate(request);
                         break;
                 }
                 break;
@@ -102,7 +112,6 @@ public class Cli implements UserInterface {
 
     private void handleChooseStartLeaders(RequestMsg ms){
         LeaderCard lc;
-        Scanner scan = new Scanner(System.in);
         int x, y, j=0, k=0;
         int[] discardedLeaders = new int[2];
         int[] leaders = new int[2];
@@ -143,6 +152,7 @@ public class Cli implements UserInterface {
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_LEADERS");
+        payload.addProperty("playerID", mySelf.getPlayerID());
         json = gson.toJson(discardedLeaders); //forse sarebbe meglio trasformarlo in array
         payload.addProperty("discardedLeaders", json);
 
@@ -150,5 +160,56 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
     }
 
-    
+    private void handleChooseStartResources(RequestMsg ms){
+        int x, y, n;
+        Resource[] placed1 = new Resource[10];
+
+        Resource a, b;
+        if(ms.getPayload().get("resources").getAsInt() == 0)
+            System.out.println("\nWait for the other players to finish their initial turn");
+        else{
+            x = ms.getPayload().get("resources").getAsInt();
+            y = ms.getPayload().get("faithPoints").getAsInt();
+            System.out.println("\nYou are entitled to "+x+" resources ");
+            if(y!=0)
+                System.out.println("and "+y+" faith points");
+
+            System.out.println("\nChoose "+x+" resources:");
+            System.out.println("\n1. COIN");
+            System.out.println("\n2. SHIELD");
+            System.out.println("\n3. STONE");
+            System.out.println("\n4. SERVANT");
+
+            n = scan.nextInt();
+            a = Resource.values()[n-1];
+            if(x == 2){
+                n = scan.nextInt();
+                b = Resource.values()[n-1];
+                if(a.equals(b)){
+                    placed1[1] = a;
+                    placed1[2] = b;
+                }else{
+                    placed1[0] = a;
+                    placed1[1] = b;
+                }
+            }else{
+                placed1[0] = a;
+            }
+
+            System.out.println("\nWait for the other players to finish their initial turn");
+
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
+            payload.addProperty("playerID", mySelf.getPlayerID());
+            Gson gson = new Gson();
+            String json = gson.toJson(new ArrayList<>(Arrays.asList(placed1))); //forse sarebbe meglio trasformarlo in array
+            payload.addProperty("placed", json);
+
+            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+        }
+    }
+
+    private void handleInitialUpdate(RequestMsg ms){
+        System.out.println("\nQUA FARò UPDATE");
+    }
 }
