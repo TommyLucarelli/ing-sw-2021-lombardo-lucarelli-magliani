@@ -257,6 +257,50 @@ payload: {
 }
 ```
 
+#### INITIAL_UPDATE
+
+Server --> Client
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": INITIAL_UPDATE,
+    "market":{
+        "structure": int[12], //array representing arrangement of marbles in the market
+        "reserveMarble": int 
+    },
+    "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+    "playerID1": {
+        "faithTrack":{
+            "points": 12,
+            "favourCards": boolean[3], //favourCards activation
+        },
+        "warehouse":{
+            "structure": ArrayList<Resource>,
+        },  
+    }
+    "playerID2": {
+        "faithTrack":{
+            "points": 12,
+            "favourCards": boolean[3], //favourCards activation
+        },
+        "warehouse":{
+            "structure": ArrayList<Resource>,
+        },  
+    }
+     "playerID3": {
+        "faithTrack":{
+            "points": 12,
+            "favourCards": boolean[3], //favourCards activation
+        },
+        "warehouse":{
+            "structure": ArrayList<Resource>,
+        },  
+    }
+    
+}
+```
+
+
 
 
 
