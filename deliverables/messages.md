@@ -273,6 +273,8 @@ payload: {
     "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
     "numOfPlayers": int //number of players
     "playerID1": {
+        "playerID": int,
+        "playerName": String,
         "faithTrack":{
             "points": 12,
             "favourCards": boolean[3], //favourCards activation
@@ -282,6 +284,8 @@ payload: {
         },  
     }
     "playerID2": {
+        "playerID": int,
+        "playerName": String
         "faithTrack":{
             "points": 12,
             "favourCards": boolean[3], //favourCards activation
@@ -291,6 +295,8 @@ payload: {
         },  
     }
      "playerID3": {
+         "playerID": int,
+        "playerName": String
         "faithTrack":{
             "points": 12,
             "favourCards": boolean[3], //favourCards activation
