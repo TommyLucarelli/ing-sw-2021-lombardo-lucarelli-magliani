@@ -216,8 +216,10 @@ public class MainController{
         payload.add("market", currentGame.getMarket().toCompactMarket());
         payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
 
-        for (PlayerHandler player : players) {
-            payload.add("player" + player.getPlayerId(), currentGame.fromIdToPlayer(player.getPlayerId()).toCompactPlayer());
+        payload.addProperty("numOfPlayers", players.size());
+
+        for (int i=0; i<players.size();i++) {
+            payload.add("player" + i, currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayer());
             //verificare se il nome della proprietà va bene
         }
 

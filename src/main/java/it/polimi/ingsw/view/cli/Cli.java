@@ -17,10 +17,7 @@ import it.polimi.ingsw.view.compact.CompactPlayer;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Main class for CLI operations.
@@ -33,7 +30,7 @@ public class Cli implements UserInterface {
     InputHandler inputHandler;
     CompactMarket compactMarket;
     CompactDevCardStructure compactDevCardStructure;
-    ArrayList<CompactPlayer> opponents;
+    HashMap<String, CompactPlayer> opponents;
     Scanner scan = new Scanner(System.in);
 
     /**
@@ -45,6 +42,7 @@ public class Cli implements UserInterface {
         cardCollector = new CardCollector();
         fancyPrinter = new FancyPrinter();
         inputHandler = new InputHandler();
+        opponents = new HashMap<>();
     }
 
     @Override
@@ -65,6 +63,7 @@ public class Cli implements UserInterface {
                     case "START_GAME_COMMAND":
                         handleSimpleRequest(request);
                         break;
+                    case "START_TURN":
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
@@ -224,5 +223,59 @@ public class Cli implements UserInterface {
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
 
+        JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
+        Gson gson = new Gson();
+        String json = payload.get("structure").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+        compactMarket.setReserveMarble(payload.get("reserveMarble").getAsInt());
+
+        json = ms.getPayload().get("devCardStructure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
+
+        JsonObject payload2;
+        for (int i = 0; i < ms.getPayload().get("numOfPlayers").getAsInt(); i++) {
+            payload = ms.getPayload().get("player"+i).getAsJsonObject();
+            if(payload.get("playerID").getAsInt()== mySelf.getPlayerID()){
+                payload2 = payload.get("faithTrack").getAsJsonObject();
+                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("points").getAsInt());
+                json = payload2.get("favourCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setFavCards(fav);
+
+                payload2 = payload.get("warehouse").getAsJsonObject();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                mySelf.getCompactBoard().setWarehouse(wa);
+
+            }else{
+                opponents.put(payload.get("playerNames").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerNames").getAsString()));
+                opponents.get(payload.get("playerNames").getAsString()).getCompactBoard().setFaithTrackIndex(payload.get("points").getAsInt());
+
+                payload2 = payload.get("faithTrack").getAsJsonObject();
+                json = payload2.get("favourCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                opponents.get(payload.get("playerNames").getAsString()).getCompactBoard().setFavCards(fav);
+
+                payload2 = payload.get("warehouse").getAsJsonObject();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                mySelf.getCompactBoard().setWarehouse(wa);
+            }
+        }
+
+        JsonObject payload3 = new JsonObject();
+        payload3.addProperty("gameAction", "INITIAL_UPDATE");
     }
+
+
 }

@@ -3,7 +3,7 @@ package it.polimi.ingsw.view.compact;
 public class CompactMarket {
 
     private int[] market;
-    private char reserveMarble;
+    private int reserveMarble;
 
     public CompactMarket(){
         market = new int[12];
@@ -18,11 +18,11 @@ public class CompactMarket {
         this.market = market;
     }
 
-    public char getReserveMarble() {
+    public int getReserveMarble() {
         return reserveMarble;
     }
 
-    public void setReserveMarble(char reserveMarble) {
+    public void setReserveMarble(int reserveMarble) {
         this.reserveMarble = reserveMarble;
     }
 }
