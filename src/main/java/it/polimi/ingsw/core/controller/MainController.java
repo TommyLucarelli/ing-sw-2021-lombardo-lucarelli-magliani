@@ -9,6 +9,7 @@ import it.polimi.ingsw.net.server.RequestManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class MainController{
     private int id;
@@ -120,11 +121,13 @@ public class MainController{
     }
 
     private void startGame(){
-        ArrayList<String> usernames = new ArrayList<>();
-        Collections.shuffle(getPlayers());
-        for(PlayerHandler player: getPlayers()) usernames.add(player.getUsername());
+        HashMap<Integer,String> playerInfo = new HashMap<Integer, String>();
+        Collections.shuffle(players);
+        for(PlayerHandler player: players) {
+            playerInfo.put(player.getPlayerId(), player.getUsername());
+        }
         try {
-            currentGame = new Game(this.id, usernames);
+            currentGame = new Game(this.id, playerInfo);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

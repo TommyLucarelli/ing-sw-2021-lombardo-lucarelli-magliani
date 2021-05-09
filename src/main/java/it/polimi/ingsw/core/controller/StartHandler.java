@@ -25,7 +25,7 @@ public class StartHandler {
         Player player;
         int[] cardID = new int[4];
 
-        for(int j=0; j< controller.getPlayersInGame(); j++) {
+        for(int j=0; j < controller.getPlayersInGame(); j++) {
             player = controller.getCurrentGame().fromIdToPlayer(controller.getPlayers().get(j).getPlayerId());
             for (int i = 0; i < 4; i++) {
                 player.getBoard().addLeaderCard(controller.getCurrentGame().getLeaderCards().drawCard());

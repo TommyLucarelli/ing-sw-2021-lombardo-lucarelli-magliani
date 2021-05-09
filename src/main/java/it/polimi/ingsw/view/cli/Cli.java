@@ -6,12 +6,14 @@ import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
+import it.polimi.ingsw.view.compact.CompactPlayer;
 
 /**
  * Main class for CLI operations.
  */
 public class Cli implements UserInterface {
     Client client;
+    CompactPlayer mySelf;
 
     /**
      * Class constructor.
@@ -43,6 +45,9 @@ public class Cli implements UserInterface {
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
                         ackSimpleRequest(request);
+                    case "CHOOSE_START_LEADERS":
+                        //handleChooseStartLeaders(request);
+
                 }
                 break;
             default:
@@ -78,4 +83,8 @@ public class Cli implements UserInterface {
             client.send(new ResponseMsg(requestMsg.getIdentifier(), requestMsg.getMessageType(), null));
         }
     }
+
+    /*private void handleChooseStartLeaders(RequestMsg ms){
+        mySelf = new CompactPlayer();
+    }*/
 }

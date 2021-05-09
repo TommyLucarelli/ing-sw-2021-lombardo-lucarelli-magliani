@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -14,11 +15,11 @@ public class GameTest
 {
     @Test
     public void testFaithTrackUpdate() throws FileNotFoundException {
-        ArrayList<String> playerNames = new ArrayList<>();
         ArrayList<Player> players;
-        playerNames.add("Tommy");
-        playerNames.add("Giacomino");
-        playerNames.add("Tina");
+        HashMap<Integer,String> playerNames = new HashMap<Integer, String>();
+        playerNames.put(1,"Tommy");
+        playerNames.put(2,"Toy");
+        playerNames.put(3,"Tom");
         Game gioco = new Game(123, playerNames);
         players = gioco.getPlayers();
         for(int i=0; i<6; i++)
