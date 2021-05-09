@@ -271,6 +271,7 @@ payload: {
         "reserveMarble": int 
     },
     "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+    "numOfPlayers": int //number of players
     "playerID1": {
         "faithTrack":{
             "points": 12,
