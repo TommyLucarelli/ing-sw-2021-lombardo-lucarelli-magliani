@@ -48,11 +48,11 @@ public class StartHandler {
     public void chooseStartLeaders(ResponseMsg ms) {
         //arrivo scelta carte leader array con id carte scartate
         //invio messaggio start resources
+        System.out.println("QUIIIII");
         PlayerHandler playerHandler;
         Player player;
         int playerID = ms.getPayload().get("playerID").getAsInt();
         int[] discardedID;
-
         Gson gson = new Gson();
         String json = ms.getPayload().get("discardedLeaders").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
@@ -66,27 +66,31 @@ public class StartHandler {
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
-        switch (controller.getPlayers().indexOf(playerHandler)){
-            case 1: //messaggio: aspetta che gli altri faccianno le loro scelte
+        int x = controller.getPlayers().indexOf(playerHandler);
+        System.out.println(x);
+        switch (x){
+            case 0: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();
                 if(check){
                     controller.initialUpdate();
                 }else{
-                    //messaggio di attesa inizio gioco
+                    payload.addProperty("resources", 0);
+                    controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 }
                 break;
-            case 2: //messaggio choose resources 1
+            case 1: //messaggio choose resources 1
                 payload.addProperty("resources", 1);
                 payload.addProperty("faithPoints", 0);
+                System.out.println("qui invece");
                 controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 break;
-            case 3: //messaggio choose resources 1 + 1 punto fede
+            case 2: //messaggio choose resources 1 + 1 punto fede
                 payload.addProperty("resources", 1);
                 payload.addProperty("faithPoints", 1);
                 controller.getCurrentGame().faithTrackUpdate(player, 1, 0);
                 controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 break;
-            case 4: //messaggio choose resources 2 + 1 punto fede
+            case 3: //messaggio choose resources 2 + 1 punto fede
                 payload.addProperty("resources", 2);
                 payload.addProperty("faithPoints", 1);
                 controller.getCurrentGame().faithTrackUpdate(player, 1, 0);

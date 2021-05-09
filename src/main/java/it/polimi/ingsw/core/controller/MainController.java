@@ -84,6 +84,7 @@ public class MainController{
                 handleTestMessage(responseMsg.getPayload());
                 return;
             case "CHOOSE_START_LEADERS":
+                System.out.println("QUAUUAU");
                 startHandler.chooseStartLeaders(responseMsg);
                 return;
             case "CHOOSE_START_RESOURCES":
@@ -117,12 +118,14 @@ public class MainController{
                 turnHandler.comeBack();
             case "UPDATE":
                 turnHandler.update();
+            case "INITIAL_UPDATE":
+                turnHandler.update();
         }
     }
 
     private void startGame(){
         HashMap<Integer,String> playerInfo = new HashMap<Integer, String>();
-        Collections.shuffle(players);
+        Collections.shuffle(players); //ma lo fa sto shuffle
         for(PlayerHandler player: players) {
             playerInfo.put(player.getPlayerId(), player.getUsername());
         }
@@ -229,8 +232,8 @@ public class MainController{
 
     public PlayerHandler fromIdToPlayerHandler(int id){
         for (int i = 0; i < players.size(); i++) {
-            if(players.get(0).getPlayerId() == id)
-                return players.get(0); //clone
+            if(players.get(i).getPlayerId() == id)
+                return players.get(i); //clone
         }
         //gestire exception
         return null;
