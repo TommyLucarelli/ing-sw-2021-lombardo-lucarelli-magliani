@@ -68,5 +68,13 @@ public class Player {
 
         return payload;
     }
+
+    public JsonObject toCompactPlayerInitial(){
+        JsonObject payload = new JsonObject();
+        payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
+        payload.add("warehouse", board.getWarehouse().toCompactWarehouse());
+
+        return payload;
+    }
 }
 

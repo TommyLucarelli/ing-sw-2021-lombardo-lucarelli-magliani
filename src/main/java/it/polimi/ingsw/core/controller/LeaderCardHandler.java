@@ -52,7 +52,7 @@ public class LeaderCardHandler{
                 if(controller.getCurrentGame().getTurn().isLastTurn())
                     vp = controller.getCurrentPlayer().getBoard().victoryPoints();
                 //update
-                controller.updateBuilder(false);
+                controller.updateBuilder();
             } else{
                 payload.addProperty("gameAction", "MAIN_CHOICE");
                 payload.addProperty("leaderCard", lc.getId());

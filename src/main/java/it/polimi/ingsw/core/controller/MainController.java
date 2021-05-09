@@ -143,7 +143,7 @@ public class MainController{
         notifyPlayer(getPlayers().get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
-    public RequestMsg handleTestMessage(JsonObject response){
+    public void handleTestMessage(JsonObject response){
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "Server received: " + response.get("input").toString());
         payload.addProperty("gameAction", "TESTING_MESSAGE");
@@ -151,7 +151,7 @@ public class MainController{
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
-        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
     public void notifyAllPlayers(RequestMsg updateMsg){
@@ -174,19 +174,18 @@ public class MainController{
     }
 
 
-    public void updateBuilder(boolean start){
+    public void updateBuilder(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "UPDATE");
         int x = currentGame.getTurn().getTypeOfAction();
 
-        if(!start) {
-            if (x == 0)
-                payload.addProperty("message", currentPlayer.getNickname() + " ha preso risorse dal mercato");
-            else if (x == 1)
-                payload.addProperty("message", currentPlayer.getNickname() + " ha acquistato una carta sviluppo");
-            else
-                payload.addProperty("message", currentPlayer.getNickname() + " ha attivato la produzione");
-        }
+        if (x == 0)
+            payload.addProperty("message", currentPlayer.getNickname() + " ha preso risorse dal mercato");
+        else if (x == 1)
+            payload.addProperty("message", currentPlayer.getNickname() + " ha acquistato una carta sviluppo");
+        else
+            payload.addProperty("message", currentPlayer.getNickname() + " ha attivato la produzione");
+
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
         //compute next player
@@ -195,16 +194,31 @@ public class MainController{
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
 
-        if(x == 0 || start)
+        if(x == 0)
             payload.add("market", currentGame.getMarket().toCompactMarket());
-        if(x == 1 || start)
+        if(x == 1)
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
 
-        if(!start)
-            payload.add("player", oldPlayer.toCompactPlayer());
+        payload.add("player", oldPlayer.toCompactPlayer());
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
+
+    public void initialUpdate(){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "INITIAL_UPDATE");
+
+        payload.add("market", currentGame.getMarket().toCompactMarket());
+        payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
+
+        for (PlayerHandler player : players) {
+            payload.add("player" + player.getPlayerId(), currentGame.fromIdToPlayer(player.getPlayerId()).toCompactPlayer());
+            //verificare se il nome della proprietà va bene
+        }
+
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+    }
+
 
     public ArrayList<PlayerHandler> getPlayers() {
         return players;
@@ -221,7 +235,7 @@ public class MainController{
 
     public boolean setCountStartPhase() {
         countStartPhase++;
-        if(countStartPhase==4)
+        if(countStartPhase==numPlayers)
             return true;
         else
             return false;

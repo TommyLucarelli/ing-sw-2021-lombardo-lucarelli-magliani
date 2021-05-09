@@ -21,7 +21,7 @@ public class StartHandler {
     }
 
 
-    public RequestMsg startMatch() {
+    public void startMatch() {
         Player player;
         int[] cardID = new int[4];
 
@@ -40,7 +40,6 @@ public class StartHandler {
             payload.addProperty("leaderCards", json);
             controller.notifyPlayer(controller.getPlayers().get(j), new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
-        return null;
     }
 
 
@@ -69,7 +68,7 @@ public class StartHandler {
             case 1: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();
                 if(check){
-                    controller.updateBuilder(true);
+                    controller.initialUpdate();
                 }else{
                     //messaggio di attesa inizio gioco
                 }
@@ -113,7 +112,7 @@ public class StartHandler {
         JsonObject payload = new JsonObject();
 
         if(check){
-            controller.updateBuilder(true);
+            controller.initialUpdate();
         }else{
             //messaggio di attesa inizio gioco
         }
