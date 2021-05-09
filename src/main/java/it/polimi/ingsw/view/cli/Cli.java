@@ -11,6 +11,8 @@ import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 import it.polimi.ingsw.view.compact.CardCollector;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
+import it.polimi.ingsw.view.compact.CompactMarket;
 import it.polimi.ingsw.view.compact.CompactPlayer;
 
 import java.io.FileNotFoundException;
@@ -29,6 +31,9 @@ public class Cli implements UserInterface {
     CardCollector cardCollector;
     FancyPrinter fancyPrinter;
     InputHandler inputHandler;
+    CompactMarket compactMarket;
+    CompactDevCardStructure compactDevCardStructure;
+    ArrayList<CompactPlayer> opponents;
     Scanner scan = new Scanner(System.in);
 
     /**
@@ -132,11 +137,15 @@ public class Cli implements UserInterface {
             System.out.println("."+(i+1)+"\n");
             //fancyPrinter.printLeaderCard(lc);
         }
-        //serve un controllo, magari cambiamo su inputHandler
-        System.out.println("Choose a card to discard\n");
-        x = scan.nextInt();
-        System.out.println("Choose another card to discard\n");
-        y = scan.nextInt();
+        //TODO: controllo
+        do {
+            System.out.println("\nChoose a card to discard");
+            x = scan.nextInt();
+        }while(x>4 || x<1);
+        do {
+            System.out.println("\nChoose a second card to discard");
+            y = scan.nextInt();
+        }while(y>4 || y<1 || x==y);
 
         for (int i = 0; i < 4; i++) {
             if (i == (x - 1) || i == (y - 1)) {
@@ -180,6 +189,7 @@ public class Cli implements UserInterface {
             System.out.println("\n3. STONE");
             System.out.println("\n4. SERVANT");
 
+            //TODO: controllo
             n = scan.nextInt();
             a = Resource.values()[n-1];
             if(x == 2){
@@ -211,5 +221,8 @@ public class Cli implements UserInterface {
 
     private void handleInitialUpdate(RequestMsg ms){
         System.out.println("\nQUA FARò UPDATE");
+        compactMarket = new CompactMarket();
+        compactDevCardStructure = new CompactDevCardStructure();
+
     }
 }
