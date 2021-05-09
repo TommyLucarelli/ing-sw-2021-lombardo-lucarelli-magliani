@@ -71,6 +71,8 @@ public class Player {
 
     public JsonObject toCompactPlayerInitial(){
         JsonObject payload = new JsonObject();
+        payload.addProperty("playerID", playerID);
+        payload.addProperty("playerName", nickname);
         payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         payload.add("warehouse", board.getWarehouse().toCompactWarehouse());
 
