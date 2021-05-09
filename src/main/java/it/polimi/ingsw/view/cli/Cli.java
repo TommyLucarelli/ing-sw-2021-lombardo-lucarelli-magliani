@@ -125,7 +125,7 @@ public class Cli implements UserInterface {
         int[] leaderCards = gson.fromJson(json, collectionType);
 
         System.out.println("\nGame is started!!");
-        System.out.println("You're player"+ms.getPayload().get("playerOrder").getAsInt());
+        System.out.println("You're player "+ms.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
             lc = cardCollector.getLeaderCard(leaderCards[i]);
