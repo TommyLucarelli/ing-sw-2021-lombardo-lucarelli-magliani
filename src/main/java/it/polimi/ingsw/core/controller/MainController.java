@@ -219,7 +219,7 @@ public class MainController{
         payload.addProperty("numOfPlayers", players.size());
 
         for (int i=0; i<players.size();i++) {
-            payload.add("player" + i, currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayer());
+            payload.add("player" + i, currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayerInitial());
             //verificare se il nome della proprietà va bene
         }
 

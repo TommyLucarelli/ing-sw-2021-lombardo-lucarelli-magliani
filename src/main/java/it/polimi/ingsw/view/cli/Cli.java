@@ -231,7 +231,8 @@ public class Cli implements UserInterface {
         compactMarket.setMarket(structure);
         compactMarket.setReserveMarble(payload.get("reserveMarble").getAsInt());
 
-        json = ms.getPayload().get("devCardStructure").getAsString();
+        payload = ms.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
         collectionType = new TypeToken<int[][]>(){}.getType();
         int[][] structure2 = gson.fromJson(json, collectionType);
         compactDevCardStructure.setDevCardStructure(structure2);
@@ -239,15 +240,16 @@ public class Cli implements UserInterface {
         JsonObject payload2;
         for (int i = 0; i < ms.getPayload().get("numOfPlayers").getAsInt(); i++) {
             payload = ms.getPayload().get("player"+i).getAsJsonObject();
-            if(payload.get("playerID").getAsInt()== mySelf.getPlayerID()){
+            if(payload.get("playerID").getAsInt() == mySelf.getPlayerID()){
                 payload2 = payload.get("faithTrack").getAsJsonObject();
-                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("points").getAsInt());
-                json = payload2.get("favourCards").getAsString();
+                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
                 collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setFavCards(fav);
 
                 payload2 = payload.get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
                 ArrayList<Resource> ware = gson.fromJson(json, collectionType);
                 Resource[] wa = new Resource[10];
@@ -255,16 +257,17 @@ public class Cli implements UserInterface {
                 mySelf.getCompactBoard().setWarehouse(wa);
 
             }else{
-                opponents.put(payload.get("playerNames").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerNames").getAsString()));
-                opponents.get(payload.get("playerNames").getAsString()).getCompactBoard().setFaithTrackIndex(payload.get("points").getAsInt());
+                opponents.put(payload.get("playerName").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerName").getAsString()));
 
                 payload2 = payload.get("faithTrack").getAsJsonObject();
-                json = payload2.get("favourCards").getAsString();
+                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
                 collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
-                opponents.get(payload.get("playerNames").getAsString()).getCompactBoard().setFavCards(fav);
+                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFavCards(fav);
 
                 payload2 = payload.get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
                 ArrayList<Resource> ware = gson.fromJson(json, collectionType);
                 Resource[] wa = new Resource[10];
