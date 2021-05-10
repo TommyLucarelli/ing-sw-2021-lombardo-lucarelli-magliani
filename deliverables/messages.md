@@ -241,7 +241,7 @@ payload: {
      },
     "player": {
         "faithTrack":{
-            "points": 12,
+            "index": 12,
             "favourCards": boolean[3], //favourCards activation
         },
 
@@ -280,7 +280,7 @@ payload: {
         "playerID": int,
         "playerName": String,
         "faithTrack":{
-            "points": 12,
+            "index": 12,
             "favourCards": boolean[3], //favourCards activation
         },
         "warehouse":{
@@ -291,7 +291,7 @@ payload: {
         "playerID": int,
         "playerName": String
         "faithTrack":{
-            "points": 12,
+            "index": 12,
             "favourCards": boolean[3], //favourCards activation
         },
         "warehouse":{
@@ -302,7 +302,7 @@ payload: {
          "playerID": int,
         "playerName": String
         "faithTrack":{
-            "points": 12,
+            "index": 12,
             "favourCards": boolean[3], //favourCards activation
         },
         "warehouse":{
