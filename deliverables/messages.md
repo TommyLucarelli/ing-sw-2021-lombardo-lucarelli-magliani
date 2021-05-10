@@ -242,7 +242,7 @@ payload: {
     "player": {
         "faithTrack":{
             "index": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "favCards": boolean[3], //favourCards activation
         },
 
         "devCardSlots":{
@@ -281,7 +281,7 @@ payload: {
         "playerName": String,
         "faithTrack":{
             "index": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,
@@ -292,7 +292,7 @@ payload: {
         "playerName": String
         "faithTrack":{
             "index": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,
@@ -303,7 +303,7 @@ payload: {
         "playerName": String
         "faithTrack":{
             "index": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,
