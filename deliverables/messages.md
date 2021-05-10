@@ -236,11 +236,13 @@ payload: {
         "structure": int[12], //array representing arrangement of marbles in the market
         "reserveMarble": int 
     },
-    "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+     "devCardStructure": {
+        "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+     },
     "player": {
         "faithTrack":{
-            "points": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "index": 12,
+            "favCards": boolean[3], //favourCards activation
         },
 
         "devCardSlots":{
@@ -270,14 +272,16 @@ payload: {
         "structure": int[12], //array representing arrangement of marbles in the market
         "reserveMarble": int 
     },
-    "devCardStructure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
-    "numOfPlayers": int //number of players
+    "devCardStructure": {
+        "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
+     },
+    "numOfPlayers": int, //number of players
     "playerID1": {
         "playerID": int,
         "playerName": String,
         "faithTrack":{
-            "points": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "index": 12,
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,
@@ -287,8 +291,8 @@ payload: {
         "playerID": int,
         "playerName": String
         "faithTrack":{
-            "points": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "index": 12,
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,
@@ -298,8 +302,8 @@ payload: {
          "playerID": int,
         "playerName": String
         "faithTrack":{
-            "points": 12,
-            "favourCards": boolean[3], //favourCards activation
+            "index": 12,
+            "favCards": boolean[3], //favourCards activation
         },
         "warehouse":{
             "structure": ArrayList<Resource>,

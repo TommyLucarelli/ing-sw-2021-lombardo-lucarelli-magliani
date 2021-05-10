@@ -1,10 +1,12 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.core.model.*;
+import it.polimi.ingsw.view.compact.CardCollector;
 import it.polimi.ingsw.view.compact.CompactBoard;
 import it.polimi.ingsw.view.compact.CompactMarket;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class CliTest {
@@ -124,14 +126,7 @@ public class CliTest {
 
     @Test
     public void printLeaderCard() {
-        ArrayList<Flag> requiredFlags = new ArrayList<Flag>();
-        requiredFlags.add(new Flag(Colour.GREEN));
-        requiredFlags.add(new Flag(Colour.GREEN));
-        requiredFlags.add(new Flag(Colour.PURPLE));
-        SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
-        LeaderCard leaderCard = new LeaderCard(1, requiredFlags, null, 5, specialAbility);
         FancyPrinter fancyprinter = new FancyPrinter();
-
-        fancyprinter.printLeaderCard(leaderCard);
+        fancyprinter.printLeaderCard(57);
     }
 }
