@@ -27,7 +27,6 @@ public class Cli implements UserInterface {
     CompactPlayer mySelf;
     CardCollector cardCollector;
     FancyPrinter fancyPrinter;
-    InputHandler inputHandler;
     CompactMarket compactMarket;
     CompactDevCardStructure compactDevCardStructure;
     HashMap<String, CompactPlayer> opponents;
@@ -41,7 +40,6 @@ public class Cli implements UserInterface {
         this.client = client;
         cardCollector = new CardCollector();
         fancyPrinter = new FancyPrinter();
-        inputHandler = new InputHandler();
         opponents = new HashMap<>();
     }
 
@@ -114,26 +112,26 @@ public class Cli implements UserInterface {
         }
     }
 
-    private void handleChooseStartLeaders(RequestMsg ms){
+    private void handleChooseStartLeaders(RequestMsg requestMsg){
         LeaderCard lc;
         int x, y, j=0, k=0;
         int[] discardedLeaders = new int[2];
         int[] leaders = new int[2];
-        int playerID = ms.getPayload().get("playerID").getAsInt();
-        String playerName = ms.getPayload().get("playerName").getAsString();
+        int playerID = requestMsg.getPayload().get("playerID").getAsInt();
+        String playerName = requestMsg.getPayload().get("playerName").getAsString();
         mySelf = new CompactPlayer(playerID, playerName);
 
         Gson gson = new Gson();
-        String json = ms.getPayload().get("leaderCards").getAsString();
+        String json = requestMsg.getPayload().get("leaderCards").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
         int[] leaderCards = gson.fromJson(json, collectionType);
 
-        System.out.println("\nGame is started!!");
-        System.out.println("You're player "+ms.getPayload().get("playerOrder").getAsInt());
+        System.out.println("\nThe game has started!!");
+        System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
             lc = cardCollector.getLeaderCard(leaderCards[i]);
-            System.out.println("."+(i+1)+"\n");
+            System.out.println("."+(i+1));
             //fancyPrinter.printLeaderCard(lc);
         }
         //TODO: controllo
@@ -164,20 +162,19 @@ public class Cli implements UserInterface {
         json = gson.toJson(discardedLeaders); //forse sarebbe meglio trasformarlo in array
         payload.addProperty("discardedLeaders", json);
 
-        //cos'è UUID
-        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
-    private void handleChooseStartResources(RequestMsg ms){
+    private void handleChooseStartResources(RequestMsg requestMsg){
         int x, y, n;
         Resource[] placed1 = new Resource[10];
 
         Resource a, b;
-        if(ms.getPayload().get("resources").getAsInt() == 0)
+        if(requestMsg.getPayload().get("resources").getAsInt() == 0)
             System.out.println("\nWait for the other players to finish their initial turn");
         else{
-            x = ms.getPayload().get("resources").getAsInt();
-            y = ms.getPayload().get("faithPoints").getAsInt();
+            x = requestMsg.getPayload().get("resources").getAsInt();
+            y = requestMsg.getPayload().get("faithPoints").getAsInt();
             System.out.println("\nYou are entitled to "+x+" resources ");
             if(y!=0)
                 System.out.println("and "+y+" faith points");
@@ -214,7 +211,7 @@ public class Cli implements UserInterface {
             String json = gson.toJson(new ArrayList<>(Arrays.asList(placed1))); //forse sarebbe meglio trasformarlo in array
             payload.addProperty("placed", json);
 
-            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+            client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
         }
     }
 
