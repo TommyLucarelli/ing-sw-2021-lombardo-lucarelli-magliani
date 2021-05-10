@@ -1,26 +1,28 @@
 package it.polimi.ingsw.view.compact;
 
 public class CompactMarket {
+
     private int[] market;
-    private char reserveMarble;
+    private int reserveMarble;
 
     public CompactMarket(){
-        setMarket(new int[13]);
+        market = new int[12];
     }
 
     public int[] getMarket() {
         return market;
     }
 
+
     public void setMarket(int[] market) {
         this.market = market;
     }
 
-    public char getReserveMarble() {
+    public int getReserveMarble() {
         return reserveMarble;
     }
 
-    public void setReserveMarble(char reserveMarble) {
+    public void setReserveMarble(int reserveMarble) {
         this.reserveMarble = reserveMarble;
     }
 }

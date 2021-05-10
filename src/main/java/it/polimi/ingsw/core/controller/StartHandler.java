@@ -21,11 +21,11 @@ public class StartHandler {
     }
 
 
-    public RequestMsg startMatch() {
+    public void startMatch() {
         Player player;
         int[] cardID = new int[4];
 
-        for(int j=0; j< controller.getPlayersInGame(); j++) {
+        for(int j=0; j < controller.getPlayersInGame(); j++) {
             player = controller.getCurrentGame().fromIdToPlayer(controller.getPlayers().get(j).getPlayerId());
             for (int i = 0; i < 4; i++) {
                 player.getBoard().addLeaderCard(controller.getCurrentGame().getLeaderCards().drawCard());
@@ -38,9 +38,10 @@ public class StartHandler {
             Gson gson = new Gson();
             String json = gson.toJson(cardID); //forse sarebbe meglio trasformarlo in array
             payload.addProperty("leaderCards", json);
+            payload.addProperty("playerID", player.getPlayerID());
+            payload.addProperty("playerName", player.getNickname());
             controller.notifyPlayer(controller.getPlayers().get(j), new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
-        return null;
     }
 
 
@@ -51,7 +52,6 @@ public class StartHandler {
         Player player;
         int playerID = ms.getPayload().get("playerID").getAsInt();
         int[] discardedID;
-
         Gson gson = new Gson();
         String json = ms.getPayload().get("discardedLeaders").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
@@ -64,24 +64,30 @@ public class StartHandler {
         player.getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(discardedID[1]));
 
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
-        payload.addProperty("resources array", json);
+        payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
         switch (controller.getPlayers().indexOf(playerHandler)){
-            case 1: //messaggio: aspetta che gli altri faccianno le loro scelte
+            case 0: //messaggio: aspetta che gli altri faccianno le loro scelte
                 boolean check = controller.setCountStartPhase();
+                if(check){
+                    controller.initialUpdate();
+                }else{
+                    payload.addProperty("resources", 0);
+                    controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                }
                 break;
-            case 2: //messaggio choose resources 1
+            case 1: //messaggio choose resources 1
                 payload.addProperty("resources", 1);
                 payload.addProperty("faithPoints", 0);
+                System.out.println("qui invece");
                 controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 break;
-            case 3: //messaggio choose resources 1 + 1 punto fede
+            case 2: //messaggio choose resources 1 + 1 punto fede
                 payload.addProperty("resources", 1);
                 payload.addProperty("faithPoints", 1);
                 controller.getCurrentGame().faithTrackUpdate(player, 1, 0);
                 controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 break;
-            case 4: //messaggio choose resources 2 + 1 punto fede
+            case 3: //messaggio choose resources 2 + 1 punto fede
                 payload.addProperty("resources", 2);
                 payload.addProperty("faithPoints", 1);
                 controller.getCurrentGame().faithTrackUpdate(player, 1, 0);
@@ -100,7 +106,8 @@ public class StartHandler {
 
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
-        Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+        Type collectionType = new TypeToken<ArrayList<Resource>>() {
+        }.getType();
         ArrayList<Resource> placed = gson.fromJson(json, collectionType);
         player.getBoard().getWarehouse().updateConfiguration(placed);
 
@@ -108,13 +115,9 @@ public class StartHandler {
 
         JsonObject payload = new JsonObject();
 
-        if(check){
-            payload.addProperty("gameAction", "LEADER_ACTIVATION");
-            controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        }else{
-            //messaggio di attesa inizio gioco
+        if (check) {
+            controller.initialUpdate();
         }
+
     }
-
-
 }

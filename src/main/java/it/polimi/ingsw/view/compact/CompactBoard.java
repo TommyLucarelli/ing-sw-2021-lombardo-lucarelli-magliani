@@ -2,6 +2,8 @@ package it.polimi.ingsw.view.compact;
 
 import it.polimi.ingsw.core.model.Resource;
 
+import java.util.Arrays;
+
 public class CompactBoard {
     private int[] strongbox; //impostato come abbiamo fatto nel controller
     private Resource[] warehouse;
@@ -36,6 +38,7 @@ public class CompactBoard {
 
     public void setWarehouse(Resource[] warehouse) {
         this.warehouse = warehouse;
+        Arrays.fill(warehouse, Resource.ANY);
     }
 
     public int[][] getDevCardSlots() {
@@ -76,5 +79,6 @@ public class CompactBoard {
 
     public void setFavCards(boolean[] favCards) {
         this.favCards = favCards;
+        Arrays.fill(favCards, false);
     }
 }

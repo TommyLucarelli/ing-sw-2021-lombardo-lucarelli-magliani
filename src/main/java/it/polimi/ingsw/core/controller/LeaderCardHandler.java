@@ -41,7 +41,8 @@ public class LeaderCardHandler{
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
             payload.addProperty("gameAction", "MAIN_CHOICE");
-            payload.addProperty("leader Card", 0);
+            payload.addProperty("leaderCard", lc.getId());
+            payload.addProperty("action", false);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             return;
         }
@@ -54,7 +55,8 @@ public class LeaderCardHandler{
                 controller.updateBuilder();
             } else{
                 payload.addProperty("gameAction", "MAIN_CHOICE");
-                payload.addProperty("leader Card", lc.getId());
+                payload.addProperty("leaderCard", lc.getId());
+                payload.addProperty("action", true);
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         }else{

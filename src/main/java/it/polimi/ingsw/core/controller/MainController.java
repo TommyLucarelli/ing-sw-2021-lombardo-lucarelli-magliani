@@ -9,6 +9,7 @@ import it.polimi.ingsw.net.server.RequestManager;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class MainController{
     private int id;
@@ -82,6 +83,12 @@ public class MainController{
             case "TESTING_MESSAGE":
                 handleTestMessage(responseMsg.getPayload());
                 return;
+            case "CHOOSE_START_LEADERS":
+                startHandler.chooseStartLeaders(responseMsg);
+                return;
+            case "CHOOSE_START_RESOURCES":
+                startHandler.chooseStartResources(responseMsg);
+                return;
             case "LEADER_ACTIVATION":
                 turnHandler.leaderActivation(responseMsg);
                 return;
@@ -110,15 +117,19 @@ public class MainController{
                 turnHandler.comeBack();
             case "UPDATE":
                 turnHandler.update();
+            case "INITIAL_UPDATE":
+                turnHandler.update();
         }
     }
 
     private void startGame(){
-        ArrayList<String> usernames = new ArrayList<>();
-        Collections.shuffle(getPlayers());
-        for(PlayerHandler player: getPlayers()) usernames.add(player.getUsername());
+        HashMap<Integer,String> playerInfo = new HashMap<Integer, String>();
+        Collections.shuffle(players); //ma lo fa sto shuffle
+        for(PlayerHandler player: players) {
+            playerInfo.put(player.getPlayerId(), player.getUsername());
+        }
         try {
-            currentGame = new Game(this.id, usernames);
+            currentGame = new Game(this.id, playerInfo);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -137,7 +148,7 @@ public class MainController{
         notifyPlayer(getPlayers().get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
-    public RequestMsg handleTestMessage(JsonObject response){
+    public void handleTestMessage(JsonObject response){
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "Server received: " + response.get("input").toString());
         payload.addProperty("gameAction", "TESTING_MESSAGE");
@@ -145,7 +156,7 @@ public class MainController{
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
         payload.add("expectedResponse", expectedResponse);
-        return new RequestMsg(MessageType.GAME_MESSAGE, payload);
+        new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
     public void notifyAllPlayers(RequestMsg updateMsg){
@@ -172,15 +183,16 @@ public class MainController{
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "UPDATE");
         int x = currentGame.getTurn().getTypeOfAction();
-        if(x == 0)
-            payload.addProperty("message", currentPlayer.getNickname()+" ha preso risorse dal mercato");
-        else if(x == 1)
-            payload.addProperty("message", currentPlayer.getNickname()+" ha acquistato una carta sviluppo");
+
+        if (x == 0)
+            payload.addProperty("message", currentPlayer.getNickname() + " ha preso risorse dal mercato");
+        else if (x == 1)
+            payload.addProperty("message", currentPlayer.getNickname() + " ha acquistato una carta sviluppo");
         else
-            payload.addProperty("message", currentPlayer.getNickname()+" ha attivato la produzione");
+            payload.addProperty("message", currentPlayer.getNickname() + " ha attivato la produzione");
+
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
-
         //compute next player
         Player oldPlayer = currentPlayer;
         currentPlayer = currentGame.getTurn().nextPlayer();
@@ -197,14 +209,32 @@ public class MainController{
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
+    public void initialUpdate(){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "INITIAL_UPDATE");
+
+        payload.add("market", currentGame.getMarket().toCompactMarket());
+        payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
+
+        payload.addProperty("numOfPlayers", players.size());
+
+        for (int i=0; i<players.size();i++) {
+            payload.add("player" + i, currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayerInitial());
+            //verificare se il nome della proprietà va bene
+        }
+
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+    }
+
+
     public ArrayList<PlayerHandler> getPlayers() {
         return players;
     }
 
     public PlayerHandler fromIdToPlayerHandler(int id){
         for (int i = 0; i < players.size(); i++) {
-            if(players.get(0).getPlayerId() == id)
-                return players.get(0); //clone
+            if(players.get(i).getPlayerId() == id)
+                return players.get(i); //clone
         }
         //gestire exception
         return null;
@@ -212,7 +242,7 @@ public class MainController{
 
     public boolean setCountStartPhase() {
         countStartPhase++;
-        if(countStartPhase==4)
+        if(countStartPhase==numPlayers)
             return true;
         else
             return false;

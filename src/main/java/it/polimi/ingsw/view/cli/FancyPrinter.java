@@ -1,9 +1,12 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.core.model.DevCard;
+import it.polimi.ingsw.core.model.LeaderCard;
+import it.polimi.ingsw.view.compact.CardCollector;
 import it.polimi.ingsw.view.compact.CompactBoard;
 import it.polimi.ingsw.view.compact.CompactMarket;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -13,8 +16,14 @@ import java.util.Scanner;
 public class FancyPrinter {
     private final PrintStream stream;
     private final Scanner scanner;
+    CardCollector cardCollector;
 
     public FancyPrinter(){
+        try {
+           cardCollector = new CardCollector();
+        }catch(FileNotFoundException e){
+            System.out.println("\nFile not found");
+        }
         stream = new PrintStream(System.out, true);
         scanner = new Scanner(System.in);
     }
@@ -85,28 +94,34 @@ public class FancyPrinter {
         }
 
         switch (devCard.getCost().size()){
-            case 1: string.append("\t");
+            case 1: string.append("  ");
             case 2: string.append("  ");
-            case 3: string.append("");
+            case 3: string.append(" ");
         }
 
         for (int i = 0; i < devCard.getCost().size(); i++) {
             int qty = devCard.getCost().get(i).getQty();
             switch (devCard.getCost().get(i).getResource()) {
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $  ").append(Color.RESET);
+                    string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■  ").append(Color.RESET);
+                    string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊  ").append(Color.RESET);
+                    string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂  ").append(Color.RESET);
+                    string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
             }
+            switch (devCard.getCost().size()){
+                case 1: string.append("  ");
+                case 2: string.append(" ");
+                case 3: string.append(" ");
+            }
         }
+
 
         switch (devCard.getFlag().getColour()) {
             case YELLOW:
@@ -141,11 +156,9 @@ public class FancyPrinter {
                 case 3: string.append(" ");
             }
         }
-        switch (devCard.getRecipe().getInputResources().size()){
-            case 1: string.append("\t\t│");
-            case 2: string.append("\t│");
-            case 3: string.append(" │");
-        }
+        if(devCard.getRecipe().getInputResources().size()==1) {
+            string.append("\t\t│");
+        } else string.append("\t│");
 
         string.append("\n\t│\t─►\t");
 
@@ -164,16 +177,22 @@ public class FancyPrinter {
                 case STONE:
                     string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
+                case FAITH:
+                    string.append(Color.RED_BOLD.color()).append(qty).append(" ").append(Color.RESET);
             }
             switch (devCard.getRecipe().getOutputResources().size()){
                 case 1: string.append("\t");
-                case 2: string.append("   ");
+                case 2: string.append(" ");
                 case 3: string.append(" ");
             }
         }
-        string.append("\t│\n\t│\t\t\t\t\t│");
-        string.append("\n\t│VictoryPoints:").append(devCard.getVictoryPoints()).append("\t│\n");
-        string.append("\t│\t\t\t\t ").append(devCard.getId()).append(" │\n");
+        switch (devCard.getRecipe().getOutputResources().size()){
+            case 1: string.append("\t");
+            case 2: string.append(" ");
+            case 3: string.append(" ");
+        }
+        string.append("\t│\n\t│\t\t\t\t\t│\n\t│\t\t\t\t\t│");
+        string.append("\n\t│ VictoryPoints:").append(devCard.getVictoryPoints()).append("\t│\n");
         string.append("\t└───────────────────┘");
         stream.print(string);
     }
@@ -183,13 +202,7 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printDevCardSlot(CompactBoard board){
-    StringBuilder string = new StringBuilder();
 
-        for (int i = 0; i < 3; i++) {
-            string.append(board.getDevCardSlots()[i][0]);
-            string.append(board.getDevCardSlots()[i][1]);
-            string.append(board.getDevCardSlots()[i][2]);
-        }
     }
 
     /**
@@ -201,6 +214,84 @@ public class FancyPrinter {
                 //come??? matrice di id ma come stampo carta??
             }
         }
+    }
+
+    public void printLeaderCard(int id){
+        LeaderCard leaderCard;
+        leaderCard = cardCollector.getLeaderCard(id);
+        StringBuilder string = new StringBuilder();
+        int[] num = new int[4];
+
+        string.append("\t┌───────────────────┐\n\t│  ");
+        if(leaderCard.getSpecialAbility().getAbilityType()==0){
+            switch(leaderCard.getRequiredResources().getResource()){
+                case COIN:
+                    string.append(Color.YELLOW_BOLD.color()).append(5).append(" $").append(Color.RESET);
+                    break;
+                case SERVANT:
+                    string.append(Color.PURPLE_BOLD.color()).append(5).append(" ■").append(Color.RESET);
+                    break;
+                case SHIELD:
+                    string.append(Color.HEAVENLY_BOLD.color()).append(5).append(" ◊").append(Color.RESET);
+                    break;
+                case STONE:
+                    string.append(Color.WHITE_BOLD.color()).append(5).append(" ⌂").append(Color.RESET);
+                    break;
+            }
+        } else {
+
+            for (int i = 0; i < leaderCard.getRequiredFlags().size(); i++) {
+                num[leaderCard.getRequiredFlags().get(i).getColour().ordinal()]++;
+            }
+
+            if (num[0] != 0)
+                string.append(num[0]).append(Color.GREEN_BOLD.color()).append(" ▓  ").append(Color.RESET);
+            if (num[1] != 0)
+                string.append(num[1]).append(Color.YELLOW_BOLD.color()).append(" ▓  ").append(Color.RESET);
+            if (num[2] != 0)
+                string.append(num[2]).append(Color.PURPLE_BOLD.color()).append(" ▓  ").append(Color.RESET);
+            if (num[3] != 0)
+                string.append(num[3]).append(Color.HEAVENLY_BOLD.color()).append(" ▓  ").append(Color.RESET);
+
+            int cont = 0;
+            for (int i = 0; i < 4; i++) {
+                if (num[i] != 0) cont++;
+            }
+            if (cont == 2) {
+                string.append("\t\t│");
+            } else {
+                string.append("\t\t\t│");
+            }
+        }
+
+        string.append("\n\t│\t\t\t\t\t│").append("\n\t│\t\t\t\t\t│").append("\n\t│\t\t\t\t\t│");
+        string.append("\n\t│ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("\t│\n\t│\t\t\t\t\t│");
+        string.append("\n\t│ SpecialAbility:\t│\n\t│ ");
+
+        switch(leaderCard.getSpecialAbility().getAbilityType()){
+            case 0: string.append("Special Warehouse"); break;
+            case 1: string.append("Special Marble ● ="); break;
+            case 2: string.append("Special Discount -1"); break;
+            case 3: string.append("Special Production"); break;
+        }
+
+        switch(leaderCard.getSpecialAbility().getAbilityResource()){
+            case COIN:
+                string.append(Color.YELLOW_BOLD.color()).append(" $").append(Color.RESET);
+                break;
+            case SERVANT:
+                string.append(Color.PURPLE_BOLD.color()).append(" ■").append(Color.RESET);
+                break;
+            case SHIELD:
+                string.append(Color.HEAVENLY_BOLD.color()).append(" ◊").append(Color.RESET);
+                break;
+            case STONE:
+                string.append(Color.WHITE_BOLD.color()).append(" ⌂").append(Color.RESET);
+                break;
+        }
+        string.append("  │\n\t└───────────────────┘");
+
+        stream.print(string);
     }
 
     /**

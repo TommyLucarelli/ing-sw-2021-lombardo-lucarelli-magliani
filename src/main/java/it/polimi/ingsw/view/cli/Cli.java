@@ -1,30 +1,52 @@
 package it.polimi.ingsw.view.cli;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.core.model.LeaderCard;
+import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
+import it.polimi.ingsw.view.compact.CardCollector;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
+import it.polimi.ingsw.view.compact.CompactMarket;
+import it.polimi.ingsw.view.compact.CompactPlayer;
+
+import java.io.FileNotFoundException;
+import java.lang.reflect.Type;
+import java.util.*;
 
 /**
  * Main class for CLI operations.
  */
 public class Cli implements UserInterface {
     Client client;
+    CompactPlayer mySelf;
+    CardCollector cardCollector;
+    FancyPrinter fancyPrinter;
+    InputHandler inputHandler;
+    CompactMarket compactMarket;
+    CompactDevCardStructure compactDevCardStructure;
+    HashMap<String, CompactPlayer> opponents;
+    Scanner scan = new Scanner(System.in);
 
     /**
      * Class constructor.
      * @param client the client socket used to send messages to the server.
      */
-    public Cli(Client client) {
+    public Cli(Client client) throws FileNotFoundException {
         this.client = client;
+        cardCollector = new CardCollector();
+        fancyPrinter = new FancyPrinter();
+        inputHandler = new InputHandler();
+        opponents = new HashMap<>();
     }
 
     @Override
     public void handleRequest(RequestMsg request){
-        if(request.getPayload().has("message"))
-            System.out.println(request.getPayload().get("message").getAsString());
         switch(request.getMessageType()){
             case REGISTRATION_MESSAGE:
             case WELCOME_MESSAGE:
@@ -41,12 +63,21 @@ public class Cli implements UserInterface {
                     case "START_GAME_COMMAND":
                         handleSimpleRequest(request);
                         break;
+                    case "START_TURN":
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
                         ackSimpleRequest(request);
+                        break;
                     case "CHOOSE_START_LEADERS":
-                        chooseStartLeaders(request);
+                        handleChooseStartLeaders(request);
+                        break;
+                    case "CHOOSE_START_RESOURCES":
+                        handleChooseStartResources(request);
+                        break;
+                    case "INITIAL_UPDATE":
+                        handleInitialUpdate(request);
+                        break;
                 }
                 break;
             default:
@@ -60,6 +91,7 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handleSimpleRequest(RequestMsg requestMsg) {
+        System.out.println(requestMsg.getPayload().get("message").getAsString());
         JsonObject payload = InputHandler.getInput(requestMsg.getPayload().getAsJsonObject("expectedResponse"));
         if(requestMsg.getMessageType() == MessageType.GAME_MESSAGE)
             payload.addProperty("gameAction", requestMsg.getPayload().get("gameAction").getAsString());
@@ -72,6 +104,7 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void ackSimpleRequest(RequestMsg requestMsg) {
+        System.out.println(requestMsg.getPayload().get("message").getAsString());
         if(requestMsg.getMessageType() == MessageType.GAME_MESSAGE){
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", requestMsg.getPayload().get("gameAction").getAsString());
@@ -81,9 +114,171 @@ public class Cli implements UserInterface {
         }
     }
 
-    private void chooseStartLeaders(RequestMsg requestMsg){
-        //Should print the four leader cards but in absence of a method that does that, for now, prints the array of IDs
-        System.out.println(requestMsg.getPayload().get("leaderCards").getAsJsonArray());
-        
+    private void handleChooseStartLeaders(RequestMsg ms){
+        LeaderCard lc;
+        int x, y, j=0, k=0;
+        int[] discardedLeaders = new int[2];
+        int[] leaders = new int[2];
+        int playerID = ms.getPayload().get("playerID").getAsInt();
+        String playerName = ms.getPayload().get("playerName").getAsString();
+        mySelf = new CompactPlayer(playerID, playerName);
+
+        Gson gson = new Gson();
+        String json = ms.getPayload().get("leaderCards").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        int[] leaderCards = gson.fromJson(json, collectionType);
+
+        System.out.println("\nGame is started!!");
+        System.out.println("You're player "+ms.getPayload().get("playerOrder").getAsInt());
+
+        for (int i = 0; i < 4; i++) {
+            lc = cardCollector.getLeaderCard(leaderCards[i]);
+            System.out.println("."+(i+1)+"\n");
+            //fancyPrinter.printLeaderCard(lc);
+        }
+        //TODO: controllo
+        do {
+            System.out.println("\nChoose a card to discard");
+            x = scan.nextInt();
+        }while(x>4 || x<1);
+        do {
+            System.out.println("\nChoose a second card to discard");
+            y = scan.nextInt();
+        }while(y>4 || y<1 || x==y);
+
+        for (int i = 0; i < 4; i++) {
+            if (i == (x - 1) || i == (y - 1)) {
+                discardedLeaders[j] = leaderCards[i];
+                j++;
+            } else {
+                leaders[k] = leaderCards[i];
+                k++;
+            }
+        }
+
+        mySelf.getCompactBoard().setLeaderCards(leaders);
+
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "CHOOSE_START_LEADERS");
+        payload.addProperty("playerID", mySelf.getPlayerID());
+        json = gson.toJson(discardedLeaders); //forse sarebbe meglio trasformarlo in array
+        payload.addProperty("discardedLeaders", json);
+
+        //cos'è UUID
+        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
     }
+
+    private void handleChooseStartResources(RequestMsg ms){
+        int x, y, n;
+        Resource[] placed1 = new Resource[10];
+
+        Resource a, b;
+        if(ms.getPayload().get("resources").getAsInt() == 0)
+            System.out.println("\nWait for the other players to finish their initial turn");
+        else{
+            x = ms.getPayload().get("resources").getAsInt();
+            y = ms.getPayload().get("faithPoints").getAsInt();
+            System.out.println("\nYou are entitled to "+x+" resources ");
+            if(y!=0)
+                System.out.println("and "+y+" faith points");
+
+            System.out.println("\nChoose "+x+" resources:");
+            System.out.println("\n1. COIN");
+            System.out.println("\n2. SHIELD");
+            System.out.println("\n3. STONE");
+            System.out.println("\n4. SERVANT");
+
+            //TODO: controllo
+            n = scan.nextInt();
+            a = Resource.values()[n-1];
+            if(x == 2){
+                n = scan.nextInt();
+                b = Resource.values()[n-1];
+                if(a.equals(b)){
+                    placed1[1] = a;
+                    placed1[2] = b;
+                }else{
+                    placed1[0] = a;
+                    placed1[1] = b;
+                }
+            }else{
+                placed1[0] = a;
+            }
+
+            System.out.println("\nWait for the other players to finish their initial turn");
+
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
+            payload.addProperty("playerID", mySelf.getPlayerID());
+            Gson gson = new Gson();
+            String json = gson.toJson(new ArrayList<>(Arrays.asList(placed1))); //forse sarebbe meglio trasformarlo in array
+            payload.addProperty("placed", json);
+
+            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+        }
+    }
+
+    private void handleInitialUpdate(RequestMsg ms){
+        System.out.println("\nQUA FARò UPDATE");
+        compactMarket = new CompactMarket();
+        compactDevCardStructure = new CompactDevCardStructure();
+
+        JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
+        Gson gson = new Gson();
+        String json = payload.get("structure").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+        compactMarket.setReserveMarble(payload.get("reserveMarble").getAsInt());
+
+        payload = ms.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
+
+        JsonObject payload2;
+        for (int i = 0; i < ms.getPayload().get("numOfPlayers").getAsInt(); i++) {
+            payload = ms.getPayload().get("player"+i).getAsJsonObject();
+            if(payload.get("playerID").getAsInt() == mySelf.getPlayerID()){
+                payload2 = payload.get("faithTrack").getAsJsonObject();
+                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setFavCards(fav);
+
+                payload2 = payload.get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                mySelf.getCompactBoard().setWarehouse(wa);
+
+            }else{
+                opponents.put(payload.get("playerName").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerName").getAsString()));
+
+                payload2 = payload.get("faithTrack").getAsJsonObject();
+                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFavCards(fav);
+
+                payload2 = payload.get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                mySelf.getCompactBoard().setWarehouse(wa);
+            }
+        }
+
+        JsonObject payload3 = new JsonObject();
+        payload3.addProperty("gameAction", "INITIAL_UPDATE");
+    }
+
+
 }
