@@ -23,6 +23,8 @@ public class Cli implements UserInterface {
 
     @Override
     public void handleRequest(RequestMsg request){
+        if(request.getPayload().has("message"))
+            System.out.println(request.getPayload().get("message").getAsString());
         switch(request.getMessageType()){
             case REGISTRATION_MESSAGE:
             case WELCOME_MESSAGE:
@@ -43,6 +45,8 @@ public class Cli implements UserInterface {
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
                         ackSimpleRequest(request);
+                    case "CHOOSE_START_LEADERS":
+                        chooseStartLeaders(request);
                 }
                 break;
             default:
@@ -56,7 +60,6 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handleSimpleRequest(RequestMsg requestMsg) {
-        System.out.println(requestMsg.getPayload().get("message").getAsString());
         JsonObject payload = InputHandler.getInput(requestMsg.getPayload().getAsJsonObject("expectedResponse"));
         if(requestMsg.getMessageType() == MessageType.GAME_MESSAGE)
             payload.addProperty("gameAction", requestMsg.getPayload().get("gameAction").getAsString());
@@ -69,7 +72,6 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void ackSimpleRequest(RequestMsg requestMsg) {
-        System.out.println(requestMsg.getPayload().get("message").getAsString());
         if(requestMsg.getMessageType() == MessageType.GAME_MESSAGE){
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", requestMsg.getPayload().get("gameAction").getAsString());
@@ -77,5 +79,11 @@ public class Cli implements UserInterface {
         } else {
             client.send(new ResponseMsg(requestMsg.getIdentifier(), requestMsg.getMessageType(), null));
         }
+    }
+
+    private void chooseStartLeaders(RequestMsg requestMsg){
+        //Should print the four leader cards but in absence of a method that does that, for now, prints the array of IDs
+        System.out.println(requestMsg.getPayload().get("leaderCards").getAsJsonArray());
+        
     }
 }
