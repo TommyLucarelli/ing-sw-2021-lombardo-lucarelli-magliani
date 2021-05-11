@@ -275,6 +275,8 @@ public class Cli implements UserInterface {
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "INITIAL_UPDATE");
+
+        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
     }
 
 
