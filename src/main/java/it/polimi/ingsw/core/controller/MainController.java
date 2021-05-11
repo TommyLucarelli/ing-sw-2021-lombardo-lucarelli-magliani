@@ -115,10 +115,14 @@ public class MainController{
                 return;
             case "COMEBACK":
                 turnHandler.comeBack();
+                return;
             case "UPDATE":
-                turnHandler.update();
             case "INITIAL_UPDATE":
                 turnHandler.update();
+                return;
+            default:
+                return;
+
         }
     }
 

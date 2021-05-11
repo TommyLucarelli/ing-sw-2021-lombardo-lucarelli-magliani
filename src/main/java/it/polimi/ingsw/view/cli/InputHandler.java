@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -92,8 +93,26 @@ public class InputHandler {
      * @param choices the array of possible options.
      * @return the index of the chosen option.
      */
-    private static int getChoice(String[] choices){
-        return 0;
+    private static int getChoice(int[] choices){
+        return getInt(1, choices.length);
+    }
+
+    /**
+     * Method used to get a choice between various options.
+     * @param choices the array of possible options.
+     * @return the index of the chosen option.
+     */
+    private static int[] getMultipleChoices(int[] choices, int howMany){
+        ArrayList<Integer> inputs = new ArrayList<>();
+        for (int i = 0; i < howMany; i++) {
+            int input = getInt(1, choices.length);
+            if(inputs.contains(input)){
+                i--;
+                System.out.println("You have already chosen this element!");
+            }
+            else inputs.add(input);
+        }
+        return inputs.stream().mapToInt(i -> i).toArray();
     }
 
     /**
@@ -108,7 +127,6 @@ public class InputHandler {
             //TODO: gestire regex
         } else {
             input = scanner.nextLine();
-
         }
         return input;
     }
