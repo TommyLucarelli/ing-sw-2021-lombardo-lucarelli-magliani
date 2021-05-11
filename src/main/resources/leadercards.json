@@ -16,7 +16,7 @@
         "specialAbility":
         {
             "abilityType":2,
-            "abilityResource": "Resource.SERVANT"
+            "abilityResource":"SERVANT"
         }
     },
     {
@@ -36,7 +36,7 @@
         "specialAbility":
         {
             "abilityType":2,
-            "abilityResource": "Resource.SHIELD"
+            "abilityResource": "SHIELD"
         }
     },
     {
@@ -56,7 +56,7 @@
         "specialAbility":
         {
             "abilityType":2,
-            "abilityResource": "Resource.STONE"
+            "abilityResource": "STONE"
         }
     },
     {
@@ -76,63 +76,63 @@
         "specialAbility":
         {
             "abilityType":2,
-            "abilityResource": "Resource.COIN"
+            "abilityResource": "COIN"
         }
     },
     {
         "id":53,
         "requiredResources":
         {
-            "resource":"Resource.COIN",
+            "resource":"COIN",
             "qty":5
         },
         "victoryPoints":3,
         "specialAbility":
         {
             "abilityType":0,
-            "abilityResource":"Resource.STONE"
+            "abilityResource":"STONE"
         }
     },
     {
         "id":54,
         "requiredResources":
         {
-            "resource":"Resource.STONE",
+            "resource":"STONE",
             "qty":5
         },
         "victoryPoints":3,
         "specialAbility":
         {
             "abilityType":0,
-            "abilityResource":"Resource.SERVANT"
+            "abilityResource":"SERVANT"
         }
     },
     {
         "id":55,
         "requiredResources":
         {
-            "resource":"Resource.SERVANT",
+            "resource":"SERVANT",
             "qty":5
         },
         "victoryPoints":3,
         "specialAbility":
         {
             "abilityType":0,
-            "abilityResource":"Resource.SHIELD"
+            "abilityResource":"SHIELD"
         }
     },
     {
         "id":56,
         "requiredResources":
         {
-            "resource":"Resource.SHIELD",
+            "resource":"SHIELD",
             "qty":5
         },
         "victoryPoints":3,
         "specialAbility":
         {
             "abilityType":0,
-            "abilityResource":"Resource.COIN"
+            "abilityResource":"COIN"
         }
     },
     {
@@ -156,7 +156,7 @@
         "specialAbility":
         {
             "abilityType":1,
-            "abilityResource": "Resource.SERVANT"
+            "abilityResource": "SERVANT"
         }
     },
     {
@@ -180,7 +180,7 @@
         "specialAbility":
         {
             "abilityType":1,
-            "abilityResource": "Resource.SHIELD"
+            "abilityResource": "SHIELD"
         }
     },
     {
@@ -204,7 +204,7 @@
         "specialAbility":
         {
             "abilityType":1,
-            "abilityResource": "Resource.STONE"
+            "abilityResource": "STONE"
         }
     },
     {
@@ -228,7 +228,7 @@
         "specialAbility":
         {
             "abilityType":1,
-            "abilityResource": "Resource.COIN"
+            "abilityResource": "COIN"
         }
     },
     {
@@ -244,7 +244,7 @@
         "specialAbility":
         {
             "abilityType":3,
-            "abilityResource": "Resource.SHIELD"
+            "abilityResource": "SHIELD"
         }
     },
     {
@@ -260,7 +260,7 @@
         "specialAbility":
         {
             "abilityType":3,
-            "abilityResource": "Resource.SERVANT"
+            "abilityResource": "SERVANT"
         }
     },
     {
@@ -276,7 +276,7 @@
         "specialAbility":
         {
             "abilityType":3,
-            "abilityResource": "Resource.STONE"
+            "abilityResource": "STONE"
         }
     },
     {
@@ -292,7 +292,7 @@
         "specialAbility":
         {
             "abilityType":3,
-            "abilityResource": "Resource.COIN"
+            "abilityResource": "COIN"
         }
     }
 ]
