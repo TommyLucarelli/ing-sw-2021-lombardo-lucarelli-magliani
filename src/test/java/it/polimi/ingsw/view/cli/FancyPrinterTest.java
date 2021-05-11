@@ -103,21 +103,7 @@ public class FancyPrinterTest {
 
     @Test
     public void printDevCard() {
-        ArrayList<ResourceQty> cost = new ArrayList<ResourceQty>();
-        cost.add(new ResourceQty(Resource.COIN, 5));
-        cost.add(new ResourceQty(Resource.STONE, 2));
-        ArrayList<ResourceQty> endRes = new ArrayList<ResourceQty>();
-        ArrayList<ResourceQty> startRes = new ArrayList<ResourceQty>();
-        startRes.add(new ResourceQty(Resource.COIN, 1));
-        startRes.add(new ResourceQty(Resource.SHIELD, 1));
-        endRes.add(new ResourceQty(Resource.SERVANT, 2));
-        endRes.add(new ResourceQty(Resource.STONE, 2));
-        endRes.add(new ResourceQty(Resource.FAITH, 1));
-        Recipe recipe = new Recipe(startRes, endRes);
-        DevCard devCard = new DevCard(39, new Flag(1, Colour.GREEN), recipe, cost, 10);
-
         FancyPrinter fancyPrinter =new FancyPrinter();
-        fancyPrinter.printDevCard(devCard);
-
+        fancyPrinter.printDevCard(48);
     }
 }

@@ -75,9 +75,11 @@ public class FancyPrinter {
 
     /**
      * Prints a development card.
-     * @param devCard the development card.
+     * @param id of the development card.
      */
-    public void printDevCard(DevCard devCard) {
+    public void printDevCard(int id) {
+        DevCard devCard;
+        devCard = cardCollector.getDevCard(id);
         StringBuilder string = new StringBuilder();
 
         string.append("\t┌───────────────────┐\n\t│  ");
@@ -152,19 +154,26 @@ public class FancyPrinter {
             }
             switch (devCard.getRecipe().getInputResources().size()){
                 case 1: string.append("\t");
-                case 2: string.append("   ");
+                case 2: string.append("  ");
                 case 3: string.append(" ");
             }
         }
-        if(devCard.getRecipe().getInputResources().size()==1) {
-            string.append("\t\t│");
-        } else string.append("\t│");
 
-        string.append("\n\t│\t─►\t");
+        switch (devCard.getRecipe().getInputResources().size()){
+            case 1: string.append("\t\t\t│"); break;
+            case 2: string.append("\t│"); break;
+            case 3: string.append(" │"); break;
+        }
+
+        if(devCard.getRecipe().getOutputResources().size()!=3) {
+            string.append("\n\t│\t─►\t");
+        } else {
+            string.append("\n\t│ ─► ");
+        }
 
         for (int i = 0; i < devCard.getRecipe().getOutputResources().size(); i++) {
             int qty = devCard.getRecipe().getOutputResources().get(i).getQty();
-            switch (devCard.getRecipe().getOutputResources().get(i).getResource()){
+            switch (devCard.getRecipe().getOutputResources().get(i).getResource()) {
                 case COIN:
                     string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
                     break;
@@ -178,17 +187,21 @@ public class FancyPrinter {
                     string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
                 case FAITH:
-                    string.append(Color.RED_BOLD.color()).append(qty).append(" ").append(Color.RESET);
+                    string.append(Color.RED_BOLD.color()).append(qty).append(" †").append(Color.RESET);
             }
-            switch (devCard.getRecipe().getOutputResources().size()){
-                case 1: string.append("\t");
-                case 2: string.append(" ");
-                case 3: string.append(" ");
+            switch (devCard.getRecipe().getOutputResources().size()) {
+                case 1:
+                    string.append("\t");
+                    break;
+                case 2:
+                    string.append("  ");
+                    break;
+                case 3: string.append(" "); break;
             }
         }
         switch (devCard.getRecipe().getOutputResources().size()){
             case 1: string.append("\t");
-            case 2: string.append(" ");
+            case 2: string.append("");
             case 3: string.append(" ");
         }
         string.append("\t│\n\t│\t\t\t\t\t│\n\t│\t\t\t\t\t│");
