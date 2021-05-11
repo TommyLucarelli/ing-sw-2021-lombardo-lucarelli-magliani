@@ -212,6 +212,7 @@ public class MainController{
     public void initialUpdate(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "INITIAL_UPDATE");
+        payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
 
         payload.add("market", currentGame.getMarket().toCompactMarket());
         payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());

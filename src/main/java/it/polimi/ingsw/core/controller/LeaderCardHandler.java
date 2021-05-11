@@ -23,8 +23,8 @@ public class LeaderCardHandler{
 
     public void leaderAction(ResponseMsg ms){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
-        boolean action = ms.getPayload().getAsBoolean();
-        int lcID = ms.getPayload().getAsInt();
+        boolean action = ms.getPayload().get("action").getAsBoolean();
+        int lcID = ms.getPayload().get("cardID").getAsInt();
         int vp;
         check = false;
         JsonObject payload = new JsonObject();
@@ -36,6 +36,23 @@ public class LeaderCardHandler{
                 controller.getCurrentGame().getTurn().setLeaderCardActivated(lc.getId());
                 controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
             }
+            if(check){
+                if(controller.getCurrentGame().getTurn().isEndGame()){
+                    controller.getCurrentGame().getTurn().setEndGame(false);
+                    if(controller.getCurrentGame().getTurn().isLastTurn())
+                        vp = controller.getCurrentPlayer().getBoard().victoryPoints();
+                    //update
+                    controller.updateBuilder();
+                } else{
+                    payload.addProperty("gameAction", "MAIN_CHOICE");
+                    payload.addProperty("leaderCard", lc.getId());
+                    payload.addProperty("action", true);
+                    controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                }
+            }else{
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
         } else {
             controller.getCurrentGame().getTurn().setLeaderCardDiscarded(lc.getId());
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
@@ -44,25 +61,8 @@ public class LeaderCardHandler{
             payload.addProperty("leaderCard", lc.getId());
             payload.addProperty("action", false);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-            return;
         }
-        if(check){
-            if(controller.getCurrentGame().getTurn().isEndGame()){
-                controller.getCurrentGame().getTurn().setEndGame(false);
-                if(controller.getCurrentGame().getTurn().isLastTurn())
-                    vp = controller.getCurrentPlayer().getBoard().victoryPoints();
-                //update
-                controller.updateBuilder();
-            } else{
-                payload.addProperty("gameAction", "MAIN_CHOICE");
-                payload.addProperty("leaderCard", lc.getId());
-                payload.addProperty("action", true);
-                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-            }
-        }else{
-            payload.addProperty("gameAction", "LEADER_ACTION");
-            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        }
+
 
     }
 

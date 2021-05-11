@@ -76,12 +76,22 @@ public class Cli implements UserInterface {
                     case "INITIAL_UPDATE":
                         handleInitialUpdate(request);
                         break;
+                    case "LEADER_ACTIVATION":
+                        handleLeaderActivation(request);
+                        break;
+                    case "LEADER_ACTION":
+                        handleLeaderAction(request);
+                        break;
+                    case "MAIN_CHOICE":
+                        handleMainChoice(request);
+                        break;
                 }
                 break;
             default:
                 break;
         }
     }
+
 
     /**
      * Method used to handle "simple" requests from the server: a simple request consists in a message and an expected
@@ -130,9 +140,8 @@ public class Cli implements UserInterface {
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
-            lc = cardCollector.getLeaderCard(leaderCards[i]);
-            System.out.println("."+(i+1));
-            //fancyPrinter.printLeaderCard(lc);
+            System.out.println("\n."+(i+1));
+            fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
         do {
@@ -180,10 +189,10 @@ public class Cli implements UserInterface {
                 System.out.println("and "+y+" faith points");
 
             System.out.println("\nChoose "+x+" resources:");
-            System.out.println("\n1. COIN");
-            System.out.println("\n2. SHIELD");
-            System.out.println("\n3. STONE");
-            System.out.println("\n4. SERVANT");
+            System.out.println("1. COIN");
+            System.out.println("2. SHIELD");
+            System.out.println("3. STONE");
+            System.out.println("4. SERVANT");
 
             //TODO: controllo
             n = scan.nextInt();
@@ -216,11 +225,12 @@ public class Cli implements UserInterface {
     }
 
     private void handleInitialUpdate(RequestMsg ms){
-        System.out.println("\nQUA FARò UPDATE");
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
+        int nextPlayerID;
 
         JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
+        nextPlayerID = ms.getPayload().get("nextPlayerID").getAsInt();
         Gson gson = new Gson();
         String json = payload.get("structure").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
@@ -273,10 +283,72 @@ public class Cli implements UserInterface {
             }
         }
 
-        JsonObject payload3 = new JsonObject();
-        payload3.addProperty("gameAction", "INITIAL_UPDATE");
+        if(nextPlayerID == mySelf.getPlayerID()) {
+            JsonObject payload3 = new JsonObject();
+            payload3.addProperty("gameAction", "INITIAL_UPDATE");
+            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
+        }
+    }
 
-        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+    private void handleLeaderActivation(RequestMsg requestMsg){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "LEADER_ACTIVATION");
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
+            String answer = scan.nextLine();
+            if(answer.equals("yes"))
+                payload.addProperty("activation", true);
+            else if(answer.equals("false"))
+                payload.addProperty("activation", false);
+            else
+                flag = true;
+        }while (flag);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+    private void handleLeaderAction(RequestMsg requestMsg){
+        JsonObject payload = new JsonObject();
+        int x;
+        do{
+            System.out.println("\nChoose a Leader Card to activate or discard: ");
+            System.out.println("\n1.");
+            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
+            System.out.println("\n2.");
+            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
+            System.out.println("\n3. to move on to the main action of the turn");
+            x = scan.nextInt();
+            if(x == 1){
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            }else if(x == 2){
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            }else if(x == 3)
+                payload.addProperty("gameAction", "COME_BACK");
+        }while (x < 1 || x > 3);
+
+        if(x == 1 || x == 2){
+            do{
+                System.out.println("\nWhich action do you want to perform:");
+                System.out.println("1. Activate");
+                System.out.println("2. Discard");
+                x = scan.nextInt();
+                if(x == 1)
+                    payload.addProperty("action", true);
+                else if(x == 2)
+                    payload.addProperty("action", false);
+            }while(x < 1 || x > 2);
+        }
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+
+    private void handleMainChoice(RequestMsg request) {
+        System.out.println("A REGGAAAA");
     }
 
 
