@@ -148,6 +148,7 @@ public class MainController{
         payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "string");
+        expectedResponse.addProperty("regex", "(start)");
         payload.add("expectedResponse", expectedResponse);
         notifyPlayer(getPlayers().get(0), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }

@@ -297,7 +297,7 @@ public class Cli implements UserInterface {
         do {
             flag = false;
             System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
-            String answer = scan.nextLine();
+            String answer = InputHandler.getString("");
             if(answer.equals("yes"))
                 payload.addProperty("activation", true);
             else if(answer.equals("false"))
@@ -325,7 +325,7 @@ public class Cli implements UserInterface {
                 payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
             }else if(x == 2){
                 payload.addProperty("gameAction", "LEADER_ACTION");
-                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[1]);
             }else if(x == 3)
                 payload.addProperty("gameAction", "COME_BACK");
         }while (x < 1 || x > 3);
@@ -348,7 +348,7 @@ public class Cli implements UserInterface {
 
 
     private void handleMainChoice(RequestMsg request) {
-        System.out.println("A REGGAAAA");
+        //System.out.println("A REGGAAAA");
     }
 
 
