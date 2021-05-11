@@ -140,9 +140,8 @@ public class Cli implements UserInterface {
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
-            lc = cardCollector.getLeaderCard(leaderCards[i]);
-            System.out.println("."+(i+1));
-            //fancyPrinter.printLeaderCard(lc);
+            System.out.println("\n."+(i+1));
+            fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
         do {
@@ -190,10 +189,10 @@ public class Cli implements UserInterface {
                 System.out.println("and "+y+" faith points");
 
             System.out.println("\nChoose "+x+" resources:");
-            System.out.println("\n1. COIN");
-            System.out.println("\n2. SHIELD");
-            System.out.println("\n3. STONE");
-            System.out.println("\n4. SERVANT");
+            System.out.println("1. COIN");
+            System.out.println("2. SHIELD");
+            System.out.println("3. STONE");
+            System.out.println("4. SERVANT");
 
             //TODO: controllo
             n = scan.nextInt();
@@ -313,7 +312,6 @@ public class Cli implements UserInterface {
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x;
-
         do{
             System.out.println("\nChoose a Leader Card to activate or discard: ");
             System.out.println("\n1.");
