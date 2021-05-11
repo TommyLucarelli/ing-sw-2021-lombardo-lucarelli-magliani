@@ -97,7 +97,7 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTION,
-    "cardId": int //the ID of the chosen leader card
+    "cardID": int //the ID of the chosen leader card
     "action": boolean // actvivate or discard
 }
 ```
