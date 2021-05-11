@@ -4,6 +4,7 @@ import it.polimi.ingsw.core.model.DevCard;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.view.compact.CardCollector;
 import it.polimi.ingsw.view.compact.CompactBoard;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
 import it.polimi.ingsw.view.compact.CompactMarket;
 
 import java.io.FileNotFoundException;
@@ -75,9 +76,12 @@ public class FancyPrinter {
 
     /**
      * Prints a development card.
-     * @param devCard the development card.
+     * @param id of the development card.
+     * @return
      */
-    public void printDevCard(DevCard devCard) {
+    public void printDevCard(int id) {
+        DevCard devCard;
+        devCard = cardCollector.getDevCard(id);
         StringBuilder string = new StringBuilder();
 
         string.append("\t┌───────────────────┐\n\t│  ");
@@ -152,19 +156,26 @@ public class FancyPrinter {
             }
             switch (devCard.getRecipe().getInputResources().size()){
                 case 1: string.append("\t");
-                case 2: string.append("   ");
+                case 2: string.append("  ");
                 case 3: string.append(" ");
             }
         }
-        if(devCard.getRecipe().getInputResources().size()==1) {
-            string.append("\t\t│");
-        } else string.append("\t│");
 
-        string.append("\n\t│\t─►\t");
+        switch (devCard.getRecipe().getInputResources().size()){
+            case 1: string.append("\t\t\t│"); break;
+            case 2: string.append("\t│"); break;
+            case 3: string.append(" │"); break;
+        }
+
+        if(devCard.getRecipe().getOutputResources().size()!=3) {
+            string.append("\n\t│\t─►\t");
+        } else {
+            string.append("\n\t│ ─► ");
+        }
 
         for (int i = 0; i < devCard.getRecipe().getOutputResources().size(); i++) {
             int qty = devCard.getRecipe().getOutputResources().get(i).getQty();
-            switch (devCard.getRecipe().getOutputResources().get(i).getResource()){
+            switch (devCard.getRecipe().getOutputResources().get(i).getResource()) {
                 case COIN:
                     string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
                     break;
@@ -178,17 +189,21 @@ public class FancyPrinter {
                     string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
                 case FAITH:
-                    string.append(Color.RED_BOLD.color()).append(qty).append(" ").append(Color.RESET);
+                    string.append(Color.RED_BOLD.color()).append(qty).append(" †").append(Color.RESET);
             }
-            switch (devCard.getRecipe().getOutputResources().size()){
-                case 1: string.append("\t");
-                case 2: string.append(" ");
-                case 3: string.append(" ");
+            switch (devCard.getRecipe().getOutputResources().size()) {
+                case 1:
+                    string.append("\t");
+                    break;
+                case 2:
+                    string.append("  ");
+                    break;
+                case 3: string.append(" "); break;
             }
         }
         switch (devCard.getRecipe().getOutputResources().size()){
             case 1: string.append("\t");
-            case 2: string.append(" ");
+            case 2: string.append("");
             case 3: string.append(" ");
         }
         string.append("\t│\n\t│\t\t\t\t\t│\n\t│\t\t\t\t\t│");
@@ -202,16 +217,24 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printDevCardSlot(CompactBoard board){
-
+        System.out.println("Slot 1");
+        printDevCard(board.getDevCardSlots()[0][0]);
+        System.out.println("\nSlot 2");
+        printDevCard(board.getDevCardSlots()[0][1]);
+        System.out.println("\nSlot 3");
+        printDevCard(board.getDevCardSlots()[0][2]);
     }
 
     /**
      * Prints the development card structure.
      */
-    public void printDevCardStructure(){
+    public void printDevCardStructure(CompactDevCardStructure devCardStructure){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                //come??? matrice di id ma come stampo carta??
+                if (i==0 && j==0){
+                    System.out.println("Green");
+                }
+                printDevCard(devCardStructure.getDevCardStructure()[i][j]);
             }
         }
     }
