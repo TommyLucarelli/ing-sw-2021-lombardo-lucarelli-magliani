@@ -76,6 +76,10 @@ public class Cli implements UserInterface {
                     case "INITIAL_UPDATE":
                         handleInitialUpdate(request);
                         break;
+                    case "LEADER_ACTIVATION":
+                        handleLeaderActivation(request);
+                    case "LEADER_ACTION":
+                        handleLeaderAction(request);
                 }
                 break;
             default:
@@ -277,6 +281,64 @@ public class Cli implements UserInterface {
         payload3.addProperty("gameAction", "INITIAL_UPDATE");
 
         client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+    }
+
+    private void handleLeaderActivation(RequestMsg requestMsg){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "LEADER_ACTIVATION");
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
+            String answer = scan.nextLine();
+            if(answer.equals("yes"))
+                payload.addProperty("activation", true);
+            else if(answer.equals("false"))
+                payload.addProperty("activation", false);
+            else
+                flag = true;
+        }while (flag);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+    private void handleLeaderAction(RequestMsg requestMsg){
+        JsonObject payload = new JsonObject();
+        int x;
+        
+        do{
+            System.out.println("\nChoose a Leader Card to activate or discard: ");
+            System.out.println("\n1.");
+            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
+            System.out.println("\n2.");
+            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
+            System.out.println("\n3. to move on to the main action of the turn");
+            x = scan.nextInt();
+            if(x == 1){
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            }else if(x == 2){
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            }else if(x == 3)
+                payload.addProperty("gameAction", "COME_BACK");
+        }while (x < 1 || x > 3);
+
+        if(x == 1 || x == 2){
+            do{
+                System.out.println("\nWhich action do you want to perform:");
+                System.out.println("1. Activate");
+                System.out.println("2. Discard");
+                x = scan.nextInt();
+                if(x == 1)
+                    payload.addProperty("action", true);
+                else if(x == 2)
+                    payload.addProperty("action", false);
+            }while(x < 1 || x > 2);
+        }
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+
     }
 
 
