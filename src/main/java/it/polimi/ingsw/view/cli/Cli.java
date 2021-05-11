@@ -78,14 +78,20 @@ public class Cli implements UserInterface {
                         break;
                     case "LEADER_ACTIVATION":
                         handleLeaderActivation(request);
+                        break;
                     case "LEADER_ACTION":
                         handleLeaderAction(request);
+                        break;
+                    case "MAIN_CHOICE":
+                        handleMainChoice(request);
+                        break;
                 }
                 break;
             default:
                 break;
         }
     }
+
 
     /**
      * Method used to handle "simple" requests from the server: a simple request consists in a message and an expected
@@ -134,9 +140,8 @@ public class Cli implements UserInterface {
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
-            lc = cardCollector.getLeaderCard(leaderCards[i]);
-            System.out.println("."+(i+1));
-            //fancyPrinter.printLeaderCard(lc);
+            System.out.println("\n."+(i+1));
+            fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
         do {
@@ -184,10 +189,10 @@ public class Cli implements UserInterface {
                 System.out.println("and "+y+" faith points");
 
             System.out.println("\nChoose "+x+" resources:");
-            System.out.println("\n1. COIN");
-            System.out.println("\n2. SHIELD");
-            System.out.println("\n3. STONE");
-            System.out.println("\n4. SERVANT");
+            System.out.println("1. COIN");
+            System.out.println("2. SHIELD");
+            System.out.println("3. STONE");
+            System.out.println("4. SERVANT");
 
             //TODO: controllo
             n = scan.nextInt();
@@ -222,8 +227,10 @@ public class Cli implements UserInterface {
     private void handleInitialUpdate(RequestMsg ms){
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
+        int nextPlayerID;
 
         JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
+        nextPlayerID = ms.getPayload().get("nextPlayerID").getAsInt();
         Gson gson = new Gson();
         String json = payload.get("structure").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
@@ -276,10 +283,11 @@ public class Cli implements UserInterface {
             }
         }
 
-        JsonObject payload3 = new JsonObject();
-        payload3.addProperty("gameAction", "INITIAL_UPDATE");
-
-        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
+        if(nextPlayerID == mySelf.getPlayerID()) {
+            JsonObject payload3 = new JsonObject();
+            payload3.addProperty("gameAction", "INITIAL_UPDATE");
+            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
+        }
     }
 
     private void handleLeaderActivation(RequestMsg requestMsg){
@@ -304,7 +312,6 @@ public class Cli implements UserInterface {
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x;
-
         do{
             System.out.println("\nChoose a Leader Card to activate or discard: ");
             System.out.println("\n1.");
@@ -337,7 +344,11 @@ public class Cli implements UserInterface {
         }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
 
+
+    private void handleMainChoice(RequestMsg request) {
+        System.out.println("A REGGAAAA");
     }
 
 

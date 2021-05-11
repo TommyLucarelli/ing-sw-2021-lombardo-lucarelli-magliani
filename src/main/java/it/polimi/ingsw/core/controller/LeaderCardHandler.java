@@ -23,8 +23,8 @@ public class LeaderCardHandler{
 
     public void leaderAction(ResponseMsg ms){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
-        boolean action = ms.getPayload().getAsBoolean();
-        int lcID = ms.getPayload().getAsInt();
+        boolean action = ms.getPayload().get("action").getAsBoolean();
+        int lcID = ms.getPayload().get("cardID").getAsInt();
         int vp;
         check = false;
         JsonObject payload = new JsonObject();
