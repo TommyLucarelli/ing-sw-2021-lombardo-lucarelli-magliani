@@ -220,7 +220,6 @@ public class Cli implements UserInterface {
     }
 
     private void handleInitialUpdate(RequestMsg ms){
-        System.out.println("\nQUA FARò UPDATE");
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
 
@@ -280,7 +279,7 @@ public class Cli implements UserInterface {
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "INITIAL_UPDATE");
 
-        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload));
+        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
     }
 
     private void handleLeaderActivation(RequestMsg requestMsg){
@@ -305,7 +304,7 @@ public class Cli implements UserInterface {
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x;
-        
+
         do{
             System.out.println("\nChoose a Leader Card to activate or discard: ");
             System.out.println("\n1.");
