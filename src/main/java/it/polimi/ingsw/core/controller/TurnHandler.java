@@ -70,7 +70,7 @@ public class TurnHandler {
         for (int i = 0; i < controller.getPlayers().size(); i++) {
             if(controller.getPlayers().get(i).getPlayerId() != controller.getCurrentPlayer().getPlayerID()){
                 payload.addProperty("gameAction", "START_TURN");
-                payload.addProperty("message", controller.getCurrentPlayer().getNickname()+"is now playing");
+                payload.addProperty("message", controller.getCurrentPlayer().getNickname()+" is now playing");
                 controller.notifyPlayer(controller.getPlayers().get(i), new RequestMsg(MessageType.GAME_MESSAGE, payload));
             } else{
                 payload.addProperty("gameAction", "LEADER_ACTIVATION");

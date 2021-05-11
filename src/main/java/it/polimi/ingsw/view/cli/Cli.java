@@ -78,14 +78,20 @@ public class Cli implements UserInterface {
                         break;
                     case "LEADER_ACTIVATION":
                         handleLeaderActivation(request);
+                        break;
                     case "LEADER_ACTION":
                         handleLeaderAction(request);
+                        break;
+                    case "MAIN_CHOICE":
+                        handleMainChoice(request);
+                        break;
                 }
                 break;
             default:
                 break;
         }
     }
+
 
     /**
      * Method used to handle "simple" requests from the server: a simple request consists in a message and an expected
@@ -340,7 +346,11 @@ public class Cli implements UserInterface {
         }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
 
+
+    private void handleMainChoice(RequestMsg request) {
+        System.out.println("A REGGAAAA");
     }
 
 
