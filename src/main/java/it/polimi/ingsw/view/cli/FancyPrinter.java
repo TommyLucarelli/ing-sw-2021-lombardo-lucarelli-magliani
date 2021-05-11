@@ -9,6 +9,7 @@ import it.polimi.ingsw.view.compact.CompactMarket;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,6 +19,7 @@ public class FancyPrinter {
     private final PrintStream stream;
     private final Scanner scanner;
     CardCollector cardCollector;
+    ArrayList<String> strDevCard = new ArrayList<>();
 
     public FancyPrinter(){
         try {
@@ -80,136 +82,167 @@ public class FancyPrinter {
      * @return
      */
     public void printDevCard(int id) {
-        DevCard devCard;
-        devCard = cardCollector.getDevCard(id);
-        StringBuilder string = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            stream.print(devCardToArrayList(id).get(i)+"\n");
+        }
+    }
 
-        string.append("\t┌───────────────────┐\n\t│  ");
+    public ArrayList<StringBuilder> devCardToArrayList(int id){
+        StringBuilder string1 = new StringBuilder();
+        StringBuilder string2 = new StringBuilder();
+        StringBuilder string3 = new StringBuilder();
+        StringBuilder string4 = new StringBuilder();
+        StringBuilder string5 = new StringBuilder();
+        StringBuilder string6 = new StringBuilder();
+        StringBuilder string7 = new StringBuilder();
+        StringBuilder string8 = new StringBuilder();
+        StringBuilder string9 = new StringBuilder();
+        ArrayList<StringBuilder> stringDevCard = new ArrayList<>();
+        DevCard devCard1;
+        devCard1 = cardCollector.getDevCard(id);
 
-        switch (devCard.getFlag().getColour()) {
+        string1.append("\t┌───────────────────┐");
+        string2.append("\t│  ");
+        switch (devCard1.getFlag().getColour()) {
             case YELLOW:
-                string.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET); break;
+                string2.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET); break;
             case BLUE:
-                string.append(Color.HEAVENLY_BOLD.color()).append("▓").append(Color.RESET); break;
+                string2.append(Color.HEAVENLY_BOLD.color()).append("▓").append(Color.RESET); break;
             case GREEN:
-                string.append(Color.GREEN_BOLD.color()).append("▓").append(Color.RESET); break;
+                string2.append(Color.GREEN_BOLD.color()).append("▓").append(Color.RESET); break;
             case PURPLE:
-                string.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET); break;
+                string2.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET); break;
         }
 
-        switch (devCard.getCost().size()){
-            case 1: string.append("  ");
-            case 2: string.append("  ");
-            case 3: string.append(" ");
+        switch (devCard1.getCost().size()){
+            case 1: string2.append("  ");
+            case 2: string2.append("  ");
+            case 3: string2.append(" ");
         }
 
-        for (int i = 0; i < devCard.getCost().size(); i++) {
-            int qty = devCard.getCost().get(i).getQty();
-            switch (devCard.getCost().get(i).getResource()) {
+        for (int i = 0; i < devCard1.getCost().size(); i++) {
+            int qty = devCard1.getCost().get(i).getQty();
+            switch (devCard1.getCost().get(i).getResource()) {
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
+                    string2.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■").append(Color.RESET);
+                    string2.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊").append(Color.RESET);
+                    string2.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
+                    string2.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
             }
-            switch (devCard.getCost().size()){
-                case 1: string.append("  ");
-                case 2: string.append(" ");
-                case 3: string.append(" ");
+            switch (devCard1.getCost().size()){
+                case 1: string2.append("  ");
+                case 2: string2.append(" ");
+                case 3: string2.append(" ");
             }
         }
 
 
-        switch (devCard.getFlag().getColour()) {
+        switch (devCard1.getFlag().getColour()) {
             case YELLOW:
-                string.append(Color.YELLOW_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
-                case BLUE:
-                    string.append(Color.HEAVENLY_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
-                case GREEN:
-                    string.append(Color.GREEN_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
-                case PURPLE:
-                    string.append(Color.PURPLE_BOLD.color()).append("▓\t").append(Color.RESET).append("│\n\t│\t\t\t\t\t│\n\t│\t"); break;
+                string2.append(Color.YELLOW_BOLD.color()).append("▓\t").append(Color.RESET).append("│"); break;
+            case BLUE:
+                string2.append(Color.HEAVENLY_BOLD.color()).append("▓\t").append(Color.RESET).append("│"); break;
+            case GREEN:
+                string2.append(Color.GREEN_BOLD.color()).append("▓\t").append(Color.RESET).append("│"); break;
+            case PURPLE:
+                string2.append(Color.PURPLE_BOLD.color()).append("▓\t").append(Color.RESET).append("│"); break;
         }
 
-        for (int i = 0; i < devCard.getRecipe().getInputResources().size(); i++) {
-            int qtyIn = devCard.getRecipe().getInputResources().get(i).getQty();
-            switch (devCard.getRecipe().getInputResources().get(i).getResource()){
+        string3.append("\t│\t\t\t\t\t│");
+        string4.append("\t│\t");
+
+        for (int i = 0; i < devCard1.getRecipe().getInputResources().size(); i++) {
+            int qtyIn = devCard1.getRecipe().getInputResources().get(i).getQty();
+            switch (devCard1.getRecipe().getInputResources().get(i).getResource()){
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(qtyIn).append(" $").append(Color.RESET);
+                    string4.append(Color.YELLOW_BOLD.color()).append(qtyIn).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(qtyIn).append(" ■").append(Color.RESET);
+                    string4.append(Color.PURPLE_BOLD.color()).append(qtyIn).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(qtyIn).append(" ◊").append(Color.RESET);
+                    string4.append(Color.HEAVENLY_BOLD.color()).append(qtyIn).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(qtyIn).append(" ⌂").append(Color.RESET);
+                    string4.append(Color.WHITE_BOLD.color()).append(qtyIn).append(" ⌂").append(Color.RESET);
                     break;
             }
-            switch (devCard.getRecipe().getInputResources().size()){
-                case 1: string.append("\t");
-                case 2: string.append("  ");
-                case 3: string.append(" ");
+            switch (devCard1.getRecipe().getInputResources().size()){
+                case 1: string4.append("\t");
+                case 2: string4.append("  ");
+                case 3: string4.append(" ");
             }
         }
 
-        switch (devCard.getRecipe().getInputResources().size()){
-            case 1: string.append("\t\t\t│"); break;
-            case 2: string.append("\t│"); break;
-            case 3: string.append(" │"); break;
+        switch (devCard1.getRecipe().getInputResources().size()){
+            case 1: string4.append("\t\t\t│"); break;
+            case 2: string4.append("\t│"); break;
+            case 3: string4.append(" │"); break;
         }
 
-        if(devCard.getRecipe().getOutputResources().size()!=3) {
-            string.append("\n\t│\t─►\t");
+        if(devCard1.getRecipe().getOutputResources().size()!=3) {
+            string5.append("\t│\t─►\t");
         } else {
-            string.append("\n\t│ ─► ");
+            string5.append("\n\t│ ─► ");
         }
 
-        for (int i = 0; i < devCard.getRecipe().getOutputResources().size(); i++) {
-            int qty = devCard.getRecipe().getOutputResources().get(i).getQty();
-            switch (devCard.getRecipe().getOutputResources().get(i).getResource()) {
+        for (int i = 0; i < devCard1.getRecipe().getOutputResources().size(); i++) {
+            int qty = devCard1.getRecipe().getOutputResources().get(i).getQty();
+            switch (devCard1.getRecipe().getOutputResources().get(i).getResource()) {
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
+                    string5.append(Color.YELLOW_BOLD.color()).append(qty).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■").append(Color.RESET);
+                    string5.append(Color.PURPLE_BOLD.color()).append(qty).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊").append(Color.RESET);
+                    string5.append(Color.HEAVENLY_BOLD.color()).append(qty).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
+                    string5.append(Color.WHITE_BOLD.color()).append(qty).append(" ⌂").append(Color.RESET);
                     break;
                 case FAITH:
-                    string.append(Color.RED_BOLD.color()).append(qty).append(" †").append(Color.RESET);
+                    string5.append(Color.RED_BOLD.color()).append(qty).append(" †").append(Color.RESET);
             }
-            switch (devCard.getRecipe().getOutputResources().size()) {
+            switch (devCard1.getRecipe().getOutputResources().size()) {
                 case 1:
-                    string.append("\t");
+                    string5.append("\t");
                     break;
                 case 2:
-                    string.append("  ");
+                    string5.append("  ");
                     break;
-                case 3: string.append(" "); break;
+                case 3: string5.append(" "); break;
             }
         }
-        switch (devCard.getRecipe().getOutputResources().size()){
-            case 1: string.append("\t");
-            case 2: string.append("");
-            case 3: string.append(" ");
+        switch (devCard1.getRecipe().getOutputResources().size()){
+            case 1: string5.append("\t");
+            case 2: string5.append("");
+            case 3: string5.append(" ");
         }
-        string.append("\t│\n\t│\t\t\t\t\t│\n\t│\t\t\t\t\t│");
-        string.append("\n\t│ VictoryPoints:").append(devCard.getVictoryPoints()).append("\t│\n");
-        string.append("\t└───────────────────┘");
-        stream.print(string);
+        string5.append("\t│");
+        string6.append("\t│\t\t\t\t\t│");
+        string7.append("\t│\t\t\t\t\t│");
+        string8.append("\t│ VictoryPoints:").append(devCard1.getVictoryPoints()).append("\t│");
+        string9.append("\t└───────────────────┘");
+
+        stringDevCard.add(string1);
+        stringDevCard.add(string2);
+        stringDevCard.add(string3);
+        stringDevCard.add(string4);
+        stringDevCard.add(string5);
+        stringDevCard.add(string6);
+        stringDevCard.add(string7);
+        stringDevCard.add(string8);
+        stringDevCard.add(string9);
+
+        return stringDevCard;
     }
 
     /**
@@ -217,26 +250,56 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printDevCardSlot(CompactBoard board){
-        System.out.println("Slot 1");
-        printDevCard(board.getDevCardSlots()[0][0]);
-        System.out.println("\nSlot 2");
-        printDevCard(board.getDevCardSlots()[0][1]);
-        System.out.println("\nSlot 3");
-        printDevCard(board.getDevCardSlots()[0][2]);
+        StringBuilder devCardSlot = new StringBuilder();
+        for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 3; i++) {
+                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[0][i]).get(j)).append("\t");
+            }
+            devCardSlot.append("\n");
+        }
+        CardCollector cardCollector = null;
+        try {
+            cardCollector = new CardCollector();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int[] sum =  {0,0,0};
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                sum[i] = sum[i] + cardCollector.getDevCard(board.getDevCardSlots()[i][j]).getVictoryPoints();
+            }
+        }
+        devCardSlot.append("\t\tTotal VP:").append(sum[0]).append("\t\t\t\t\tTotal VP:").append(sum[1]).append("\t\t\t\t\tTotal VP:").append(sum[2]);
+        stream.print(devCardSlot);
     }
 
     /**
      * Prints the development card structure.
      */
-    public void printDevCardStructure(CompactDevCardStructure devCardStructure){
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (i==0 && j==0){
-                    System.out.println("Green");
-                }
-                printDevCard(devCardStructure.getDevCardStructure()[i][j]);
-            }
+    public void printDevCardStructure(CompactDevCardStructure devCardStructure) {
+        CardCollector cardCollector = null;
+        try {
+            cardCollector = new CardCollector();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+        StringBuilder strDevCardStructure = new StringBuilder();
+        strDevCardStructure.append("\t\t\t\t\tGreen\t\t\t\t\tBlue\t\t\t\t\tYellow\t\t\t\t\tPurple");
+
+        for (int k = 0; k < 3; k++) {
+            for (int i = 0; i < 9; i++) {
+                if (i != 4) {
+                    strDevCardStructure.append("\n\t\t");
+                } else if (i == 4) {
+                    strDevCardStructure.append("\n\tLevel ").append(k+1);
+                }
+                for (int j = 0; j < 4; j++) {
+                    strDevCardStructure.append(devCardToArrayList(devCardStructure.getDevCardStructure()[k][j]).get(i)).append("\t");
+                }
+            }
+            strDevCardStructure.append("\n");
+        }
+        stream.print(strDevCardStructure);
     }
 
     public void printLeaderCard(int id){
