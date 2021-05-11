@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.view.compact.CompactBoard;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
 import it.polimi.ingsw.view.compact.CompactMarket;
 import org.junit.Test;
 
@@ -20,48 +21,41 @@ public class FancyPrinterTest {
 
     @Test
     public void printDevCardSlot() {
-        ArrayList<ResourceQty> cost = new ArrayList<ResourceQty>();
-        cost.add(new ResourceQty(Resource.COIN, 5));
-        cost.add(new ResourceQty(Resource.STONE, 2));
-        ArrayList<ResourceQty> endRes = new ArrayList<ResourceQty>();
-        ArrayList<ResourceQty> startRes = new ArrayList<ResourceQty>();
-        startRes.add(new ResourceQty(Resource.COIN, 1));
-        startRes.add(new ResourceQty(Resource.SHIELD, 1));
-        endRes.add(new ResourceQty(Resource.SERVANT, 2));
-        endRes.add(new ResourceQty(Resource.STONE, 2));
-        endRes.add(new ResourceQty(Resource.FAITH, 1));
-        Recipe recipe = new Recipe(startRes, endRes);
-        DevCard devCard = new DevCard(39, new Flag(1, Colour.GREEN), recipe, cost, 10);
-
-        ArrayList<ResourceQty> cost1 = new ArrayList<ResourceQty>();
-        cost.add(new ResourceQty(Resource.COIN, 5));
-        cost.add(new ResourceQty(Resource.STONE, 2));
-        ArrayList<ResourceQty> endRes1 = new ArrayList<ResourceQty>();
-        ArrayList<ResourceQty> startRes1 = new ArrayList<ResourceQty>();
-        startRes.add(new ResourceQty(Resource.COIN, 1));
-        startRes.add(new ResourceQty(Resource.SHIELD, 1));
-        endRes.add(new ResourceQty(Resource.SERVANT, 2));
-        endRes.add(new ResourceQty(Resource.STONE, 2));
-        endRes.add(new ResourceQty(Resource.FAITH, 1));
-        Recipe recipe1 = new Recipe(startRes1, endRes1);
-        DevCard devCard1 = new DevCard(39, new Flag(2, Colour.YELLOW), recipe1, cost1, 8);
-
-        ArrayList<ResourceQty> cost2 = new ArrayList<ResourceQty>();
-        cost.add(new ResourceQty(Resource.SHIELD, 5));
-        cost.add(new ResourceQty(Resource.STONE, 2));
-        ArrayList<ResourceQty> endRes2 = new ArrayList<ResourceQty>();
-        ArrayList<ResourceQty> startRes2 = new ArrayList<ResourceQty>();
-        startRes.add(new ResourceQty(Resource.COIN, 1));
-        startRes.add(new ResourceQty(Resource.STONE, 1));
-        endRes.add(new ResourceQty(Resource.SERVANT, 2));
-        endRes.add(new ResourceQty(Resource.STONE, 2));
-        endRes.add(new ResourceQty(Resource.FAITH, 1));
-        Recipe recipe2 = new Recipe(startRes2, endRes2);
-        DevCard devCard2 = new DevCard(11, new Flag(3, Colour.BLUE), recipe2, cost2, 5);
+        CompactBoard board = new CompactBoard();
+        int[][] slots = new int[3][3];
+        slots[0][0] = 3;
+        slots[0][1] = 6;
+        slots[0][2] = 16;
+        slots[1][0] = 20;
+        slots[1][1] = 27;
+        slots[1][2] = 32;
+        slots[2][0] = 36;
+        slots[2][1] = 39;
+        slots[2][2] = 47;
+        board.setDevCardSlots(slots);
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        fancyPrinter.printDevCardSlot(board);
     }
 
     @Test
     public void printDevCardStructure() {
+        CompactDevCardStructure devCardStructure = new CompactDevCardStructure();
+        int[][] structure = new int[3][4];
+        structure[0][0] = 3;
+        structure[0][1] = 6;
+        structure[0][2] = 16;
+        structure[0][3] = 2;
+        structure[1][0] = 20;
+        structure[1][1] = 27;
+        structure[1][2] = 32;
+        structure[1][3] = 33;
+        structure[2][0] = 36;
+        structure[2][1] = 39;
+        structure[2][2] = 47;
+        structure[2][3] = 4;
+        devCardStructure.setDevCardStructure(structure);
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        fancyPrinter.printDevCardStructure(devCardStructure);
     }
 
     @Test

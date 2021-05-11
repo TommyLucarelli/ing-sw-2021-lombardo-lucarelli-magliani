@@ -4,6 +4,7 @@ import it.polimi.ingsw.core.model.DevCard;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.view.compact.CardCollector;
 import it.polimi.ingsw.view.compact.CompactBoard;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
 import it.polimi.ingsw.view.compact.CompactMarket;
 
 import java.io.FileNotFoundException;
@@ -76,6 +77,7 @@ public class FancyPrinter {
     /**
      * Prints a development card.
      * @param id of the development card.
+     * @return
      */
     public void printDevCard(int id) {
         DevCard devCard;
@@ -215,16 +217,24 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printDevCardSlot(CompactBoard board){
-
+        System.out.println("Slot 1");
+        printDevCard(board.getDevCardSlots()[0][0]);
+        System.out.println("\nSlot 2");
+        printDevCard(board.getDevCardSlots()[0][1]);
+        System.out.println("\nSlot 3");
+        printDevCard(board.getDevCardSlots()[0][2]);
     }
 
     /**
      * Prints the development card structure.
      */
-    public void printDevCardStructure(){
+    public void printDevCardStructure(CompactDevCardStructure devCardStructure){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                //come??? matrice di id ma come stampo carta??
+                if (i==0 && j==0){
+                    System.out.println("Green");
+                }
+                printDevCard(devCardStructure.getDevCardStructure()[i][j]);
             }
         }
     }
