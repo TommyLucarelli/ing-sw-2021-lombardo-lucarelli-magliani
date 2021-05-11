@@ -127,6 +127,6 @@ public class CliTest {
     @Test
     public void printLeaderCard() {
         FancyPrinter fancyprinter = new FancyPrinter();
-        fancyprinter.printLeaderCard(49);
+        fancyprinter.printLeaderCard(64);
     }
 }

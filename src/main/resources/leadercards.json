@@ -292,7 +292,7 @@
         "specialAbility":
         {
             "abilityType":3,
-            "abilityResource": "COIN"
+            "abilityResource":"COIN"
         }
     }
 ]
