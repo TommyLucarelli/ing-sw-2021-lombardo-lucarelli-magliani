@@ -85,6 +85,10 @@ public class Cli implements UserInterface {
                     case "MAIN_CHOICE":
                         handleMainChoice(request);
                         break;
+                    case "CHOOSE_DEVCARD":
+                        handleChooseDevCard(request);
+                    case "DEVCARD_PLACEMENT":
+                        handleDevCardPlacement(request);
                 }
                 break;
             default:
@@ -140,7 +144,7 @@ public class Cli implements UserInterface {
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
-            System.out.println("\n."+(i+1));
+            System.out.println("\n"+(i+1));
             fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
@@ -297,7 +301,7 @@ public class Cli implements UserInterface {
         do {
             flag = false;
             System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
-            String answer = InputHandler.getString("");
+            String answer = scan.nextLine();
             if(answer.equals("yes"))
                 payload.addProperty("activation", true);
             else if(answer.equals("false"))
@@ -315,9 +319,9 @@ public class Cli implements UserInterface {
         do{
             System.out.println("\nChoose a Leader Card to activate or discard: ");
             System.out.println("\n1.");
-            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
+            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
             System.out.println("\n2.");
-            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
+            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
             System.out.println("\n3. to move on to the main action of the turn");
             x = scan.nextInt();
             if(x == 1){
@@ -325,7 +329,7 @@ public class Cli implements UserInterface {
                 payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
             }else if(x == 2){
                 payload.addProperty("gameAction", "LEADER_ACTION");
-                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[1]);
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
             }else if(x == 3)
                 payload.addProperty("gameAction", "COME_BACK");
         }while (x < 1 || x > 3);
@@ -347,9 +351,74 @@ public class Cli implements UserInterface {
     }
 
 
-    private void handleMainChoice(RequestMsg request) {
-        //System.out.println("A REGGAAAA");
+    private void handleMainChoice(RequestMsg requestMsg) {
+        int x;
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "MAIN_CHOICE");
+        do {
+            System.out.println("\nWhich action you want to do: ");
+            System.out.println("1. Pick resources from market");
+            System.out.println("2. Buy a development card");
+            System.out.println("3. Activate production");
+            x = scan.nextInt();
+            if(x == 1)
+                payload.addProperty("actionChoice", "market");
+            else if(x == 2)
+                payload.addProperty("actionChoice", "buyDevCard");
+            else if(x == 3)
+                payload.addProperty("actionChoice", "production");
+        }while(x<1 || x>3);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
+
+
+    private void handleChooseDevCard(RequestMsg requestMsg){
+        int l=0, c=0;
+
+        System.out.println("Choose a development card: ");
+        //stampa devCardCtructure
+        //+ comeback option
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+        payload.addProperty("line", l);
+        payload.addProperty("column", c);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+    private void handleDevCardPlacement(RequestMsg requestMsg) {
+        int x;
+        boolean flag;
+        Gson gson = new Gson();
+        String json = requestMsg.getPayload().get("freeSpots").getAsString();
+        Type collectionType = new TypeToken<ArrayList<Integer>>() {
+        }.getType();
+        ArrayList<Integer> freeSpots = gson.fromJson(json, collectionType);
+
+        System.out.println("\nWhere do you want to want to put the card");
+        //stampa slot, disponibili
+        System.out.println("The available slots are:");
+        for (Integer freeSpot : freeSpots)
+            System.out.println(freeSpot);
+
+        do {
+            flag = true;
+            System.out.println("Choose one of them: ");
+            x = scan.nextInt();
+            for (Integer freeSpot : freeSpots){
+                if(freeSpot == x)
+                    flag = false;
+            }
+        } while (flag);
+
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
+        payload.addProperty("index", x);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
 
 
 }

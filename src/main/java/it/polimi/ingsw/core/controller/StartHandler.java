@@ -29,7 +29,8 @@ public class StartHandler {
             player = controller.getCurrentGame().fromIdToPlayer(controller.getPlayers().get(j).getPlayerId());
             for (int i = 0; i < 4; i++) {
                 player.getBoard().addLeaderCard(controller.getCurrentGame().getLeaderCards().drawCard());
-                cardID[i] = controller.getCurrentPlayer().getBoard().getLeaderCard(i).getId();
+                System.out.println("victory points "+player.getBoard().getLeaderCard(i).getVictoryPoints());
+                cardID[i] = player.getBoard().getLeaderCard(i).getId();
             }
             //invio messaggio con cardID
             JsonObject payload = new JsonObject();
