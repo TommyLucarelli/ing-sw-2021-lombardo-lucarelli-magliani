@@ -222,8 +222,10 @@ public class Cli implements UserInterface {
     private void handleInitialUpdate(RequestMsg ms){
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
+        int nextPlayerID;
 
         JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
+        nextPlayerID = ms.getPayload().get("nextPlayerID").getAsInt();
         Gson gson = new Gson();
         String json = payload.get("structure").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
@@ -276,10 +278,11 @@ public class Cli implements UserInterface {
             }
         }
 
-        JsonObject payload3 = new JsonObject();
-        payload3.addProperty("gameAction", "INITIAL_UPDATE");
-
-        client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
+        if(nextPlayerID == mySelf.getPlayerID()) {
+            JsonObject payload3 = new JsonObject();
+            payload3.addProperty("gameAction", "INITIAL_UPDATE");
+            client.send(new ResponseMsg(UUID.randomUUID(), MessageType.GAME_MESSAGE, payload3));
+        }
     }
 
     private void handleLeaderActivation(RequestMsg requestMsg){
