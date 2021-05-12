@@ -201,7 +201,7 @@ public class Cli implements UserInterface {
             System.out.println("4. SERVANT");
 
             //TODO: controllo
-            n = scan.nextInt();
+            n = InputHandler.getInt();
             a = Resource.values()[n-1];
             if(x == 2){
                 n = scan.nextInt();
