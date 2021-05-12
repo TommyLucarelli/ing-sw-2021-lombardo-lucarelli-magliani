@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
+import it.polimi.ingsw.core.model.Recipe;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
@@ -61,7 +62,7 @@ public class Cli implements UserInterface {
                     case "START_GAME_COMMAND":
                         handleSimpleRequest(request);
                         break;
-                    case "START_TURN":
+                    case "START_TURN": 
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
@@ -375,9 +376,31 @@ public class Cli implements UserInterface {
 
     private void handleChooseDevCard(RequestMsg requestMsg){
         int l=0, c=0;
+        boolean flag = false;
+        Resource r1, r2;
 
         System.out.println("Choose a development card: ");
-        //stampa devCardCtructure
+
+        //discount da sistemare esteticamente
+        System.out.println("Available discount: ");
+        if(!requestMsg.getPayload().get("special4").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r1 = gson.fromJson(json, Resource.class);
+            System.out.println(r1.toString());
+            flag = true;
+        }
+        if(!requestMsg.getPayload().get("special5").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r2 = gson.fromJson(json, Resource.class);
+            System.out.println(r2.toString());
+            flag = true;
+        }
+        if(!flag)
+            System.out.println("None");
+
+        //stampa devCardCtructure + ricordo del possibile sconto applicato
         //+ comeback option
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_DEVCARD");
@@ -418,6 +441,30 @@ public class Cli implements UserInterface {
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
+
+
+    private void handleChooseProduction(RequestMsg requestMsg){
+
+        System.out.println("\nPRODCUTION");
+        System.out.println("\nThese are your resources");
+        fancyPrinter.printWarehouse(mySelf.getCompactBoard());
+        fancyPrinter.printStrongbox(mySelf.getCompactBoard());
+
+        System.out.println("\nThese are your productions, choose the ones you want to activate typing the ");
+
+        Resource r1, r2;
+        if(!requestMsg.getPayload().get("special6").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r1 = gson.fromJson(json, Resource.class);
+        }
+        if(!requestMsg.getPayload().get("special7").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r2 = gson.fromJson(json, Resource.class);
+        }
+    }
+
 
 
 
