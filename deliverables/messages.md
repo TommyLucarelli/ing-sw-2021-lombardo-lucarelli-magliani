@@ -129,6 +129,8 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_DEVCARD,
+    "discount1": Resource,
+    "discount2": Resource,
 }
 ```
 
@@ -169,6 +171,8 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_PRODUCTION,
+    "specialProduction1": Resource,
+    "specialProduction2": Resource,
 }
 ```
 
@@ -178,6 +182,9 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_PRODUCTION,
     "productions": ArrayList<Integer> //with the selected productions (included basics and specials)
+    "basicProduction": Recipe,
+    "specialProduction1": ResourceQty,
+    "specialProduction2": ResourceQty,
 }
 ```
 
