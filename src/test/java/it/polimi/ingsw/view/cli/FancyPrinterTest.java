@@ -24,7 +24,7 @@ public class FancyPrinterTest {
         CompactBoard board = new CompactBoard();
         int[][] slots = new int[3][3];
         slots[0][0] = 3;
-        slots[0][1] = 6;
+        slots[0][1] = 9;
         slots[0][2] = 36;
         slots[1][0] = 20;
         slots[1][1] = 27;
