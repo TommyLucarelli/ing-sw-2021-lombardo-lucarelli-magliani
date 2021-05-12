@@ -190,7 +190,7 @@ public class FancyPrinter {
         if(devCard1.getRecipe().getOutputResources().size()!=3) {
             string5.append("\t│\t─►\t");
         } else {
-            string5.append("\n\t│ ─► ");
+            string5.append("\t│ ─► ");
         }
 
         for (int i = 0; i < devCard1.getRecipe().getOutputResources().size(); i++) {
@@ -284,19 +284,21 @@ public class FancyPrinter {
             e.printStackTrace();
         }
         StringBuilder strDevCardStructure = new StringBuilder();
-        strDevCardStructure.append("\t\t\t\t\tGreen\t\t\t\t\tBlue\t\t\t\t\tYellow\t\t\t\t\tPurple");
+        int count =3;
+        strDevCardStructure.append("\t\t\t\t\tGreen\t\t\t\t\t\tBlue\t\t\t\t\tYellow\t\t\t\t\t\tPurple");
 
         for (int k = 0; k < 3; k++) {
             for (int i = 0; i < 9; i++) {
                 if (i != 4) {
                     strDevCardStructure.append("\n\t\t");
                 } else if (i == 4) {
-                    strDevCardStructure.append("\n\tLevel ").append(k+1);
+                    strDevCardStructure.append("\n\tLevel ").append(count);
                 }
                 for (int j = 0; j < 4; j++) {
                     strDevCardStructure.append(devCardToArrayList(devCardStructure.getDevCardStructure()[k][j]).get(i)).append("\t");
                 }
             }
+            count--;
             strDevCardStructure.append("\n");
         }
         stream.print(strDevCardStructure);
