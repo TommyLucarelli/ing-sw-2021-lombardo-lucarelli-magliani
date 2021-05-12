@@ -129,8 +129,6 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_DEVCARD,
-    "discount1": Resource,
-    "discount2": Resource,
 }
 ```
 
@@ -171,8 +169,6 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_PRODUCTION,
-    "specialProduction1": Resource,
-    "specialProduction2": Resource,
 }
 ```
 
@@ -239,6 +235,7 @@ payload: {
     "currentPlayerID": int, //player who has just finished the turn
     "nextPlayerID": int, //player who is going to play in the next turn
     "message": "Giocatore 1 ha attivato la produzione", //basic message for info
+    "abilityActivationFlag": int[8],
     "market":{
         "structure": int[12], //array representing arrangement of marbles in the market
         "reserveMarble": int 
