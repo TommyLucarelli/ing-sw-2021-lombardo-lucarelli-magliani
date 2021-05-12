@@ -100,4 +100,17 @@ public class FancyPrinterTest {
         FancyPrinter fancyPrinter =new FancyPrinter();
         fancyPrinter.printDevCard(48);
     }
+
+    @Test
+    public void printLeaderCard() {
+        FancyPrinter fancyprinter = new FancyPrinter();
+        fancyprinter.printLeaderCard(64);
+    }
+
+    @Test
+    public void printArrayLeaderCard() {
+        int[] array = {49,56,64,52};
+        FancyPrinter fancyprinter = new FancyPrinter();
+        fancyprinter.printArrayLeaderCard(array);
+    }
 }

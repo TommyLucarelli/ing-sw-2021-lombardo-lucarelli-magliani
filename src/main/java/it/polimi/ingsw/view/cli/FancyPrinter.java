@@ -77,16 +77,9 @@ public class FancyPrinter {
     }
 
     /**
-     * Prints a development card.
-     * @param id of the development card.
-     * @return
+     * @param id of a devCard
+     * @return string of Leader Card
      */
-    public void printDevCard(int id) {
-        for (int i = 0; i < 9; i++) {
-            stream.print(devCardToArrayList(id).get(i)+"\n");
-        }
-    }
-
     public ArrayList<StringBuilder> devCardToArrayList(int id){
         StringBuilder string1 = new StringBuilder();
         StringBuilder string2 = new StringBuilder();
@@ -246,6 +239,17 @@ public class FancyPrinter {
     }
 
     /**
+     * Prints a development card.
+     * @param id of the development card.
+     * @return
+     */
+    public void printDevCard(int id) {
+        for (int i = 0; i < 9; i++) {
+            stream.print(devCardToArrayList(id).get(i)+"\n");
+        }
+    }
+
+    /**
      * Prints a development card slot from the player's board.
      * @param board the player's board.
      */
@@ -304,26 +308,41 @@ public class FancyPrinter {
         stream.print(strDevCardStructure);
     }
 
-    public void printLeaderCard(int id){
+    /**
+     * @return the LeaderCard in ArrayList of StringBuilder
+     * @param id is the identification of a Leader Card
+     */
+    public ArrayList<StringBuilder> leaderCardToArrayList(int id){
+        StringBuilder string1 = new StringBuilder();
+        StringBuilder string2 = new StringBuilder();
+        StringBuilder string3 = new StringBuilder();
+        StringBuilder string4 = new StringBuilder();
+        StringBuilder string5 = new StringBuilder();
+        StringBuilder string6 = new StringBuilder();
+        StringBuilder string7 = new StringBuilder();
+        StringBuilder string8 = new StringBuilder();
+        StringBuilder string9 = new StringBuilder();
+        StringBuilder string10 = new StringBuilder();
+        ArrayList<StringBuilder> stringLeaderCard = new ArrayList<>();
         LeaderCard leaderCard;
         leaderCard = cardCollector.getLeaderCard(id);
-        StringBuilder string = new StringBuilder();
         int[] num = new int[4];
 
-        string.append("\t┌───────────────────┐\n\t│  ");
+        string1.append("\t┌───────────────────┐");
+        string2.append("\t│  ");
         if(leaderCard.getSpecialAbility().getAbilityType()==0){
             switch(leaderCard.getRequiredResources().getResource()){
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(5).append(" $").append(Color.RESET).append("\t\t\t\t│");
+                    string2.append(Color.YELLOW_BOLD.color()).append(5).append(" $").append(Color.RESET).append("\t\t\t\t│");
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(5).append(" ■").append(Color.RESET).append("\t\t\t\t│");
+                    string2.append(Color.PURPLE_BOLD.color()).append(5).append(" ■").append(Color.RESET).append("\t\t\t\t│");
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(5).append(" ◊").append(Color.RESET).append("\t\t\t\t│");
+                    string2.append(Color.HEAVENLY_BOLD.color()).append(5).append(" ◊").append(Color.RESET).append("\t\t\t\t│");
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(5).append(" ⌂").append(Color.RESET).append("\t\t\t\t│");
+                    string2.append(Color.WHITE_BOLD.color()).append(5).append(" ⌂").append(Color.RESET).append("\t\t\t\t│");
                     break;
             }
         } else {
@@ -333,70 +352,115 @@ public class FancyPrinter {
             }
 
             if (num[0] != 0)
-                string.append(num[0]).append(Color.GREEN_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                string2.append(num[0]).append(Color.GREEN_BOLD.color()).append(" ▓  ").append(Color.RESET);
             if (num[1] != 0)
-                string.append(num[1]).append(Color.YELLOW_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                string2.append(num[1]).append(Color.YELLOW_BOLD.color()).append(" ▓  ").append(Color.RESET);
             if (num[2] != 0)
-                string.append(num[2]).append(Color.PURPLE_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                string2.append(num[2]).append(Color.PURPLE_BOLD.color()).append(" ▓  ").append(Color.RESET);
             if (num[3] != 0)
-                string.append(num[3]).append(Color.HEAVENLY_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                string2.append(num[3]).append(Color.HEAVENLY_BOLD.color()).append(" ▓  ").append(Color.RESET);
 
             int cont = 0;
             for (int i = 0; i < 4; i++) {
                 if (num[i] != 0) cont++;
             }
             if (cont == 2) {
-                string.append("\t\t│");
+                string2.append("\t\t│");
             } else {
-                string.append("\t\t\t│");
+                string2.append("\t\t\t│");
             }
         }
 
-        string.append("\n\t│\t\t\t\t\t│").append("\n\t│\t\t\t\t\t│");
-        string.append("\n\t│ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("\t│\n\t│\t\t\t\t\t│");
-        string.append("\n\t│ SpecialAbility:\t│\n\t│ ");
+        string3.append("\t│\t\t\t\t\t│");
+        string4.append("\t│\t\t\t\t\t│");
+        string5.append("\t│ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("\t│");
+        string6.append("\t│\t\t\t\t\t│");
+        string7.append("\t│ SpecialAbility:\t│");
+        string8.append("\t│ ");
 
         switch(leaderCard.getSpecialAbility().getAbilityType()){
-            case 0: string.append("Special Warehouse │\n\t│\t +2"); break;
-            case 1: string.append("Special Marble    │\n\t│\t● ="); break;
-            case 2: string.append("Special Discount  │\n\t│\t -1 "); break;
-            case 3: string.append("Special Production│\n\t│\t"); break;
+            case 0: string8.append("Special Warehouse │");
+                    string9.append("\t│\t +2"); break;
+            case 1: string8.append("Special Marble    │");
+                    string9.append("\t│\t● ="); break;
+            case 2: string8.append("Special Discount  │");
+                    string9.append("\t│\t -1 "); break;
+            case 3: string8.append("Special Production│");
+                    string9.append("\t│\t"); break;
         }
 
         if(leaderCard.getSpecialAbility().getAbilityType()!=3) {
             switch (leaderCard.getSpecialAbility().getAbilityResource()) {
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(" $").append(Color.RESET);
+                    string9.append(Color.YELLOW_BOLD.color()).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(" ■").append(Color.RESET);
+                    string9.append(Color.PURPLE_BOLD.color()).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(" ◊").append(Color.RESET);
+                    string9.append(Color.HEAVENLY_BOLD.color()).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(" ⌂").append(Color.RESET);
+                    string9.append(Color.WHITE_BOLD.color()).append(" ⌂").append(Color.RESET);
                     break;
             }
-            string.append("\t\t\t│\n\t└───────────────────┘");
+            string9.append("\t\t\t│");
+            string10.append("\t└───────────────────┘");
         } else {
             switch (leaderCard.getSpecialAbility().getAbilityResource()) {
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append(1).append(" $").append(Color.RESET);
+                    string9.append(Color.YELLOW_BOLD.color()).append(1).append(" $").append(Color.RESET);
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append(1).append(" ■").append(Color.RESET);
+                    string9.append(Color.PURPLE_BOLD.color()).append(1).append(" ■").append(Color.RESET);
                     break;
                 case SHIELD:
-                    string.append(Color.HEAVENLY_BOLD.color()).append(1).append(" ◊").append(Color.RESET);
+                    string9.append(Color.HEAVENLY_BOLD.color()).append(1).append(" ◊").append(Color.RESET);
                     break;
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append(1).append(" ⌂").append(Color.RESET);
+                    string9.append(Color.WHITE_BOLD.color()).append(1).append(" ⌂").append(Color.RESET);
                     break;
             }
-            string.append(" ─► 1 ").append(Color.WHITE_BOLD.color()).append("? ").append(Color.RESET).append(1).append(Color.RED_BOLD.color()).append(" †").append(Color.RESET).append("  │\n\t└───────────────────┘");
+            string9.append(" ─► 1 ").append(Color.WHITE_BOLD.color()).append("? ").append(Color.RESET).append(1).append(Color.RED_BOLD.color()).append(" †").append(Color.RESET).append("  │");
+            string10.append("\t└───────────────────┘");
         }
-        stream.print(string);
+        stringLeaderCard.add(string1);
+        stringLeaderCard.add(string2);
+        stringLeaderCard.add(string3);
+        stringLeaderCard.add(string4);
+        stringLeaderCard.add(string5);
+        stringLeaderCard.add(string6);
+        stringLeaderCard.add(string7);
+        stringLeaderCard.add(string8);
+        stringLeaderCard.add(string9);
+        stringLeaderCard.add(string10);
+
+        return stringLeaderCard;
+    }
+
+    /**
+     * Prints a LeaderCard
+     * @param id of the LeaderCard
+     */
+    public void printLeaderCard(int id){
+        for (int i = 0; i < 10; i++) {
+            stream.print(leaderCardToArrayList(id).get(i)+"\n");
+        }
+    }
+
+    /**
+     * Prints all the id of the LeaderCards in the Array side by side
+     * @param leaderCardArray contains all the id of the LeaderCards
+     */
+    public void printArrayLeaderCard(int[] leaderCardArray){
+        StringBuilder leaderCardSlot = new StringBuilder();
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < leaderCardArray.length; i++) {
+                leaderCardSlot.append(leaderCardToArrayList(leaderCardArray[i]).get(j)).append("\t");
+            }
+            leaderCardSlot.append("\n");
+        }
+        stream.print(leaderCardSlot);
     }
 
     /**
