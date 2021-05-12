@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
+import it.polimi.ingsw.core.model.Recipe;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
@@ -61,7 +62,7 @@ public class Cli implements UserInterface {
                     case "START_GAME_COMMAND":
                         handleSimpleRequest(request);
                         break;
-                    case "START_TURN":
+                    case "START_TURN": 
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
@@ -85,6 +86,10 @@ public class Cli implements UserInterface {
                     case "MAIN_CHOICE":
                         handleMainChoice(request);
                         break;
+                    case "CHOOSE_DEVCARD":
+                        handleChooseDevCard(request);
+                    case "DEVCARD_PLACEMENT":
+                        handleDevCardPlacement(request);
                 }
                 break;
             default:
@@ -140,7 +145,7 @@ public class Cli implements UserInterface {
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
         for (int i = 0; i < 4; i++) {
-            System.out.println("\n."+(i+1));
+            System.out.println("\n"+(i+1));
             fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
@@ -315,9 +320,9 @@ public class Cli implements UserInterface {
         do{
             System.out.println("\nChoose a Leader Card to activate or discard: ");
             System.out.println("\n1.");
-            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
+            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
             System.out.println("\n2.");
-            //fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
+            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
             System.out.println("\n3. to move on to the main action of the turn");
             x = scan.nextInt();
             if(x == 1){
@@ -347,9 +352,120 @@ public class Cli implements UserInterface {
     }
 
 
-    private void handleMainChoice(RequestMsg request) {
-        System.out.println("A REGGAAAA");
+    private void handleMainChoice(RequestMsg requestMsg) {
+        int x;
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "MAIN_CHOICE");
+        do {
+            System.out.println("\nWhich action you want to do: ");
+            System.out.println("1. Pick resources from market");
+            System.out.println("2. Buy a development card");
+            System.out.println("3. Activate production");
+            x = scan.nextInt();
+            if(x == 1)
+                payload.addProperty("actionChoice", "market");
+            else if(x == 2)
+                payload.addProperty("actionChoice", "buyDevCard");
+            else if(x == 3)
+                payload.addProperty("actionChoice", "production");
+        }while(x<1 || x>3);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
+
+
+    private void handleChooseDevCard(RequestMsg requestMsg){
+        int l=0, c=0;
+        boolean flag = false;
+        Resource r1, r2;
+
+        System.out.println("Choose a development card: ");
+
+        //discount da sistemare esteticamente
+        System.out.println("Available discount: ");
+        if(!requestMsg.getPayload().get("special4").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r1 = gson.fromJson(json, Resource.class);
+            System.out.println(r1.toString());
+            flag = true;
+        }
+        if(!requestMsg.getPayload().get("special5").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r2 = gson.fromJson(json, Resource.class);
+            System.out.println(r2.toString());
+            flag = true;
+        }
+        if(!flag)
+            System.out.println("None");
+
+        //stampa devCardCtructure + ricordo del possibile sconto applicato
+        //+ comeback option
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+        payload.addProperty("line", l);
+        payload.addProperty("column", c);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+    private void handleDevCardPlacement(RequestMsg requestMsg) {
+        int x;
+        boolean flag;
+        Gson gson = new Gson();
+        String json = requestMsg.getPayload().get("freeSpots").getAsString();
+        Type collectionType = new TypeToken<ArrayList<Integer>>() {
+        }.getType();
+        ArrayList<Integer> freeSpots = gson.fromJson(json, collectionType);
+
+        System.out.println("\nWhere do you want to want to put the card");
+        //stampa slot, disponibili
+        System.out.println("The available slots are:");
+        for (Integer freeSpot : freeSpots)
+            System.out.println(freeSpot);
+
+        do {
+            flag = true;
+            System.out.println("Choose one of them: ");
+            x = scan.nextInt();
+            for (Integer freeSpot : freeSpots){
+                if(freeSpot == x)
+                    flag = false;
+            }
+        } while (flag);
+
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
+        payload.addProperty("index", x);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
+    }
+
+
+    private void handleChooseProduction(RequestMsg requestMsg){
+
+        System.out.println("\nPRODCUTION");
+        System.out.println("\nThese are your resources");
+        fancyPrinter.printWarehouse(mySelf.getCompactBoard());
+        fancyPrinter.printStrongbox(mySelf.getCompactBoard());
+
+        System.out.println("\nThese are your productions, choose the ones you want to activate typing the ");
+
+        Resource r1, r2;
+        if(!requestMsg.getPayload().get("special6").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r1 = gson.fromJson(json, Resource.class);
+        }
+        if(!requestMsg.getPayload().get("special7").isJsonNull()){
+            Gson gson = new Gson();
+            String json = requestMsg.getPayload().get("basicProduction").getAsString();
+            r2 = gson.fromJson(json, Resource.class);
+        }
+    }
+
+
 
 
 }

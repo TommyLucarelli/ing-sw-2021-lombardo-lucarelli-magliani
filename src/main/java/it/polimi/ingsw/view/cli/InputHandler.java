@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -33,7 +34,6 @@ public class InputHandler {
                 payload.addProperty("input", getString(""));
                 break;
         }
-
         return payload;
     }
 
@@ -43,7 +43,7 @@ public class InputHandler {
      * @param max if !=-1, the maximum accepted value.
      * @return the user's input.
      */
-    private static int getInt(int min, int max){
+    public static int getInt(int min, int max){
         boolean hasMin = min != -1;
         boolean hasMax = max != -1;
         int input;
@@ -87,13 +87,39 @@ public class InputHandler {
         return input;
     }
 
+    public static int getInt(){
+        while (!scanner.hasNextInt()) {
+            System.out.println("Please enter a number:");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
+
     /**
      * Method used to get a choice between various options.
      * @param choices the array of possible options.
      * @return the index of the chosen option.
      */
-    private static int getChoice(String[] choices){
-        return 0;
+    private static int getChoice(int[] choices){
+        return getInt(1, choices.length);
+    }
+
+    /**
+     * Method used to get a choice between various options.
+     * @param choices the array of possible options.
+     * @return the index of the chosen option.
+     */
+    private static int[] getMultipleChoices(int[] choices, int howMany){
+        ArrayList<Integer> inputs = new ArrayList<>();
+        for (int i = 0; i < howMany; i++) {
+            int input = getInt(1, choices.length);
+            if(inputs.contains(input)){
+                i--;
+                System.out.println("You have already chosen this element!");
+            }
+            else inputs.add(input);
+        }
+        return inputs.stream().mapToInt(i -> i).toArray();
     }
 
     /**
@@ -101,15 +127,24 @@ public class InputHandler {
      * @param regex if !isBlank(), the regex pattern that the string needs to match.
      * @return the user's input.
      */
-    private static String getString(String regex){
+    public static String getString(String regex){
         String input;
         if(!regex.isBlank()){
-            input = "";
-            //TODO: gestire regex
+            while (!scanner.hasNext(regex)) {
+                System.out.println("Please enter a valid string.");
+                scanner.next();
+            }
+            input = scanner.next();
         } else {
             input = scanner.nextLine();
-
         }
         return input;
+    }
+
+    public static String getString(){
+        while(!scanner.hasNext()){
+            scanner.next();
+        }
+        return scanner.nextLine();
     }
 }
