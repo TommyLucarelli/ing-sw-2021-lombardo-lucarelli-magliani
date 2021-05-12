@@ -54,6 +54,7 @@ public class LeaderCardHandler{
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         } else {
+            lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             controller.getCurrentGame().getTurn().setLeaderCardDiscarded(lc.getId());
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);

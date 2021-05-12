@@ -88,8 +88,19 @@ public class Cli implements UserInterface {
                         break;
                     case "CHOOSE_DEVCARD":
                         handleChooseDevCard(request);
+                        break;
                     case "DEVCARD_PLACEMENT":
                         handleDevCardPlacement(request);
+                        break;
+                    case "PICK":
+                        handlePick(request);
+                        break;
+                    case "WAREHOUSE_PLACEMENT":
+                        handleWarehousePlacement(request);
+                        break;
+                    case "UPDATE":
+                        handleUpdate(request);
+                        break;
                 }
                 break;
             default:
@@ -168,7 +179,6 @@ public class Cli implements UserInterface {
             j++;
         }
 
-
         mySelf.getCompactBoard().setLeaderCards(leaders);
 
         JsonObject payload = new JsonObject();
@@ -217,6 +227,7 @@ public class Cli implements UserInterface {
                 placed1[0] = a;
             }
 
+            System.out.println("The Resources have been placed");
             System.out.println("\nWait for the other players to finish their initial turn");
 
             JsonObject payload = new JsonObject();
@@ -306,7 +317,7 @@ public class Cli implements UserInterface {
             String answer = scan.nextLine();
             if(answer.equals("yes"))
                 payload.addProperty("activation", true);
-            else if(answer.equals("false"))
+            else if(answer.equals("no"))
                 payload.addProperty("activation", false);
             else
                 flag = true;
@@ -381,7 +392,6 @@ public class Cli implements UserInterface {
         Resource r1, r2;
 
         System.out.println("Choose a development card: ");
-
         //discount da sistemare esteticamente
         System.out.println("Available discount: ");
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[4] != 0){
@@ -397,7 +407,32 @@ public class Cli implements UserInterface {
         if(!flag)
             System.out.println("None");
 
-        //stampa devCardCtructure + ricordo del possibile sconto applicato
+        //PROBLEMA: nella struttura compare indice 0 fin dall'inizio, perchè?
+        fancyPrinter.printDevCardStructure(compactDevCardStructure);
+        System.out.println("\nChoose level:");
+        l = InputHandler.getInt(1,3)-1;
+        boolean flag2;
+        do{
+            flag2 = false;
+            System.out.println("\nChoose color");
+            String s = InputHandler.getString();
+            switch(s) {
+                case "green":
+                    c = 0;
+                    break;
+                case "blue":
+                    c = 1;
+                    break;
+                case "yellow":
+                    c = 2;
+                    break;
+                case "purple":
+                    c = 3;
+                default:
+                    flag2 = true;
+            }
+        }while(flag2);
+
         //+ comeback option
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_DEVCARD");
@@ -417,18 +452,19 @@ public class Cli implements UserInterface {
         ArrayList<Integer> freeSpots = gson.fromJson(json, collectionType);
 
         System.out.println("\nWhere do you want to want to put the card");
-        //stampa slot, disponibili
-        System.out.println("The available slots are:");
+        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard());
+        System.out.println("\nThe available slots are:");
         for (Integer freeSpot : freeSpots)
             System.out.println(freeSpot);
-
         do {
             flag = true;
-            System.out.println("Choose one of them: ");
+            System.out.println("\nChoose one of them: ");
             x = scan.nextInt();
             for (Integer freeSpot : freeSpots){
-                if(freeSpot == x)
+                if (freeSpot == x) {
                     flag = false;
+                    break;
+                }
             }
         } while (flag);
 
@@ -452,7 +488,6 @@ public class Cli implements UserInterface {
         System.out.println("1. Basic production");
         //devcardslot stampa quelli con almeno una carta 2. 3. 4.
 
-
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
             r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
@@ -463,9 +498,19 @@ public class Cli implements UserInterface {
             System.out.println("6. Special Production with "+r2.toString());
         }
 
-        
     }
 
+    private void handlePick(RequestMsg requestMsg){
+
+    }
+
+    private void handleWarehousePlacement(RequestMsg requestMsg){
+
+    }
+
+    private void handleUpdate(RequestMsg requestMsg){
+
+    }
 
 
 

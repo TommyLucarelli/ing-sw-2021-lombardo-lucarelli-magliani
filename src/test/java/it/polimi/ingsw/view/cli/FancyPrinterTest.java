@@ -43,7 +43,7 @@ public class FancyPrinterTest {
         int[][] structure = new int[3][4];
         structure[0][0] = 3;
         structure[0][1] = 6;
-        structure[0][2] = 36;
+        structure[0][2] = 0;
         structure[0][3] = 2;
         structure[1][0] = 20;
         structure[1][1] = 27;

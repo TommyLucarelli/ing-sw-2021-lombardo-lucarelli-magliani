@@ -102,7 +102,7 @@ public class FancyPrinter {
             string7.append("\t│\t\t\t\t\t│");
             string8.append("\t│\t\t\t\t\t│");
             string9.append("\t└───────────────────┘");
-        } else {
+        }else{
             devCard1 = cardCollector.getDevCard(id);
 
             string1.append("\t┌───────────────────┐");
@@ -308,12 +308,13 @@ public class FancyPrinter {
             e.printStackTrace();
         }
         int[] sum =  {0,0,0};
-        for (int i = 0; i < 3; i++) {
+        /*for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 sum[i] = sum[i] + cardCollector.getDevCard(board.getDevCardSlots()[i][j]).getVictoryPoints();
             }
         }
         devCardSlot.append("\t\tTotal VP:").append(sum[0]).append("\t\t\t\t\tTotal VP:").append(sum[1]).append("\t\t\t\t\tTotal VP:").append(sum[2]);
+        */
         stream.print(devCardSlot);
     }
 
