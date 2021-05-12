@@ -178,6 +178,9 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": CHOOSE_PRODUCTION,
     "productions": ArrayList<Integer> //with the selected productions (included basics and specials)
+    "basicProduction": Recipe,
+    "specialProduction1": ResourceQty,
+    "specialProduction2": ResourceQty,
 }
 ```
 
