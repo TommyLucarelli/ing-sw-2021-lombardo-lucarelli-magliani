@@ -138,35 +138,36 @@ public class Cli implements UserInterface {
 
         Gson gson = new Gson();
         String json = requestMsg.getPayload().get("leaderCards").getAsString();
-        Type collectionType = new TypeToken<int[]>(){}.getType();
-        int[] leaderCards = gson.fromJson(json, collectionType);
+        ArrayList<Integer> leaderCards = gson.fromJson(json, new TypeToken<ArrayList<Integer>>(){}.getType());
 
         System.out.println("\nThe game has started!!");
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
-        for (int i = 0; i < 4; i++) {
-            System.out.println("\n"+(i+1));
-            fancyPrinter.printLeaderCard(leaderCards[i]);
+        for (int i = 0; i < leaderCards.size(); i++) {
+            System.out.println("\n" + (i + 1));
+            fancyPrinter.printLeaderCard(leaderCards.get(i));
         }
         //TODO: controllo
-        do {
-            System.out.println("\nChoose a card to discard");
-            x = scan.nextInt();
-        }while(x>4 || x<1);
-        do {
-            System.out.println("\nChoose a second card to discard");
-            y = scan.nextInt();
-        }while(y>4 || y<1 || x==y);
+        System.out.println("\nChoose your first leader card");
+        x = InputHandler.getInt(1, 4) - 1;
+        leaders[0] = leaderCards.get(x);
+        leaderCards.remove(x);
 
-        for (int i = 0; i < 4; i++) {
-            if (i == (x - 1) || i == (y - 1)) {
-                discardedLeaders[j] = leaderCards[i];
-                j++;
-            } else {
-                leaders[k] = leaderCards[i];
-                k++;
-            }
+        for (int i = 0; i < leaderCards.size(); i++) {
+            System.out.println("\n" + (i + 1));
+            fancyPrinter.printLeaderCard(leaderCards.get(i));
         }
+        //TODO: controllo
+        System.out.println("\nChoose your second leader card");
+        x = InputHandler.getInt(1, 3) - 1;
+        leaders[1] = leaderCards.get(x);
+        leaderCards.remove(x);
+
+        for (int i: leaderCards) {
+            discardedLeaders[j] = i;
+            j++;
+        }
+
 
         mySelf.getCompactBoard().setLeaderCards(leaders);
 
@@ -200,7 +201,7 @@ public class Cli implements UserInterface {
             System.out.println("4. SERVANT");
 
             //TODO: controllo
-            n = scan.nextInt();
+            n = InputHandler.getInt();
             a = Resource.values()[n-1];
             if(x == 2){
                 n = scan.nextInt();
