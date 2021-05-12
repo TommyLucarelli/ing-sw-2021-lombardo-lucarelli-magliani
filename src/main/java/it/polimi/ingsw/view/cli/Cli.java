@@ -148,10 +148,8 @@ public class Cli implements UserInterface {
             fancyPrinter.printLeaderCard(leaderCards[i]);
         }
         //TODO: controllo
-        do {
-            System.out.println("\nChoose a card to discard");
-            x = scan.nextInt();
-        }while(x>4 || x<1);
+        System.out.println("\nChoose a card to discard");
+        x = InputHandler.getInt(1, 4);
         do {
             System.out.println("\nChoose a second card to discard");
             y = scan.nextInt();
