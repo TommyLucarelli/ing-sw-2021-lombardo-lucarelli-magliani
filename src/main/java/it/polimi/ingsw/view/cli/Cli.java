@@ -138,8 +138,7 @@ public class Cli implements UserInterface {
 
         Gson gson = new Gson();
         String json = requestMsg.getPayload().get("leaderCards").getAsString();
-        Type collectionType = new TypeToken<int[]>(){}.getType();
-        int[] leaderCards = gson.fromJson(json, collectionType);
+        int[] leaderCards = gson.fromJson(json, new TypeToken<int[]>(){}.getType());
 
         System.out.println("\nThe game has started!!");
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
