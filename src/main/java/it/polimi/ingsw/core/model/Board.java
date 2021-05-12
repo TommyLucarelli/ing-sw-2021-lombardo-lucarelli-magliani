@@ -107,7 +107,10 @@ public class Board {
      */
     public void setAbilityActivationFlag(int i, int id) {
         abilityActivationFlag[i] = id;
+    }
 
+    public int[] getAbilityActivationFlag(){
+        return abilityActivationFlag.clone();
     }
 
     /**

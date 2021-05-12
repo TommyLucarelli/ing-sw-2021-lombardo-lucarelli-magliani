@@ -1,5 +1,6 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.*;
@@ -203,6 +204,9 @@ public class MainController{
         currentPlayer = currentGame.getTurn().nextPlayer();
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
+        Gson gson = new Gson();
+        String json = gson.toJson(currentPlayer.getBoard().getAbilityActivationFlag());
+        payload.addProperty("abilityActivationFlag", json);
 
         if(x == 0)
             payload.add("market", currentGame.getMarket().toCompactMarket());

@@ -21,22 +21,16 @@ public class TurnHandler {
             controller.getCurrentGame().getTurn().setTypeOfAction(0);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "PICK");
-            for (int i = 0; i < 4; i++)
-                addSpecial(i,payload);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else if (actionChoice.equals("production")) {
             controller.getCurrentGame().getTurn().setTypeOfAction(1);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
-            for (int i = 6; i < 8; i++)
-                addSpecial(i,payload);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else{
             controller.getCurrentGame().getTurn().setTypeOfAction(2);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_DEVCARD");
-            for (int i = 4; i < 6; i++)
-                addSpecial(i,payload);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
     }
@@ -87,12 +81,4 @@ public class TurnHandler {
         }
     }
 
-    private void addSpecial(int x, JsonObject payload){
-        if (controller.getCurrentPlayer().getBoard().isActivated(x) != 0){
-            Resource resource = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().isActivated(x)).getSpecialAbility().getAbilityResource();
-            Gson gson = new Gson();
-            String json = gson.toJson(resource);
-            payload.addProperty("special"+x, json);
-        }
-    }
 }

@@ -12,7 +12,7 @@ public class CompactBoard {
     private int[] leaderCardsActivated;
     private int faithTrackIndex;
     private boolean[] favCards;
-    //servono dei flags per specialAbility
+    private int[] abilityActivationFlag;
 
     public CompactBoard(){
         setStrongbox(new int[4]);
@@ -22,6 +22,7 @@ public class CompactBoard {
         setLeaderCardsActivated(new int[2]);
         setFaithTrackIndex(0);
         setFavCards(new boolean[3]); //settare tutti false
+        abilityActivationFlag = new int[8];
     }
 
     public int[] getStrongbox() {
@@ -80,5 +81,13 @@ public class CompactBoard {
     public void setFavCards(boolean[] favCards) {
         this.favCards = favCards;
         Arrays.fill(favCards, false);
+    }
+
+    public int[] getAbilityActivationFlag() {
+        return abilityActivationFlag;
+    }
+
+    public void setAbilityActivationFlag(int[] abilityActivationFlag) {
+        this.abilityActivationFlag = abilityActivationFlag;
     }
 }

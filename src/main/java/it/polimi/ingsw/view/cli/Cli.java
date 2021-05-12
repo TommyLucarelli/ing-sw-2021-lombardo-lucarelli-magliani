@@ -383,17 +383,13 @@ public class Cli implements UserInterface {
 
         //discount da sistemare esteticamente
         System.out.println("Available discount: ");
-        if(!requestMsg.getPayload().get("special4").isJsonNull()){
-            Gson gson = new Gson();
-            String json = requestMsg.getPayload().get("basicProduction").getAsString();
-            r1 = gson.fromJson(json, Resource.class);
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[4] != 0){
+            r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println(r1.toString());
             flag = true;
         }
-        if(!requestMsg.getPayload().get("special5").isJsonNull()){
-            Gson gson = new Gson();
-            String json = requestMsg.getPayload().get("basicProduction").getAsString();
-            r2 = gson.fromJson(json, Resource.class);
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[5] != 0){
+            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println(r2.toString());
             flag = true;
         }
@@ -452,17 +448,21 @@ public class Cli implements UserInterface {
 
         System.out.println("\nThese are your productions, choose the ones you want to activate typing the ");
 
+        System.out.println("1. Basic production");
+        //devcardslot stampa quelli con almeno una carta 2. 3. 4.
+
+
         Resource r1, r2;
-        if(!requestMsg.getPayload().get("special6").isJsonNull()){
-            Gson gson = new Gson();
-            String json = requestMsg.getPayload().get("basicProduction").getAsString();
-            r1 = gson.fromJson(json, Resource.class);
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
+            r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
+            System.out.println("5. Special Production with "+r1.toString());
         }
-        if(!requestMsg.getPayload().get("special7").isJsonNull()){
-            Gson gson = new Gson();
-            String json = requestMsg.getPayload().get("basicProduction").getAsString();
-            r2 = gson.fromJson(json, Resource.class);
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[7] != 0){
+            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
+            System.out.println("6. Special Production with "+r2.toString());
         }
+
+        
     }
 
 
