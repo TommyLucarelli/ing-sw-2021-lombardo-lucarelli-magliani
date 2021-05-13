@@ -34,6 +34,7 @@ public class Game
         this.leaderCards = new LeaderCardsDeck();
         this.turn = new Turn(this.players);
         faithTrackMarker = 0;
+        System.out.println(devCardStructure.toStringTopStructure());
     }
 
     public static void main( String[] args )

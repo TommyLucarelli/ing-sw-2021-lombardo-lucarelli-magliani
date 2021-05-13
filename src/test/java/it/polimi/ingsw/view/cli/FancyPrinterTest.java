@@ -45,7 +45,7 @@ public class FancyPrinterTest {
         structure[0][1] = 6;
         structure[0][2] = 30;
         structure[0][3] = 2;
-        structure[1][0] = 0;
+        structure[1][0] = 30;
         structure[1][1] = 27;
         structure[1][2] = 32;
         structure[1][3] = 33;

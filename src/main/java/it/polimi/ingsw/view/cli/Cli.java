@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.core.model.Recipe;
 import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.core.model.ResourceQty;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
@@ -428,6 +429,7 @@ public class Cli implements UserInterface {
                     break;
                 case "purple":
                     c = 3;
+                    break;
                 default:
                     flag2 = true;
             }
@@ -478,6 +480,7 @@ public class Cli implements UserInterface {
 
     private void handleChooseProduction(RequestMsg requestMsg){
 
+        ArrayList<Integer> productions = new ArrayList<>();
         System.out.println("\nPRODCUTION");
         System.out.println("\nThese are your resources");
         fancyPrinter.printWarehouse(mySelf.getCompactBoard());
@@ -487,6 +490,7 @@ public class Cli implements UserInterface {
 
         System.out.println("1. Basic production");
         //devcardslot stampa quelli con almeno una carta 2. 3. 4.
+        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard());
 
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
@@ -498,6 +502,68 @@ public class Cli implements UserInterface {
             System.out.println("6. Special Production with "+r2.toString());
         }
 
+        //da rivedere + aggiungere controllo
+        while(scan.hasNextInt()){
+            productions.add(scan.nextInt());
+        }
+
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+
+        if(productions.contains(1)){
+            int x;
+            ArrayList<ResourceQty> input = new ArrayList<>();
+            ArrayList<ResourceQty> output = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                if(i == 0 || i == 1)
+                    System.out.println("\nChoose an input resource for the basic production: ");
+                else
+                    System.out.println("\nChoose an output resource for the basic production: ");
+                System.out.println("1. COIN");
+                System.out.println("2. SHIELD");
+                System.out.println("3. STONE");
+                System.out.println("4. SERVANT");
+                x = InputHandler.getInt(1,4);
+                if(i == 0 || i == 1)
+                    input.add(new ResourceQty(Resource.values()[x-1], 1));
+                else
+                    output.add(new ResourceQty(Resource.values()[x-1], 1));
+            }
+            Recipe recipe = new Recipe(input, output);
+            Gson gson = new Gson();
+            String json = gson.toJson(recipe);
+            payload.addProperty("basicProduction", json);
+        }
+
+        if(productions.contains(5)){
+            int x;
+            System.out.println("\nChoose an output resource for the special production: ");
+            System.out.println("1. COIN");
+            System.out.println("2. SHIELD");
+            System.out.println("3. STONE");
+            System.out.println("4. SERVANT");
+            x = InputHandler.getInt(1,4);
+            r1 = Resource.values()[x-1];
+            Gson gson = new Gson();
+            String json = gson.toJson(r1);
+            payload.addProperty("specialProduction1", json);
+        }
+
+        if(productions.contains(6)){
+            int x;
+            System.out.println("\nChoose an output resource for the special production: ");
+            System.out.println("1. COIN");
+            System.out.println("2. SHIELD");
+            System.out.println("3. STONE");
+            System.out.println("4. SERVANT");
+            x = InputHandler.getInt(1,4);
+            r2 = Resource.values()[x-1];
+            Gson gson = new Gson();
+            String json = gson.toJson(r2);
+            payload.addProperty("specialProduction2", json);
+        }
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
     private void handlePick(RequestMsg requestMsg){
