@@ -41,11 +41,11 @@ public class FancyPrinterTest {
     public void printDevCardStructure() {
         CompactDevCardStructure devCardStructure = new CompactDevCardStructure();
         int[][] structure = new int[3][4];
-        structure[0][0] = 3;
+        structure[0][0] = 10;
         structure[0][1] = 6;
-        structure[0][2] = 0;
+        structure[0][2] = 30;
         structure[0][3] = 2;
-        structure[1][0] = 20;
+        structure[1][0] = 0;
         structure[1][1] = 27;
         structure[1][2] = 32;
         structure[1][3] = 33;

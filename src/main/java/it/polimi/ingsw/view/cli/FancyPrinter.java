@@ -264,16 +264,18 @@ public class FancyPrinter {
             string8.append("\t│ VictoryPoints:").append(devCard1.getVictoryPoints()).append("\t│");
             string9.append("\t└───────────────────┘");
 
-            stringDevCard.add(string1);
-            stringDevCard.add(string2);
-            stringDevCard.add(string3);
-            stringDevCard.add(string4);
-            stringDevCard.add(string5);
-            stringDevCard.add(string6);
-            stringDevCard.add(string7);
-            stringDevCard.add(string8);
-            stringDevCard.add(string9);
         }
+
+
+        stringDevCard.add(string1);
+        stringDevCard.add(string2);
+        stringDevCard.add(string3);
+        stringDevCard.add(string4);
+        stringDevCard.add(string5);
+        stringDevCard.add(string6);
+        stringDevCard.add(string7);
+        stringDevCard.add(string8);
+        stringDevCard.add(string9);
 
         return stringDevCard;
     }
@@ -336,7 +338,7 @@ public class FancyPrinter {
             for (int i = 0; i < 9; i++) {
                 if (i != 4) {
                     strDevCardStructure.append("\n\t\t");
-                } else if (i == 4) {
+                } else {
                     strDevCardStructure.append("\n\tLevel ").append(count);
                 }
                 for (int j = 0; j < 4; j++) {
