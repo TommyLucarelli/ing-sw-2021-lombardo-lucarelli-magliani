@@ -237,8 +237,7 @@ payload: {
     "message": "Giocatore 1 ha attivato la produzione", //basic message for info
     "abilityActivationFlag": int[8],
     "market":{
-        "structure": int[12], //array representing arrangement of marbles in the market
-        "reserveMarble": int 
+        "structure": int[13], //array representing arrangement of marbles in the market
     },
      "devCardStructure": {
         "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
@@ -273,8 +272,7 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": INITIAL_UPDATE,
     "market":{
-        "structure": int[12], //array representing arrangement of marbles in the market
-        "reserveMarble": int 
+        "structure": int[13], //array representing arrangement of marbles in the market
     },
     "devCardStructure": {
         "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
