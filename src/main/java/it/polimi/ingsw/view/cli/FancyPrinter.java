@@ -102,7 +102,7 @@ public class FancyPrinter {
             string7.append("\t│\t\t\t\t\t│");
             string8.append("\t│\t\t\t\t\t│");
             string9.append("\t└───────────────────┘");
-        }else{
+        } else {
             devCard1 = cardCollector.getDevCard(id);
 
             string1.append("\t┌───────────────────┐");
