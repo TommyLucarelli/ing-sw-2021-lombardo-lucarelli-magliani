@@ -201,7 +201,7 @@ payload: {
     "gameAction": PICK,
     "choice": "line" | "column" //relative to the market
     "number": int //for the line/column number
-    "reource": Resource //representing the special resource to swop with the white one
+    "resource": Resource //representing the special resource to swop with the white one
 }
 ```
 
