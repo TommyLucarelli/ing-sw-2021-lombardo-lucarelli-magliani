@@ -615,6 +615,32 @@ public class Cli implements UserInterface {
 
     private void handleUpdate(RequestMsg requestMsg){
 
+        Gson gson = new Gson();
+        JsonObject payload;
+
+        int currentPlayerID = requestMsg.getPayload().get("currentPlayerID").getAsInt();
+        String message = requestMsg.getPayload().get("message").getAsString();
+
+        String json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+
+        payload = requestMsg.getPayload().get("market").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+
+        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
+
+        //gestione update player
+        //messaggio a tutti di aggiornamento sul turno avvenuto
+
+
     }
 
 
