@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
  */
 public class MarketHandler {
 
-    private Market market;
     private MainController controller;
     private ArrayList<Resource> resources;
     private ArrayList<Resource> blackList;
@@ -40,21 +39,29 @@ public class MarketHandler {
     public void pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
         int number = ms.getPayload().get("number").getAsInt();
+        boolean flag = false;
 
         if(choice.equals("column"))
-            resources = market.updateColumnAndGetResources(number);
+            resources = controller.getCurrentGame().getMarket().updateColumnAndGetResources(number);
         else
-            resources = market.updateLineAndGetResources(number);
+            resources = controller.getCurrentGame().getMarket().updateLineAndGetResources(number);
 
-        if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 || controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
+        if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 && controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
             Gson gson = new Gson();
             String json = ms.getPayload().get("resource").getAsString();
             r = gson.fromJson(json, Resource.class);
+        } else if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0)
+            r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
+        else if(controller.getCurrentPlayer().getBoard().isActivated(3) != 0)
+            r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
+
+        if(flag) {
             for (int i = 0; i < resources.size(); i++) {
                 if (resources.get(i) == Resource.ANY)
-                    resources.set(i,r);
+                    resources.set(i, r);
             }
-            }
+        }
+
         resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
 
         for(int i=0; i < resources.size(); i++){

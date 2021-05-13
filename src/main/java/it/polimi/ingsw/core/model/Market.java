@@ -161,20 +161,22 @@ public class Market {
     }
 
     public JsonObject toCompactMarket(){
-        int [] compact = new int[12];
+        int [] compact = new int[13];
         int x = reserveMarble.ordinal();
 
+        int cont=0;
         for(int i=0; i<3; i++){
             for(int j=0; j<4; j++){
-                compact[i+j] = structure[i][j].ordinal();
+                compact[cont] = structure[i][j].ordinal();
+                cont++;
             }
         }
+        compact[12] = x;
 
         Gson gson = new Gson();
         JsonObject payload = new JsonObject();
         String json = gson.toJson(compact);
         payload.addProperty("structure", json);
-        payload.addProperty("reserveMarble", x);
 
         return payload;
     }

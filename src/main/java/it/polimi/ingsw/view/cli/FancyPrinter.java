@@ -44,7 +44,6 @@ public class FancyPrinter {
             switch (market.getMarket()[i]) {
                 case 1:
                     string.append("\t").append(Color.WHITE_BOLD.color()).append("●\t");
-
                     break;
                 case 2:
                     string.append("\t").append(Color.PURPLE_BOLD.color()).append("●\t");

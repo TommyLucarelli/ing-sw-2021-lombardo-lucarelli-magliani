@@ -254,7 +254,6 @@ public class Cli implements UserInterface {
         Type collectionType = new TypeToken<int[]>(){}.getType();
         int[] structure = gson.fromJson(json, collectionType);
         compactMarket.setMarket(structure);
-        compactMarket.setReserveMarble(payload.get("reserveMarble").getAsInt());
 
         payload = ms.getPayload().get("devCardStructure").getAsJsonObject();
         json = payload.get("structure").getAsString();
@@ -481,12 +480,12 @@ public class Cli implements UserInterface {
     private void handleChooseProduction(RequestMsg requestMsg){
 
         ArrayList<Integer> productions = new ArrayList<>();
-        System.out.println("\nPRODCUTION");
+        System.out.println("\nPRODUCTION");
         System.out.println("\nThese are your resources");
         fancyPrinter.printWarehouse(mySelf.getCompactBoard());
         fancyPrinter.printStrongbox(mySelf.getCompactBoard());
 
-        System.out.println("\nThese are your productions, choose the ones you want to activate typing the ");
+        System.out.println("\nThese are your productions, choose the ones you want to activate typing the number: ");
 
         System.out.println("1. Basic production");
         //devcardslot stampa quelli con almeno una carta 2. 3. 4.
@@ -535,8 +534,9 @@ public class Cli implements UserInterface {
             payload.addProperty("basicProduction", json);
         }
 
+        int x;
+
         if(productions.contains(5)){
-            int x;
             System.out.println("\nChoose an output resource for the special production: ");
             System.out.println("1. COIN");
             System.out.println("2. SHIELD");
@@ -550,7 +550,6 @@ public class Cli implements UserInterface {
         }
 
         if(productions.contains(6)){
-            int x;
             System.out.println("\nChoose an output resource for the special production: ");
             System.out.println("1. COIN");
             System.out.println("2. SHIELD");
@@ -567,7 +566,43 @@ public class Cli implements UserInterface {
     }
 
     private void handlePick(RequestMsg requestMsg){
+        String s;
+        System.out.println("\nMARKET");
+        //per qualche motivo lo stampa senza reserve marble
+        fancyPrinter.printMarket(compactMarket);
+        do {
+            System.out.println("\nDo you want to pick a line or a column:");
+            s = InputHandler.getString();
+        }while(!s.equals("line") && !s.equals("column"));
+        System.out.println("Choose the value of your pick");
+        int x;
+        if(s.equals("line"))
+            x = InputHandler.getInt(1, 3);
+        else
+            x = InputHandler.getInt(1, 4);
 
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "PICK");
+        payload.addProperty("choice", s);
+        payload.addProperty("number", x);
+
+        if((mySelf.getCompactBoard().getAbilityActivationFlag()[2] != 0) && (mySelf.getCompactBoard().getAbilityActivationFlag()[3] != 0)){
+            System.out.println("\nYou have two special marble that can replace the white one, which one you want: ");
+            Resource r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
+            Resource r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
+            System.out.println("\n1. "+ r1.toString());
+            System.out.println("\n2. "+ r2.toString());
+            x = InputHandler.getInt(1,2);
+            Gson gson = new Gson();
+            String json;
+            if(x == 1)
+                 json = gson.toJson(r1);
+            else
+                json = gson.toJson(r2);
+            payload.addProperty("resource", json);
+        }
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
     private void handleWarehousePlacement(RequestMsg requestMsg){
