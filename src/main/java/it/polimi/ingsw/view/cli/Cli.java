@@ -457,7 +457,7 @@ public class Cli implements UserInterface {
         ArrayList<Integer> freeSpots = gson.fromJson(json, collectionType);
 
         System.out.println("\nWhere do you want to want to put the card");
-        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard());
+        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(),false);
         System.out.println("\nThe available slots are:");
         for (Integer freeSpot : freeSpots)
             System.out.println(freeSpot);
@@ -493,7 +493,7 @@ public class Cli implements UserInterface {
 
         System.out.println("1. Basic production");
         //devcardslot stampa quelli con almeno una carta 2. 3. 4.
-        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard());
+        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(), false);
 
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){

@@ -265,7 +265,6 @@ public class FancyPrinter {
 
         }
 
-
         stringDevCard.add(string1);
         stringDevCard.add(string2);
         stringDevCard.add(string3);
@@ -290,24 +289,83 @@ public class FancyPrinter {
         }
     }
 
-    /**
-     * Prints a development card slot from the player's board.
-     * @param board the player's board.
-     */
-    public void printDevCardSlot(CompactBoard board){
-        StringBuilder devCardSlot = new StringBuilder();
-        for (int j = 0; j < 9; j++) {
-            for (int i = 0; i < 3; i++) {
-                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[0][i]).get(j)).append("\t");
-            }
-            devCardSlot.append("\n");
-        }
+    public ArrayList<StringBuilder> printBase(int id) {
+        StringBuilder base1 = new StringBuilder();
+        StringBuilder base2 = new StringBuilder();
         CardCollector cardCollector = null;
         try {
             cardCollector = new CardCollector();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        base1.append("\t│  ");
+        switch (cardCollector.getDevCard(id).getFlag().getColour()) {
+               case YELLOW:
+                   base1.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET);
+                   break;
+               case BLUE:
+                   base1.append(Color.HEAVENLY_BOLD.color()).append("▓").append(Color.RESET);
+                   break;
+               case GREEN:
+                   base1.append(Color.GREEN_BOLD.color()).append("▓").append(Color.RESET);
+                   break;
+               case PURPLE:
+                   base1.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET);
+                   break;
+                }
+        base1.append("\t VP:").append(cardCollector.getDevCard(id).getVictoryPoints());
+        switch (cardCollector.getDevCard(id).getFlag().getColour()) {
+               case YELLOW:
+                    base1.append(Color.YELLOW_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    break;
+               case BLUE:
+                    base1.append(Color.HEAVENLY_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    break;
+               case GREEN:
+                    base1.append(Color.GREEN_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    break;
+               case PURPLE:
+                    base1.append(Color.PURPLE_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    break;
+        }
+        base1.append("  │");
+        base2.append("\t└───────────────────┘");
+        ArrayList<StringBuilder> base = new ArrayList<>();
+        base.add(base1);
+        base.add(base2);
+        return base;
+    }
+
+    /**
+     * Prints a development card slot from the player's board.
+     * @param board the player's board.
+     */
+    public void printDevCardSlot(CompactBoard board, boolean production){
+        CardCollector cardCollector = null;
+        try {
+            cardCollector = new CardCollector();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        StringBuilder devCardSlot = new StringBuilder();
+        if(production){
+            devCardSlot.append("   \t\t\t2\t\t\t\t\t\t\t3\t\t\t\t\t\t\t4\n");
+        }
+        for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 3; i++) {
+                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[0][i]).get(j)).append("\t");
+            }
+            devCardSlot.append("\n");
+        }
+        for (int k = 1; k < 3; k++) {
+            for (int j = 0; j < 2; j++) {
+                for (int i = 0; i < 3; i++) {
+                    devCardSlot.append(printBase(board.getDevCardSlots()[k][i]).get(j)).append("\t");
+                }
+                devCardSlot.append("\n");
+            }
+        }
+
         int[] sum =  {0,0,0};
         /*for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -537,22 +595,23 @@ public class FancyPrinter {
         string.append("\t\t\t\t");
 
         for (int i = 0; i < 10; i++) {
-            switch (board.getWarehouse()[i]) {
-                case STONE:
-                    string.append("\t").append(Color.WHITE_BOLD.color()).append(" STONE");
-                    break;
-                case SERVANT:
-                    string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT");
-                    break;
-                case COIN:
-                    string.append("\t").append(Color.YELLOW_BOLD.color()).append(" COIN");
-                    break;
-                case SHIELD:
-                    string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD");
-                    break;
-                case ANY:
-                    string.append("");
-            }
+                switch (board.getWarehouse()[i]) {
+                    case STONE:
+                        string.append("\t").append(Color.WHITE_BOLD.color()).append(" STONE");
+                        break;
+                    case SERVANT:
+                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT");
+                        break;
+                    case COIN:
+                        string.append("\t").append(Color.YELLOW_BOLD.color()).append(" COIN");
+                        break;
+                    case SHIELD:
+                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD");
+                        break;
+                    case ANY:
+                        string.append("");
+                }
+
 
             if(i==0){
                 string.append("\n\t\t\t");
