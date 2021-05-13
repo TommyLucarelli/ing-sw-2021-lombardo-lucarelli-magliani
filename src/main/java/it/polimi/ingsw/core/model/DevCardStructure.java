@@ -39,8 +39,8 @@ public class DevCardStructure {
                 structure[i][ii] = new Stack<DevCard>();
             }
         }
-
-        for (int i = 0; i < cards.size(); i++){
+        int i;
+        for (i = 0; i < 48; i++){
             devCard = cards.pop();
             switch (devCard.getFlag().getColour()){
                 case GREEN:
@@ -68,6 +68,10 @@ public class DevCardStructure {
     public DevCard getTopCard(int row, int column) throws IndexOutOfBoundsException{
         if(structure[row][column].size() == 0) throw new IndexOutOfBoundsException();
         return (DevCard) structure[row][column].peek();
+    }
+
+    public int stackSize(int row, int column){
+        return structure[row][column].size();
     }
 
     /**
