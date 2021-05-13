@@ -88,6 +88,7 @@ public class RequestManager {
      */
     private void handleRegistration(JsonObject response) throws InvalidResponseException {
         String input = response.get("input").getAsString();
+        input = input.trim();
         if(input.isBlank()){
             throw new InvalidResponseException("Invalid username. Please enter a valid username");
         } else if(ServerUtils.usernames.contains(input)){
