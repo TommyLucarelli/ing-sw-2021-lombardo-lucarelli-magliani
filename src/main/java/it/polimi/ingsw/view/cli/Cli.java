@@ -99,6 +99,9 @@ public class Cli implements UserInterface {
                     case "WAREHOUSE_PLACEMENT":
                         handleWarehousePlacement(request);
                         break;
+                    case "CHOOSE_PRODUCTION":
+                        handleChooseProduction(request);
+                        break;
                     case "UPDATE":
                         handleUpdate(request);
                         break;
@@ -431,6 +434,7 @@ public class Cli implements UserInterface {
                     break;
                 default:
                     flag2 = true;
+                    break;
             }
         }while(flag2);
 
