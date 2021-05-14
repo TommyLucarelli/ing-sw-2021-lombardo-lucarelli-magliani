@@ -1,5 +1,6 @@
 package it.polimi.ingsw.core.controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.Flag;
 import it.polimi.ingsw.core.model.LeaderCard;
@@ -33,7 +34,6 @@ public class LeaderCardHandler{
             check = checkRequirements(lc);
             if(check){
                 lc.setAbilityActivation();
-                controller.getCurrentGame().getTurn().setLeaderCardActivated(lc.getId());
                 controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
             }
             if(check){
@@ -45,8 +45,9 @@ public class LeaderCardHandler{
                     controller.updateBuilder();
                 } else{
                     payload.addProperty("gameAction", "MAIN_CHOICE");
-                    payload.addProperty("leaderCard", lc.getId());
-                    payload.addProperty("action", true);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag());
+                    payload.addProperty("abilityActivationFlag", json);
                     controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 }
             }else{
@@ -59,8 +60,6 @@ public class LeaderCardHandler{
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
             payload.addProperty("gameAction", "MAIN_CHOICE");
-            payload.addProperty("leaderCard", lc.getId());
-            payload.addProperty("action", false);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
 

@@ -370,6 +370,14 @@ public class Cli implements UserInterface {
 
     private void handleMainChoice(RequestMsg requestMsg) {
         int x;
+        int leaderID;
+        boolean action;
+
+        Gson gson = new Gson();
+        String json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "MAIN_CHOICE");
         do {
@@ -621,7 +629,7 @@ public class Cli implements UserInterface {
     private void handleUpdate(RequestMsg requestMsg){
 
         Gson gson = new Gson();
-        JsonObject payload;
+        JsonObject payload, payload2;
 
         int currentPlayerID = requestMsg.getPayload().get("currentPlayerID").getAsInt();
         String message = requestMsg.getPayload().get("message").getAsString();
@@ -629,6 +637,11 @@ public class Cli implements UserInterface {
         String json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
         int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+        mySelf.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
+
+        json = requestMsg.getPayload().get("discardedLeaderCards").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        mySelf.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
 
         payload = requestMsg.getPayload().get("market").getAsJsonObject();
         json = payload.get("structure").getAsString();
@@ -642,10 +655,39 @@ public class Cli implements UserInterface {
         int[][] structure2 = gson.fromJson(json, collectionType);
         compactDevCardStructure.setDevCardStructure(structure2);
 
-        //gestione update player
-        //messaggio a tutti di aggiornamento sul turno avvenuto
+        payload = requestMsg.getPayload().get("player").getAsJsonObject();
 
+        payload2 = payload.get("faithTrack").getAsJsonObject();
+        mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+        json = payload2.get("favCards").getAsString();
+        collectionType = new TypeToken<boolean[]>(){}.getType();
+        boolean[] fav = gson.fromJson(json, collectionType);
+        mySelf.getCompactBoard().setFavCards(fav);
 
+        payload2 = payload.get("warehouse").getAsJsonObject();
+        json = payload2.get("structure").getAsString();
+        collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+        ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+        Resource[] wa = new Resource[10];
+        wa = ware.toArray(wa);
+        mySelf.getCompactBoard().setWarehouse(wa);
+
+        payload2 = payload.get("strongbox").getAsJsonObject();
+        json = payload2.get("structure").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        mySelf.getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
+
+        payload2 = payload.get("devCardSlots").getAsJsonObject();
+        json = payload2.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        mySelf.getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
+
+        System.out.println(message);
+
+        JsonObject payload3 = new JsonObject();
+        payload3.addProperty("gameAction", "UPDATE");
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload3));
     }
 
     /**
