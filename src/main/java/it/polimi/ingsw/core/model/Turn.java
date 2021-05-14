@@ -11,13 +11,11 @@ public class Turn {
     private boolean lastTurn;
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare
-    private int[] leaderCardActivated; //0 se no, id se si
     private int[] leaderCardDiscarded;
     //TODO: implementare questi attributi nei metodi handler
 
     public Turn(ArrayList<Player> players){
         this.players = players;
-        leaderCardActivated = new int[2]; //controlla se sono 0
         leaderCardDiscarded = new int[2];
         currentPlayer = 0;
     }
@@ -58,21 +56,6 @@ public class Turn {
 
     public void setTypeOfAction(int typeOfAction) {
         this.typeOfAction = typeOfAction;
-    }
-
-    public int[] getLeaderCardActivated() {
-        int[] x = leaderCardActivated.clone();
-        leaderCardActivated[0] = 0;
-        leaderCardActivated[1] = 0;
-        return x;
-    }
-
-    public void setLeaderCardActivated(int id) {
-        if(leaderCardActivated[0] == 0)
-            leaderCardActivated[0] = id;
-        else if(leaderCardActivated[1] == 0)
-            leaderCardActivated[1] = id;
-        //se no bho, va controllato
     }
 
     public int[] getLeaderCardDiscarded() {
