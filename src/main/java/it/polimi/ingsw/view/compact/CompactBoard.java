@@ -79,7 +79,6 @@ public class CompactBoard {
 
     public void setFavCards(boolean[] favCards) {
         this.favCards = favCards;
-        Arrays.fill(favCards, false);
     }
 
     public int[] getAbilityActivationFlag() {

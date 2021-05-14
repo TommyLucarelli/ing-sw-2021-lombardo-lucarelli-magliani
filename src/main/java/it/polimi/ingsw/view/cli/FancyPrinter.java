@@ -601,13 +601,13 @@ public class FancyPrinter {
         string.append("    ");
         symbolForWarehouse(string, board.getWarehouse()[5], 6);
         string.append("  |\n").append("    └───────────────┘\n");
-        if(board.getLeaderCardsActivated()[0] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityType() == 0){
+        if(board.getAbilityActivationFlag()[0] != 0){
             string.append("      ┌───────────┐\n").append("      |  ");
             symbolForWarehouse(string, board.getWarehouse()[6], 7);
             string.append("     ");
             symbolForWarehouse(string, board.getWarehouse()[7], 8);
             string.append("  | ");
-            switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityResource()){
+            switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[0]).getSpecialAbility().getAbilityResource()){
                 case STONE:
                     string.append(Color.WHITE_BOLD.color()).append("⌂");
                     break;
@@ -621,8 +621,8 @@ public class FancyPrinter {
                     string.append(Color.BLUE_BOLD.color()).append("◊");
                     break;
             }
-            string.append(" ONLY\n").append("      └───────────┘\n");
-            if(board.getLeaderCardsActivated()[1] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0){
+            string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
+            if(board.getAbilityActivationFlag()[1] != 0){
                 string.append("      ┌───────────┐\n").append("      |  ");
                 symbolForWarehouse(string, board.getWarehouse()[8], 9);
                 string.append("     ");
@@ -644,7 +644,7 @@ public class FancyPrinter {
                         break;
                 }
                 string.append(" | ");
-                switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource()){
+                switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
                     case STONE:
                         string.append(Color.WHITE_BOLD.color()).append("⌂");
                         break;
@@ -658,16 +658,16 @@ public class FancyPrinter {
                         string.append(Color.BLUE_BOLD.color()).append("◊");
                         break;
                 }
-                string.append(" ONLY\n").append("      └───────────┘\n");
+                string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
             }
 
-        } else if(board.getLeaderCardsActivated()[1] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0) {
+        } else if(board.getAbilityActivationFlag()[1] != 0) {
             string.append("      ┌───────────┐\n").append("      |  ");
             symbolForWarehouse(string, board.getWarehouse()[6], 7);
             string.append("     ");
             symbolForWarehouse(string, board.getWarehouse()[7], 8);
             string.append(" | ");
-            switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource()){
+            switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
                 case STONE:
                     string.append(Color.WHITE_BOLD.color()).append("⌂");
                     break;
@@ -681,7 +681,7 @@ public class FancyPrinter {
                     string.append(Color.BLUE_BOLD.color()).append("◊");
                     break;
             }
-            string.append(" ONLY\n").append("      └───────────┘\n");
+            string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
         }
 
         stream.print(string);

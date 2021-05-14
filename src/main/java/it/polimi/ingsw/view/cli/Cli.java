@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.cli;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
@@ -647,6 +648,127 @@ public class Cli implements UserInterface {
 
     }
 
+    /**
+     * Method that handles the procedure of placing the resources obtained in the market into the player warehouse.
+     * @param resourcesToPlace an arrayList containing the resources to be placed.
+     * @return a JsonObject containing two properties: an array containing the new configuration of the warehouse and
+     * the amount of resources discarded (the ones not placed in the market).
+     */
+    private JsonObject warehousePlacementProcedure(ArrayList<Resource> resourcesToPlace){
+        ArrayList<Resource> resourcesBackup = new ArrayList<>(resourcesToPlace);
+        Resource[] warehouseResourcesBackup = mySelf.getCompactBoard().getWarehouse();
+        Resource[] warehouseResources = mySelf.getCompactBoard().getWarehouse();
+        Resource extraResource1 = Resource.ANY, extraResource2 = Resource.ANY;
+        if(mySelf.getCompactBoard().getLeaderCardsActivated()[0] != 0 &&
+                cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityType() == 0){
+            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityResource();
+            if(mySelf.getCompactBoard().getLeaderCardsActivated()[1] != 0 &&
+                    cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0)
+                extraResource2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource();
+        } else if(mySelf.getCompactBoard().getLeaderCardsActivated()[1] != 0 &&
+                cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0){
+            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource();
+        }
+
+        int totalSpaces = 6 + (extraResource1 != Resource.ANY ? 2 : 0 ) + (extraResource2 != Resource.ANY ? 2 : 0 );
+
+        boolean exit = false;
+        boolean[] canBeRemoved = new boolean[10];
+        for(int i = 0; i < 10; i++){
+            if(warehouseResources[i] != null && warehouseResources[i] != Resource.ANY)
+                canBeRemoved[i] = false;
+            else canBeRemoved[i] = true;
+        }
+
+        while(!exit && resourcesToPlace.size() != 0){
+            fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
+            System.out.println("\nRESOURCES TO PLACE: ");
+            for (int i = 0; i < resourcesToPlace.size(); i++) {
+                System.out.println((i + 1) + " - " + resourcesToPlace.get(i));
+            }
+            System.out.println("\nChoose an action:\n1. Add a resource to the warehouse\n2. Move/swap resources in the warehouse" +
+                    "\n3. Reset the changes\n4. Exit the placement procedure");
+            int choice = InputHandler.getInt(1, 3);
+            fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
+            switch (choice){
+                case 1: //ADD RESOURCE TO WAREHOUSE
+                    if(resourcesToPlace.size() == 0){
+                        System.out.println("There are no more resources to place in the warehouse");
+                        break;
+                    }
+                    System.out.println("\nRESOURCES TO PLACE: ");
+                    for (int i = 0; i < resourcesToPlace.size(); i++) {
+                        System.out.println((i + 1) + " - " + resourcesToPlace.get(i));
+                    }
+                    System.out.println("\nChoose a resource between the resources still to place (enter 0 to rollback)");
+                    int resourceToPlace = InputHandler.getInt(0, resourcesToPlace.size());
+                    if(resourceToPlace == 0) break;
+                    boolean placed = false;
+                    fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
+                    System.out.println("\nCHOSEN RESOURCE: " + resourcesToPlace.get(resourceToPlace - 1));
+                    while(!placed){
+                        System.out.println("\nSelect a free space in the warehouse to place the resource (enter 0 to rollback).");
+                        choice = InputHandler.getInt(0, totalSpaces);
+                        if(choice == 0) break;
+                        if (warehouseResources[choice] != Resource.ANY) {
+                            System.out.println("This spot is already taken! Choose another spot for the resource!");
+                        } else {
+                            if((choice > 6 && choice < 9 && resourcesToPlace.get(resourceToPlace - 1) != extraResource1) ||
+                                    (choice > 8 && resourcesToPlace.get(resourceToPlace - 1) != extraResource2)){
+                                System.out.println("The resource can't be placed here!");
+                            } else {
+                                warehouseResources[choice] = resourcesToPlace.get(resourceToPlace - 1);
+                                resourcesToPlace.remove(resourceToPlace - 1);
+                                placed = true;
+                            }
+                        }
+                    }
+                    break;
+                case 2: //MOVE/SWAP RESOURCES
+                    System.out.println("\nSelect the resource to move/swap (enter 0 to rollback)");
+                    choice = InputHandler.getInt(0, totalSpaces);
+                    if(choice == 0) break;
+                    boolean moved = false;
+                    while(!moved){
+                        System.out.println("\nSelect the destination slot (enter 0 to rollback)");
+                        int destination = InputHandler.getInt(0, totalSpaces);
+                        if(destination == 0) break;
+                        if(choice < 7 && destination < 7){
+                            Resource res = warehouseResources[choice - 1];
+                            warehouseResources[choice - 1] = warehouseResources[destination - 1];
+                            warehouseResources[destination - 1] = res;
+                            moved = true;
+                        } else {
+                            System.out.println("Resources in the special warehouses cannot be moved!");
+                        }
+                    }
+                    break;
+                case 3: //RESET
+                    warehouseResources = warehouseResourcesBackup;
+                    resourcesToPlace = new ArrayList<>(resourcesBackup);
+                    break;
+                case 4: //EXIT
+                    if(resourcesToPlace.size() != 0){
+                        System.out.println("There are still resources to be placed in the warehouse that will be discarded. For each one of them the other players will receive a faith point.");
+                    }
+                    System.out.println("Are you sure you want to exit? [yes/no]");
+                    String input = InputHandler.getString("(yes|no)");
+                    if(input.equals("yes")){
+                        exit = true;
+                    }
+                    break;
+            }
+        }
+
+        JsonArray newWarehouse = new JsonArray();
+        for (Resource warehouseResource : warehouseResources) {
+            newWarehouse.add(warehouseResource.toString());
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("discardedResources", resourcesToPlace.size());
+        jsonObject.add("newWarehouse", newWarehouse);
+        return jsonObject;
+    }
 
 
 }
