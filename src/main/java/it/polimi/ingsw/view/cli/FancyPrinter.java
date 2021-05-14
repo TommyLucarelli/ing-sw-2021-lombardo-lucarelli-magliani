@@ -601,7 +601,7 @@ public class FancyPrinter {
         string.append("    ");
         symbolForWarehouse(string, board.getWarehouse()[5], 6);
         string.append("  |\n").append("    └───────────────┘\n");
-        if(board.getLeaderCardsActivated()[0] != 0){
+        if(board.getLeaderCardsActivated()[0] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityType() == 0){
             string.append("      ┌───────────┐\n").append("      |  ");
             symbolForWarehouse(string, board.getWarehouse()[6], 7);
             string.append("     ");
@@ -622,28 +622,50 @@ public class FancyPrinter {
                     break;
             }
             string.append(" ONLY\n").append("      └───────────┘\n");
-        }
-        if(board.getLeaderCardsActivated()[1] != 0){
-            string.append("      ┌───────────┐\n").append("      |  ");
-            symbolForWarehouse(string, board.getWarehouse()[8], 9);
-            string.append("     ");
-            switch(board.getWarehouse()[9]){
-                case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append("⌂ ");
-                    break;
-                case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append("■ ");
-                    break;
-                case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append("$ ");
-                    break;
-                case SHIELD:
-                    string.append(Color.BLUE_BOLD.color()).append("◊ ");
-                    break;
-                case ANY:
-                    string.append("10");
-                    break;
+            if(board.getLeaderCardsActivated()[1] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0){
+                string.append("      ┌───────────┐\n").append("      |  ");
+                symbolForWarehouse(string, board.getWarehouse()[8], 9);
+                string.append("     ");
+                switch(board.getWarehouse()[9]){
+                    case STONE:
+                        string.append(Color.WHITE_BOLD.color()).append("⌂ ");
+                        break;
+                    case SERVANT:
+                        string.append(Color.PURPLE_BOLD.color()).append("■ ");
+                        break;
+                    case COIN:
+                        string.append(Color.YELLOW_BOLD.color()).append("$ ");
+                        break;
+                    case SHIELD:
+                        string.append(Color.BLUE_BOLD.color()).append("◊ ");
+                        break;
+                    case ANY:
+                        string.append("10");
+                        break;
+                }
+                string.append(" | ");
+                switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource()){
+                    case STONE:
+                        string.append(Color.WHITE_BOLD.color()).append("⌂");
+                        break;
+                    case SERVANT:
+                        string.append(Color.PURPLE_BOLD.color()).append("■");
+                        break;
+                    case COIN:
+                        string.append(Color.YELLOW_BOLD.color()).append("$");
+                        break;
+                    case SHIELD:
+                        string.append(Color.BLUE_BOLD.color()).append("◊");
+                        break;
+                }
+                string.append(" ONLY\n").append("      └───────────┘\n");
             }
+
+        } else if(board.getLeaderCardsActivated()[1] != 0 && cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0) {
+            string.append("      ┌───────────┐\n").append("      |  ");
+            symbolForWarehouse(string, board.getWarehouse()[6], 7);
+            string.append("     ");
+            symbolForWarehouse(string, board.getWarehouse()[7], 8);
             string.append(" | ");
             switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource()){
                 case STONE:
