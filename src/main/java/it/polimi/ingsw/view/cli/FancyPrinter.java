@@ -582,6 +582,10 @@ public class FancyPrinter {
         stream.print(leaderCardSlot);
     }
 
+    /**
+     * Improved version of printWarehouse.
+     * @param board the player's board.
+     */
     public void printWarehouseV2(CompactBoard board){
         StringBuilder string = new StringBuilder();
         string.append("        WAREHOUSE\n").append("         ┌─────┐\n").append("         |  ");
@@ -661,6 +665,12 @@ public class FancyPrinter {
         stream.print(string);
     }
 
+    /**
+     * Helper method for printWarehouseV2
+     * @param string the stringbuilder
+     * @param resource the warehouse's resource.
+     * @param any the symbol to print in case the resource is ANY.
+     */
     private void symbolForWarehouse(StringBuilder string, Resource resource, int any){
         switch(resource){
             case STONE:
@@ -685,6 +695,7 @@ public class FancyPrinter {
     /**
      * Prints the warehouse and the resources stored in it.
      * @param board the player's board.
+     * @deprecated
      */
     public void printWarehouse(CompactBoard board){
         StringBuilder string = new StringBuilder();
