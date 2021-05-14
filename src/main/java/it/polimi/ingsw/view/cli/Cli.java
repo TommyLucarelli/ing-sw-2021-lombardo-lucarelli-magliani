@@ -616,7 +616,14 @@ public class Cli implements UserInterface {
     }
 
     private void handleWarehousePlacement(RequestMsg requestMsg){
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+        String json = requestMsg.getPayload().get("resourcesArray").getAsString();
+        ArrayList<Resource> resources = gson.fromJson(json, collectionType);
 
+        JsonObject payload = warehousePlacementProcedure(resources);
+
+        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
     private void handleUpdate(RequestMsg requestMsg){
@@ -792,13 +799,13 @@ public class Cli implements UserInterface {
             }
         }
 
-        JsonArray newWarehouse = new JsonArray();
-        for (Resource warehouseResource : warehouseResources) {
-            newWarehouse.add(warehouseResource.toString());
-        }
+        ArrayList<Resource> newWarehouse = new ArrayList<>(Arrays.asList(warehouseResources));
+        Gson gson = new Gson();
+        String json = gson.toJson(newWarehouse);
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("discardedResources", resourcesToPlace.size());
-        jsonObject.add("newWarehouse", newWarehouse);
+        jsonObject.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
+        jsonObject.addProperty("discarded", resourcesToPlace.size());
+        jsonObject.addProperty("placed", json);
         return jsonObject;
     }
 
