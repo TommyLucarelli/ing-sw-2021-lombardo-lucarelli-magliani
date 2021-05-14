@@ -220,6 +220,7 @@ messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": WAREHOUSE_PLACEMENT,
     "placed": ArrayList<Resource> //the array with the placement of the acquired resources into the warehouse
+    "discarded": int, 
 }
 ```
 
