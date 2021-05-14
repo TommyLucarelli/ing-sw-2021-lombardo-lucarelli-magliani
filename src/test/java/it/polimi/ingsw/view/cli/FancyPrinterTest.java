@@ -34,7 +34,7 @@ public class FancyPrinterTest {
         slots[2][2] = 47;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
-        fancyPrinter.printDevCardSlot(board);
+        fancyPrinter.printDevCardSlot(board, true);
     }
 
     @Test

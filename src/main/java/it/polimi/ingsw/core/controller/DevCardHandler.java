@@ -33,6 +33,7 @@ public class DevCardHandler{
         discount(4);
         discount(5);
         checkPlace = placeable();
+        System.out.println("check size: "+checkPlace.size()+"affordable: "+affordable());
         if (affordable() && checkPlace.size() > 0) {
             board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo
             board.getStrongbox().decreaseResource(costArray);
@@ -102,7 +103,7 @@ public class DevCardHandler{
                     check.add(i);
             }
             else{
-                if (board.getDevCardSlot(i).getTopCard().getFlag().getLevel()==1)
+                if (devCard.getFlag().getLevel() == 1)
                     check.add(i);
             }
         }
