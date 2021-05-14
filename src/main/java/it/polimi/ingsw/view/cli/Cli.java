@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.LeaderCard;
@@ -153,6 +154,7 @@ public class Cli implements UserInterface {
         String json = requestMsg.getPayload().get("leaderCards").getAsString();
         ArrayList<Integer> leaderCards = gson.fromJson(json, new TypeToken<ArrayList<Integer>>(){}.getType());
 
+
         System.out.println("\nThe game has started!!");
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
@@ -266,39 +268,39 @@ public class Cli implements UserInterface {
         compactDevCardStructure.setDevCardStructure(structure2);
 
         JsonObject payload2;
-        for (int i = 0; i < ms.getPayload().get("numOfPlayers").getAsInt(); i++) {
-            payload = ms.getPayload().get("player"+i).getAsJsonObject();
-            if(payload.get("playerID").getAsInt() == mySelf.getPlayerID()){
-                payload2 = payload.get("faithTrack").getAsJsonObject();
+        JsonArray players = ms.getPayload().get("players").getAsJsonArray();
+        for (JsonElement player: players) {
+            if(player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()){
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
                 mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
                 collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setFavCards(fav);
 
-                payload2 = payload.get("warehouse").getAsJsonObject();
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
                 json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<Resource[]>(){}.getType();
                 Resource[] ware = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setWarehouse(ware);
 
             }else{
-                opponents.put(payload.get("playerName").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerName").getAsString()));
+                opponents.put(player.getAsJsonObject().get("playerName").getAsString(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
 
-                payload2 = payload.get("faithTrack").getAsJsonObject();
-                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
+                opponents.get(player.getAsJsonObject().get("playerName").getAsString()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
                 collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
-                opponents.get(payload.get("playerName").getAsString()).getCompactBoard().setFavCards(fav);
+                opponents.get(player.getAsJsonObject().get("playerName").getAsString()).getCompactBoard().setFavCards(fav);
 
-                payload2 = payload.get("warehouse").getAsJsonObject();
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
                 json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
                 ArrayList<Resource> ware = gson.fromJson(json, collectionType);
                 Resource[] wa = new Resource[10];
                 wa = ware.toArray(wa);
-                mySelf.getCompactBoard().setWarehouse(wa);
+                opponents.get(player.getAsJsonObject().get("playerName").getAsString()).getCompactBoard().setWarehouse(wa);
             }
         }
 
@@ -747,7 +749,7 @@ public class Cli implements UserInterface {
                         System.out.println("\nSelect a free space in the warehouse to place the resource (enter 0 to rollback).");
                         choice = InputHandler.getInt(0, totalSpaces);
                         if(choice == 0) break;
-                        if (warehouseResources[choice] != Resource.ANY) {
+                        if (warehouseResources[choice - 1] != Resource.ANY) {
                             System.out.println("This spot is already taken! Choose another spot for the resource!");
                         } else {
                             if((choice > 6 && choice < 9 && resourcesToPlace.get(resourceToPlace - 1) != extraResource1) ||

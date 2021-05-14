@@ -29,7 +29,6 @@ public class StartHandler {
             player = controller.getCurrentGame().fromIdToPlayer(controller.getPlayers().get(j).getPlayerId());
             for (int i = 0; i < 4; i++) {
                 player.getBoard().addLeaderCard(controller.getCurrentGame().getLeaderCards().drawCard());
-                System.out.println("victory points "+player.getBoard().getLeaderCard(i).getVictoryPoints());
                 cardID[i] = player.getBoard().getLeaderCard(i).getId();
             }
             //invio messaggio con cardID
@@ -79,7 +78,6 @@ public class StartHandler {
             case 1: //messaggio choose resources 1
                 payload.addProperty("resources", 1);
                 payload.addProperty("faithPoints", 0);
-                System.out.println("qui invece");
                 controller.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 break;
             case 2: //messaggio choose resources 1 + 1 punto fede
@@ -99,16 +97,11 @@ public class StartHandler {
     }
 
     public void chooseStartResources(ResponseMsg ms) {
-
         int playerID = ms.getPayload().get("playerID").getAsInt();
-
-        PlayerHandler playerHandler = controller.getPlayers().get(0);
         Player player = controller.getCurrentGame().fromIdToPlayer(playerID);
-
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
-        Type collectionType = new TypeToken<ArrayList<Resource>>() {
-        }.getType();
+        Type collectionType = new TypeToken<ArrayList<Resource>>() {}.getType();
         ArrayList<Resource> placed = gson.fromJson(json, collectionType);
         player.getBoard().getWarehouse().updateConfiguration(placed);
 

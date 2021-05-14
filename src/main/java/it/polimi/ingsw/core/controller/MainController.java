@@ -1,6 +1,7 @@
 package it.polimi.ingsw.core.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.*;
@@ -228,10 +229,12 @@ public class MainController{
 
         payload.addProperty("numOfPlayers", players.size());
 
+        JsonArray playersArray = new JsonArray();
         for (int i=0; i<players.size();i++) {
-            payload.add("player" + i, currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayerInitial());
+            playersArray.add(currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayerInitial());
             //verificare se il nome della proprietà va bene
         }
+        payload.add("players", playersArray);
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
