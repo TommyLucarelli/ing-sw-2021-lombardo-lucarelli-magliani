@@ -13,10 +13,7 @@ import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
-import it.polimi.ingsw.view.compact.CardCollector;
-import it.polimi.ingsw.view.compact.CompactDevCardStructure;
-import it.polimi.ingsw.view.compact.CompactMarket;
-import it.polimi.ingsw.view.compact.CompactPlayer;
+import it.polimi.ingsw.view.compact.*;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
