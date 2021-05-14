@@ -97,8 +97,7 @@ Client --> Server
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTION,
-    "cardID": int //the ID of the chosen leader card
-    "action": boolean // actvivate or discard
+    "abilityActivationFlag": 
 }
 ```
 #### MAIN_CHOICE
@@ -108,8 +107,7 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": MAIN_CHOICE,
-    "leaderCard": int //the id of the leader card activated or discarded in that very turn 
-    "action": boolean // actvivate or discard
+    "abilityActivationFlag": int[8],
 }
 ```
 
@@ -236,6 +234,7 @@ payload: {
     "nextPlayerID": int, //player who is going to play in the next turn
     "message": "Giocatore 1 ha attivato la produzione", //basic message for info
     "abilityActivationFlag": int[8],
+    "discardedLeaderCards": int[2],
     "market":{
         "structure": int[13], //array representing arrangement of marbles in the market
     },
@@ -257,8 +256,6 @@ payload: {
         "strongbox":{
             "structure": int[4],
         },
-        "activatedLeaderCards":int[2],
-        "discardedLeaderCards":int[2],
 }
     
 }
