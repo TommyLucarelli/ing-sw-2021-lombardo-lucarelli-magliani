@@ -701,15 +701,12 @@ public class Cli implements UserInterface {
         Resource[] warehouseResourcesBackup = mySelf.getCompactBoard().getWarehouse();
         Resource[] warehouseResources = mySelf.getCompactBoard().getWarehouse();
         Resource extraResource1 = Resource.ANY, extraResource2 = Resource.ANY;
-        if(mySelf.getCompactBoard().getLeaderCardsActivated()[0] != 0 &&
-                cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityType() == 0){
-            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityResource();
-            if(mySelf.getCompactBoard().getLeaderCardsActivated()[1] != 0 &&
-                    cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0)
-                extraResource2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource();
-        } else if(mySelf.getCompactBoard().getLeaderCardsActivated()[1] != 0 &&
-                cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityType() == 0){
-            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource();
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[0] != 0){
+            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[0]).getSpecialAbility().getAbilityResource();
+            if(mySelf.getCompactBoard().getAbilityActivationFlag()[1] != 0)
+                extraResource2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource();
+        } else if(mySelf.getCompactBoard().getAbilityActivationFlag()[1] != 0){
+            extraResource1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource();
         }
 
         int totalSpaces = 6 + (extraResource1 != Resource.ANY ? 2 : 0 ) + (extraResource2 != Resource.ANY ? 2 : 0 );
