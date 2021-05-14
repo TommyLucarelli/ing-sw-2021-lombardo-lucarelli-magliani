@@ -276,7 +276,8 @@ payload: {
         "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
      },
     "numOfPlayers": int, //number of players
-    "playerID1": {
+    "players": [
+    {
         "playerID": int,
         "playerName": String,
         "faithTrack":{
@@ -287,7 +288,7 @@ payload: {
             "structure": ArrayList<Resource>,
         },  
     }
-    "playerID2": {
+    {
         "playerID": int,
         "playerName": String
         "faithTrack":{
@@ -298,7 +299,7 @@ payload: {
             "structure": ArrayList<Resource>,
         },  
     }
-     "playerID3": {
+    {
          "playerID": int,
         "playerName": String
         "faithTrack":{
@@ -309,6 +310,7 @@ payload: {
             "structure": ArrayList<Resource>,
         },  
     }
+    ]
     
 }
 ```
