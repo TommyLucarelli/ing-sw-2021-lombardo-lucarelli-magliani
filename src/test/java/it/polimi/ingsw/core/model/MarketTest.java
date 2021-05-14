@@ -65,4 +65,19 @@ public class MarketTest {
             for(int ii = 0; ii < 4; ii++)
                 assertEquals(market.getMarble(i, ii), structure[(i * 4) + ii]);
     }
+
+    @Test
+    public void testToCompactMarket() {
+        Market market = new Market();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(market.getMarble(i, j) + " ");
+            }
+            System.out.println();
+        }
+        System.out.println(market.getReserveMarble());
+
+        System.out.println(market.toCompactMarket().get("structure"));
+
+    }
 }

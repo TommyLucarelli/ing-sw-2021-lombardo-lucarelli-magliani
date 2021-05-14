@@ -12,7 +12,6 @@ public class CompactMarket {
         return market;
     }
 
-
     public void setMarket(int[] market) {
         this.market = market;
     }

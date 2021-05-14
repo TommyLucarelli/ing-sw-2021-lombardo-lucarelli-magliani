@@ -14,7 +14,7 @@ public class FancyPrinterTest {
     public void printMarket() {
         FancyPrinter fancyPrinter = new FancyPrinter();
         CompactMarket market = new CompactMarket();
-        int[] newMarket = {1, 3, 5, 2, 6, 5, 1, 2, 3, 4, 1, 1, 4};
+        int[] newMarket = {1, 3, 5, 2, 0, 5, 1, 2, 3, 4, 1, 1, 4};
         market.setMarket(newMarket);
         fancyPrinter.printMarket(market);
     }

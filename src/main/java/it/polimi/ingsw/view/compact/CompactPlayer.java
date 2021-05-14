@@ -6,7 +6,7 @@ public class CompactPlayer {
     private final CompactBoard compactBoard;
 
     public CompactPlayer(int playerID, String playerName){
-        compactBoard = new CompactBoard();
+        this.compactBoard = new CompactBoard();
         this.playerID = playerID;
         this.playerName = playerName;
     }

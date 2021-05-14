@@ -6,7 +6,7 @@ package it.polimi.ingsw.core.model;
 
 public enum Marble {
 
-    RED,BLUE,YELLOW,WHITE,GREY,PURPLE;
+    YELLOW,GREY,BLUE,PURPLE,RED,WHITE;
 
     /**
      * Transforms the marble into the related resource.

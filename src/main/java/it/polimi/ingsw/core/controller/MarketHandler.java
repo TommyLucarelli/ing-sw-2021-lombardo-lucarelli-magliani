@@ -99,7 +99,7 @@ public class MarketHandler {
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
             json = gson.toJson(resources);
-            payload.addProperty("resources array", json);
+            payload.addProperty("resourcesArray", json);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
 

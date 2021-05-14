@@ -195,6 +195,9 @@ public class Cli implements UserInterface {
     private void handleChooseStartResources(RequestMsg requestMsg){
         int x, y, n;
         Resource[] placed1 = new Resource[10];
+        for (int i = 0; i < 10; i++) {
+            placed1[i] = Resource.ANY;
+        }
 
         Resource a, b;
         if(requestMsg.getPayload().get("resources").getAsInt() == 0)
@@ -208,8 +211,8 @@ public class Cli implements UserInterface {
 
             System.out.println("\nChoose "+x+" resources:");
             System.out.println("1. COIN");
-            System.out.println("2. SHIELD");
-            System.out.println("3. STONE");
+            System.out.println("2. STONE");
+            System.out.println("3. SHIELD");
             System.out.println("4. SERVANT");
 
             //TODO: controllo
@@ -275,11 +278,9 @@ public class Cli implements UserInterface {
 
                 payload2 = payload.get("warehouse").getAsJsonObject();
                 json = payload2.get("structure").getAsString();
-                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
-                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
-                Resource[] wa = new Resource[10];
-                wa = ware.toArray(wa);
-                mySelf.getCompactBoard().setWarehouse(wa);
+                collectionType = new TypeToken<Resource[]>(){}.getType();
+                Resource[] ware = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setWarehouse(ware);
 
             }else{
                 opponents.put(payload.get("playerName").getAsString(), new CompactPlayer(payload.get("playerID").getAsInt(),payload.get("playerName").getAsString()));
@@ -364,16 +365,19 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
-
     private void handleMainChoice(RequestMsg requestMsg) {
         int x;
         int leaderID;
         boolean action;
+        String json = "";
 
         Gson gson = new Gson();
-        String json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
-        Type collectionType = new TypeToken<int[]>(){}.getType();
-        mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
+        if(requestMsg.getPayload().has("abilityActivationFlag")){
+            json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
+            Type collectionType = new TypeToken<int[]>(){}.getType();
+            mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
+        }
+
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "MAIN_CHOICE");
@@ -393,7 +397,6 @@ public class Cli implements UserInterface {
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
-
 
     private void handleChooseDevCard(RequestMsg requestMsg){
         int l=0, c=0;
@@ -485,7 +488,6 @@ public class Cli implements UserInterface {
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
-
 
     private void handleChooseProduction(RequestMsg requestMsg){
 
@@ -580,10 +582,8 @@ public class Cli implements UserInterface {
         System.out.println("\nMARKET");
         //per qualche motivo lo stampa senza reserve marble
         fancyPrinter.printMarket(compactMarket);
-        do {
-            System.out.println("\nDo you want to pick a line or a column:");
-            s = InputHandler.getString();
-        }while(!s.equals("line") && !s.equals("column"));
+        System.out.println("\nDo you want to pick a line or a column:");
+        s = InputHandler.getString("(line|column)");
         System.out.println("Choose the value of your pick");
         int x;
         if(s.equals("line"))
@@ -594,7 +594,7 @@ public class Cli implements UserInterface {
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "PICK");
         payload.addProperty("choice", s);
-        payload.addProperty("number", x);
+        payload.addProperty("number", x - 1);
 
         if((mySelf.getCompactBoard().getAbilityActivationFlag()[2] != 0) && (mySelf.getCompactBoard().getAbilityActivationFlag()[3] != 0)){
             System.out.println("\nYou have two special marble that can replace the white one, which one you want: ");
@@ -666,11 +666,9 @@ public class Cli implements UserInterface {
 
         payload2 = payload.get("warehouse").getAsJsonObject();
         json = payload2.get("structure").getAsString();
-        collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
-        ArrayList<Resource> ware = gson.fromJson(json, collectionType);
-        Resource[] wa = new Resource[10];
-        wa = ware.toArray(wa);
-        mySelf.getCompactBoard().setWarehouse(wa);
+        collectionType = new TypeToken<Resource[]>(){}.getType();
+        Resource[] ware = gson.fromJson(json, collectionType);
+        mySelf.getCompactBoard().setWarehouse(ware);
 
         payload2 = payload.get("strongbox").getAsJsonObject();
         json = payload2.get("structure").getAsString();
@@ -698,7 +696,7 @@ public class Cli implements UserInterface {
      */
     private JsonObject warehousePlacementProcedure(ArrayList<Resource> resourcesToPlace){
         ArrayList<Resource> resourcesBackup = new ArrayList<>(resourcesToPlace);
-        Resource[] warehouseResourcesBackup = mySelf.getCompactBoard().getWarehouse();
+        Resource[] warehouseResourcesBackup = mySelf.getCompactBoard().getWarehouse().clone();
         Resource[] warehouseResources = mySelf.getCompactBoard().getWarehouse();
         Resource extraResource1 = Resource.ANY, extraResource2 = Resource.ANY;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[0] != 0){
@@ -719,7 +717,7 @@ public class Cli implements UserInterface {
             else canBeRemoved[i] = true;
         }
 
-        while(!exit && resourcesToPlace.size() != 0){
+        while(!exit){
             fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
             System.out.println("\nRESOURCES TO PLACE: ");
             for (int i = 0; i < resourcesToPlace.size(); i++) {
@@ -727,7 +725,7 @@ public class Cli implements UserInterface {
             }
             System.out.println("\nChoose an action:\n1. Add a resource to the warehouse\n2. Move/swap resources in the warehouse" +
                     "\n3. Reset the changes\n4. Exit the placement procedure");
-            int choice = InputHandler.getInt(1, 3);
+            int choice = InputHandler.getInt(1, 4);
             fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
             switch (choice){
                 case 1: //ADD RESOURCE TO WAREHOUSE
@@ -756,7 +754,7 @@ public class Cli implements UserInterface {
                                     (choice > 8 && resourcesToPlace.get(resourceToPlace - 1) != extraResource2)){
                                 System.out.println("The resource can't be placed here!");
                             } else {
-                                warehouseResources[choice] = resourcesToPlace.get(resourceToPlace - 1);
+                                warehouseResources[choice - 1] = resourcesToPlace.get(resourceToPlace - 1);
                                 resourcesToPlace.remove(resourceToPlace - 1);
                                 placed = true;
                             }
@@ -788,7 +786,7 @@ public class Cli implements UserInterface {
                     break;
                 case 4: //EXIT
                     if(resourcesToPlace.size() != 0){
-                        System.out.println("There are still resources to be placed in the warehouse that will be discarded. For each one of them the other players will receive a faith point.");
+                        System.out.println("There are still resources to be placed in the warehouse that will be discarded.\nFor each one of them the other players will receive a faith point.");
                     }
                     System.out.println("Are you sure you want to exit? [yes/no]");
                     String input = InputHandler.getString("(yes|no)");
@@ -798,7 +796,7 @@ public class Cli implements UserInterface {
                     break;
             }
         }
-
+        mySelf.getCompactBoard().setWarehouse(warehouseResourcesBackup);
         ArrayList<Resource> newWarehouse = new ArrayList<>(Arrays.asList(warehouseResources));
         Gson gson = new Gson();
         String json = gson.toJson(newWarehouse);

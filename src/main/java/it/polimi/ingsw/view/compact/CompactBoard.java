@@ -21,6 +21,12 @@ public class CompactBoard {
         setFaithTrackIndex(0);
         setFavCards(new boolean[3]); //settare tutti false
         abilityActivationFlag = new int[8];
+        for (int i = 0; i < 8; i++) {
+            abilityActivationFlag[i] = 0;
+        }
+        for (int i = 0; i < 10; i++) {
+            warehouse[i] = Resource.ANY;
+        }
     }
 
     public int[] getStrongbox() {

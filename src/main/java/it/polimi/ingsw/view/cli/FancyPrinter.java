@@ -40,23 +40,23 @@ public class FancyPrinter {
 
         for (int i = 0; i < 13; i++) {
             switch (market.getMarket()[i]) {
+                case 0:
+                    string.append("\t").append(Color.YELLOW_BOLD.color()).append("●\t");
+                    break;
                 case 1:
                     string.append("\t").append(Color.WHITE_BOLD.color()).append("●\t");
                     break;
                 case 2:
-                    string.append("\t").append(Color.PURPLE_BOLD.color()).append("●\t");
-                    break;
-                case 3:
-                    string.append("\t").append(Color.YELLOW_BOLD.color()).append("●\t");
-                    break;
-                case 4:
                     string.append("\t").append(Color.BLUE_BOLD.color()).append("●\t");
                     break;
-                case 5:
-                    string.append("\t").append(Color.BLACK_BOLD.color()).append("●\t");
+                case 3:
+                    string.append("\t").append(Color.PURPLE_BOLD.color()).append("●\t");
                     break;
-                case 6:
+                case 4:
                     string.append("\t").append(Color.RED_BOLD.color()).append("●\t");
+                    break;
+                case 5:
+                    string.append("\t").append(Color.RESET).append("●\t");
                     break;
         }
 
