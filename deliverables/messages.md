@@ -107,8 +107,7 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": MAIN_CHOICE,
-    "leaderCard": int //the id of the leader card activated or discarded in that very turn 
-    "action": boolean // actvivate or discard
+    "abilityActivationFlag": int[8],
 }
 ```
 
