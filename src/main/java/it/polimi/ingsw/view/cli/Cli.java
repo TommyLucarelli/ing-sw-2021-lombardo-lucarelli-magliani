@@ -575,10 +575,6 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
-    private void placeResources(ArrayList<Resource> resources){
-
-    }
-
     private void handlePick(RequestMsg requestMsg){
         String s;
         System.out.println("\nMARKET");
