@@ -2,10 +2,8 @@ package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.core.model.DevCard;
 import it.polimi.ingsw.core.model.LeaderCard;
-import it.polimi.ingsw.view.compact.CardCollector;
-import it.polimi.ingsw.view.compact.CompactBoard;
-import it.polimi.ingsw.view.compact.CompactDevCardStructure;
-import it.polimi.ingsw.view.compact.CompactMarket;
+import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.view.compact.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -525,6 +523,106 @@ public class FancyPrinter {
             leaderCardSlot.append("\n");
         }
         stream.print(leaderCardSlot);
+    }
+
+    public void printWarehouseV2(CompactBoard board){
+        StringBuilder string = new StringBuilder();
+        string.append("        WAREHOUSE\n").append("         ┌─────┐\n").append("         |  ");
+        symbolForWarehouse(string, board.getWarehouse()[0], 1);
+        string.append("  |\n").append("         └─────┘\n").append("      ┌───────────┐\n").append("      |  ");
+        symbolForWarehouse(string, board.getWarehouse()[1], 2);
+        string.append("     ");
+        symbolForWarehouse(string, board.getWarehouse()[2], 3);
+        string.append("  |\n").append("      └───────────┘\n").append("    ┌───────────────┐\n").append("    |  ");
+        symbolForWarehouse(string, board.getWarehouse()[3], 4);
+        string.append("    ");
+        symbolForWarehouse(string, board.getWarehouse()[4], 5);
+        string.append("    ");
+        symbolForWarehouse(string, board.getWarehouse()[5], 6);
+        string.append("  |\n").append("    └───────────────┘\n");
+        if(board.getLeaderCardsActivated()[0] != 0){
+            string.append("      ┌───────────┐\n").append("      |  ");
+            symbolForWarehouse(string, board.getWarehouse()[6], 7);
+            string.append("     ");
+            symbolForWarehouse(string, board.getWarehouse()[7], 8);
+            string.append("  | ");
+            switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[0]).getSpecialAbility().getAbilityResource()){
+                case STONE:
+                    string.append(Color.WHITE_BOLD.color()).append("⌂");
+                    break;
+                case SERVANT:
+                    string.append(Color.PURPLE_BOLD.color()).append("■");
+                    break;
+                case COIN:
+                    string.append(Color.YELLOW_BOLD.color()).append("$");
+                    break;
+                case SHIELD:
+                    string.append(Color.BLUE_BOLD.color()).append("◊");
+                    break;
+            }
+            string.append(" ONLY\n").append("      └───────────┘\n");
+        }
+        if(board.getLeaderCardsActivated()[1] != 0){
+            string.append("      ┌───────────┐\n").append("      |  ");
+            symbolForWarehouse(string, board.getWarehouse()[8], 9);
+            string.append("     ");
+            switch(board.getWarehouse()[9]){
+                case STONE:
+                    string.append(Color.WHITE_BOLD.color()).append("⌂ ");
+                    break;
+                case SERVANT:
+                    string.append(Color.PURPLE_BOLD.color()).append("■ ");
+                    break;
+                case COIN:
+                    string.append(Color.YELLOW_BOLD.color()).append("$ ");
+                    break;
+                case SHIELD:
+                    string.append(Color.BLUE_BOLD.color()).append("◊ ");
+                    break;
+                case ANY:
+                    string.append("10");
+                    break;
+            }
+            string.append(" | ");
+            switch(cardCollector.getLeaderCard(board.getLeaderCardsActivated()[1]).getSpecialAbility().getAbilityResource()){
+                case STONE:
+                    string.append(Color.WHITE_BOLD.color()).append("⌂");
+                    break;
+                case SERVANT:
+                    string.append(Color.PURPLE_BOLD.color()).append("■");
+                    break;
+                case COIN:
+                    string.append(Color.YELLOW_BOLD.color()).append("$");
+                    break;
+                case SHIELD:
+                    string.append(Color.BLUE_BOLD.color()).append("◊");
+                    break;
+            }
+            string.append(" ONLY\n").append("      └───────────┘\n");
+        }
+
+        stream.print(string);
+    }
+
+    private void symbolForWarehouse(StringBuilder string, Resource resource, int any){
+        switch(resource){
+            case STONE:
+                string.append(Color.WHITE_BOLD.color()).append("⌂");
+                break;
+            case SERVANT:
+                string.append(Color.PURPLE_BOLD.color()).append("■");
+                break;
+            case COIN:
+                string.append(Color.YELLOW_BOLD.color()).append("$");
+                break;
+            case SHIELD:
+                string.append(Color.BLUE_BOLD.color()).append("◊");
+                break;
+            case ANY:
+                string.append(any);
+                break;
+        }
+        string.append(Color.RESET);
     }
 
     /**

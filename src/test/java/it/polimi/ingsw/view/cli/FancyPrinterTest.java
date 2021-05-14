@@ -68,6 +68,15 @@ public class FancyPrinterTest {
     }
 
     @Test
+    public void printWarehouseV2() {
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        CompactBoard board = new CompactBoard();
+        Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
+        board.setWarehouse(resources);
+        fancyPrinter.printWarehouseV2(board);
+    }
+
+    @Test
     public void printStrongbox() {
         CompactBoard board = new CompactBoard();
         int[] strongbox = {0,1,3,1};

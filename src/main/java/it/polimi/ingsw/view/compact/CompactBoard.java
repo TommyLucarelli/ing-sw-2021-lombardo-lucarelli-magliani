@@ -39,7 +39,6 @@ public class CompactBoard {
 
     public void setWarehouse(Resource[] warehouse) {
         this.warehouse = warehouse;
-        Arrays.fill(warehouse, Resource.ANY);
     }
 
     public int[][] getDevCardSlots() {
