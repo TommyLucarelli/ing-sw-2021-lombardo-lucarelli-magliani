@@ -1,9 +1,9 @@
 package it.polimi.ingsw.view.compact;
 
 public class CompactPlayer {
-    private int playerID;
-    private String playerName;
-    private CompactBoard compactBoard;
+    private final int playerID;
+    private final String playerName;
+    private final CompactBoard compactBoard;
 
     public CompactPlayer(int playerID, String playerName){
         compactBoard = new CompactBoard();
