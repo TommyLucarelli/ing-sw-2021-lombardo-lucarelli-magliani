@@ -14,10 +14,9 @@ public class DevCard extends Card {
 
     /**
      * Class constructor
-     *
-     * @param flag          the flag of the development card
-     * @param recipe        the recipe of the development card
-     * @param cost          the cost of the card, represented by an ArrayList of ResourceQty
+     * @param flag the flag of the development card
+     * @param recipe the recipe of the development card
+     * @param cost the cost of the card, represented by an ArrayList of ResourceQty
      * @param victoryPoints the amount of victory points assigned by the card
      */
     public DevCard(int id, Flag flag, Recipe recipe, ArrayList<ResourceQty> cost, int victoryPoints) {
@@ -30,7 +29,6 @@ public class DevCard extends Card {
 
     /**
      * Getter method.
-     *
      * @return the flag of the card
      */
     public Flag getFlag() {
@@ -39,7 +37,6 @@ public class DevCard extends Card {
 
     /**
      * Getter method.
-     *
      * @return the recipe of the card
      */
     public Recipe getRecipe() {
@@ -48,7 +45,6 @@ public class DevCard extends Card {
 
     /**
      * Getter method.
-     *
      * @return the cost of the card
      */
     public ArrayList<ResourceQty> getCost() {
@@ -57,7 +53,6 @@ public class DevCard extends Card {
 
     /**
      * Getter method.
-     *
      * @return the amount of victory points assigned by the card
      */
     public int getVictoryPoints() {

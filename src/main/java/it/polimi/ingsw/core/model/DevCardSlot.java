@@ -63,6 +63,10 @@ public class DevCardSlot
         return flags;
     }
 
+    /**
+     * Getter method
+     * @return the number of development cards in the slot.
+     */
     public int numberOfDevCard(){
         return slot.size();
     }

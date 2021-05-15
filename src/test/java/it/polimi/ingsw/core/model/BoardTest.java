@@ -28,7 +28,7 @@ public class BoardTest {
     public void testRemoveLeaderCard() {
         Board b = new Board();
         ArrayList<Flag> requiredFlags = new ArrayList<>();
-        requiredFlags.add(new Flag(2,Colour.BLUE));
+        requiredFlags.add(new Flag(2, Colour.BLUE));
         SpecialAbility specialAbility = new SpecialAbility(1, Resource.COIN);
         LeaderCard lc = new LeaderCard(1, requiredFlags, null, 5, specialAbility);
         LeaderCard x;
@@ -36,22 +36,22 @@ public class BoardTest {
         b.addLeaderCard(lc);
         x = b.getLeaderCard(0);
         b.removeLeaderCard(lc);
-        try{
+        try {
             x = b.getLeaderCard(0);
-        }catch(IndexOutOfBoundsException e){
-            System.out.println("Non ci sono carte leader in questo Deck");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("There are no leader cards in this deck.");
         }
     }
 
     @Test
     public void testPersonalResQtyToArray() {
         Board b = new Board();
-        int[] output = {3,2,4,1};
+        int[] output = {3, 2, 4, 1};
         int[] test;
         ArrayList<Resource> update = new ArrayList<Resource>();
 
         for (int i = 0; i < 3; i++) {
-           update.add(Resource.COIN);
+            update.add(Resource.COIN);
         }
         for (int i = 3; i < 5; i++) {
             update.add(Resource.STONE);
@@ -64,7 +64,7 @@ public class BoardTest {
         b.getWarehouse().updateConfiguration(update);
         test = b.personalResQtyToArray();
 
-        assertArrayEquals(output,test);
+        assertArrayEquals(output, test);
     }
 
     @Test
@@ -89,8 +89,8 @@ public class BoardTest {
         board.getDevCardSlot(0).addCard(dc2);
         board.getDevCardSlot(1).addCard(dc3);
 
-        assertEquals(2, board.countFlags(f,false));
-        assertEquals(1, board.countFlags(f1,true));
+        assertEquals(2, board.countFlags(f, false));
+        assertEquals(1, board.countFlags(f1, true));
 
     }
 
@@ -116,7 +116,7 @@ public class BoardTest {
         board.getDevCardSlot(0).addCard(dc2);
         board.getDevCardSlot(1).addCard(dc3);
 
-        for (int i = 0; i < 14; i++){
+        for (int i = 0; i < 14; i++) {
             board.getFaithTrack().moveFaithIndicator();
         }
         board.getFaithTrack().setFavourCardsFlag(16);
@@ -155,7 +155,7 @@ public class BoardTest {
         board.getStrongbox().addResource(rq);
         board.getStrongbox().addResource(rq4);
 
-        assertEquals(board.victoryPoints(),42);
+        assertEquals(board.victoryPoints(), 42);
 
     }
 
@@ -182,5 +182,16 @@ public class BoardTest {
         b.getDevCardSlot(1).addCard(dc3);
 
         assertEquals(3, b.numberOfDevCard());
+    }
+
+    @Test
+    public void testSetAbilityActivationFlag() {
+        Board b = new Board();
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{0, 0, 0, 0, 0, 0, 0, 0});
+
+        b.setAbilityActivationFlag(0, 1);
+        b.setAbilityActivationFlag(6, 6);
+
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 0, 0, 0, 0, 0, 6, 0});
     }
 }

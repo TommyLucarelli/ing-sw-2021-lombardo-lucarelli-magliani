@@ -95,6 +95,10 @@ public class Board {
         leaderCards.add(lc);
     }
 
+    /**
+     * Removes a leader card from the player's board.
+     * @param lc the leader card to be removed.
+     */
     public void removeLeaderCard(LeaderCard lc){
         leaderCards.remove(lc);
     }
@@ -109,6 +113,10 @@ public class Board {
         abilityActivationFlag[i] = id;
     }
 
+    /**
+     * Getter method.
+     * @return returns an array containing the information about the special abilities activated and their leader card.
+     */
     public int[] getAbilityActivationFlag(){
         return abilityActivationFlag.clone();
     }
@@ -217,6 +225,10 @@ public class Board {
         return cont;
     }
 
+    /**
+     * Getter method used for network communication.
+     * @return an object containing the information about the board's development card slots.
+     */
     public JsonObject toCompactDevCardSlots(){
         int[][] mat = new int[3][3]; //sono tutti 0 giusto??
         ArrayList<DevCard> arr;

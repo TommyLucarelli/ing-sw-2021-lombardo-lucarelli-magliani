@@ -4,9 +4,8 @@ package it.polimi.ingsw.core.model;
  * Class representing black flag token
  */
 public class BlackFlagToken implements SoloActionToken{
-
-    private int spaces;
-    private boolean shuffle;
+    private final int spaces;
+    private final boolean shuffle;
 
     /**
      * Class constructor
@@ -18,10 +17,18 @@ public class BlackFlagToken implements SoloActionToken{
         this.shuffle = shuffle;
     }
 
+    /**
+     * Getter method
+     * @return the number of spaces to move the indicator.
+     */
     public int getSpaces(){
         return this.spaces;
     }
 
+    /**
+     * Getter method.
+     * @return true if the token - when it is drawn - causes the reshuffling of the tokens deck.
+     */
     public boolean shufflesDeck(){
         return this.shuffle;
     }

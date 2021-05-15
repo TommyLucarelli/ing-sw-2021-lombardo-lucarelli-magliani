@@ -70,6 +70,12 @@ public class DevCardStructure {
         return (DevCard) structure[row][column].peek();
     }
 
+    /**
+     * Getter method.
+     * @param row the row of the structure.
+     * @param column the column of the structure.
+     * @return the amount of cards in the stack at the specified coordinates.
+     */
     public int stackSize(int row, int column){
         return structure[row][column].size();
     }
@@ -85,6 +91,12 @@ public class DevCardStructure {
         return (DevCard) structure[row][column].pop();
     }
 
+    /**
+     * Method used for network communication.
+     * @return a brief representation of the structure as a string containing the id of the dev cards at the top of
+     * each stack.
+     * @deprecated
+     */
     public String toStringTopStructure(){
         StringBuilder str = new StringBuilder();
         str.append("{");
@@ -99,6 +111,11 @@ public class DevCardStructure {
         return str.toString();
     }
 
+    /**
+     * Method for network communication.
+     * @return a brief representation of the structure as a Json Object containing the id of the dev cards at the top
+     * of each stack.
+     */
     public JsonObject toCompactDevCardStructure(){
         int[][] mat = new int[3][4];
 

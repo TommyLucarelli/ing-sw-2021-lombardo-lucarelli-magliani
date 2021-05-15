@@ -57,7 +57,7 @@ public class FaithTrack {
             i = (i/8) - 1;
             favourCardsFlag[i] = true;
             return true;
-        }else
+        } else
             return false;
     }
 
@@ -86,6 +86,10 @@ public class FaithTrack {
         return cont;
     }
 
+    /**
+     * Method used for network communication
+     * @return a brief representation of the faith track as a Json Object
+     */
     public JsonObject toCompactFaithTrack(){
 
         Gson gson = new Gson();
