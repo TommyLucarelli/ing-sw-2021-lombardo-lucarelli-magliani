@@ -263,6 +263,15 @@ payload: {
 }
 ```
 
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": UPDATE,
+    "playerID": int,
+}
+```
+
 #### INITIAL_UPDATE
 
 Server --> Client
