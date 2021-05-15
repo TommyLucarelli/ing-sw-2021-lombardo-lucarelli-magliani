@@ -236,6 +236,7 @@ payload: {
     "message": "Giocatore 1 ha attivato la produzione", //basic message for info
     "abilityActivationFlag": int[8],
     "discardedLeaderCards": int[2],
+    "action": boolean, //market or devcardstructure
     "market":{
         "structure": int[13], //array representing arrangement of marbles in the market
     },
@@ -259,6 +260,15 @@ payload: {
         },
 }
     
+}
+```
+
+Client --> Server
+```
+messageType: MessageType.GAME_MESSAGE
+payload: {
+    "gameAction": UPDATE,
+    "playerID": int,
 }
 ```
 
