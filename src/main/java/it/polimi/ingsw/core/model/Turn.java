@@ -12,7 +12,7 @@ public class Turn {
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare
     private int[] leaderCardDiscarded;
-    //TODO: implementare questi attributi nei metodi handler
+    //TODO: controllo che resetto tutto a fine turno
 
     public Turn(ArrayList<Player> players){
         this.players = players;
@@ -43,7 +43,7 @@ public class Turn {
     public Player nextPlayer(){
         int x;
         x = currentPlayer+1;
-        if(x==4)
+        if(x == players.size())
             x=0;
         currentPlayer = x;
         return  players.get(x);
@@ -70,6 +70,11 @@ public class Turn {
             leaderCardDiscarded[0] = id;
         else if(leaderCardDiscarded[1] == 0)
             leaderCardDiscarded[1] = id;
+    }
+
+    public void resetDiscarded(){
+        leaderCardDiscarded[0] = 0;
+        leaderCardDiscarded[1] = 0;
     }
 }
 

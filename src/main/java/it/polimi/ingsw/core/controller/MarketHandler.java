@@ -112,6 +112,9 @@ public class MarketHandler {
      */
     protected boolean checkPlacement(ArrayList<Resource> placed)
     {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(placed.get(i));
+        }
         //check normal warehouse
         if(placed.get(0) != Resource.ANY)
             blackList.add(placed.get(0));

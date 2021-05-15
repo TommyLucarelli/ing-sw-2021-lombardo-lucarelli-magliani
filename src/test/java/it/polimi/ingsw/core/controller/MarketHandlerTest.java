@@ -37,4 +37,5 @@ public class MarketHandlerTest {
             System.out.println(placed.get(i));
         }
     }
+
 }

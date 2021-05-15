@@ -115,12 +115,12 @@ public class MainController{
             case "DEVCARD_PLACEMENT":
                 devCardHandler.devCardPlacement(responseMsg);
                 return;
-            case "COMEBACK":
+            case "COME_BACK":
                 turnHandler.comeBack();
                 return;
             case "UPDATE":
             case "INITIAL_UPDATE":
-                turnHandler.update();
+                turnHandler.update(responseMsg);
                 return;
             default:
                 return;
@@ -200,19 +200,32 @@ public class MainController{
 
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
+        System.out.println("finish player "+currentPlayer.getPlayerID());
         //compute next player
         Player oldPlayer = currentPlayer;
         currentPlayer = currentGame.getTurn().nextPlayer();
+        System.out.println("next player "+currentPlayer.getPlayerID());
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
         Gson gson = new Gson();
-        String json = gson.toJson(currentPlayer.getBoard().getAbilityActivationFlag());
+        String json = gson.toJson(oldPlayer.getBoard().getAbilityActivationFlag());
         payload.addProperty("abilityActivationFlag", json);
 
-        if(x == 0)
+        json = gson.toJson(currentGame.getTurn().getLeaderCardDiscarded());
+        payload.addProperty("discardedLeaderCards", json);
+        currentGame.getTurn().resetDiscarded();
+
+        payload.addProperty("action", true);
+
+        if(x == 0){
+            payload.addProperty("action", true);
             payload.add("market", currentGame.getMarket().toCompactMarket());
-        if(x == 1)
+        }if(x == 1)
+        {
+            payload.addProperty("action", false);
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
+        }
+
 
         payload.add("player", oldPlayer.toCompactPlayer());
 

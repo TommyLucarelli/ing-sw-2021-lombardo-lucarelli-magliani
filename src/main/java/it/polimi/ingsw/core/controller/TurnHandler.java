@@ -66,19 +66,19 @@ public class TurnHandler {
         }
     }
 
-    public void update(){
+    public void update(ResponseMsg responseMsg){
         controller.getCurrentGame().getTurn().setEndGame(false);
+        int playerID = responseMsg.getPayload().get("playerID").getAsInt();
         JsonObject payload = new JsonObject();
-        for (int i = 0; i < controller.getPlayers().size(); i++) {
-            if(controller.getPlayers().get(i).getPlayerId() != controller.getCurrentPlayer().getPlayerID()){
-                payload.addProperty("gameAction", "START_TURN");
-                payload.addProperty("message", controller.getCurrentPlayer().getNickname()+" is now playing");
-                controller.notifyPlayer(controller.getPlayers().get(i), new RequestMsg(MessageType.GAME_MESSAGE, payload));
-            } else{
-                payload.addProperty("gameAction", "LEADER_ACTIVATION");
-                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-            }
+        if( playerID != controller.getCurrentPlayer().getPlayerID()){
+            payload.addProperty("gameAction", "START_TURN");
+            payload.addProperty("message", controller.getCurrentPlayer().getNickname()+" is now playing");
+            controller.notifyPlayer(controller.fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        } else{
+            payload.addProperty("gameAction", "LEADER_ACTIVATION");
+            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
+
     }
 
 }
