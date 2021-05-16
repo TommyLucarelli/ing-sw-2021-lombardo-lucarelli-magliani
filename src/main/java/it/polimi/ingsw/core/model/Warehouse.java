@@ -58,6 +58,10 @@ public class Warehouse
         }
     }
 
+    /**
+     * Getter method used for network communication
+     * @return a brief representation of the warehouse via a Json object.
+     */
     public JsonObject toCompactWarehouse(){
         Resource[] arr = new Resource[10];
         arr = structure.toArray(arr);
