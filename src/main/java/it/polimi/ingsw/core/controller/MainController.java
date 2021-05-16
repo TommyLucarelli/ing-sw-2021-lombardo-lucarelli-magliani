@@ -192,11 +192,11 @@ public class MainController{
         int x = currentGame.getTurn().getTypeOfAction();
 
         if (x == 0)
-            payload.addProperty("message", currentPlayer.getNickname() + " ha preso risorse dal mercato");
+            payload.addProperty("message", currentPlayer.getNickname() + " has taken resources from the Market");
         else if (x == 1)
-            payload.addProperty("message", currentPlayer.getNickname() + " ha acquistato una carta sviluppo");
+            payload.addProperty("message", currentPlayer.getNickname() + " has bought a Development Card");
         else
-            payload.addProperty("message", currentPlayer.getNickname() + " ha attivato la produzione");
+            payload.addProperty("message", currentPlayer.getNickname() + " has activated the production");
 
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());

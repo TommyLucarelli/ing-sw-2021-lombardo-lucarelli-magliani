@@ -158,20 +158,26 @@ public class Cli implements UserInterface {
         System.out.println("\nThe game has started!!");
         System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
 
+        int[] printLeaders = new int[4];
         for (int i = 0; i < leaderCards.size(); i++) {
-            System.out.println("\n" + (i + 1));
-            fancyPrinter.printLeaderCard(leaderCards.get(i));
+            printLeaders[i] = leaderCards.get(i);
         }
+        fancyPrinter.printArrayLeaderCard(printLeaders);
+        System.out.println("\t\t\t  1\t\t\t\t\t\t\t  2\t\t\t\t\t\t\t  3\t\t\t\t\t\t\t  4");
+
         //TODO: controllo
         System.out.println("\nChoose your first leader card");
         x = InputHandler.getInt(1, 4) - 1;
         leaders[0] = leaderCards.get(x);
         leaderCards.remove(x);
 
+        printLeaders = new int[3];
         for (int i = 0; i < leaderCards.size(); i++) {
-            System.out.println("\n" + (i + 1));
-            fancyPrinter.printLeaderCard(leaderCards.get(i));
+            printLeaders[i] = leaderCards.get(i);
         }
+        fancyPrinter.printArrayLeaderCard(printLeaders);
+        System.out.println("\t\t\t  1\t\t\t\t\t\t\t  2\t\t\t\t\t\t\t  3");
+
         //TODO: controllo
         System.out.println("\nChoose your second leader card");
         x = InputHandler.getInt(1, 3) - 1;
@@ -218,10 +224,10 @@ public class Cli implements UserInterface {
             System.out.println("4. SERVANT");
 
             //TODO: controllo
-            n = InputHandler.getInt();
+            n = InputHandler.getInt(1,4);
             a = Resource.values()[n-1];
             if(x == 2){
-                n = scan.nextInt();
+                n = InputHandler.getInt(1,4);
                 b = Resource.values()[n-1];
                 if(a.equals(b)){
                     placed1[1] = a;
@@ -284,9 +290,6 @@ public class Cli implements UserInterface {
                 Resource[] ware = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setWarehouse(ware);
 
-                for (int i = 0; i < 10; i++) {
-                    System.out.println(mySelf.getCompactBoard().getWarehouse()[i]);
-                }
             }else{
                 opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
 
@@ -318,18 +321,13 @@ public class Cli implements UserInterface {
     private void handleLeaderActivation(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
-        boolean flag;
-        do {
-            flag = false;
-            System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
-            String answer = scan.nextLine();
-            if(answer.equals("yes"))
-                payload.addProperty("activation", true);
-            else if(answer.equals("no"))
-                payload.addProperty("activation", false);
-            else
-                flag = true;
-        }while (flag);
+
+        System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
+        String answer = InputHandler.getString("(yes|no)");
+        if(answer.equals("yes"))
+            payload.addProperty("activation", true);
+        else if(answer.equals("no"))
+            payload.addProperty("activation", false);
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
@@ -337,35 +335,31 @@ public class Cli implements UserInterface {
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x;
-        do{
-            System.out.println("\nChoose a Leader Card to activate or discard: ");
-            System.out.println("\n1.");
-            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
-            System.out.println("\n2.");
-            fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
-            System.out.println("\n3. to move on to the main action of the turn");
-            x = scan.nextInt();
-            if(x == 1){
-                payload.addProperty("gameAction", "LEADER_ACTION");
-                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-            }else if(x == 2){
-                payload.addProperty("gameAction", "LEADER_ACTION");
-                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-            }else if(x == 3)
-                payload.addProperty("gameAction", "COME_BACK");
-        }while (x < 1 || x > 3);
+        System.out.println("\nChoose a Leader Card to activate or discard: ");
+        System.out.println("\n1.");
+        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
+        System.out.println("\n2.");
+        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
+        System.out.println("\n3. to move on to the main action of the turn");
+        x = InputHandler.getInt(1,3);
+        if(x == 1){
+            payload.addProperty("gameAction", "LEADER_ACTION");
+            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+        }else if(x == 2){
+            payload.addProperty("gameAction", "LEADER_ACTION");
+            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+        }else if(x == 3)
+            payload.addProperty("gameAction", "COME_BACK");
 
         if(x == 1 || x == 2){
-            do{
-                System.out.println("\nWhich action do you want to perform:");
-                System.out.println("1. Activate");
-                System.out.println("2. Discard");
-                x = scan.nextInt();
-                if(x == 1)
-                    payload.addProperty("action", true);
-                else if(x == 2)
-                    payload.addProperty("action", false);
-            }while(x < 1 || x > 2);
+            System.out.println("\nWhich action do you want to perform:");
+            System.out.println("1. Activate");
+            System.out.println("2. Discard");
+            x = InputHandler.getInt(1,2);
+            if(x == 1)
+                payload.addProperty("action", true);
+            else if(x == 2)
+                payload.addProperty("action", false);
         }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
@@ -373,8 +367,6 @@ public class Cli implements UserInterface {
 
     private void handleMainChoice(RequestMsg requestMsg) {
         int x;
-        int leaderID;
-        boolean action;
         String json = "";
 
         Gson gson = new Gson();
@@ -387,19 +379,18 @@ public class Cli implements UserInterface {
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "MAIN_CHOICE");
-        do {
-            System.out.println("\nWhich action you want to do: ");
-            System.out.println("1. Pick resources from market");
-            System.out.println("2. Buy a development card");
-            System.out.println("3. Activate production");
-            x = scan.nextInt();
-            if(x == 1)
-                payload.addProperty("actionChoice", "market");
-            else if(x == 2)
-                payload.addProperty("actionChoice", "buyDevCard");
-            else if(x == 3)
-                payload.addProperty("actionChoice", "production");
-        }while(x<1 || x>3);
+
+        System.out.println("\nWhich action you want to do: ");
+        System.out.println("1. Pick resources from market");
+        System.out.println("2. Buy a development card");
+        System.out.println("3. Activate production");
+        x = InputHandler.getInt(1, 3);
+        if(x == 1)
+            payload.addProperty("actionChoice", "market");
+        else if(x == 2)
+            payload.addProperty("actionChoice", "buyDevCard");
+        else if(x == 3)
+            payload.addProperty("actionChoice", "production");
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
@@ -429,29 +420,23 @@ public class Cli implements UserInterface {
         fancyPrinter.printDevCardStructure(compactDevCardStructure);
         System.out.println("\nChoose level:");
         l = InputHandler.getInt(1,3)-1;
-        boolean flag2;
-        do{
-            flag2 = false;
-            System.out.println("\nChoose color");
-            String s = InputHandler.getString();
-            switch(s) {
-                case "green":
-                    c = 0;
-                    break;
-                case "blue":
-                    c = 1;
-                    break;
-                case "yellow":
-                    c = 2;
-                    break;
-                case "purple":
-                    c = 3;
-                    break;
-                default:
-                    flag2 = true;
-                    break;
-            }
-        }while(flag2);
+
+        System.out.println("\nChoose color (green/blue/yellow/purple)");
+        String s = InputHandler.getString("(green|blue|yellow|purple)");
+        switch(s) {
+            case "green":
+                c = 0;
+                break;
+            case "blue":
+                c = 1;
+                break;
+            case "yellow":
+                c = 2;
+                break;
+            case "purple":
+                c = 3;
+                break;
+        }
 
         //+ comeback option
         JsonObject payload = new JsonObject();
@@ -471,7 +456,7 @@ public class Cli implements UserInterface {
         }.getType();
         ArrayList<Integer> freeSpots = gson.fromJson(json, collectionType);
 
-        System.out.println("\nWhere do you want to want to put the card");
+        System.out.println("\nWhere do you want to want to put the card?");
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(),false);
         System.out.println("\nThe available slots are:");
         for (Integer freeSpot : freeSpots)
@@ -479,7 +464,7 @@ public class Cli implements UserInterface {
         do {
             flag = true;
             System.out.println("\nChoose one of them: ");
-            x = scan.nextInt();
+            x = InputHandler.getInt();
             for (Integer freeSpot : freeSpots){
                 if (freeSpot == x) {
                     flag = false;
@@ -500,7 +485,7 @@ public class Cli implements UserInterface {
         ArrayList<Integer> productions = new ArrayList<>();
         System.out.println("\nPRODUCTION");
         System.out.println("\nThese are your resources");
-        fancyPrinter.printWarehouse(mySelf.getCompactBoard());
+        fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
         fancyPrinter.printStrongbox(mySelf.getCompactBoard());
 
         System.out.println("\nThese are your productions, choose the ones you want to activate typing the number: ");
@@ -588,14 +573,16 @@ public class Cli implements UserInterface {
         System.out.println("\nMARKET");
         //per qualche motivo lo stampa senza reserve marble
         fancyPrinter.printMarket(compactMarket);
-        System.out.println("\nDo you want to pick a line or a column:");
-        s = InputHandler.getString("(line|column)");
-        System.out.println("Choose the value of your pick");
+        System.out.println("\nDo you want to pick a line or a column? (l/c)");
+        s = InputHandler.getString("(l|c)");
         int x;
-        if(s.equals("line"))
-            x = InputHandler.getInt(1, 3);
-        else
+        if(s.equals("c")){
+            System.out.println("Which column do you want to pick?");
             x = InputHandler.getInt(1, 4);
+        } else {
+            System.out.println("Which line do you want to pick?");
+            x = InputHandler.getInt(1, 3);
+        }
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "PICK");
@@ -727,12 +714,6 @@ public class Cli implements UserInterface {
         int totalSpaces = 6 + (extraResource1 != Resource.ANY ? 2 : 0 ) + (extraResource2 != Resource.ANY ? 2 : 0 );
 
         boolean exit = false;
-        boolean[] canBeRemoved = new boolean[10];
-        for(int i = 0; i < 10; i++){
-            if(warehouseResources[i] != null && warehouseResources[i] != Resource.ANY)
-                canBeRemoved[i] = false;
-            else canBeRemoved[i] = true;
-        }
 
         while(!exit){
             fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
