@@ -141,6 +141,10 @@ public class Cli implements UserInterface {
         }
     }
 
+    /**
+     * Method used to handle the phase of selecting the two leader cards to begin the game with.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleChooseStartLeaders(RequestMsg requestMsg){
         LeaderCard lc;
         int x, y, j=0, k=0;
@@ -200,6 +204,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the phase of selecting the resources to begin the game with.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleChooseStartResources(RequestMsg requestMsg){
         int x, y, n;
         Resource[] placed1 = new Resource[10];
@@ -254,27 +262,31 @@ public class Cli implements UserInterface {
         }
     }
 
-    private void handleInitialUpdate(RequestMsg ms){
+    /**
+     * Method used to handle the initial update sent by the server to initialize the client-side model structures.
+     * @param requestMsg the request sent by the server.
+     */
+    private void handleInitialUpdate(RequestMsg requestMsg){
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
         int nextPlayerID;
 
-        JsonObject payload = ms.getPayload().get("market").getAsJsonObject();
-        nextPlayerID = ms.getPayload().get("nextPlayerID").getAsInt();
+        JsonObject payload = requestMsg.getPayload().get("market").getAsJsonObject();
+        nextPlayerID = requestMsg.getPayload().get("nextPlayerID").getAsInt();
         Gson gson = new Gson();
         String json = payload.get("structure").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
         int[] structure = gson.fromJson(json, collectionType);
         compactMarket.setMarket(structure);
 
-        payload = ms.getPayload().get("devCardStructure").getAsJsonObject();
+        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
         json = payload.get("structure").getAsString();
         collectionType = new TypeToken<int[][]>(){}.getType();
         int[][] structure2 = gson.fromJson(json, collectionType);
         compactDevCardStructure.setDevCardStructure(structure2);
 
         JsonObject payload2;
-        JsonArray players = ms.getPayload().get("players").getAsJsonArray();
+        JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
         for (JsonElement player: players) {
             if(player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()){
                 payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
@@ -318,6 +330,10 @@ public class Cli implements UserInterface {
 
     }
 
+    /**
+     * Method used to handle the decision of activating/discarding a leader card at the beginning/end of the turn.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleLeaderActivation(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
@@ -332,6 +348,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the phase of activating/discarding a leader card at the beginning/end of the turn.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x;
@@ -365,6 +385,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the decision of the main action to perform during the turn.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleMainChoice(RequestMsg requestMsg) {
         int x;
         String json = "";
@@ -395,6 +419,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the action of buying a card from the development card structure.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleChooseDevCard(RequestMsg requestMsg){
         int l=0, c=0;
         boolean flag = false;
@@ -447,6 +475,11 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the phase of placing the previously bought development card into one of the development
+     * card slots of the board.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleDevCardPlacement(RequestMsg requestMsg) {
         int x;
         boolean flag;
@@ -480,6 +513,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the selection of the production powers to activate.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleChooseProduction(RequestMsg requestMsg){
 
         ArrayList<Integer> productions = new ArrayList<>();
@@ -568,6 +605,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the selection of the line/column of the market to take resources from.
+     * @param requestMsg the request sent by the server.
+     */
     private void handlePick(RequestMsg requestMsg){
         String s;
         System.out.println("\nMARKET");
@@ -608,6 +649,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the phase of placing the resources received from the market into the warehouse.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleWarehousePlacement(RequestMsg requestMsg){
         Gson gson = new Gson();
         Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
@@ -619,6 +664,10 @@ public class Cli implements UserInterface {
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method used to handle the updates received from the server.
+     * @param requestMsg the request sent by the server.
+     */
     private void handleUpdate(RequestMsg requestMsg){
 
         Gson gson = new Gson();
