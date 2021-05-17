@@ -124,4 +124,10 @@ public class FancyPrinterTest {
         FancyPrinter fancyprinter = new FancyPrinter();
         fancyprinter.printArrayLeaderCard(array);
     }
+
+    @Test
+    public void testPrintTiles() {
+        FancyPrinter fancyprinter = new FancyPrinter();
+        fancyprinter.printTiles();
+    }
 }
