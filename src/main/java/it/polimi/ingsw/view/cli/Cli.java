@@ -24,14 +24,14 @@ import java.util.*;
  * Main class for CLI operations.
  */
 public class Cli implements UserInterface {
-    Client client;
-    CompactPlayer mySelf;
-    CardCollector cardCollector;
-    FancyPrinter fancyPrinter;
-    CompactMarket compactMarket;
-    CompactDevCardStructure compactDevCardStructure;
-    HashMap<Integer, CompactPlayer> opponents;
-    Scanner scan = new Scanner(System.in);
+    private final Client client;
+    private CompactPlayer mySelf;
+    private CardCollector cardCollector;
+    private final FancyPrinter fancyPrinter;
+    private CompactMarket compactMarket;
+    private CompactDevCardStructure compactDevCardStructure;
+    private HashMap<Integer, CompactPlayer> opponents;
+    private Scanner scan = new Scanner(System.in);
 
     /**
      * Class constructor.

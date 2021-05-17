@@ -95,6 +95,21 @@ public class InputHandler {
         return scanner.nextInt();
     }
 
+    public static int getIntFromArray(ArrayList<Integer> array){
+        int input;
+        do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("Please enter a number:");
+                scanner.next();
+            }
+            input = scanner.nextInt();
+            if(!array.contains(input)){
+                System.out.println("Please enter a number from the following array: " + array);
+            }
+        } while (!array.contains(input));
+        return scanner.nextInt();
+    }
+
     /**
      * Method used to get a choice between various options.
      * @param choices the array of possible options.
