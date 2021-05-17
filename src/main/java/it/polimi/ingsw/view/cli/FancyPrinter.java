@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Class used to print the elements of the game in the CLI.
+ * @author Martina Magliani
  */
 public class FancyPrinter {
     private final PrintStream stream;
@@ -341,7 +342,7 @@ public class FancyPrinter {
     public void printDevCardSlot(CompactBoard board, boolean production){
         StringBuilder devCardSlot = new StringBuilder();
         if(production){
-            devCardSlot.append("   \t\t\t2\t\t\t\t\t\t\t3\t\t\t\t\t\t\t4\n");
+            devCardSlot.append("   \t\t\t 2\t\t\t\t\t\t\t 3\t\t\t\t\t\t\t 4\n");
         }
         for (int j = 0; j < 9; j++) {
             for (int i = 0; i < 3; i++) {
