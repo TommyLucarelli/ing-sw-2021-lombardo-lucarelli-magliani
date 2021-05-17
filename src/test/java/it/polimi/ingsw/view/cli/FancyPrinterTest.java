@@ -91,6 +91,10 @@ public class FancyPrinterTest {
     public void printFaithTrack() {
         CompactBoard board = new CompactBoard();
         board.setFaithTrackIndex(10);
+        board.getFavCards()[0]=false;
+        board.getFavCards()[1]=false;
+        board.getFavCards()[2]=false;
+
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printFaithTrack(board);
     }

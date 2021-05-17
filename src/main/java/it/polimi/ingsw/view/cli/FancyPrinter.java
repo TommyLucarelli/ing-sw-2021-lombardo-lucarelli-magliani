@@ -795,11 +795,14 @@ public class FancyPrinter {
 
         string.append(Color.YELLOW_BOLD.color()).append("{●} = Victory Points Space\t").append(Color.RESET).append(Color.LIME.color()).append("{†} = Faith Marker\n").append(Color.RESET).append(Color.HEAVENLY_BOLD.color()).append("{☼} = Pope's Favor tiles\t").append(Color.RESET).append(Color.RED_BOLD.color()).append("{♣} = Pope Space\t").append(Color.RESET).append(Color.PURPLE_BOLD.color()).append("─── = Vatican Report section\n\n").append(Color.RESET);
 
-        string.append(Color.PURPLE_BOLD.color()).append("\t\t\t\t\t┌").append("─".repeat(17)).append("┐").append("\t\t\t   ┌").append("───────────────────────").append("┐").append("\t\t  ┌─").append("──────────────────────────────").append("┐").append("\n").append(Color.RESET);
+        string.append(Color.PURPLE_BOLD.color()).append("\t\t\t\t\t┌").append("─".repeat(17)).append("┐");
+        string.append("\t\t\t   ┌").append("───────────────────────").append("┐");
+        string.append("\t\t  ┌─").append("──────────────────────────────").append("┐").append("\n");
+        string.append(Color.RESET);
 
         for (int i = 0; i < 25; i++) {
             if(i==5 || i==9 || i==12 || i==17 || i==19){
-                string.append(Color.PURPLE_BOLD.color()).append("| ").append(Color.RESET);
+                string.append(Color.PURPLE_BOLD.color()).append("│ ").append(Color.RESET);
             }
 
             if(board.getFaithTrackIndex()==i){
@@ -813,11 +816,32 @@ public class FancyPrinter {
             }
 
             if(i==24){
-                string.append(Color.YELLOW_BOLD.color()).append("{●").append(Color.RED_BOLD.color()).append(" ♣}").append(Color.PURPLE_BOLD.color()).append(" |").append(Color.RESET);
+                string.append(Color.YELLOW_BOLD.color()).append("{●").append(Color.RED_BOLD.color()).append(" ♣}").append(Color.PURPLE_BOLD.color()).append(" │").append(Color.RESET);
             }
         }
+
         string.append("\n\t\t\t\t\t").append(Color.PURPLE_BOLD.color()).append("└────┐ \t\t ┌────┘\t\t\t   └──────┐\t\t\t┌──────┘\t\t  └──────────┐\t\t\t┌─────────┘");
-        string.append("\n\t\t\t\t\t     ").append(Color.PURPLE_BOLD.color()).append("|  ").append(Color.HEAVENLY_BOLD.color()).append("{☼}").append(Color.PURPLE_BOLD.color()).append("  |\t\t\t\t\t\t  |  ").append(Color.HEAVENLY_BOLD.color()).append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append(" |\t\t\t\t\t\t\t |    ").append(Color.HEAVENLY_BOLD.color()).append("{☼}").append(Color.PURPLE_BOLD.color()).append("   |").append("\n\t\t\t\t\t     └───────┘").append("\t\t\t\t\t\t  └─────────┘").append("\t\t\t\t\t\t\t └──────────┘");
+        string.append("\n\t\t\t\t\t     ").append(Color.PURPLE_BOLD.color()).append("│ ").append(Color.HEAVENLY_BOLD.color());
+
+        if (board.getFavCards()[0]) {
+            string.append("VP:+").append(2).append(Color.PURPLE_BOLD.color()).append(" │\t\t\t\t\t\t  │  ");
+        } else {
+            string.append(" {☼}").append(Color.PURPLE_BOLD.color()).append("  │\t\t\t\t\t\t  │  ");
+        }
+        string.append(Color.HEAVENLY_BOLD.color());
+        if(board.getFavCards()[1]){
+            string.append("VP:+").append(3).append(Color.PURPLE_BOLD.color()).append("  │\t\t\t\t\t\t\t │");
+        } else {
+            string.append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append(" │\t\t\t\t\t\t\t │");
+        }
+        string.append(Color.HEAVENLY_BOLD.color());
+        if(board.getFavCards()[2]){
+            string.append("  VP: +").append(4).append(Color.PURPLE_BOLD.color()).append("  │");
+        } else {
+            string.append("    {☼}").append(Color.PURPLE_BOLD.color()).append("   │");
+        }
+
+        string.append("\n\t\t\t\t\t     └───────┘").append("\t\t\t\t\t\t  └─────────┘").append("\t\t\t\t\t\t\t └──────────┘");
         string.append(Color.RESET);
         stream.print(string);
     }
