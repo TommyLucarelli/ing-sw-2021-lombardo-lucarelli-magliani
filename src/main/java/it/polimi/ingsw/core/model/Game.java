@@ -1,5 +1,7 @@
 package it.polimi.ingsw.core.model;
 
+import it.polimi.ingsw.core.controller.PlayerHandler;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,15 +23,14 @@ public class Game
     /**
      * Class constructor.
      * @param id the id of the game
-     * @param playerInfo Hashmap containing the names of the players which will be generated
      */
-    public Game(int id, HashMap<Integer, String> playerInfo) throws FileNotFoundException {
+    public Game(int id, ArrayList<PlayerHandler> playerHandlers) throws FileNotFoundException {
         this.gameId = id;
         this.players = new ArrayList<Player>();
-        for(Integer key: playerInfo.keySet()){
-            players.add(new Player(key, playerInfo.get(key), this));
-        }
         this.market = new Market();
+        for (int i = 0; i < playerHandlers.size(); i++) {
+            players.add(new Player(playerHandlers.get(i).getPlayerId(), playerHandlers.get(i).getUsername(), this));
+        }
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
         this.turn = new Turn(this.players);

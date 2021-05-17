@@ -225,7 +225,7 @@ public class Cli implements UserInterface {
             if(y!=0)
                 System.out.println("and "+y+" faith points");
 
-            System.out.println("\nChoose "+x+" resources:");
+            System.out.println("\nChoose a resource:");
             System.out.println("1. COIN");
             System.out.println("2. STONE");
             System.out.println("3. SHIELD");
@@ -235,6 +235,7 @@ public class Cli implements UserInterface {
             n = InputHandler.getInt(1,4);
             a = Resource.values()[n-1];
             if(x == 2){
+                System.out.println("\nChoose another resource:");
                 n = InputHandler.getInt(1,4);
                 b = Resource.values()[n-1];
                 if(a.equals(b)){
@@ -354,34 +355,41 @@ public class Cli implements UserInterface {
      */
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
-        int x;
+        int x, cont = 0;
         System.out.println("\nChoose a Leader Card to activate or discard: ");
-        System.out.println("\n1.");
-        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
-        System.out.println("\n2.");
-        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
-        System.out.println("\n3. to move on to the main action of the turn");
-        x = InputHandler.getInt(1,3);
-        if(x == 1){
-            payload.addProperty("gameAction", "LEADER_ACTION");
-            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-        }else if(x == 2){
-            payload.addProperty("gameAction", "LEADER_ACTION");
-            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-        }else if(x == 3)
-            payload.addProperty("gameAction", "COME_BACK");
-
-        if(x == 1 || x == 2){
-            System.out.println("\nWhich action do you want to perform:");
-            System.out.println("1. Activate");
-            System.out.println("2. Discard");
-            x = InputHandler.getInt(1,2);
-            if(x == 1)
-                payload.addProperty("action", true);
-            else if(x == 2)
-                payload.addProperty("action", false);
+        for (int i = 1; i < 3; i++) {
+            if(mySelf.getCompactBoard().getLeaderCards()[i] != 0){
+                cont++;
+                System.out.println("\n"+cont+".");
+                fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[i]);
+            }
         }
+        if(cont == 0){
+            System.out.println("\nYou had discarded all your leader cards!!");
+            payload.addProperty("gameAction", "COME_BACK");
+        }else {
+            System.out.println("\n" + (cont+1) + ". to move on to the main action of the turn");
+            x = InputHandler.getInt(1, cont+1);
+            if (x == 1) {
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            } else if (x == 2) {
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            } else if (x == 3)
+                payload.addProperty("gameAction", "COME_BACK");
 
+            if (x == 1 || x == 2) {
+                System.out.println("\nWhich action do you want to perform:");
+                System.out.println("1. Activate");
+                System.out.println("2. Discard");
+                x = InputHandler.getInt(1, 2);
+                if (x == 1)
+                    payload.addProperty("action", true);
+                else if (x == 2)
+                    payload.addProperty("action", false);
+            }
+        }
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
@@ -732,7 +740,8 @@ public class Cli implements UserInterface {
         collectionType = new TypeToken<int[][]>(){}.getType();
         player.getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
 
-        System.out.println(message);
+        if(player.getPlayerID() != mySelf.getPlayerID())
+            System.out.println(message);
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "UPDATE");

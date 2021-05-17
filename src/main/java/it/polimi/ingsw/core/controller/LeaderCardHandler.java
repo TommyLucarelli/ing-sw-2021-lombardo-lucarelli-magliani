@@ -59,8 +59,16 @@ public class LeaderCardHandler{
             controller.getCurrentGame().getTurn().setLeaderCardDiscarded(lc.getId());
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
-            payload.addProperty("gameAction", "MAIN_CHOICE");
-            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            if(controller.getCurrentGame().getTurn().isEndGame()){
+                controller.getCurrentGame().getTurn().setEndGame(false);
+                if(controller.getCurrentGame().getTurn().isLastTurn())
+                    vp = controller.getCurrentPlayer().getBoard().victoryPoints();
+                //update
+                controller.updateBuilder();
+            } else {
+                payload.addProperty("gameAction", "MAIN_CHOICE");
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
         }
 
 

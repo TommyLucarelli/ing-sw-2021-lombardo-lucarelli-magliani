@@ -129,13 +129,9 @@ public class MainController{
     }
 
     private void startGame(){
-        HashMap<Integer,String> playerInfo = new HashMap<Integer, String>();
         Collections.shuffle(players); //ma lo fa sto shuffle
-        for(PlayerHandler player: players) {
-            playerInfo.put(player.getPlayerId(), player.getUsername());
-        }
         try {
-            currentGame = new Game(this.id, playerInfo);
+            currentGame = new Game(this.id, players);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
