@@ -336,8 +336,17 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handleLeaderActivation(RequestMsg requestMsg){
+        //solo se parte iniziale del turno if()
+        //System.out.println("\nPERSONAL BOARD: ");
+        //TODO: stampa tutta la board
+        //fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
+        //leader card
+        //fancyPrinter.printFaithTrack(mySelf.getCompactBoard());
+        System.out.println("\nindex "+mySelf.getCompactBoard().getFaithTrackIndex());
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
+
 
         System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
         String answer = InputHandler.getString("(yes|no)");
@@ -356,27 +365,33 @@ public class Cli implements UserInterface {
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         int x, cont = 0;
+        boolean flag;
         System.out.println("\nChoose a Leader Card to activate or discard: ");
-        for (int i = 1; i < 3; i++) {
-            if(mySelf.getCompactBoard().getLeaderCards()[i] != 0){
+        for (int i = 0; i < 2; i++) {
+            flag = false;
+            for (int j = 0; j < 8; j++) {
+                if(mySelf.getCompactBoard().getAbilityActivationFlag()[j] == mySelf.getCompactBoard().getLeaderCards()[i])
+                    flag = true;
+            }
+            if(mySelf.getCompactBoard().getLeaderCards()[i] != 0 && flag == false){
                 cont++;
                 System.out.println("\n"+cont+".");
                 fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[i]);
             }
         }
         if(cont == 0){
-            System.out.println("\nYou had discarded all your leader cards!!");
+            System.out.println("\nYou had activated or discarded all your leader cards!!");
             payload.addProperty("gameAction", "COME_BACK");
         }else {
             System.out.println("\n" + (cont+1) + ". to move on to the main action of the turn");
             x = InputHandler.getInt(1, cont+1);
-            if (x == 1) {
+            if (x == cont - 1) {
                 payload.addProperty("gameAction", "LEADER_ACTION");
                 payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-            } else if (x == 2) {
+            } else if (x == cont) {
                 payload.addProperty("gameAction", "LEADER_ACTION");
-                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-            } else if (x == 3)
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[1]);
+            } else if (x == cont+1)
                 payload.addProperty("gameAction", "COME_BACK");
 
             if (x == 1 || x == 2) {
@@ -452,7 +467,6 @@ public class Cli implements UserInterface {
         if(!flag)
             System.out.println("None");
 
-        //PROBLEMA: nella struttura compare indice 0 fin dall'inizio, perchè?
         fancyPrinter.printDevCardStructure(compactDevCardStructure);
         System.out.println("\nChoose level:");
         l = InputHandler.getInt(1,3)-1;
