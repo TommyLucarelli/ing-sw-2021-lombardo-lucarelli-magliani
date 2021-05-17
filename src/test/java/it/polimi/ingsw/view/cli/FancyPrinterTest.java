@@ -25,13 +25,13 @@ public class FancyPrinterTest {
         int[][] slots = new int[3][3];
         slots[0][0] = 3;
         slots[0][1] = 9;
-        slots[0][2] = 36;
+        slots[0][2] = 0;
         slots[1][0] = 20;
         slots[1][1] = 27;
-        slots[1][2] = 32;
+        slots[1][2] = 0;
         slots[2][0] = 16;
-        slots[2][1] = 39;
-        slots[2][2] = 47;
+        slots[2][1] = 0;
+        slots[2][2] = 0;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printDevCardSlot(board, true);
@@ -43,15 +43,15 @@ public class FancyPrinterTest {
         int[][] structure = new int[3][4];
         structure[0][0] = 10;
         structure[0][1] = 6;
-        structure[0][2] = 30;
+        structure[0][2] = 0;
         structure[0][3] = 2;
         structure[1][0] = 30;
         structure[1][1] = 27;
-        structure[1][2] = 32;
-        structure[1][3] = 33;
+        structure[1][2] = 0;
+        structure[1][3] = 0;
         structure[2][0] = 26;
         structure[2][1] = 39;
-        structure[2][2] = 47;
+        structure[2][2] = 0;
         structure[2][3] = 4;
         devCardStructure.setDevCardStructure(structure);
         FancyPrinter fancyPrinter = new FancyPrinter();
@@ -123,5 +123,11 @@ public class FancyPrinterTest {
         int[] array = {49,56,64,52};
         FancyPrinter fancyprinter = new FancyPrinter();
         fancyprinter.printArrayLeaderCard(array);
+    }
+
+    @Test
+    public void testPrintTiles() {
+        FancyPrinter fancyprinter = new FancyPrinter();
+        fancyprinter.printTiles();
     }
 }
