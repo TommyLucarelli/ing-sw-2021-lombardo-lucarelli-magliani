@@ -296,38 +296,43 @@ public class FancyPrinter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        base1.append("\t│  ");
-        switch (cardCollector.getDevCard(id).getFlag().getColour()) {
-               case YELLOW:
-                   base1.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET);
-                   break;
-               case BLUE:
-                   base1.append(Color.HEAVENLY_BOLD.color()).append("▓").append(Color.RESET);
-                   break;
-               case GREEN:
-                   base1.append(Color.GREEN_BOLD.color()).append("▓").append(Color.RESET);
-                   break;
-               case PURPLE:
-                   base1.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET);
-                   break;
-                }
-        base1.append("\t VP:").append(cardCollector.getDevCard(id).getVictoryPoints());
-        switch (cardCollector.getDevCard(id).getFlag().getColour()) {
-               case YELLOW:
+        if(id!=0) {
+            base1.append("\t│  ");
+            switch (cardCollector.getDevCard(id).getFlag().getColour()) {
+                case YELLOW:
+                    base1.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET);
+                    break;
+                case BLUE:
+                    base1.append(Color.HEAVENLY_BOLD.color()).append("▓").append(Color.RESET);
+                    break;
+                case GREEN:
+                    base1.append(Color.GREEN_BOLD.color()).append("▓").append(Color.RESET);
+                    break;
+                case PURPLE:
+                    base1.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET);
+                    break;
+            }
+            base1.append("\t VP:").append(cardCollector.getDevCard(id).getVictoryPoints());
+            switch (cardCollector.getDevCard(id).getFlag().getColour()) {
+                case YELLOW:
                     base1.append(Color.YELLOW_BOLD.color()).append("\t ▓").append(Color.RESET);
                     break;
-               case BLUE:
+                case BLUE:
                     base1.append(Color.HEAVENLY_BOLD.color()).append("\t ▓").append(Color.RESET);
                     break;
-               case GREEN:
+                case GREEN:
                     base1.append(Color.GREEN_BOLD.color()).append("\t ▓").append(Color.RESET);
                     break;
-               case PURPLE:
+                case PURPLE:
                     base1.append(Color.PURPLE_BOLD.color()).append("\t ▓").append(Color.RESET);
                     break;
+            }
+            base1.append("  │");
+            base2.append("\t└───────────────────┘");
+        } else {
+            base1.append("\t│                   │");
+            base2.append("\t└───────────────────┘");
         }
-        base1.append("  │");
-        base2.append("\t└───────────────────┘");
         ArrayList<StringBuilder> base = new ArrayList<>();
         base.add(base1);
         base.add(base2);
