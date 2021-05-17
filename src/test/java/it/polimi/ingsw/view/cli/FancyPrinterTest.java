@@ -24,14 +24,14 @@ public class FancyPrinterTest {
         CompactBoard board = new CompactBoard();
         int[][] slots = new int[3][3];
         slots[0][0] = 3;
-        slots[0][1] = 9;
-        slots[0][2] = 0;
+        slots[0][1] = 3;
+        slots[0][2] = 3;
         slots[1][0] = 20;
-        slots[1][1] = 27;
-        slots[1][2] = 0;
+        slots[1][1] = 20;
+        slots[1][2] = 20;
         slots[2][0] = 16;
-        slots[2][1] = 0;
-        slots[2][2] = 0;
+        slots[2][1] = 16;
+        slots[2][2] = 16;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printDevCardSlot(board, true);
@@ -91,9 +91,9 @@ public class FancyPrinterTest {
     public void printFaithTrack() {
         CompactBoard board = new CompactBoard();
         board.setFaithTrackIndex(10);
-        board.getFavCards()[0]=false;
+        board.getFavCards()[0]=true;
         board.getFavCards()[1]=false;
-        board.getFavCards()[2]=false;
+        board.getFavCards()[2]=true;
 
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printFaithTrack(board);
@@ -133,5 +133,16 @@ public class FancyPrinterTest {
     public void testPrintTiles() {
         FancyPrinter fancyprinter = new FancyPrinter();
         fancyprinter.printTiles();
+    }
+
+    @Test
+    public void testPrintLeaderCardSlot() {
+        FancyPrinter fancyprinter = new FancyPrinter();
+        CompactBoard board = new CompactBoard();
+        int[] leaderCards = {52,53};
+        int[] flag = {52,0,0,0,0,0,0,0};
+        board.setLeaderCards(leaderCards);
+        board.setAbilityActivationFlag(flag);
+        fancyprinter.printLeaderCardSlot(board);
     }
 }

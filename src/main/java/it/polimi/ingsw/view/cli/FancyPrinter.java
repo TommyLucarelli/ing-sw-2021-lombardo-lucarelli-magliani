@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.compact.*;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class used to print the elements of the game in the CLI.
@@ -346,27 +347,18 @@ public class FancyPrinter {
         }
         for (int j = 0; j < 9; j++) {
             for (int i = 0; i < 3; i++) {
-                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[0][i]).get(j)).append("\t");
+                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[i][0]).get(j)).append("\t");
             }
             devCardSlot.append("\n");
         }
         for (int k = 1; k < 3; k++) {
             for (int j = 0; j < 2; j++) {
                 for (int i = 0; i < 3; i++) {
-                    devCardSlot.append(printBase(board.getDevCardSlots()[k][i]).get(j)).append("\t");
+                    devCardSlot.append(printBase(board.getDevCardSlots()[i][k]).get(j)).append("\t");
                 }
                 devCardSlot.append("\n");
             }
         }
-
-        //int[] sum =  {0,0,0};
-        /*for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                sum[i] = sum[i] + cardCollector.getDevCard(board.getDevCardSlots()[i][j]).getVictoryPoints();
-            }
-        }
-        devCardSlot.append("\t\tTotal VP:").append(sum[0]).append("\t\t\t\t\tTotal VP:").append(sum[1]).append("\t\t\t\t\tTotal VP:").append(sum[2]);
-        */
         stream.print(devCardSlot);
     }
 
@@ -554,6 +546,31 @@ public class FancyPrinter {
         for (int i = 0; i < 10; i++) {
             stream.print(leaderCardToArrayList(id).get(i)+"\n");
         }
+    }
+
+    public void printLeaderCardSlot(CompactBoard board){
+        StringBuilder leaderCardSlot = new StringBuilder();
+        Boolean flag;
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < board.getLeaderCards().length; i++) {
+                leaderCardSlot.append(leaderCardToArrayList(board.getLeaderCards()[i]).get(j)).append("\t");
+            }
+            leaderCardSlot.append("\n");
+        }
+
+        for (int i = 0; i < board.getLeaderCards().length; i++) {
+            flag = false;
+            for (int k = 0; k < 8; k++) {
+                if(board.getAbilityActivationFlag()[k] == board.getLeaderCards()[i])
+                    flag = true;
+            }
+            if(flag)
+                leaderCardSlot.append("\t\tActivated\t");
+            else
+                leaderCardSlot.append("\t\t\t\tNot Activated\t");
+        }
+
+        stream.print(leaderCardSlot);
     }
 
     /**
@@ -851,8 +868,10 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printPersonalBoard(CompactBoard board){
+        printFaithTrack(board);
         printWarehouse(board);
         printStrongbox(board);
+        printDevCardSlot(board,false);
     }
 
     public void printTiles(){
@@ -863,7 +882,6 @@ public class FancyPrinter {
     }
 
     public void printSoloActionTokens(){
-
     }
 
 }
