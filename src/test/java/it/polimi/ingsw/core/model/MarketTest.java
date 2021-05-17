@@ -80,4 +80,28 @@ public class MarketTest {
         System.out.println(market.toCompactMarket().get("structure"));
 
     }
+
+    @Test
+    public void testUpdateColumnAndGetResources(){
+        Market market = new Market();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(market.getMarble(i, j) + " ");
+            }
+            System.out.println();
+        }
+        System.out.println(market.getReserveMarble());
+
+        market.updateColumnAndGetResources(0);
+
+        System.out.println("\nMARKET UPDATE\n");
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(market.getMarble(i, j) + " ");
+            }
+            System.out.println();
+        }
+        System.out.println(market.getReserveMarble());
+    }
 }

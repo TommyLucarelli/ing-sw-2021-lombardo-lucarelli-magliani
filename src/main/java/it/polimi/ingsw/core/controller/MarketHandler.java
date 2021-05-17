@@ -21,7 +21,6 @@ public class MarketHandler {
 
     private MainController controller;
     private ArrayList<Resource> resources;
-    private ArrayList<Resource> blackList;
     private boolean configWorks;
     private Resource r;
     private ArrayList<Resource> placed;
@@ -33,7 +32,6 @@ public class MarketHandler {
      */
     public MarketHandler(MainController controller){
         this.controller = controller;
-        blackList = new ArrayList<>();
     }
 
     public void pick(ResponseMsg ms){
@@ -41,7 +39,7 @@ public class MarketHandler {
         int number = ms.getPayload().get("number").getAsInt();
         boolean flag = false;
 
-        if(choice.equals("column"))
+        if(choice.equals("c"))
             resources = controller.getCurrentGame().getMarket().updateColumnAndGetResources(number);
         else
             resources = controller.getCurrentGame().getMarket().updateLineAndGetResources(number);
@@ -112,9 +110,7 @@ public class MarketHandler {
      */
     protected boolean checkPlacement(ArrayList<Resource> placed)
     {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(placed.get(i));
-        }
+        ArrayList<Resource> blackList = new ArrayList<>();
         //check normal warehouse
         if(placed.get(0) != Resource.ANY)
             blackList.add(placed.get(0));
