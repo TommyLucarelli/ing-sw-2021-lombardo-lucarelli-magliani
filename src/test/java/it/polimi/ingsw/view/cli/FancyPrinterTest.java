@@ -81,7 +81,7 @@ public class FancyPrinterTest {
     @Test
     public void printStrongbox() {
         CompactBoard board = new CompactBoard();
-        int[] strongbox = {0,1,3,1};
+        int[] strongbox = {2,12,3,1};
         board.setStrongbox(strongbox);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printStrongbox(board);
@@ -105,7 +105,7 @@ public class FancyPrinterTest {
         FancyPrinter fancyPrinter = new FancyPrinter();
         Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
         board.setWarehouse(resources);
-        int[] strongbox = {0,1,3,1};
+        int[] strongbox = {20,12,33,17};
         board.setStrongbox(strongbox);
         int[] leaderCards = {52,53};
         int[] flag = {52,0,0,0,0,0,0,0};
