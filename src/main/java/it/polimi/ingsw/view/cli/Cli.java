@@ -538,83 +538,97 @@ public class Cli implements UserInterface {
         System.out.println("\nThese are your resources");
         fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
         fancyPrinter.printStrongbox(mySelf.getCompactBoard());
+        JsonObject payload = new JsonObject();
+        int x=0, y;
+        boolean flag;
 
-        System.out.println("\nThese are your productions, choose the ones you want to activate typing the number: ");
+        System.out.println("\nThese are your productions: ");
 
         System.out.println("1. Basic production");
-        //devcardslot stampa quelli con almeno una carta 2. 3. 4.
-        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(), false);
+        fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(), true);
 
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
             r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println("5. Special Production with "+r1.toString());
+            x = 1;
         }
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[7] != 0){
             r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println("6. Special Production with "+r2.toString());
+            x = 2;
         }
 
-        //da rivedere + aggiungere controllo
-        while(scan.hasNextInt()){
-            productions.add(scan.nextInt());
-        }
+        int n;
 
-        JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+        do {
+            flag = false;
+            System.out.println("\nChoose an action: \n1. Add production\n2. Confirm productions\n3. Go back to main choice");
+            n = InputHandler.getInt(1, 3);
+            if (n == 1) {
+                System.out.println("Choose production: ");
+                productions.add(InputHandler.getInt(1, 4 + x));
+            } else if (n == 2) {
+                if(productions.size() == 0){
+                    payload.addProperty("gameAction", "COME_BACK");
+                }else {
+                    payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+                    Gson gson = new Gson();
+                    String json = gson.toJson(productions);
+                    payload.addProperty("productions", json);
+                    if (productions.contains(1)) {
+                        ArrayList<ResourceQty> input = new ArrayList<>();
+                        ArrayList<ResourceQty> output = new ArrayList<>();
+                        for (int i = 0; i < 3; i++) {
+                            if (i == 0 || i == 1)
+                                System.out.println("\nChoose an input resource for the basic production: ");
+                            else
+                                System.out.println("\nChoose an output resource for the basic production: ");
+                            System.out.println("1. COIN");
+                            System.out.println("2. SHIELD");
+                            System.out.println("3. STONE");
+                            System.out.println("4. SERVANT");
+                            y = InputHandler.getInt(1, 4);
+                            if (i == 0 || i == 1)
+                                input.add(new ResourceQty(Resource.values()[y - 1], 1));
+                            else
+                                output.add(new ResourceQty(Resource.values()[y - 1], 1));
+                        }
+                        Recipe recipe = new Recipe(input, output);
+                        String json2 = gson.toJson(recipe);
+                        payload.addProperty("basicProduction", json2);
+                    }
 
-        if(productions.contains(1)){
-            int x;
-            ArrayList<ResourceQty> input = new ArrayList<>();
-            ArrayList<ResourceQty> output = new ArrayList<>();
-            for (int i = 0; i < 3; i++) {
-                if(i == 0 || i == 1)
-                    System.out.println("\nChoose an input resource for the basic production: ");
-                else
-                    System.out.println("\nChoose an output resource for the basic production: ");
-                System.out.println("1. COIN");
-                System.out.println("2. SHIELD");
-                System.out.println("3. STONE");
-                System.out.println("4. SERVANT");
-                x = InputHandler.getInt(1,4);
-                if(i == 0 || i == 1)
-                    input.add(new ResourceQty(Resource.values()[x-1], 1));
-                else
-                    output.add(new ResourceQty(Resource.values()[x-1], 1));
+                    if (productions.contains(5)) {
+                        System.out.println("\nChoose an output resource for the special production: ");
+                        System.out.println("1. COIN");
+                        System.out.println("2. SHIELD");
+                        System.out.println("3. STONE");
+                        System.out.println("4. SERVANT");
+                        y = InputHandler.getInt(1, 4);
+                        r1 = Resource.values()[x - 1];
+                        String json2 = gson.toJson(r1);
+                        payload.addProperty("specialProduction1", json2);
+                    }
+
+                    if (productions.contains(6)) {
+                        System.out.println("\nChoose an output resource for the special production: ");
+                        System.out.println("1. COIN");
+                        System.out.println("2. SHIELD");
+                        System.out.println("3. STONE");
+                        System.out.println("4. SERVANT");
+                        y = InputHandler.getInt(1, 4);
+                        r2 = Resource.values()[x - 1];
+                        String json2 = gson.toJson(r2);
+                        payload.addProperty("specialProduction2", json2);
+                    }
+                }
+                flag = true;
+            } else {
+                payload.addProperty("gameAction", "COME_BACK");
+                flag = true;
             }
-            Recipe recipe = new Recipe(input, output);
-            Gson gson = new Gson();
-            String json = gson.toJson(recipe);
-            payload.addProperty("basicProduction", json);
-        }
-
-        int x;
-
-        if(productions.contains(5)){
-            System.out.println("\nChoose an output resource for the special production: ");
-            System.out.println("1. COIN");
-            System.out.println("2. SHIELD");
-            System.out.println("3. STONE");
-            System.out.println("4. SERVANT");
-            x = InputHandler.getInt(1,4);
-            r1 = Resource.values()[x-1];
-            Gson gson = new Gson();
-            String json = gson.toJson(r1);
-            payload.addProperty("specialProduction1", json);
-        }
-
-        if(productions.contains(6)){
-            System.out.println("\nChoose an output resource for the special production: ");
-            System.out.println("1. COIN");
-            System.out.println("2. SHIELD");
-            System.out.println("3. STONE");
-            System.out.println("4. SERVANT");
-            x = InputHandler.getInt(1,4);
-            r2 = Resource.values()[x-1];
-            Gson gson = new Gson();
-            String json = gson.toJson(r2);
-            payload.addProperty("specialProduction2", json);
-        }
+        }while(!flag);
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
