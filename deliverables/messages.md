@@ -258,18 +258,24 @@ payload: {
     "faithTracks": [
          {  
             "playerID": int,
-            "index": 12,
-            "favCards": boolean[3], //favourCards activation
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
         },
         {  
             "playerID": int,
-            "index": 12,
-            "favCards": boolean[3], //favourCards activation
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
         },
         {  
             "playerID": int,
-            "index": 12,
-            "favCards": boolean[3], //favourCards activation
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
         },
 
     ]
