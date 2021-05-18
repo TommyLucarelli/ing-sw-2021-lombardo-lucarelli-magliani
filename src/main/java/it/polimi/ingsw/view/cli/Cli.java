@@ -705,7 +705,7 @@ public class Cli implements UserInterface {
         collectionType = new TypeToken<int[]>(){}.getType();
         player.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
 
-        if(requestMsg.getPayload().get("action").getAsBoolean()){
+        if( requestMsg.getPayload().get("action").getAsBoolean()){
             payload = requestMsg.getPayload().get("market").getAsJsonObject();
             json = payload.get("structure").getAsString();
             collectionType = new TypeToken<int[]>(){}.getType();

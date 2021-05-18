@@ -770,36 +770,28 @@ public class FancyPrinter {
 
         StringBuilder string = new StringBuilder();
         string.append("\n").append(Color.GREEN_BOLD.color()).append("\t\t\t\t\tSTRONGBOX\n");
-        string.append(Color.RESET).append("\t-----------------------------------------\n\t|");
+        string.append(Color.RESET).append("\t┌─────────────────────────┐\n\t│");
 
-        for (int i = 0; i < 4; i++) {
-            if(board.getStrongbox()[i]==0){
-                string.append("\t".repeat(10)).append("|");
-            }
-            for (int j = 0; j < board.getStrongbox()[i]; j++) {
+
+            for (int i = 0; i < board.getStrongbox().length; i++) {
+                int qty = board.getStrongbox()[i];
                 switch(i){
                     case 0:
-                        string.append("\t").append(Color.WHITE_BOLD.color()).append("STONE");
+                        string.append("\t").append(Color.WHITE_BOLD.color()).append("COIN: ").append(qty);
                         break;
                     case 1:
-                        string.append("\t").append(Color.YELLOW_BOLD.color()).append("COIN");
+                        string.append("\t").append(Color.YELLOW_BOLD.color()).append("STONE: ").append(qty);
                         break;
                     case 2:
-                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD");
+                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD:").append(qty);
                         break;
                     case 3:
-                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT");
+                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT:").append(qty);
                         break;
                     }
-                    if(j==board.getStrongbox()[i]-1){
-                        string.append("\t\t".repeat(5 - board.getStrongbox()[i])).append(Color.RESET).append("|");
-                    }
+                    string.append("\t\t\t│\n");
             }
-            if(i<3) {
-                string.append(Color.RESET).append("\n\t|");
-            }
-        }
-        string.append(Color.RESET).append("\n\t-----------------------------------------");
+        string.append(Color.RESET).append("\n\t└──────────────────────────┘");
         stream.print(string);
     }
 
