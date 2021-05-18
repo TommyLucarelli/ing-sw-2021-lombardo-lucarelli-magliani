@@ -34,7 +34,7 @@ public class FancyPrinterTest {
         slots[2][2] = 16;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
-        fancyPrinter.printDevCardSlot(board, true);
+        fancyPrinter.printDevCardSlot(board, false);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class FancyPrinterTest {
         CompactBoard board = new CompactBoard();
         Resource[] resources = {Resource.COIN,Resource.ANY, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.ANY, Resource.STONE, Resource.ANY};
         board.setWarehouse(resources);
-        int[] abilityActivationFlag = {54, 53, 0, 0, 0, 0, 0, 0};
+        int[] abilityActivationFlag = {0, 0, 0, 0, 0, 0, 0, 0};
         board.setAbilityActivationFlag(abilityActivationFlag);
         fancyPrinter.printWarehouseV2(board);
     }
@@ -107,6 +107,21 @@ public class FancyPrinterTest {
         board.setWarehouse(resources);
         int[] strongbox = {0,1,3,1};
         board.setStrongbox(strongbox);
+        int[] leaderCards = {52,53};
+        int[] flag = {52,0,0,0,0,0,0,0};
+        board.setLeaderCards(leaderCards);
+        board.setAbilityActivationFlag(flag);
+        int[][] slots = new int[3][3];
+        slots[0][0] = 3;
+        slots[0][1] = 3;
+        slots[0][2] = 3;
+        slots[1][0] = 20;
+        slots[1][1] = 20;
+        slots[1][2] = 20;
+        slots[2][0] = 16;
+        slots[2][1] = 16;
+        slots[2][2] = 16;
+        board.setDevCardSlots(slots);
         fancyPrinter.printPersonalBoard(board);
     }
 

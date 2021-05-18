@@ -8,7 +8,6 @@ import it.polimi.ingsw.view.compact.*;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Class used to print the elements of the game in the CLI.
@@ -336,30 +335,49 @@ public class FancyPrinter {
         return base;
     }
 
+
     /**
      * Prints a development card slot from the player's board.
      * @param board the player's board.
      */
-    public void printDevCardSlot(CompactBoard board, boolean production){
-        StringBuilder devCardSlot = new StringBuilder();
+    public ArrayList<StringBuilder> devCardSlotToArray(CompactBoard board, boolean production){
+
+
+        ArrayList<StringBuilder> string = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            string.add(new StringBuilder());
+        }
+
+        int x = 0;
         if(production){
-            devCardSlot.append("   \t\t\t 2\t\t\t\t\t\t\t 3\t\t\t\t\t\t\t 4\n");
+            string.get(0).append("   \t\t\t 2\t\t\t\t\t\t\t 3\t\t\t\t\t\t\t 4");
+            x = 1;
         }
         for (int j = 0; j < 9; j++) {
             for (int i = 0; i < 3; i++) {
-                devCardSlot.append(devCardToArrayList(board.getDevCardSlots()[i][0]).get(j)).append("\t");
-            }
-            devCardSlot.append("\n");
-        }
-        for (int k = 1; k < 3; k++) {
-            for (int j = 0; j < 2; j++) {
-                for (int i = 0; i < 3; i++) {
-                    devCardSlot.append(printBase(board.getDevCardSlots()[i][k]).get(j)).append("\t");
-                }
-                devCardSlot.append("\n");
+                string.get(j+x).append(devCardToArrayList(board.getDevCardSlots()[i][0]).get(j)).append("\t");
             }
         }
-        stream.print(devCardSlot);
+
+         for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < 3; i++) {
+                string.get(j+9+x).append(printBase(board.getDevCardSlots()[i][1]).get(j)).append("\t");
+            }
+         }
+
+        for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < 3; i++) {
+                string.get(j+11+x).append(printBase(board.getDevCardSlots()[i][2]).get(j)).append("\t");
+            }
+        }
+
+        return string;
+    }
+
+    public void printDevCardSlot(CompactBoard board, boolean production){
+        for (int i = 0; i < 14; i++) {
+            stream.print(devCardSlotToArray(board, production).get(i).append("\n"));
+        }
     }
 
     /**
@@ -548,14 +566,17 @@ public class FancyPrinter {
         }
     }
 
-    public void printLeaderCardSlot(CompactBoard board){
-        StringBuilder leaderCardSlot = new StringBuilder();
+    public ArrayList<StringBuilder> leaderCardSlotToArray(CompactBoard board){
+
+        ArrayList<StringBuilder> string = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            string.add(new StringBuilder());
+        }
         Boolean flag;
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < board.getLeaderCards().length; i++) {
-                leaderCardSlot.append(leaderCardToArrayList(board.getLeaderCards()[i]).get(j)).append("\t");
+                string.get(j).append(leaderCardToArrayList(board.getLeaderCards()[i]).get(j)).append("\t");
             }
-            leaderCardSlot.append("\n");
         }
 
         for (int i = 0; i < board.getLeaderCards().length; i++) {
@@ -565,12 +586,18 @@ public class FancyPrinter {
                     flag = true;
             }
             if(flag)
-                leaderCardSlot.append("\t\tActivated\t");
+                string.get(10).append("\t\tActivated\t");
             else
-                leaderCardSlot.append("\t\t\t\tNot Activated\t");
+                string.get(10).append("\t\t\t\tNot Activated\t");
         }
 
-        stream.print(leaderCardSlot);
+        return string;
+    }
+
+    public void printLeaderCardSlot(CompactBoard board){
+        for (int i = 0; i < 11; i++) {
+            stream.print(leaderCardSlotToArray(board).get(i).append("\n"));
+        }
     }
 
     /**
@@ -592,105 +619,153 @@ public class FancyPrinter {
      * Improved version of printWarehouse.
      * @param board the player's board.
      */
-    public void printWarehouseV2(CompactBoard board){
-        StringBuilder string = new StringBuilder();
-        string.append("        WAREHOUSE\n").append("         ┌─────┐\n").append("         |  ");
-        symbolForWarehouse(string, board.getWarehouse()[0], 1);
-        string.append("  |\n").append("         └─────┘\n").append("      ┌───────────┐\n").append("      |  ");
-        symbolForWarehouse(string, board.getWarehouse()[1], 2);
-        string.append("     ");
-        symbolForWarehouse(string, board.getWarehouse()[2], 3);
-        string.append("  |\n").append("      └───────────┘\n").append("    ┌───────────────┐\n").append("    |  ");
-        symbolForWarehouse(string, board.getWarehouse()[3], 4);
-        string.append("    ");
-        symbolForWarehouse(string, board.getWarehouse()[4], 5);
-        string.append("    ");
-        symbolForWarehouse(string, board.getWarehouse()[5], 6);
-        string.append("  |\n").append("    └───────────────┘\n");
+    public ArrayList<StringBuilder> warehouseV2ToArrayList(CompactBoard board){
+        StringBuilder string1 = new StringBuilder();
+        StringBuilder string2 = new StringBuilder();
+        StringBuilder string3 = new StringBuilder();
+        StringBuilder string4 = new StringBuilder();
+        StringBuilder string5 = new StringBuilder();
+        StringBuilder string6 = new StringBuilder();
+        StringBuilder string7 = new StringBuilder();
+        StringBuilder string8 = new StringBuilder();
+        StringBuilder string9 = new StringBuilder();
+        StringBuilder string10 = new StringBuilder();
+        StringBuilder string11 = new StringBuilder();
+        StringBuilder string12 = new StringBuilder();
+        StringBuilder string13 = new StringBuilder();
+        StringBuilder string14 = new StringBuilder();
+        StringBuilder string15 = new StringBuilder();
+        StringBuilder string16 = new StringBuilder();
+        string1.append("        WAREHOUSE");
+        string2.append("         ┌─────┐");
+        string3.append("         |  ");
+        symbolForWarehouse(string3, board.getWarehouse()[0], 1);
+        string3.append("  |");
+        string4.append("         └─────┘");
+        string5.append("      ┌───────────┐");
+        string6.append("      |  ");
+        symbolForWarehouse(string6, board.getWarehouse()[1], 2);
+        string6.append("     ");
+        symbolForWarehouse(string6, board.getWarehouse()[2], 3);
+        string6.append("  |");
+        string7.append("      └───────────┘");
+        string8.append("    ┌───────────────┐");
+        string9.append("    |  ");
+        symbolForWarehouse(string9, board.getWarehouse()[3], 4);
+        string9.append("    ");
+        symbolForWarehouse(string9, board.getWarehouse()[4], 5);
+        string9.append("    ");
+        symbolForWarehouse(string9, board.getWarehouse()[5], 6);
+        string9.append("  |");
+        string10.append("    └───────────────┘");
         if(board.getAbilityActivationFlag()[0] != 0){
-            string.append("      ┌───────────┐\n").append("      |  ");
-            symbolForWarehouse(string, board.getWarehouse()[6], 7);
-            string.append("     ");
-            symbolForWarehouse(string, board.getWarehouse()[7], 8);
-            string.append("  | ");
+            string11.append("      ┌───────────┐");
+            string12.append("      |  ");
+            symbolForWarehouse(string12, board.getWarehouse()[6], 7);
+            string12.append("     ");
+            symbolForWarehouse(string12, board.getWarehouse()[7], 8);
+            string12.append("  | ");
             switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[0]).getSpecialAbility().getAbilityResource()){
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append("⌂");
+                    string12.append(Color.WHITE_BOLD.color()).append("⌂");
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append("■");
+                    string12.append(Color.PURPLE_BOLD.color()).append("■");
                     break;
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append("$");
+                    string12.append(Color.YELLOW_BOLD.color()).append("$");
                     break;
                 case SHIELD:
-                    string.append(Color.BLUE_BOLD.color()).append("◊");
+                    string12.append(Color.BLUE_BOLD.color()).append("◊");
                     break;
             }
-            string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
+            string12.append(" ONLY").append(Color.RESET);
+            string13.append("      └───────────┘");
             if(board.getAbilityActivationFlag()[1] != 0){
-                string.append("      ┌───────────┐\n").append("      |  ");
-                symbolForWarehouse(string, board.getWarehouse()[8], 9);
-                string.append("     ");
+                string14.append("      ┌───────────┐");
+                string15.append("      |  ");
+                symbolForWarehouse(string15, board.getWarehouse()[8], 9);
+                string15.append("     ");
                 switch(board.getWarehouse()[9]){
                     case STONE:
-                        string.append(Color.WHITE_BOLD.color()).append("⌂ ");
+                        string15.append(Color.WHITE_BOLD.color()).append("⌂ ");
                         break;
                     case SERVANT:
-                        string.append(Color.PURPLE_BOLD.color()).append("■ ");
+                        string15.append(Color.PURPLE_BOLD.color()).append("■ ");
                         break;
                     case COIN:
-                        string.append(Color.YELLOW_BOLD.color()).append("$ ");
+                        string15.append(Color.YELLOW_BOLD.color()).append("$ ");
                         break;
                     case SHIELD:
-                        string.append(Color.BLUE_BOLD.color()).append("◊ ");
+                        string15.append(Color.BLUE_BOLD.color()).append("◊ ");
                         break;
                     case ANY:
-                        string.append("10");
+                        string15.append("10");
                         break;
                 }
-                string.append(" | ");
+                string15.append(" | ");
                 switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
                     case STONE:
-                        string.append(Color.WHITE_BOLD.color()).append("⌂");
+                        string15.append(Color.WHITE_BOLD.color()).append("⌂");
                         break;
                     case SERVANT:
-                        string.append(Color.PURPLE_BOLD.color()).append("■");
+                        string15.append(Color.PURPLE_BOLD.color()).append("■");
                         break;
                     case COIN:
-                        string.append(Color.YELLOW_BOLD.color()).append("$");
+                        string15.append(Color.YELLOW_BOLD.color()).append("$");
                         break;
                     case SHIELD:
-                        string.append(Color.BLUE_BOLD.color()).append("◊");
+                        string15.append(Color.BLUE_BOLD.color()).append("◊");
                         break;
                 }
-                string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
+                string15.append(" ONLY");
+                string16.append(Color.RESET).append("      └───────────┘");
             }
 
         } else if(board.getAbilityActivationFlag()[1] != 0) {
-            string.append("      ┌───────────┐\n").append("      |  ");
-            symbolForWarehouse(string, board.getWarehouse()[6], 7);
-            string.append("     ");
-            symbolForWarehouse(string, board.getWarehouse()[7], 8);
-            string.append(" | ");
+            string11.append("      ┌───────────┐");
+            string12.append("      |  ");
+            symbolForWarehouse(string12, board.getWarehouse()[6], 7);
+            string12.append("     ");
+            symbolForWarehouse(string12, board.getWarehouse()[7], 8);
+            string12.append(" | ");
             switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
                 case STONE:
-                    string.append(Color.WHITE_BOLD.color()).append("⌂");
+                    string12.append(Color.WHITE_BOLD.color()).append("⌂");
                     break;
                 case SERVANT:
-                    string.append(Color.PURPLE_BOLD.color()).append("■");
+                    string12.append(Color.PURPLE_BOLD.color()).append("■");
                     break;
                 case COIN:
-                    string.append(Color.YELLOW_BOLD.color()).append("$");
+                    string12.append(Color.YELLOW_BOLD.color()).append("$");
                     break;
                 case SHIELD:
-                    string.append(Color.BLUE_BOLD.color()).append("◊");
+                    string12.append(Color.BLUE_BOLD.color()).append("◊");
                     break;
             }
-            string.append(" ONLY\n").append(Color.RESET).append("      └───────────┘\n");
+            string12.append(" ONLY").append(Color.RESET);
+            string13.append("      └───────────┘");
         }
 
-        stream.print(string);
+        ArrayList<StringBuilder> string = new ArrayList<>();
+        string.add(string1);
+        string.add(string2);
+        string.add(string3);
+        string.add(string4);
+        string.add(string5);
+        string.add(string6);
+        string.add(string7);
+        string.add(string8);
+        string.add(string9);
+        string.add(string10);
+        string.add(string11);
+        string.add(string12);
+        string.add(string13);
+        string.add(string14);
+        string.add(string15);
+        string.add(string16);
+
+        return string;
     }
 
     /**
@@ -720,6 +795,11 @@ public class FancyPrinter {
         string.append(Color.RESET);
     }
 
+    public void printWarehouseV2(CompactBoard board){
+        for (int i = 0; i < 16; i++) {
+            stream.print(warehouseV2ToArrayList(board).get(i).append("\n"));
+        }
+    }
     /**
      * Prints the warehouse and the resources stored in it.
      * @param board the player's board.
@@ -763,36 +843,47 @@ public class FancyPrinter {
     }
 
     /**
+     * Save the player's strongbox and its resources.
+     * @param board the player's board.
+     * @return the ArrayList representing the structure of the storngbox
+     */
+    public ArrayList<StringBuilder> strongboxToArrayList(CompactBoard board){
+        StringBuilder string1 = new StringBuilder();
+        StringBuilder string2 = new StringBuilder();
+        StringBuilder string3 = new StringBuilder();
+        StringBuilder string4 = new StringBuilder();
+        StringBuilder string5 = new StringBuilder();
+        StringBuilder string6 = new StringBuilder();
+        StringBuilder string7 = new StringBuilder();
+
+        string1.append(Color.GREEN_BOLD.color()).append("\t\t\tSTRONGBOX");
+        string2.append(Color.RESET).append("\t┌───────────────────────┐");
+        string3.append("\t│\t").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET).append("\t\t\t\t│");
+        string4.append("\t│\t").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("\t\t\t│");
+        string5.append("\t│\t").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("\t\t\t│");
+        string6.append("\t│\t").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("\t\t\t│");
+        string7.append(Color.RESET).append("\t└───────────────────────┘");
+
+        ArrayList<StringBuilder> string = new ArrayList<>();
+        string.add(string1);
+        string.add(string2);
+        string.add(string3);
+        string.add(string4);
+        string.add(string5);
+        string.add(string6);
+        string.add(string7);
+
+        return string;
+    }
+
+    /**
      * Prints the player's strongbox and its resources.
      * @param board the player's board.
      */
     public void printStrongbox(CompactBoard board){
-
-        StringBuilder string = new StringBuilder();
-        string.append("\n").append(Color.GREEN_BOLD.color()).append("\t\t\t\t\tSTRONGBOX\n");
-        string.append(Color.RESET).append("\t┌─────────────────────────┐\n\t│");
-
-
-            for (int i = 0; i < board.getStrongbox().length; i++) {
-                int qty = board.getStrongbox()[i];
-                switch(i){
-                    case 0:
-                        string.append("\t").append(Color.WHITE_BOLD.color()).append("COIN: ").append(qty);
-                        break;
-                    case 1:
-                        string.append("\t").append(Color.YELLOW_BOLD.color()).append("STONE: ").append(qty);
-                        break;
-                    case 2:
-                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD:").append(qty);
-                        break;
-                    case 3:
-                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT:").append(qty);
-                        break;
-                    }
-                    string.append("\t\t\t│\n");
-            }
-        string.append(Color.RESET).append("\n\t└──────────────────────────┘");
-        stream.print(string);
+        for (int i = 0; i < 7; i++) {
+            stream.print(strongboxToArrayList(board).get(i).append("\n"));
+        }
     }
 
     /**
@@ -861,9 +952,28 @@ public class FancyPrinter {
      */
     public void printPersonalBoard(CompactBoard board){
         printFaithTrack(board);
-        printWarehouse(board);
-        printStrongbox(board);
-        printDevCardSlot(board,false);
+        stream.print("\n");
+        for (int i = 0; i < 26; i++) {
+            if (i < 14) {
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t").append(devCardSlotToArray(board, false).get(i)));
+            }
+            if(i==14){
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t"));
+            }
+            if(i == 15){
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t").append(leaderCardSlotToArray(board).get(i-15)));
+            }
+            if(i == 16){
+                stream.print("\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
+            }
+            if(i>16 && i<24){
+                stream.print(strongboxToArrayList(board).get(i).append(leaderCardSlotToArray(board).get(i-15)));
+            }
+            if(i>=24){
+                stream.print(leaderCardSlotToArray(board).get(i-15));
+            }
+            stream.print("\n");
+        }
     }
 
     public void printTiles(){
