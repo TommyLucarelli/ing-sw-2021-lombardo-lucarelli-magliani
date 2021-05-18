@@ -955,16 +955,19 @@ public class FancyPrinter {
      */
     public void printPersonalBoard(CompactBoard board){
         printFaithTrack(board);
-        stream.print("\n");
+        stream.print("\n\n");
         for (int i = 0; i < 26; i++) {
             if (i < 14) {
+                if(i>7&&i<9)
                 stream.print(warehouseV2ToArrayList(board).get(i).append("\t").append(devCardSlotToArray(board, false).get(i)));
+                else
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(devCardSlotToArray(board, false).get(i)));
             }
             if(i==14){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t"));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t"));
             }
             if(i == 15){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t").append(leaderCardSlotToArray(board).get(i-15)));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 16){
                 stream.print("\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
