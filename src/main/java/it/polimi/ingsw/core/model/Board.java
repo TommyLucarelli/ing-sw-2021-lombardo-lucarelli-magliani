@@ -148,7 +148,7 @@ public class Board {
      * @return the player resources with the following layout: COIN|STONE|SHIELD|SERVANT
      */
     public int[] personalResQtyToArray() {
-        int[] resPlayer = new int[4];
+        int[] resPlayer = {0,0,0,0};
 
         for (int i = 0; i < warehouse.getStructure().size(); i++) {
             if (!warehouse.getStructure().get(i).equals(Resource.ANY)) {
@@ -156,7 +156,7 @@ public class Board {
             }
         }
         for (int i = 0; i < strongbox.getResources().size(); i++) {
-                resPlayer[warehouse.getStructure().get(i).ordinal()] += strongbox.getResources().get(i).getQty();
+                resPlayer[strongbox.getResources().get(i).getResource().ordinal()] += strongbox.getResources().get(i).getQty();
         }
         return resPlayer;
     }

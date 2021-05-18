@@ -33,7 +33,7 @@ public class DevCardHandler{
         discount(4);
         discount(5);
         checkPlace = placeable();
-        System.out.println("check size: "+checkPlace.size()+"affordable: "+affordable());
+
         if (affordable() && checkPlace.size() > 0) {
             board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo
             board.getStrongbox().decreaseResource(costArray);
@@ -63,6 +63,7 @@ public class DevCardHandler{
             //update
             controller.updateBuilder();
         }
+        controller.getCurrentGame().getTurn().setTypeOfAction(1);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
         payload.addProperty("endTurn", true);
@@ -74,7 +75,7 @@ public class DevCardHandler{
      */
     public boolean affordable(){
         for (int i=0; i<4; i++) {
-            if (board.personalResQtyToArray()[i] >= devCard.resQtyToArray()[i])
+            if (board.personalResQtyToArray()[i] < devCard.resQtyToArray()[i])
                 return false;
         }
     return true;

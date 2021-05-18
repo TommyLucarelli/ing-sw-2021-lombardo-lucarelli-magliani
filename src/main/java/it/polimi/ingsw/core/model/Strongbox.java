@@ -18,6 +18,10 @@ public class Strongbox
      */
     public Strongbox(){
         resources = new ArrayList<ResourceQty>();
+        resources.add(new ResourceQty(Resource.COIN, 10));
+        resources.add(new ResourceQty(Resource.STONE, 10));
+        resources.add(new ResourceQty(Resource.SHIELD, 10));
+        resources.add(new ResourceQty(Resource.SERVANT, 10));
     }
 
     /**
@@ -98,7 +102,7 @@ public class Strongbox
     }
 
     public JsonObject toCompactStrongBox(){
-        int[] arr = new int[4];
+        int[] arr = {0,0,0,0};
 
         for (int i = 0; i < resources.size(); i++) {
             arr[resources.get(i).getResource().ordinal()] = resources.get(i).getQty();

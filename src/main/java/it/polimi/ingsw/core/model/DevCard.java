@@ -80,7 +80,7 @@ public class DevCard extends Card {
      * @return the resources cost of the card with the following layout: COIN|STONE|SHIELD|SERVANT
      */
     public int[] resQtyToArray() {
-        int[] resDevCard = new int[4];
+        int[] resDevCard = {0,0,0,0};
         for (int i = 0; i < cost.size(); i++) {
             resDevCard[cost.get(i).getResource().ordinal()] += cost.get(i).getQty();
         }

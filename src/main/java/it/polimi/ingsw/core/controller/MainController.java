@@ -211,7 +211,6 @@ public class MainController{
         payload.addProperty("discardedLeaderCards", json);
         currentGame.getTurn().resetDiscarded();
 
-        payload.addProperty("action", true);
 
         if(x == 0){
             payload.addProperty("action", true);
