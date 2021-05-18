@@ -705,21 +705,18 @@ public class Cli implements UserInterface {
         collectionType = new TypeToken<int[]>(){}.getType();
         player.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
 
-        if( requestMsg.getPayload().get("action").getAsBoolean()){
-            payload = requestMsg.getPayload().get("market").getAsJsonObject();
-            json = payload.get("structure").getAsString();
-            collectionType = new TypeToken<int[]>(){}.getType();
-            int[] structure = gson.fromJson(json, collectionType);
-            compactMarket.setMarket(structure);
-        }
 
-        if(!requestMsg.getPayload().get("action").getAsBoolean()){
-            payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
-            json = payload.get("structure").getAsString();
-            collectionType = new TypeToken<int[][]>(){}.getType();
-            int[][] structure2 = gson.fromJson(json, collectionType);
-            compactDevCardStructure.setDevCardStructure(structure2);
-        }
+        payload = requestMsg.getPayload().get("market").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+
+        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
 
         payload = requestMsg.getPayload().get("player").getAsJsonObject();
 

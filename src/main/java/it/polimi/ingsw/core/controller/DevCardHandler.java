@@ -57,13 +57,13 @@ public class DevCardHandler{
         int index = ms.getPayload().get("index").getAsInt();
         board.getDevCardSlot(index).addCard(devCard);
         devCard = null;
+        controller.getCurrentGame().getTurn().setTypeOfAction(1);
         //controllo 7 carte ed eventualmente messaggio UPDATE -> fine turno
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
             controller.getCurrentGame().getTurn().setLastTurn(true);
             //update
             controller.updateBuilder();
         }
-        controller.getCurrentGame().getTurn().setTypeOfAction(1);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
         payload.addProperty("endTurn", true);

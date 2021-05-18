@@ -211,15 +211,10 @@ public class MainController{
         payload.addProperty("discardedLeaderCards", json);
         currentGame.getTurn().resetDiscarded();
 
+        payload.addProperty("action", true);
 
-        if(x == 0){
-            payload.addProperty("action", true);
-            payload.add("market", currentGame.getMarket().toCompactMarket());
-        }if(x == 1)
-        {
-            payload.addProperty("action", false);
-            payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
-        }
+        payload.add("market", currentGame.getMarket().toCompactMarket());
+        payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
 
         payload.add("player", oldPlayer.toCompactPlayer());
 
