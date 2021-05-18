@@ -222,8 +222,13 @@ public class MainController{
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
         }
 
-
         payload.add("player", oldPlayer.toCompactPlayer());
+
+        JsonArray playersArray = new JsonArray();
+        for (int i=0; i<players.size();i++) {
+            playersArray.add(currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactFaith2());
+        }
+        payload.add("faithTracks", playersArray);
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }

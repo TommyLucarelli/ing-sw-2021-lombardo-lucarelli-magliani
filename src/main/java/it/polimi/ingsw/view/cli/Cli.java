@@ -5,10 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.core.model.LeaderCard;
-import it.polimi.ingsw.core.model.Recipe;
-import it.polimi.ingsw.core.model.Resource;
-import it.polimi.ingsw.core.model.ResourceQty;
+import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
@@ -336,17 +333,12 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handleLeaderActivation(RequestMsg requestMsg){
-        //solo se parte iniziale del turno if()
-        //System.out.println("\nPERSONAL BOARD: ");
-        //TODO: stampa tutta la board
-        //fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
-        //leader card
-        //fancyPrinter.printFaithTrack(mySelf.getCompactBoard());
-        System.out.println("\nindex "+mySelf.getCompactBoard().getFaithTrackIndex());
+
+        if(!requestMsg.getPayload().get("endTurn").getAsBoolean())
+            fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
-
 
         System.out.println("\nDo you want to activate or discard a Leader Card? [yes/no]");
         String answer = InputHandler.getString("(yes|no)");
@@ -731,12 +723,6 @@ public class Cli implements UserInterface {
 
         payload = requestMsg.getPayload().get("player").getAsJsonObject();
 
-        payload2 = payload.get("faithTrack").getAsJsonObject();
-        player.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
-        json = payload2.get("favCards").getAsString();
-        collectionType = new TypeToken<boolean[]>(){}.getType();
-        boolean[] fav = gson.fromJson(json, collectionType);
-        player.getCompactBoard().setFavCards(fav);
 
         payload2 = payload.get("warehouse").getAsJsonObject();
         json = payload2.get("structure").getAsString();
@@ -753,6 +739,21 @@ public class Cli implements UserInterface {
         json = payload2.get("structure").getAsString();
         collectionType = new TypeToken<int[][]>(){}.getType();
         player.getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
+
+        JsonArray players = requestMsg.getPayload().get("faithTracks").getAsJsonArray();
+        CompactPlayer p2;
+        for (JsonElement p: players) {
+            if(mySelf.getPlayerID() == p.getAsJsonObject().get("playerID").getAsInt())
+                p2 = mySelf;
+            else
+                p2 = opponents.get(p.getAsJsonObject().get("playerID").getAsInt());
+            payload2 = p.getAsJsonObject().get("faithTrack").getAsJsonObject();
+            p2.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+            json = payload2.get("favCards").getAsString();
+            collectionType = new TypeToken<boolean[]>() {}.getType();
+            boolean[] fav = gson.fromJson(json, collectionType);
+            p2.getCompactBoard().setFavCards(fav);
+        }
 
         if(player.getPlayerID() != mySelf.getPlayerID())
             System.out.println(message);
