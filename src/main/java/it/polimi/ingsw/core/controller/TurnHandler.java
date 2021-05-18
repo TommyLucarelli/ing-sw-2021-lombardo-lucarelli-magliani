@@ -76,6 +76,7 @@ public class TurnHandler {
             controller.notifyPlayer(controller.fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
         } else{
             payload.addProperty("gameAction", "LEADER_ACTIVATION");
+            payload.addProperty("endTurn", false);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
 

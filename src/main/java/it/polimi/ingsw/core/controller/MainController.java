@@ -129,13 +129,9 @@ public class MainController{
     }
 
     private void startGame(){
-        HashMap<Integer,String> playerInfo = new HashMap<Integer, String>();
         Collections.shuffle(players); //ma lo fa sto shuffle
-        for(PlayerHandler player: players) {
-            playerInfo.put(player.getPlayerId(), player.getUsername());
-        }
         try {
-            currentGame = new Game(this.id, playerInfo);
+            currentGame = new Game(this.id, players);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -226,8 +222,13 @@ public class MainController{
             payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
         }
 
-
         payload.add("player", oldPlayer.toCompactPlayer());
+
+        JsonArray playersArray = new JsonArray();
+        for (int i=0; i<players.size();i++) {
+            playersArray.add(currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactFaith2());
+        }
+        payload.add("faithTracks", playersArray);
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }

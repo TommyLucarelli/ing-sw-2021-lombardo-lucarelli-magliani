@@ -86,6 +86,7 @@ public class ProductionHandler {
             //costruzione messaggio ShortUpdate / LeaderActivation
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "LEADER_ACTIVATION");
+            payload.addProperty("endTurn", true);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{
            //costruzione messaggio choose_production e invio

@@ -5,10 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.core.model.LeaderCard;
-import it.polimi.ingsw.core.model.Recipe;
-import it.polimi.ingsw.core.model.Resource;
-import it.polimi.ingsw.core.model.ResourceQty;
+import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
@@ -225,7 +222,7 @@ public class Cli implements UserInterface {
             if(y!=0)
                 System.out.println("and "+y+" faith points");
 
-            System.out.println("\nChoose "+x+" resources:");
+            System.out.println("\nChoose a resource:");
             System.out.println("1. COIN");
             System.out.println("2. STONE");
             System.out.println("3. SHIELD");
@@ -235,6 +232,7 @@ public class Cli implements UserInterface {
             n = InputHandler.getInt(1,4);
             a = Resource.values()[n-1];
             if(x == 2){
+                System.out.println("\nChoose another resource:");
                 n = InputHandler.getInt(1,4);
                 b = Resource.values()[n-1];
                 if(a.equals(b)){
@@ -335,6 +333,10 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handleLeaderActivation(RequestMsg requestMsg){
+
+        if(!requestMsg.getPayload().get("endTurn").getAsBoolean())
+            fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
 
@@ -354,34 +356,47 @@ public class Cli implements UserInterface {
      */
     private void handleLeaderAction(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
-        int x;
+        int x, cont = 0;
+        boolean flag;
         System.out.println("\nChoose a Leader Card to activate or discard: ");
-        System.out.println("\n1.");
-        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[0]);
-        System.out.println("\n2.");
-        fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[1]);
-        System.out.println("\n3. to move on to the main action of the turn");
-        x = InputHandler.getInt(1,3);
-        if(x == 1){
-            payload.addProperty("gameAction", "LEADER_ACTION");
-            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-        }else if(x == 2){
-            payload.addProperty("gameAction", "LEADER_ACTION");
-            payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
-        }else if(x == 3)
-            payload.addProperty("gameAction", "COME_BACK");
-
-        if(x == 1 || x == 2){
-            System.out.println("\nWhich action do you want to perform:");
-            System.out.println("1. Activate");
-            System.out.println("2. Discard");
-            x = InputHandler.getInt(1,2);
-            if(x == 1)
-                payload.addProperty("action", true);
-            else if(x == 2)
-                payload.addProperty("action", false);
+        for (int i = 0; i < 2; i++) {
+            flag = false;
+            for (int j = 0; j < 8; j++) {
+                if(mySelf.getCompactBoard().getAbilityActivationFlag()[j] == mySelf.getCompactBoard().getLeaderCards()[i])
+                    flag = true;
+            }
+            if(mySelf.getCompactBoard().getLeaderCards()[i] != 0 && flag == false){
+                cont++;
+                System.out.println("\n"+cont+".");
+                fancyPrinter.printLeaderCard(mySelf.getCompactBoard().getLeaderCards()[i]);
+            }
         }
+        if(cont == 0){
+            System.out.println("\nYou had activated or discarded all your leader cards!!");
+            payload.addProperty("gameAction", "COME_BACK");
+        }else {
+            System.out.println("\n" + (cont+1) + ". to move on to the main action of the turn");
+            x = InputHandler.getInt(1, cont+1);
+            if (x == cont - 1) {
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[0]);
+            } else if (x == cont) {
+                payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("cardID", mySelf.getCompactBoard().getLeaderCards()[1]);
+            } else if (x == cont+1)
+                payload.addProperty("gameAction", "COME_BACK");
 
+            if (x == 1 || x == 2) {
+                System.out.println("\nWhich action do you want to perform:");
+                System.out.println("1. Activate");
+                System.out.println("2. Discard");
+                x = InputHandler.getInt(1, 2);
+                if (x == 1)
+                    payload.addProperty("action", true);
+                else if (x == 2)
+                    payload.addProperty("action", false);
+            }
+        }
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
 
@@ -444,7 +459,6 @@ public class Cli implements UserInterface {
         if(!flag)
             System.out.println("None");
 
-        //PROBLEMA: nella struttura compare indice 0 fin dall'inizio, perchè?
         fancyPrinter.printDevCardStructure(compactDevCardStructure);
         System.out.println("\nChoose level:");
         l = InputHandler.getInt(1,3)-1;
@@ -709,12 +723,6 @@ public class Cli implements UserInterface {
 
         payload = requestMsg.getPayload().get("player").getAsJsonObject();
 
-        payload2 = payload.get("faithTrack").getAsJsonObject();
-        player.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
-        json = payload2.get("favCards").getAsString();
-        collectionType = new TypeToken<boolean[]>(){}.getType();
-        boolean[] fav = gson.fromJson(json, collectionType);
-        player.getCompactBoard().setFavCards(fav);
 
         payload2 = payload.get("warehouse").getAsJsonObject();
         json = payload2.get("structure").getAsString();
@@ -732,7 +740,23 @@ public class Cli implements UserInterface {
         collectionType = new TypeToken<int[][]>(){}.getType();
         player.getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
 
-        System.out.println(message);
+        JsonArray players = requestMsg.getPayload().get("faithTracks").getAsJsonArray();
+        CompactPlayer p2;
+        for (JsonElement p: players) {
+            if(mySelf.getPlayerID() == p.getAsJsonObject().get("playerID").getAsInt())
+                p2 = mySelf;
+            else
+                p2 = opponents.get(p.getAsJsonObject().get("playerID").getAsInt());
+            payload2 = p.getAsJsonObject().get("faithTrack").getAsJsonObject();
+            p2.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+            json = payload2.get("favCards").getAsString();
+            collectionType = new TypeToken<boolean[]>() {}.getType();
+            boolean[] fav = gson.fromJson(json, collectionType);
+            p2.getCompactBoard().setFavCards(fav);
+        }
+
+        if(player.getPlayerID() != mySelf.getPlayerID())
+            System.out.println(message);
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "UPDATE");

@@ -7,11 +7,13 @@ import java.util.Arrays;
 public class CompactBoard {
     private int[] strongbox; //impostato come abbiamo fatto nel controller
     private Resource[] warehouse;
+
     private int[][] devCardSlots; //disposizione??
+    private int[] abilityActivationFlag;
+
     private int[] leaderCards; //per capire quali mostrare, controllare se sono state attivate [deglio elementi possono essere 0]
     private int faithTrackIndex;
     private boolean[] favCards;
-    private int[] abilityActivationFlag;
 
     public CompactBoard(){
         setStrongbox(new int[4]);

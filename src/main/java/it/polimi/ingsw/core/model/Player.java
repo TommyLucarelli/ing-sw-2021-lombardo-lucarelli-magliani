@@ -53,7 +53,6 @@ public class Player {
 
     public JsonObject toCompactPlayer(){
         JsonObject payload = new JsonObject();
-        payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         payload.add("devCardSlots", board.toCompactDevCardSlots());
         payload.add("warehouse", board.getWarehouse().toCompactWarehouse());
         payload.add("strongbox", board.getStrongbox().toCompactStrongBox());
@@ -72,6 +71,13 @@ public class Player {
         payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         payload.add("warehouse", board.getWarehouse().toCompactWarehouse());
 
+        return payload;
+    }
+
+    public JsonObject toCompactFaith2(){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("playerID", playerID);
+        payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         return payload;
     }
 }

@@ -70,6 +70,7 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTIVATION,
+    "endTurn": Boolean,
 }
 ```
 
@@ -244,11 +245,6 @@ payload: {
         "structure": int[3][4], //matrix representing the top layer of the devCard structure just with the id of the cards
      },
     "player": {
-        "faithTrack":{
-            "index": 12,
-            "favCards": boolean[3], //favourCards activation
-        },
-
         "devCardSlots":{
             "structure": int[3][3],
         },
@@ -258,7 +254,31 @@ payload: {
         "strongbox":{
             "structure": int[4],
         },
-}
+    }
+    "faithTracks": [
+         {  
+            "playerID": int,
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
+        },
+        {  
+            "playerID": int,
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
+        },
+        {  
+            "playerID": int,
+            "faithTrack":{
+                "index": 12,
+                "favCards": boolean[3], //favourCards activation
+                },
+        },
+
+    ]
     
 }
 ```
