@@ -14,7 +14,8 @@ public class Gui extends Application {
         loader.setLocation(getClass().getResource("/fxml/sample.fxml"));
         Parent root = loader.load();
         stage.setTitle("Masters of Renaissance");
-        stage.setScene(new Scene(root, 400, 300));
+        stage.setScene(new Scene(root, 600, 400));
+        stage.getScene().getStylesheets().add(getClass().getResource("/css/sample.css").toExternalForm());
         stage.show();
     }
 
