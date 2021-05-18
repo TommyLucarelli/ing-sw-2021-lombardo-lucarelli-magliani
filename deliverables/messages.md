@@ -70,6 +70,7 @@ Server --> Client
 messageType: MessageType.GAME_MESSAGE
 payload: {
     "gameAction": LEADER_ACTIVATION,
+    "endTurn": Boolean,
 }
 ```
 
