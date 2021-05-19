@@ -549,18 +549,17 @@ public class FancyPrinter {
                 string9.append(" ─► 1 ").append(Color.WHITE_BOLD.color()).append("? ").append(Color.RESET).append(1).append(Color.RED_BOLD.color()).append(" †").append(Color.RESET).append("  │");
                 string10.append("\t└───────────────────┘");
             }
-            stringLeaderCard.add(string1);
-            stringLeaderCard.add(string2);
-            stringLeaderCard.add(string3);
-            stringLeaderCard.add(string4);
-            stringLeaderCard.add(string5);
-            stringLeaderCard.add(string6);
-            stringLeaderCard.add(string7);
-            stringLeaderCard.add(string8);
-            stringLeaderCard.add(string9);
-            stringLeaderCard.add(string10);
         }
-
+        stringLeaderCard.add(string1);
+        stringLeaderCard.add(string2);
+        stringLeaderCard.add(string3);
+        stringLeaderCard.add(string4);
+        stringLeaderCard.add(string5);
+        stringLeaderCard.add(string6);
+        stringLeaderCard.add(string7);
+        stringLeaderCard.add(string8);
+        stringLeaderCard.add(string9);
+        stringLeaderCard.add(string10);
         return stringLeaderCard;
     }
 
