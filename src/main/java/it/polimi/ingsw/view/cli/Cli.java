@@ -507,7 +507,7 @@ public class Cli implements UserInterface {
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(),false);
         System.out.println("\nThe available slots are:");
         for (Integer freeSpot : freeSpots)
-            System.out.println(freeSpot);
+            System.out.println(freeSpot + 1);
         do {
             flag = true;
             System.out.println("\nChoose one of them: ");

@@ -73,7 +73,7 @@ public class FancyPrinterTest {
         CompactBoard board = new CompactBoard();
         Resource[] resources = {Resource.COIN,Resource.ANY, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.ANY, Resource.STONE, Resource.ANY};
         board.setWarehouse(resources);
-        int[] abilityActivationFlag = {0, 0, 0, 0, 0, 0, 0, 0};
+        int[] abilityActivationFlag = {53, 54, 0, 0, 0, 0, 0, 0};
         board.setAbilityActivationFlag(abilityActivationFlag);
         fancyPrinter.printWarehouseV2(board);
     }

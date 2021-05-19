@@ -818,7 +818,11 @@ public class FancyPrinter {
      * @param board the player's board.
      */
     public void printWarehouseV2(CompactBoard board){
-        for (int i = 0; i < 16; i++) {
+        int rows = 10;
+        if(board.getAbilityActivationFlag()[0] != 0) rows += 3;
+        if(board.getAbilityActivationFlag()[1] != 0) rows += 3;
+
+        for (int i = 0; i < rows; i++) {
             stream.print(warehouseV2ToArrayList(board).get(i).append("\n"));
         }
     }
