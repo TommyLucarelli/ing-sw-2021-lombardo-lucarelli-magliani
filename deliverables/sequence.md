@@ -34,6 +34,12 @@ _Note: more messages could be added in the future._
 
 The following diagrams aim to describe each Client-Server interaction.
 
+### - Game creation
+![gamecreation.png](images/sequence/gamecreation.png)
+
+### - Join game
+![joingame.png](images/sequence/joingame.png)
+
 ### - Game preparation
 ![startgame.png](images/sequence/startgame.png)
 
