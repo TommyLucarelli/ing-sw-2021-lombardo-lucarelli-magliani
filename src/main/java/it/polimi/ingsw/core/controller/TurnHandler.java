@@ -15,7 +15,7 @@ public class TurnHandler {
     }
 
     public void mainChoice(ResponseMsg ms) {
-        controller.getCurrentGame().getTurn().setEndGame(true);
+
         String actionChoice = ms.getPayload().get("actionChoice").getAsString();
         if (actionChoice.equals("market")) {
             controller.getCurrentGame().getTurn().setTypeOfAction(0);

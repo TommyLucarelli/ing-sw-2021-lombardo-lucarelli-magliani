@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -37,18 +38,16 @@ public class Market {
         initialStructure.add(Marble.PURPLE);
         initialStructure.add(Marble.RED);
 
+        Collections.shuffle(initialStructure);
+
         structure = new Marble[3][4];
 
-        int pos, count = 12;
-        Random r = new Random();
 
         for(int i=0; i<3; i++){
             for(int j=0; j<4; j++){
-                pos = r.nextInt(count);
-                Marble x = initialStructure.get(pos);
-                initialStructure.remove(pos);
-                structure[i][j] = x;
-                count--;
+                int l = initialStructure.size()-1;
+                structure[i][j] = initialStructure.get(l);
+                initialStructure.remove(l);
             }
         }
         reserveMarble = initialStructure.get(0);

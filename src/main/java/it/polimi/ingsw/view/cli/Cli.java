@@ -480,11 +480,17 @@ public class Cli implements UserInterface {
                 break;
         }
 
-        //+ comeback option
+        System.out.println("1. confirm purchase");
+        System.out.println("2. comeback to main choice");
+        int m = InputHandler.getInt(1,2);
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "CHOOSE_DEVCARD");
-        payload.addProperty("line", l);
-        payload.addProperty("column", c);
+        if(m==1) {
+            payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+            payload.addProperty("line", l);
+            payload.addProperty("column", c);
+        }else{
+            payload.addProperty("gameAction", "COME_BACK");
+        }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
@@ -508,21 +514,11 @@ public class Cli implements UserInterface {
         System.out.println("\nThe available slots are:");
         for (Integer freeSpot : freeSpots)
             System.out.println(freeSpot + 1);
-        do {
-            flag = true;
-            System.out.println("\nChoose one of them: ");
-            x = InputHandler.getInt();
-            for (Integer freeSpot : freeSpots){
-                if (freeSpot == x) {
-                    flag = false;
-                    break;
-                }
-            }
-        } while (flag);
-
+        System.out.println("\nChoose one of them: ");
+        x = InputHandler.getInt(1,3);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
-        payload.addProperty("index", x);
+        payload.addProperty("index", x-1);
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
     }
@@ -561,13 +557,13 @@ public class Cli implements UserInterface {
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
             available.add(5);
-            r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
+            r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[6]).getSpecialAbility().getAbilityResource();
             System.out.println("5. Special Production with "+r1.toString());
             x = 1;
         }
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[7] != 0){
             available.add(6);
-            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
+            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[7]).getSpecialAbility().getAbilityResource();
             System.out.println("6. Special Production with "+r2.toString());
             x = 2;
         }

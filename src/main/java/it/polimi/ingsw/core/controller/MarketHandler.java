@@ -45,22 +45,22 @@ public class MarketHandler {
             resources = controller.getCurrentGame().getMarket().updateLineAndGetResources(number);
 
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 && controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
+            flag = true;
             Gson gson = new Gson();
             String json = ms.getPayload().get("resource").getAsString();
             r = gson.fromJson(json, Resource.class);
-        } else if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0)
+        } else if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0){
+            flag = true;
             r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
-        else if(controller.getCurrentPlayer().getBoard().isActivated(3) != 0)
-            r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
+        }
 
         if(flag) {
             for (int i = 0; i < resources.size(); i++) {
                 if (resources.get(i) == Resource.ANY)
                     resources.set(i, r);
             }
-        }
-
-        resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
+        }else
+            resources = resources.stream().filter(resource -> resource != Resource.ANY).collect(Collectors.toCollection(ArrayList::new));
 
         for(int i=0; i < resources.size(); i++){
             if(resources.get(i) == Resource.FAITH){
@@ -89,11 +89,13 @@ public class MarketHandler {
             controller.getCurrentPlayer().getBoard().getWarehouse().updateConfiguration(placed);
             //aggiornamento punti fede
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
+            faithP1 = 0;
             //prep messaggio ShortUpdate / leader activation
             controller.getCurrentGame().getTurn().setTypeOfAction(0);
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "LEADER_ACTIVATION");
             payload.addProperty("endTurn", true);
+            controller.getCurrentGame().getTurn().setEndGame(true);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{
             JsonObject payload = new JsonObject();

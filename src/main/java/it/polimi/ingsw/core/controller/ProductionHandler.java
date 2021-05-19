@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.Board;
 import it.polimi.ingsw.core.model.Recipe;
+import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.core.model.ResourceQty;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
@@ -27,7 +28,7 @@ public class ProductionHandler {
         boolean check = true;
         ArrayList<ResourceQty> inputResources = new ArrayList<>();
         ArrayList<ResourceQty> specialResources = new ArrayList<>();
-        ArrayList<ResourceQty> outputResources= new ArrayList<>();
+        ArrayList<ResourceQty> outputResources = new ArrayList<>();
 
         board = controller.getCurrentPlayer().getBoard();
         int[] personalResources = board.personalResQtyToArray();
@@ -52,16 +53,25 @@ public class ProductionHandler {
                 //recipe devcard
                 inputResources = board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getInputResources();
                 personalResources = reduceResource(inputResources, personalResources);
-                outputResources.addAll(board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getOutputResources());
+                ArrayList<ResourceQty> useful = board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getOutputResources();
+                for (int j = 0; j < useful.size(); j++) {
+                    if(useful.get(j).getResource().equals(Resource.FAITH)){
+                        controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
+                        useful.remove(j);
+                        j--;
+                    }
+                }
+                outputResources.addAll(useful);
             }else{
                 //se sono attivate vedi input res
-                if(board.isActivated(i+1) != 0){
-                    ResourceQty rq;
-                    String json2 = ms.getPayload().get("specialProduction"+(i-5)).getAsString(); //special ability 1 o 2
-                    rq = gson.fromJson(json2, ResourceQty.class);
-                    specialResources.add(new ResourceQty(board.getLeader(board.isActivated(i+1)).getSpecialAbility().getAbilityResource(),1));
+                if(board.isActivated(productions.get(i)+1) != 0){
+                    Resource rq;
+                    String json2 = ms.getPayload().get("specialProduction"+(productions.get(i)-4)).getAsString(); //special ability 1 o 2
+                    rq = gson.fromJson(json2, Resource.class);
+                    specialResources.add(new ResourceQty(board.getLeader(board.isActivated(productions.get(i)+1)).getSpecialAbility().getAbilityResource(),1));
                     personalResources = reduceResource(specialResources, personalResources);
-                    outputResources.add(rq);
+                    outputResources.addAll(specialResources);
+                    controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
                 }else{
                     check = false;
                     break;
@@ -85,6 +95,7 @@ public class ProductionHandler {
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "LEADER_ACTIVATION");
             payload.addProperty("endTurn", true);
+            controller.getCurrentGame().getTurn().setEndGame(true);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{
            //costruzione messaggio choose_production e invio

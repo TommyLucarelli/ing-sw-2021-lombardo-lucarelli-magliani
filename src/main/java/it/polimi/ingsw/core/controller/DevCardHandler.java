@@ -30,9 +30,16 @@ public class DevCardHandler{
         int j = ms.getPayload().get("column").getAsInt();
         devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i,j);
         costArray = devCard.resQtyToArray();
+        for (int k = 0; k < 4; k++) {
+            System.out.println(costArray[i]);
+        }
         discount(4);
         discount(5);
         checkPlace = placeable();
+        for (int k = 0; k < 4; k++) {
+            System.out.println(costArray[i]);
+        }
+
 
         if (affordable() && checkPlace.size() > 0) {
             board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo
@@ -67,6 +74,7 @@ public class DevCardHandler{
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
         payload.addProperty("endTurn", true);
+        controller.getCurrentGame().getTurn().setEndGame(true);
         controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
