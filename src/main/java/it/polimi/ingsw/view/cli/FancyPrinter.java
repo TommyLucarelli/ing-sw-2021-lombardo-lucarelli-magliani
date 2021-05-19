@@ -393,7 +393,6 @@ public class FancyPrinter {
      */
     public void printDevCardStructure(CompactDevCardStructure devCardStructure) {
         StringBuilder strDevCardStructure = new StringBuilder();
-        int count =3;
         strDevCardStructure.append("\t\t\t\t\tGreen\t\t\t\t\t\tBlue\t\t\t\t\tYellow\t\t\t\t\t\tPurple");
 
         for (int k = 0; k < 3; k++) {
@@ -401,13 +400,12 @@ public class FancyPrinter {
                 if (i != 4) {
                     strDevCardStructure.append("\n\t\t");
                 } else {
-                    strDevCardStructure.append("\n\tLevel ").append(count);
+                    strDevCardStructure.append("\n\tLevel ").append(k+1);
                 }
                 for (int j = 0; j < 4; j++) {
                     strDevCardStructure.append(devCardToArrayList(devCardStructure.getDevCardStructure()[k][j]).get(i)).append("\t");
                 }
             }
-            count--;
             strDevCardStructure.append("\n");
         }
         stream.print(strDevCardStructure);
