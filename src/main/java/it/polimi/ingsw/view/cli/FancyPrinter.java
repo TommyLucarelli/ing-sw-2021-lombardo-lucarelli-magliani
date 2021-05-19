@@ -593,9 +593,11 @@ public class FancyPrinter {
 
         for (int i = 0; i < board.getLeaderCards().length; i++) {
             flag = false;
-            for (int k = 0; k < 8; k++) {
-                if(board.getAbilityActivationFlag()[k] == board.getLeaderCards()[i])
-                    flag = true;
+            if(board.getLeaderCards()[i]!=0) {
+                for (int k = 0; k < 8; k++) {
+                    if (board.getAbilityActivationFlag()[k] == board.getLeaderCards()[i])
+                        flag = true;
+                }
             }
             if(flag)
                 string.get(10).append("\t\tActivated\t");
