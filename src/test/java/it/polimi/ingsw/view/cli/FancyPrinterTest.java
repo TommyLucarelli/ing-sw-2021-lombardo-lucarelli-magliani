@@ -103,12 +103,12 @@ public class FancyPrinterTest {
     public void printPersonalBoard() {
         CompactBoard board = new CompactBoard();
         FancyPrinter fancyPrinter = new FancyPrinter();
-        Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.ANY, Resource.ANY};
+        Resource[] resources = {Resource.COIN,Resource.SHIELD, Resource.SHIELD, Resource.STONE, Resource.STONE, Resource.STONE, Resource.SERVANT, Resource.SERVANT, Resource.COIN, Resource.COIN};
         board.setWarehouse(resources);
         int[] strongbox = {20,12,33,17};
         board.setStrongbox(strongbox);
         int[] leaderCards = {52,53};
-        int[] flag = {52,0,0,0,0,0,0,0};
+        int[] flag = {0,0, 0 ,0,0,0,0,0};
         board.setLeaderCards(leaderCards);
         board.setAbilityActivationFlag(flag);
         int[][] slots = new int[3][3];

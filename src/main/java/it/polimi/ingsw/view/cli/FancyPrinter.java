@@ -674,6 +674,7 @@ public class FancyPrinter {
         symbolForWarehouse(string9, board.getWarehouse()[5], 6);
         string9.append("  |");
         string10.append("    └───────────────┘");
+
         if(board.getAbilityActivationFlag()[0] != 0){
             string11.append("      ┌───────────┐");
             string12.append("      |  ");
@@ -697,7 +698,9 @@ public class FancyPrinter {
             }
             string12.append(" ONLY").append(Color.RESET);
             string13.append("      └───────────┘");
+
             if(board.getAbilityActivationFlag()[1] != 0){
+                //1 caso
                 string14.append("      ┌───────────┐");
                 string15.append("      |  ");
                 symbolForWarehouse(string15, board.getWarehouse()[8], 9);
@@ -736,31 +739,18 @@ public class FancyPrinter {
                 }
                 string15.append(" ONLY");
                 string16.append(Color.RESET).append("      └───────────┘");
+            }else{
+                string14.append("\t\t\t\t");
+                string15.append("\t\t\t\t");
+                string16.append("\t\t\t\t");
             }
-
-        } else if(board.getAbilityActivationFlag()[1] != 0) {
-            string11.append("      ┌───────────┐");
-            string12.append("      |  ");
-            symbolForWarehouse(string12, board.getWarehouse()[6], 7);
-            string12.append("     ");
-            symbolForWarehouse(string12, board.getWarehouse()[7], 8);
-            string12.append(" | ");
-            switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
-                case STONE:
-                    string12.append(Color.WHITE_BOLD.color()).append("⌂");
-                    break;
-                case SERVANT:
-                    string12.append(Color.PURPLE_BOLD.color()).append("■");
-                    break;
-                case COIN:
-                    string12.append(Color.YELLOW_BOLD.color()).append("$");
-                    break;
-                case SHIELD:
-                    string12.append(Color.BLUE_BOLD.color()).append("◊");
-                    break;
-            }
-            string12.append(" ONLY").append(Color.RESET);
-            string13.append("      └───────────┘");
+        } else {
+            string11.append("\t\t\t\t");
+            string12.append("\t\t\t\t\t\t");
+            string13.append("\t\t\t\t");
+            string14.append("\t\t\t\t");
+            string15.append("\t\t\t\t");
+            string16.append("\t\t\t\t");
         }
 
         ArrayList<StringBuilder> string = new ArrayList<>();
@@ -1000,7 +990,7 @@ public class FancyPrinter {
                 stream.print(warehouseV2ToArrayList(board).get(i));
             }
             if(i == 15){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t\t\t\t\t\t\t\t").append(leaderCardSlotToArray(board).get(i-15)));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t\t\t\t").append(leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 16){
                 stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
@@ -1011,9 +1001,11 @@ public class FancyPrinter {
             if(i>17 && i<24){
                 stream.print(strongboxToArrayList(board).get(i-17).append("\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15)));
             }
-            if(i>=24){
+            if(i == 24){
                 stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
             }
+            if(i == 25)
+                stream.print("\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
             stream.print("\n");
         }
     }
