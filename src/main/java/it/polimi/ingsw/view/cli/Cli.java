@@ -551,10 +551,8 @@ public class Cli implements UserInterface {
         available.add(1);
 
         for (int i = 0; i < 3; i++) {
-            System.out.println("NUMERO1: "+mySelf.getCompactBoard().getDevCardSlots()[i][0]);
             if(mySelf.getCompactBoard().getDevCardSlots()[i][0] != 0)
             {
-                System.out.println("NUMERO2: "+mySelf.getCompactBoard().getDevCardSlots()[i][0]);
                 available.add(i+2);
             }
 
@@ -562,11 +560,13 @@ public class Cli implements UserInterface {
 
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
+            available.add(5);
             r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println("5. Special Production with "+r1.toString());
             x = 1;
         }
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[7] != 0){
+            available.add(6);
             r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
             System.out.println("6. Special Production with "+r2.toString());
             x = 2;
