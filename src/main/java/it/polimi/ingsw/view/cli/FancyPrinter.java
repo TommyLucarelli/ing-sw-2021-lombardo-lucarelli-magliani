@@ -283,6 +283,11 @@ public class FancyPrinter {
         }
     }
 
+    /**
+     * Save in a StringBuilder string the last part of the DevCardSlot
+     * @param id od the DevCard
+     * @return the string of the base
+     */
     public ArrayList<StringBuilder> printBase(int id) {
         StringBuilder base1 = new StringBuilder();
         StringBuilder base2 = new StringBuilder();
@@ -335,14 +340,12 @@ public class FancyPrinter {
         return base;
     }
 
-
     /**
-     * Prints a development card slot from the player's board.
-     * @param board the player's board.
+     * Save a development card slot from the player's board in a string.
+     * @param board the player's board
+     * @return string of the devCardSlot
      */
     public ArrayList<StringBuilder> devCardSlotToArray(CompactBoard board, boolean production){
-
-
         ArrayList<StringBuilder> string = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             string.add(new StringBuilder());
@@ -374,6 +377,11 @@ public class FancyPrinter {
         return string;
     }
 
+    /**
+     * Prints a development card slot from the player's board.
+     * @param board the player's board.
+     * @param production is a boolean representing the game phase when is called the method
+     */
     public void printDevCardSlot(CompactBoard board, boolean production){
         for (int i = 0; i < 14; i++) {
             stream.print(devCardSlotToArray(board, production).get(i).append("\n"));
@@ -566,6 +574,11 @@ public class FancyPrinter {
         }
     }
 
+    /**
+     * Save a leader card slot from the player's board in a string.
+     * @param board the player's board
+     * @return string of the leaderCardSlot
+     */
     public ArrayList<StringBuilder> leaderCardSlotToArray(CompactBoard board){
 
         ArrayList<StringBuilder> string = new ArrayList<>();
@@ -594,6 +607,10 @@ public class FancyPrinter {
         return string;
     }
 
+    /**
+     * Prints a LeaderCardSlot
+     * @param board the player's board
+     */
     public void printLeaderCardSlot(CompactBoard board){
         for (int i = 0; i < 11; i++) {
             stream.print(leaderCardSlotToArray(board).get(i).append("\n"));
@@ -795,11 +812,16 @@ public class FancyPrinter {
         string.append(Color.RESET);
     }
 
+    /**
+     * Improved version of printWarehouse.
+     * @param board the player's board.
+     */
     public void printWarehouseV2(CompactBoard board){
         for (int i = 0; i < 16; i++) {
             stream.print(warehouseV2ToArrayList(board).get(i).append("\n"));
         }
     }
+
     /**
      * Prints the warehouse and the resources stored in it.
      * @param board the player's board.
@@ -856,13 +878,18 @@ public class FancyPrinter {
         StringBuilder string6 = new StringBuilder();
         StringBuilder string7 = new StringBuilder();
 
-        string1.append(Color.GREEN_BOLD.color()).append("\t\t\tSTRONGBOX");
-        string2.append(Color.RESET).append("\t┌───────────────────────┐");
-        string3.append("\t│\t").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET).append("\t\t\t\t│");
-        string4.append("\t│\t").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("\t\t\t│");
-        string5.append("\t│\t").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("\t\t\t│");
-        string6.append("\t│\t").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("\t\t\t│");
-        string7.append(Color.RESET).append("\t└───────────────────────┘");
+        string1.append(Color.GREEN_BOLD.color()).append("\t\tSTRONGBOX").append(Color.RESET);
+        string2.append(Color.RESET).append("┌───────────────────────┐");
+        string3.append("│\t").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET);
+        if(board.getStrongbox()[0]>9){
+             string3.append("\t\t\t│");
+        } else {
+            string3.append("\t\t\t\t│");
+        }
+        string4.append("│\t").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("\t\t\t│");
+        string5.append("│\t").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("\t\t\t│");
+        string6.append("│\t").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("\t\t\t│");
+        string7.append(Color.RESET).append("└───────────────────────┘");
 
         ArrayList<StringBuilder> string = new ArrayList<>();
         string.add(string1);
@@ -958,25 +985,31 @@ public class FancyPrinter {
         stream.print("\n\n");
         for (int i = 0; i < 26; i++) {
             if (i < 14) {
-                if(i>7&&i<9)
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t").append(devCardSlotToArray(board, false).get(i)));
-                else
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(devCardSlotToArray(board, false).get(i)));
+                if(i==7||i==8||i==9) {
+                    stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t").append(devCardSlotToArray(board, false).get(i)));
+                }
+                else if(i==11){
+                    stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(devCardSlotToArray(board, false).get(i)));
+                } else
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t").append(devCardSlotToArray(board, false).get(i)));
             }
             if(i==14){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t"));
+                stream.print(warehouseV2ToArrayList(board).get(i));
             }
             if(i == 15){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(leaderCardSlotToArray(board).get(i-15)));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t\t\t\t\t\t\t\t").append(leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 16){
-                stream.print("\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
+                stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
             }
-            if(i>16 && i<24){
-                stream.print(strongboxToArrayList(board).get(i-17).append(leaderCardSlotToArray(board).get(i-15)));
+            if(i==17){
+                stream.print(strongboxToArrayList(board).get(i-17).append("\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15)));
+            }
+            if(i>17 && i<24){
+                stream.print(strongboxToArrayList(board).get(i-17).append("\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15)));
             }
             if(i>=24){
-                stream.print(leaderCardSlotToArray(board).get(i-15));
+                stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
             }
             stream.print("\n");
         }
@@ -987,9 +1020,6 @@ public class FancyPrinter {
                 "│  x 3  │\n" +
                 "└───────┘";
         stream.print(string);
-    }
-
-    public void printSoloActionTokens(){
     }
 
 }
