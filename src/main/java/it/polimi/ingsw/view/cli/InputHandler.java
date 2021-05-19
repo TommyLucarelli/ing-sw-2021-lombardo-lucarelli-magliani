@@ -87,6 +87,10 @@ public class InputHandler {
         return input;
     }
 
+    /**
+     * Method used to get an integer.
+     * @return the user's input.
+     */
     public static int getInt(){
         while (!scanner.hasNextInt()) {
             System.out.println("Please enter a number:");
@@ -95,6 +99,11 @@ public class InputHandler {
         return scanner.nextInt();
     }
 
+    /**
+     * Method used to get an integer from an arrayList of options.
+     * @param array the arrayList of options.
+     * @return the user's input.
+     */
     public static int getIntFromArray(ArrayList<Integer> array){
         int input;
         do {
