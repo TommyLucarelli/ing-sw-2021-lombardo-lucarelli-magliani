@@ -43,9 +43,8 @@ public class ProductionHandler {
         for(int i=0; i<productions.size(); i++){
             if(productions.get(i)==1){
                 Recipe recipeBasicProduction;
-                Gson gson2 = new Gson();
                 String json2 = ms.getPayload().get("basicProduction").getAsString();
-                recipeBasicProduction = gson.fromJson(json, Recipe.class);
+                recipeBasicProduction = gson.fromJson(json2, Recipe.class);
                 inputResources = recipeBasicProduction.getInputResources();
                 personalResources = reduceResource(inputResources, personalResources);
                 outputResources.addAll(recipeBasicProduction.getOutputResources());
@@ -58,9 +57,8 @@ public class ProductionHandler {
                 //se sono attivate vedi input res
                 if(board.isActivated(i+1) != 0){
                     ResourceQty rq;
-                    Gson gson2 = new Gson();
                     String json2 = ms.getPayload().get("specialProduction"+(i-5)).getAsString(); //special ability 1 o 2
-                    rq = gson.fromJson(json, ResourceQty.class);
+                    rq = gson.fromJson(json2, ResourceQty.class);
                     specialResources.add(new ResourceQty(board.getLeader(board.isActivated(i+1)).getSpecialAbility().getAbilityResource(),1));
                     personalResources = reduceResource(specialResources, personalResources);
                     outputResources.add(rq);

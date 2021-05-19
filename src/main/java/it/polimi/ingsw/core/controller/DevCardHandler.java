@@ -101,7 +101,7 @@ public class DevCardHandler{
         for (int i = 0; i < 3; i++) {
             if ((board.getDevCardSlot(i).getSlot().size() != 0)) {
                 if (board.getDevCardSlot(i).getTopCard().getFlag().getLevel() < devCard.getFlag().getLevel()
-                        && board.getDevCardSlot(i).getTopCard().getFlag().getLevel() > devCard.getFlag().getLevel() + 2)
+                        && board.getDevCardSlot(i).getTopCard().getFlag().getLevel() + 2 > devCard.getFlag().getLevel())
                     check.add(i);
             }
             else{

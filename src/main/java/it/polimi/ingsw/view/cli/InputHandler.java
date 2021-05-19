@@ -107,7 +107,7 @@ public class InputHandler {
                 System.out.println("Please enter a number from the following array: " + array);
             }
         } while (!array.contains(input));
-        return scanner.nextInt();
+        return input;
     }
 
     /**

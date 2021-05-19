@@ -534,6 +534,8 @@ public class Cli implements UserInterface {
     private void handleChooseProduction(RequestMsg requestMsg){
 
         ArrayList<Integer> productions = new ArrayList<>();
+        ArrayList<Integer> available = new ArrayList<>();
+
         System.out.println("\nPRODUCTION");
         System.out.println("\nThese are your resources");
         fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
@@ -546,6 +548,17 @@ public class Cli implements UserInterface {
 
         System.out.println("1. Basic production");
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(), true);
+        available.add(1);
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println("NUMERO1: "+mySelf.getCompactBoard().getDevCardSlots()[i][0]);
+            if(mySelf.getCompactBoard().getDevCardSlots()[i][0] != 0)
+            {
+                System.out.println("NUMERO2: "+mySelf.getCompactBoard().getDevCardSlots()[i][0]);
+                available.add(i+2);
+            }
+
+        }
 
         Resource r1, r2;
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[6] != 0){
@@ -566,8 +579,14 @@ public class Cli implements UserInterface {
             System.out.println("\nChoose an action: \n1. Add production\n2. Confirm productions\n3. Go back to main choice");
             n = InputHandler.getInt(1, 3);
             if (n == 1) {
-                System.out.println("Choose production: ");
-                productions.add(InputHandler.getInt(1, 4 + x));
+                if(available.size() != 0) {
+                    System.out.println("Choose production: ");
+                    int t = InputHandler.getIntFromArray(available);
+                    productions.add(t);
+                    available.removeIf(a -> a == t);
+                }else{
+                    System.out.println("You have selected all the available productions");
+                }
             } else if (n == 2) {
                 if(productions.size() == 0){
                     payload.addProperty("gameAction", "COME_BACK");
@@ -585,8 +604,8 @@ public class Cli implements UserInterface {
                             else
                                 System.out.println("\nChoose an output resource for the basic production: ");
                             System.out.println("1. COIN");
-                            System.out.println("2. SHIELD");
-                            System.out.println("3. STONE");
+                            System.out.println("2. STONE");
+                            System.out.println("3. SHIELD");
                             System.out.println("4. SERVANT");
                             y = InputHandler.getInt(1, 4);
                             if (i == 0 || i == 1)
@@ -602,8 +621,8 @@ public class Cli implements UserInterface {
                     if (productions.contains(5)) {
                         System.out.println("\nChoose an output resource for the special production: ");
                         System.out.println("1. COIN");
-                        System.out.println("2. SHIELD");
-                        System.out.println("3. STONE");
+                        System.out.println("2. STONE");
+                        System.out.println("3. SHIELD");
                         System.out.println("4. SERVANT");
                         y = InputHandler.getInt(1, 4);
                         r1 = Resource.values()[x - 1];
@@ -614,8 +633,8 @@ public class Cli implements UserInterface {
                     if (productions.contains(6)) {
                         System.out.println("\nChoose an output resource for the special production: ");
                         System.out.println("1. COIN");
-                        System.out.println("2. SHIELD");
-                        System.out.println("3. STONE");
+                        System.out.println("2. STONE");
+                        System.out.println("3. SHIELD");
                         System.out.println("4. SERVANT");
                         y = InputHandler.getInt(1, 4);
                         r2 = Resource.values()[x - 1];
