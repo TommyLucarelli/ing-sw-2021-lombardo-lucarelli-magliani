@@ -34,6 +34,10 @@ _Note: more messages could be added in the future._
 
 The following diagrams aim to describe each Client-Server interaction.
 
+_Note: whenever the player enters a loop, there will always be the possibility of a COMEBACK message to break the loop
+and return to the last choice before entering the loop (e.g. a player chose to buy a development card but has no 
+resources to do so)._
+
 ### - Game creation
 ![gamecreation.png](images/sequence/gamecreation.png)
 
