@@ -10,14 +10,20 @@ public class Turn {
     private int currentPlayer;
     private boolean lastTurn;
     private boolean endGame;
-    private int typeOfAction; //per decidere che tipo di update fare
+    private int typeOfAction; //per decidere che tipo di update fare  3 per single player
     private int[] leaderCardDiscarded;
+    private SoloActionToken soloActionToken; //token pescato
+    private Boolean singlePlayer;
     //TODO: controllo che resetto tutto a fine turno
 
     public Turn(ArrayList<Player> players){
         this.players = players;
         leaderCardDiscarded = new int[2];
         currentPlayer = 0;
+        if(players.size() == 1)
+            singlePlayer = true;
+        else
+            singlePlayer = false;
     }
     public int getCurrentPlayer() {
         return currentPlayer;
