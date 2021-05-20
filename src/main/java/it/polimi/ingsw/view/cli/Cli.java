@@ -59,7 +59,8 @@ public class Cli implements UserInterface {
                     case "START_GAME_COMMAND":
                         handleSimpleRequest(request);
                         break;
-                    case "START_TURN": 
+                    case "START_TURN":
+                        handleNotMyTurn(request);
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
@@ -515,7 +516,7 @@ public class Cli implements UserInterface {
         for (Integer freeSpot : freeSpots)
             System.out.println(freeSpot + 1);
         System.out.println("\nChoose one of them: ");
-        x = InputHandler.getInt(1,3);
+        x = InputHandler.getIntFromArray(freeSpots);
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
         payload.addProperty("index", x-1);
@@ -902,6 +903,14 @@ public class Cli implements UserInterface {
         jsonObject.addProperty("discarded", resourcesToPlace.size());
         jsonObject.addProperty("placed", json);
         return jsonObject;
+    }
+
+    private void handleNotMyTurn(RequestMsg requestMsg){
+        System.out.println("\n"+requestMsg.getPayload().get("message").getAsString()+"\n");
+        for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
+            System.out.println(entry.getValue().getPlayerName()+"'s Board"); //da colorare e mettere in grande
+            fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+        }
     }
 
 

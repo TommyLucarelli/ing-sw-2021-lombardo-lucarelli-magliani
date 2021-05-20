@@ -25,36 +25,41 @@ public class DevCardHandler{
     public void chooseDevCard(ResponseMsg ms) {
         board = controller.getCurrentPlayer().getBoard();
         ArrayList<Integer> checkPlace;
+        Boolean flag = true;
         //arriva il messaggio dal client con la scelta della carta sviluppo come pos (i,j) nel devcardstructure
         int i = ms.getPayload().get("line").getAsInt();
         int j = ms.getPayload().get("column").getAsInt();
-        devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i,j);
-        costArray = devCard.resQtyToArray();
-        for (int k = 0; k < 4; k++) {
-            System.out.println(costArray[k]);
-        }
-        discount(4);
-        discount(5);
-        checkPlace = placeable();
-        for (int k = 0; k < 4; k++) {
-            System.out.println(costArray[k]);
-        }
-
-        if (affordable() && checkPlace.size() > 0) {
-            board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo
-            board.getStrongbox().decreaseResource(costArray);
-            devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i,j);
-            //preparazione invio messaggio placement con payload devCardPlacement
-            Gson gson = new Gson();
-            JsonObject payload = new JsonObject();
-            payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
-            String json = gson.toJson(checkPlace);
-            payload.addProperty("freeSpots", json);
-            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        } else {
+        try {
+            devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i, j);
+        }catch(IndexOutOfBoundsException e){
+            flag = false;
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_DEVCARD");
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        }
+
+        if(flag) {
+            costArray = devCard.resQtyToArray();
+            discount(4);
+            discount(5);
+            checkPlace = placeable();
+
+            if (affordable() && checkPlace.size() > 0) {
+                board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo
+                board.getStrongbox().decreaseResource(costArray);
+                devCard = controller.getCurrentGame().getDevCardStructure().drawCard(i, j);
+                //preparazione invio messaggio placement con payload devCardPlacement
+                Gson gson = new Gson();
+                JsonObject payload = new JsonObject();
+                payload.addProperty("gameAction", "DEVCARD_PLACEMENT");
+                String json = gson.toJson(checkPlace);
+                payload.addProperty("freeSpots", json);
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            } else {
+                JsonObject payload = new JsonObject();
+                payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
         }
     }
 
