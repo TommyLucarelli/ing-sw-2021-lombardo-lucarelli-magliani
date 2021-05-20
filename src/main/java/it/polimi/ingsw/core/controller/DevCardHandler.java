@@ -31,15 +31,14 @@ public class DevCardHandler{
         devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i,j);
         costArray = devCard.resQtyToArray();
         for (int k = 0; k < 4; k++) {
-            System.out.println(costArray[i]);
+            System.out.println(costArray[k]);
         }
         discount(4);
         discount(5);
         checkPlace = placeable();
         for (int k = 0; k < 4; k++) {
-            System.out.println(costArray[i]);
+            System.out.println(costArray[k]);
         }
-
 
         if (affordable() && checkPlace.size() > 0) {
             board.getWarehouse().decResWarehouse(costArray); //questo array viene modificato o ho bisogno di ritornarlo

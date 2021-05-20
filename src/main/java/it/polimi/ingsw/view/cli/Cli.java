@@ -386,7 +386,7 @@ public class Cli implements UserInterface {
             } else if (x == cont+1)
                 payload.addProperty("gameAction", "COME_BACK");
 
-            if (x == 1 || x == 2) {
+            if (x == cont -1 || x == cont) {
                 System.out.println("\nWhich action do you want to perform:");
                 System.out.println("1. Activate");
                 System.out.println("2. Discard");

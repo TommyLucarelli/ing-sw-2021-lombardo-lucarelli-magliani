@@ -70,7 +70,7 @@ public class ProductionHandler {
                     rq = gson.fromJson(json2, Resource.class);
                     specialResources.add(new ResourceQty(board.getLeader(board.isActivated(productions.get(i)+1)).getSpecialAbility().getAbilityResource(),1));
                     personalResources = reduceResource(specialResources, personalResources);
-                    outputResources.addAll(specialResources);
+                    outputResources.add(new ResourceQty(rq, 1));
                     controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
                 }else{
                     check = false;
