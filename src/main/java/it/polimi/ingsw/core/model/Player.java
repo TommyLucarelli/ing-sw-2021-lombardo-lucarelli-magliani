@@ -18,12 +18,15 @@ public class Player {
      * @param playerID unique identifier of the player
      * @param nickname nickname of the player
      */
-    public Player(int playerID, String nickname, Game game)
+    public Player(int playerID, String nickname, Game game, Boolean single)
     {
         this.playerID = playerID;
         this.nickname = nickname;
         this.game = game;
-        board = new Board();
+        if(single)
+            board = new SingleBoard();
+        else
+            board = new Board();
     }
 
     /**

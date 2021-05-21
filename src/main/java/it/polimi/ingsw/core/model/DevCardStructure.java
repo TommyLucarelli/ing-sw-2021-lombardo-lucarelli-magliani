@@ -136,4 +136,22 @@ public class DevCardStructure {
         //capire come serializza la matrice
         return payload;
     }
+
+    public Boolean discardSingle(Colour colour) {
+        int i = 0;
+        Boolean flag;
+        for (int j = 0; j < 2; j++) {
+            do {
+                flag = false;
+                try {
+                    drawCard(i, colour.ordinal());
+                } catch (IndexOutOfBoundsException e) {
+                    i++;
+                    flag = true;
+                }
+            }while(flag && i<3);
+        }
+
+        return i == 3; //se ritorna true vuol dire che è finita una colonna -> ENDGAME
+    }
 }

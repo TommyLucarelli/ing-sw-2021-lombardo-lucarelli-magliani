@@ -15,6 +15,9 @@ public class CompactBoard {
     private int faithTrackIndex;
     private boolean[] favCards;
 
+    private int lorenzoIndex;
+    private boolean[] lorenzoFavCards;
+
     public CompactBoard(){
         setStrongbox(new int[4]);
         setWarehouse(new Resource[10]);
@@ -96,5 +99,21 @@ public class CompactBoard {
                 }
             }
         }
+    }
+
+    public int getLorenzoIndex() {
+        return lorenzoIndex;
+    }
+
+    public boolean[] getLorenzoFavCards() {
+        return lorenzoFavCards;
+    }
+
+    public void setLorenzoIndex(int lorenzoIndex) {
+        this.lorenzoIndex = lorenzoIndex;
+    }
+
+    public void setLorenzoFavCards(boolean[] lorenzoFavCards) {
+        this.lorenzoFavCards = lorenzoFavCards;
     }
 }

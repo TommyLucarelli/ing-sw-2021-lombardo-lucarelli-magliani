@@ -2,6 +2,7 @@ package it.polimi.ingsw.core.model;
 
 import it.polimi.ingsw.core.controller.PlayerHandler;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class Game
     private LeaderCardsDeck leaderCards;
     private int faithTrackMarker;
     private Turn turn;
+    private Boolean singlePlayer;
 
     /**
      * Class constructor.
@@ -28,19 +30,25 @@ public class Game
         this.gameId = id;
         this.players = new ArrayList<Player>();
         this.market = new Market();
+        if(playerHandlers.size() == 1){
+            singlePlayer = true;
+        }else{
+            singlePlayer = false;
+        }
+
         for (int i = 0; i < playerHandlers.size(); i++) {
-            players.add(new Player(playerHandlers.get(i).getPlayerId(), playerHandlers.get(i).getUsername(), this));
+            players.add(new Player(playerHandlers.get(i).getPlayerId(), playerHandlers.get(i).getUsername(), this, singlePlayer));
         }
         this.devCardStructure = new DevCardStructure();
         this.leaderCards = new LeaderCardsDeck();
-        this.turn = new Turn(this.players);
         faithTrackMarker = 0;
+
+        if(singlePlayer)
+            this.turn = new SingleTurn(this.players);
+        else
+            this.turn = new Turn(this.players);
     }
 
-    public static void main( String[] args )
-    {
-
-    }
 
     public int getGameId() {
         return gameId;
@@ -121,4 +129,9 @@ public class Game
         //gestire exception
         return null;
     }
+
+    public Boolean getSinglePlayer() {
+        return singlePlayer;
+    }
+
 }

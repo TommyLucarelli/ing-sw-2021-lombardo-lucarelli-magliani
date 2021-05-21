@@ -6,5 +6,8 @@ package it.polimi.ingsw.core.model;
  */
 public enum Colour {
 
-    GREEN, YELLOW, PURPLE, BLUE;
+    GREEN,
+    BLUE,
+    YELLOW,
+    PURPLE;
 }

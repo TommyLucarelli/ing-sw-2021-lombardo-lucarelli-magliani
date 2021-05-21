@@ -337,6 +337,10 @@ public class Cli implements UserInterface {
 
         if(!requestMsg.getPayload().get("endTurn").getAsBoolean())
             fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
+        if(opponents.size()==0){
+            //stampa faithtrack lorenzo
+        }
+
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTIVATION");
@@ -782,8 +786,17 @@ public class Cli implements UserInterface {
             p2.getCompactBoard().setFavCards(fav);
         }
 
-        if(player.getPlayerID() != mySelf.getPlayerID())
+        if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
             System.out.println(message);
+
+        if(requestMsg.getPayload().has("lorenzoTrack")){
+            JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
+            player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
+            json = payload4.get("favCards").getAsString();
+            collectionType = new TypeToken<boolean[]>() {}.getType();
+            boolean[] fav = gson.fromJson(json, collectionType);
+            player.getCompactBoard().setLorenzoFavCards(fav);
+        }
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "UPDATE");

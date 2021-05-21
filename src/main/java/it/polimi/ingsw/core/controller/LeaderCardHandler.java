@@ -2,9 +2,7 @@ package it.polimi.ingsw.core.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import it.polimi.ingsw.core.model.Flag;
-import it.polimi.ingsw.core.model.LeaderCard;
-import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
@@ -63,6 +61,24 @@ public class LeaderCardHandler{
                 controller.getCurrentGame().getTurn().setEndGame(false);
                 if(controller.getCurrentGame().getTurn().isLastTurn())
                     vp = controller.getCurrentPlayer().getBoard().victoryPoints();
+                //QUA PRENDERE I TOKEN
+                if(controller.getCurrentGame().getSinglePlayer()){
+                    Gson gson = new Gson();
+                    SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
+                    JsonObject payload2 = sat.getAction();
+                    ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
+                    if(payload2.get("type").getAsString().equals("dct")){
+                        Colour c = gson.fromJson(payload2.get("colour").getAsString(), Colour.class);
+                        controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
+                    }else{
+                        if(payload2.get("shuffle").getAsBoolean()){
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                        }else{
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                        }
+                        ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                    }
+                }
                 //update
                 controller.updateBuilder();
             } else {

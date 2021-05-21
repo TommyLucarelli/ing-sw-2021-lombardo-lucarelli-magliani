@@ -8,6 +8,7 @@ import java.util.Collections;
  */
 public class SingleBoard extends Board{
     private ArrayList<SoloActionToken> soloActionTokens;
+    private FaithTrack lorenzoTrack;
     private int counter = 0;
 
     /**
@@ -15,6 +16,7 @@ public class SingleBoard extends Board{
      */
     public SingleBoard(){
         super();
+        lorenzoTrack = new FaithTrack();
         soloActionTokens = new ArrayList<SoloActionToken>();
         soloActionTokens.add(new DevCardToken(Colour.GREEN));
         soloActionTokens.add(new DevCardToken(Colour.BLUE));
@@ -40,7 +42,7 @@ public class SingleBoard extends Board{
     /**
      * method to reset the counter when the player draw a "shuffle" token
      */
-    public void resetCounter(){
+    private void resetCounter(){
         counter = 0;
     }
 
@@ -49,7 +51,11 @@ public class SingleBoard extends Board{
      */
     public void shuffleDeck(){
         Collections.shuffle(soloActionTokens);
+        resetCounter();
     }
-    
 
+
+    public FaithTrack getLorenzoTrack() {
+        return lorenzoTrack;
+    }
 }

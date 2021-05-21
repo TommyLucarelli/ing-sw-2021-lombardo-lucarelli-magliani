@@ -188,13 +188,16 @@ public class MainController{
         payload.addProperty("gameAction", "UPDATE");
         int x = currentGame.getTurn().getTypeOfAction();
 
-        if (x == 0)
-            payload.addProperty("message", currentPlayer.getNickname() + " has taken resources from the Market");
-        else if (x == 1)
-            payload.addProperty("message", currentPlayer.getNickname() + " has bought a Development Card");
-        else
-            payload.addProperty("message", currentPlayer.getNickname() + " has activated the production");
-
+        if(currentGame.getSinglePlayer()){
+            payload.addProperty("message", ((SingleBoard)currentPlayer.getBoard()).getSoloActionToken().getMessage());
+        }else {
+            if (x == 0)
+                payload.addProperty("message", currentPlayer.getNickname() + " has taken resources from the Market");
+            else if (x == 1)
+                payload.addProperty("message", currentPlayer.getNickname() + " has bought a Development Card");
+            else
+                payload.addProperty("message", currentPlayer.getNickname() + " has activated the production");
+        }
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
         System.out.println("finish player "+currentPlayer.getPlayerID());
@@ -224,6 +227,10 @@ public class MainController{
             playersArray.add(currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactFaith2());
         }
         payload.add("faithTracks", playersArray);
+
+        if(currentGame.getSinglePlayer()){
+            payload.add("lorenzoTrack", ((SingleBoard)currentPlayer.getBoard()).getLorenzoTrack().toCompactFaithTrack());
+        }
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
@@ -269,4 +276,5 @@ public class MainController{
         else
             return false;
     }
+
 }

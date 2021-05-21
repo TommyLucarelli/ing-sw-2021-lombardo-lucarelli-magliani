@@ -1,5 +1,7 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.JsonObject;
+
 /**
  * Class representing black flag token
  */
@@ -34,8 +36,19 @@ public class BlackFlagToken implements SoloActionToken{
     }
 
     @Override
-    public String getAction() {
-        String s = "BFT"+spaces+shuffle;
+    public JsonObject getAction() {
+        JsonObject payload = new JsonObject();
+        payload.addProperty("type", "bft");
+        payload.addProperty("shuffle", shuffle);
+        return payload;
+    }
+
+    public String getMessage(){
+        String s;
+        if(shuffle)
+            s = "You revealed a Black Flag Token with 2 faithpoints";
+        else
+            s = "You revealed a Black Flag Token with 1 faithpoint and shuffle";
         return s;
     }
 }

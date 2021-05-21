@@ -2,7 +2,7 @@ package it.polimi.ingsw.core.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import it.polimi.ingsw.core.model.Resource;
+import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
@@ -45,6 +45,25 @@ public class TurnHandler {
         else{
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
+                //QUA PRENDERE I TOKEN
+                if(controller.getCurrentGame().getSinglePlayer()){
+                    Gson gson = new Gson();
+                    SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
+                    JsonObject payload = sat.getAction();
+                    ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
+                    if(payload.get("type").getAsString().equals("dct")){
+                        Colour c = gson.fromJson(payload.get("colour").getAsString(), Colour.class);
+                        controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
+                    }else{
+                        if(payload.get("shuffle").getAsBoolean()){
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                        }else{
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                        }
+                    }
+                }
                 //update
                 controller.updateBuilder();
             } else{
