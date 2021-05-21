@@ -45,7 +45,8 @@ public class MainController{
     }
 
     public PlayerHandler addPlayer(int id, String username, RequestManager manager) throws InvalidResponseException {
-        if(getPlayers().size() == 4) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create/join a new lobby");
+        if(getPlayers().size() == numPlayers) throw new InvalidResponseException("This lobby has already reached max capacity! Try again after a player leaves or create(1)/join(2) a new lobby");
+        if(gameInProgress) throw new InvalidResponseException("This lobby has already a game in progress! Try again later or create(1)/join(2) a new lobby");
         else {
             PlayerHandler player = new PlayerHandler(id, username,this, manager);
             if(getPlayers().size() != 0){

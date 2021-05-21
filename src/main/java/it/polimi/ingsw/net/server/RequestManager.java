@@ -158,14 +158,15 @@ public class RequestManager {
 
     private void handleJoinGame(JsonObject response){
         int id = response.get("input").getAsInt();
+        String msg = "The specified lobby does not exist! Enter \"1\" to create a new lobby or \"2\" to join an existing one.";
         JsonObject payload = new JsonObject();
         for(Lobby lobby: ServerUtils.lobbies){
             if(lobby.getId() == id){
                 try{
                     playerHandler = lobby.addPlayer(client.getId(), client.getName(), this);
                 } catch (InvalidResponseException e){
-                    payload.addProperty("message", e.getErrorMessage());
-                    client.send(new RequestMsg(MessageType.ERROR_MESSAGE, payload));
+                    msg = e.getErrorMessage();
+                    break;
                 }
                 payload.addProperty("message", "You have successfully joined the lobby! Players currently in the lobby: " + lobby.getPlayersInLobby() +
                         " --- The game will be starting soon!");
@@ -174,7 +175,7 @@ public class RequestManager {
                 return;
             }
         }
-        payload.addProperty("message", "The specified lobby does not exist! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+        payload.addProperty("message", msg);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "int");
         expectedResponse.addProperty("min", 1);

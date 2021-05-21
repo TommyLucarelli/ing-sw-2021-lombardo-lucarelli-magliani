@@ -6,6 +6,7 @@ import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 import it.polimi.ingsw.view.cli.Cli;
+import it.polimi.ingsw.view.gui.Gui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,8 +24,7 @@ public class Client implements Runnable{
     private final int portNumber;
     private Socket server;
     private ObjectOutputStream out;
-    private Timer pingTimer;
-    private RequestHandler requestHandler;
+    private final Timer pingTimer;
     private UserInterface ui;
 
     /**
@@ -36,13 +36,18 @@ public class Client implements Runnable{
         this.serverIp = serverIp;
         this.portNumber = portNumber;
         this.pingTimer = new Timer();
-        /*
+
         if(CLI_ON){
-            ui = new Cli(this);
-        } else {
+            try {
+                ui = new Cli(this);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }/* else {
             ui = new Gui(this);
         }
-         */
+        */
+
         try {
             this.ui = new Cli(this);
         }catch(FileNotFoundException e){
@@ -61,26 +66,12 @@ public class Client implements Runnable{
             String[] parts = args[1].split(":");
             client = new Client(parts[0], Integer.parseInt(parts[1]), true);
         } else {
-            System.out.println("Launching with CLI off...");
+            System.out.println("Launching with GUI on...");
             String[] parts = args[0].split(":");
             client = new Client(parts[0], Integer.parseInt(parts[1]), false);
         }
 
         client.run();
-    }
-
-    /**
-     * Prints a help message to the terminal.
-     */
-    public static void printHelpMessage(){
-        System.out.println("To execute the client, add the following arguments: ");
-        System.out.println("-s the IP address of the server");
-        System.out.println("-p the port of the server");
-        System.out.println("Example: java Client -s 127.0.0.1 -p 7777");
-    }
-
-    public void setRequestHandler(RequestHandler requestHandler){
-        this.requestHandler = requestHandler;
     }
 
     protected void handleRequest(RequestMsg requestMsg){
