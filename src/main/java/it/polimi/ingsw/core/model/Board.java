@@ -110,33 +110,7 @@ public class Board {
      * @param id the identifier of the card with the special ability
      */
     public void setAbilityActivationFlag(int i, int id) {
-        switch(i){
-            case 0:
-                if(abilityActivationFlag[i] == 0)
-                    abilityActivationFlag[i] = id;
-                else
-                    abilityActivationFlag[i+1] = id;
-                break;
-            case 1:
-                if(abilityActivationFlag[i+1] == 0)
-                    abilityActivationFlag[i+1] = id;
-                else
-                    abilityActivationFlag[i+2] = id;
-                break;
-            case 2:
-                if(abilityActivationFlag[i+2] == 0)
-                    abilityActivationFlag[i+2] = id;
-                else
-                    abilityActivationFlag[i+3] = id;
-                break;
-            case 3:
-                if(abilityActivationFlag[i+3] == 0)
-                    abilityActivationFlag[i+3] = id;
-                else
-                    abilityActivationFlag[i+4] = id;
-                break;
-        }
-
+        abilityActivationFlag[(abilityActivationFlag[i * 2] == 0) ? (i * 2) : (i * 2) + 1] = id;
     }
 
     /**

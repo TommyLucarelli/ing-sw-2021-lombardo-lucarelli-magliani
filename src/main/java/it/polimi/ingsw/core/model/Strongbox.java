@@ -18,10 +18,13 @@ public class Strongbox
      */
     public Strongbox(){
         resources = new ArrayList<ResourceQty>();
+        //TODO: rimuovere 10 e aggiornare test
+        /*
         resources.add(new ResourceQty(Resource.COIN, 10));
         resources.add(new ResourceQty(Resource.STONE, 10));
         resources.add(new ResourceQty(Resource.SHIELD, 10));
         resources.add(new ResourceQty(Resource.SERVANT, 10));
+         */
     }
 
     /**

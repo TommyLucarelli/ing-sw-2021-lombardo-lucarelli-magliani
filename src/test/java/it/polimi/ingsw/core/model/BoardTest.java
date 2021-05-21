@@ -190,8 +190,15 @@ public class BoardTest {
         assertArrayEquals(b.getAbilityActivationFlag(), new int[]{0, 0, 0, 0, 0, 0, 0, 0});
 
         b.setAbilityActivationFlag(0, 1);
-        b.setAbilityActivationFlag(6, 6);
 
-        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 0, 0, 0, 0, 0, 6, 0});
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 0, 0, 0, 0, 0, 0, 0});
+
+        b.setAbilityActivationFlag(0, 2);
+
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 2, 0, 0, 0, 0, 0, 0});
+
+        b.setAbilityActivationFlag(3, 3);
+
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 2, 0, 0, 0, 0, 3, 0});
     }
 }
