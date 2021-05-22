@@ -29,7 +29,6 @@ public class Cli implements UserInterface {
     private CompactMarket compactMarket;
     private CompactDevCardStructure compactDevCardStructure;
     private HashMap<Integer, CompactPlayer> opponents;
-    private Scanner scan = new Scanner(System.in);
 
     /**
      * Class constructor.
