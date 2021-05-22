@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import it.polimi.ingsw.core.model.*;
 import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.MessageType;
@@ -158,7 +159,12 @@ public class Cli implements UserInterface {
 
 
         System.out.println("\nThe game has started!!");
-        System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
+        if(requestMsg.getPayload().has("playerOrder")){
+            System.out.println("You are player "+requestMsg.getPayload().get("playerOrder").getAsInt());
+        }else{
+            System.out.println("You are in single player mode, your opponent is Lorenzo il Magnifico himself");
+        }
+
 
         int[] printLeaders = new int[4];
         for (int i = 0; i < leaderCards.size(); i++) {
@@ -335,11 +341,15 @@ public class Cli implements UserInterface {
      */
     private void handleLeaderActivation(RequestMsg requestMsg){
 
-        if(!requestMsg.getPayload().get("endTurn").getAsBoolean())
+        if(!requestMsg.getPayload().get("endTurn").getAsBoolean()){
             fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
-        if(opponents.size()==0){
-            //stampa faithtrack lorenzo
+            if(opponents.size()==0){
+                //stampa faithtrack lorenzo
+                System.out.println("\nLorenzo index: "+mySelf.getCompactBoard().getLorenzoIndex());
+                System.out.println("\nLorenzo fav: "+mySelf.getCompactBoard().getLorenzoFavCards()[0]);
+            }
         }
+
 
 
         JsonObject payload = new JsonObject();
@@ -787,7 +797,7 @@ public class Cli implements UserInterface {
         }
 
         if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-            System.out.println(message);
+            System.out.println("\n"+message+"\n");
 
         if(requestMsg.getPayload().has("lorenzoTrack")){
             JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();

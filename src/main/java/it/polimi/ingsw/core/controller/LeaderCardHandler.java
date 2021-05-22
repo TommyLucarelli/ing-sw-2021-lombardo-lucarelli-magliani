@@ -67,16 +67,16 @@ public class LeaderCardHandler{
                     SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
                     JsonObject payload2 = sat.getAction();
                     ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
-                    if(payload2.get("type").getAsString().equals("dct")){
+                    if(payload2.get("type").getAsInt() == 0){
                         Colour c = gson.fromJson(payload2.get("colour").getAsString(), Colour.class);
                         controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
                     }else{
                         if(payload2.get("shuffle").getAsBoolean()){
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                            ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 1);
                         }else{
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
                         }
-                        ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
                     }
                 }
                 //update

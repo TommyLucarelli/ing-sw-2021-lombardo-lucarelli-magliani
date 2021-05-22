@@ -21,7 +21,7 @@ public class DevCardToken implements SoloActionToken {
     @Override
     public JsonObject getAction() {
         JsonObject payload = new JsonObject();
-        payload.addProperty("type", "dct");
+        payload.addProperty("type", 0);
         Gson gson = new Gson();
         String json = gson.toJson(c);
         payload.addProperty("colour", json);

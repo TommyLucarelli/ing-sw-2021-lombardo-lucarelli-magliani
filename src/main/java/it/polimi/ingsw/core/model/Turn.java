@@ -46,7 +46,6 @@ public class Turn {
         if(x == players.size())
             x=0;
         currentPlayer = x;
-        System.out.println("x: "+x);
         return  players.get(x);
     }
 

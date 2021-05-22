@@ -38,7 +38,7 @@ public class BlackFlagToken implements SoloActionToken{
     @Override
     public JsonObject getAction() {
         JsonObject payload = new JsonObject();
-        payload.addProperty("type", "bft");
+        payload.addProperty("type", 1);
         payload.addProperty("shuffle", shuffle);
         return payload;
     }
@@ -46,9 +46,9 @@ public class BlackFlagToken implements SoloActionToken{
     public String getMessage(){
         String s;
         if(shuffle)
-            s = "You revealed a Black Flag Token with 2 faithpoints";
-        else
             s = "You revealed a Black Flag Token with 1 faithpoint and shuffle";
+        else
+            s = "You revealed a Black Flag Token with 2 faithpoints";
         return s;
     }
 }

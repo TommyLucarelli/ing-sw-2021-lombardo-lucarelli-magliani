@@ -32,6 +32,8 @@ public class CompactBoard {
         for (int i = 0; i < 10; i++) {
             warehouse[i] = Resource.ANY;
         }
+        lorenzoIndex = 0;
+        lorenzoFavCards = new boolean[3];
     }
 
     public int[] getStrongbox() {

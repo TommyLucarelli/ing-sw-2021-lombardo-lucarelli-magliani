@@ -34,7 +34,8 @@ public class StartHandler {
             //invio messaggio con cardID
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_START_LEADERS");
-            payload.addProperty("playerOrder", j+1);
+            if(!controller.getCurrentGame().getSinglePlayer())
+                payload.addProperty("playerOrder", j+1);
             Gson gson = new Gson();
             String json = gson.toJson(cardID); //forse sarebbe meglio trasformarlo in array
             payload.addProperty("leaderCards", json);

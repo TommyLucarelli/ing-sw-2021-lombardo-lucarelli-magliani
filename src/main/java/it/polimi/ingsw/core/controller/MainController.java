@@ -142,7 +142,11 @@ public class MainController{
 
     public void sendStartGameCommand() {
         JsonObject payload = new JsonObject();
-        payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
+        if(players.size() == 1)
+            payload.addProperty("message", "Lorenzo is ready! Type \"start\" to start the game!");
+        else
+            payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
+
         payload.addProperty("gameAction", "START_GAME_COMMAND");
         payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();
@@ -189,7 +193,7 @@ public class MainController{
         int x = currentGame.getTurn().getTypeOfAction();
 
         if(currentGame.getSinglePlayer()){
-            payload.addProperty("message", ((SingleBoard)currentPlayer.getBoard()).getSoloActionToken().getMessage());
+            payload.addProperty("message", ((SingleTurn)currentGame.getTurn()).getSoloActionToken().getMessage());
         }else {
             if (x == 0)
                 payload.addProperty("message", currentPlayer.getNickname() + " has taken resources from the Market");

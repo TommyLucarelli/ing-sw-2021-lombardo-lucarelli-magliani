@@ -51,16 +51,15 @@ public class TurnHandler {
                     SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
                     JsonObject payload = sat.getAction();
                     ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
-                    if(payload.get("type").getAsString().equals("dct")){
+                    if(payload.get("type").getAsInt() == 0){
                         Colour c = gson.fromJson(payload.get("colour").getAsString(), Colour.class);
                         controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
-                    }else{
+                    }else if(payload.get("type").getAsInt() == 1) {
                         if(payload.get("shuffle").getAsBoolean()){
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).shuffleDeck();
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                            ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 1);
                         }else{
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
-                            ((SingleBoard)controller.getCurrentPlayer().getBoard()).getLorenzoTrack().moveFaithIndicator();
+                            controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
                         }
                     }
                 }

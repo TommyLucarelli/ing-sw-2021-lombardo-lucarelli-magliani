@@ -101,10 +101,22 @@ public class Game
                 }
             }
         }
+        if(singlePlayer){
+            for(int j = 0; j < p2; j++) {
+                marker = ((SingleBoard)play.getBoard()).getLorenzoTrack().moveFaithIndicator();
+                if(!flag)
+                    flag = marker;
+                if (marker && (((SingleBoard)play.getBoard()).getLorenzoTrack().getPosition() > val))
+                    val = ((SingleBoard)play.getBoard()).getLorenzoTrack().getPosition();
+            }
+        }
         if(flag && (val > faithTrackMarker)){
             faithTrackMarker = val;
             for(int i = 0; i < players.size(); i++){
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update
+            }
+            if(singlePlayer){
+                ((SingleBoard)play.getBoard()).getLorenzoTrack().setFavourCardsFlag(val);
             }
         }
         if(marker)
