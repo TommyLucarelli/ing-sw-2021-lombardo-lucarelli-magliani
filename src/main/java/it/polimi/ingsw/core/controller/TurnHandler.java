@@ -88,14 +88,20 @@ public class TurnHandler {
         controller.getCurrentGame().getTurn().setEndGame(false);
         int playerID = responseMsg.getPayload().get("playerID").getAsInt();
         JsonObject payload = new JsonObject();
-        if( playerID != controller.getCurrentPlayer().getPlayerID()){
-            payload.addProperty("gameAction", "START_TURN");
-            payload.addProperty("message", controller.getCurrentPlayer().getNickname()+" is now playing");
-            controller.notifyPlayer(controller.fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        } else{
-            payload.addProperty("gameAction", "LEADER_ACTIVATION");
-            payload.addProperty("endTurn", false);
-            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        Turn turn = controller.getCurrentGame().getTurn();
+        //se è last turn ed è il primo giocatore vuol dire che è finito il giro
+        if((turn.isLastTurn() == 1 || turn.isLastTurn() == 1) && turn.getCurrentPlayer() == 1){
+            controller.finalUpdate();
+        }else {
+            if (playerID != controller.getCurrentPlayer().getPlayerID()) {
+                payload.addProperty("gameAction", "START_TURN");
+                payload.addProperty("message", controller.getCurrentPlayer().getNickname() + " is now playing");
+                controller.notifyPlayer(controller.fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            } else {
+                payload.addProperty("gameAction", "LEADER_ACTIVATION");
+                payload.addProperty("endTurn", false);
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
         }
 
     }

@@ -205,6 +205,17 @@ public class MainController{
                 payload.addProperty("message", currentPlayer.getNickname() + " has activated the production");
         }
 
+        if(currentGame.getTurn().isLastTurn() == 1)
+            payload.addProperty("endMessage", "\nThis is the final turn, because "+currentPlayer.getNickname()+" has bought the seventh development card \n");
+        else if(currentGame.getTurn().isLastTurn() == 2){
+            for (PlayerHandler player : players) {
+                Player p = currentGame.fromIdToPlayer(player.getPlayerId());
+                if (p.getBoard().getFaithTrack().getPosition() == 24) {
+                    payload.addProperty("endMessage", "\nThis is the final turn, because " + p.getNickname() + " has reached the last position in the faith track\n");
+                    break;
+                }
+            }
+        }
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
 
         //controlle se siamo nella fase finale, manda messaggio fine partita
@@ -286,15 +297,27 @@ public class MainController{
         JsonObject payload = new JsonObject();
         JsonArray p = new JsonArray();
         JsonObject payload2 = new JsonObject();
+        ArrayList<Integer> results = new ArrayList<>();
         Player player;
-        int x;
+        int vp;
 
         for (int i = 0; i < players.size(); i++) {
             player = currentGame.fromIdToPlayer(players.get(i).getPlayerId());
-            payload2.addProperty("playerID", player.getPlayerID());
-            x = player.getBoard().victoryPoints();
-            payload2.addProperty("victoryPoints", x);
-            p.add(payload2);
+            vp = player.getBoard().victoryPoints();
+            if(!results.contains(vp))
+                results.add(vp);
+        }
+        for (int i = 0; i < results.size(); i++) {
+            for (int j = 0; j < players.size(); j++) {
+                player = currentGame.fromIdToPlayer(players.get(j).getPlayerId());
+                if(player.getBoard().victoryPoints() == results.get(i)){
+                    payload2.addProperty("position", i+1);
+                    payload2.addProperty("playerID", player.getPlayerID());
+                    payload2.addProperty("name", player.getNickname());
+                    payload2.addProperty("victoryPoints", results.get(i));
+                    p.add(payload2);
+                }
+            }
         }
 
         payload.add("players", p);

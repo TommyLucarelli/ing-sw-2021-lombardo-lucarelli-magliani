@@ -33,4 +33,12 @@ public class CompactPlayer {
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints = victoryPoints;
     }
+
+    public Boolean getLastTurn() {
+        return lastTurn;
+    }
+
+    public void setLastTurn(Boolean lastTurn) {
+        this.lastTurn = lastTurn;
+    }
 }

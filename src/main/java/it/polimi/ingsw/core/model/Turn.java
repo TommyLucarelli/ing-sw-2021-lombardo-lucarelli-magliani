@@ -44,7 +44,7 @@ public class Turn {
     public Player nextPlayer(){
         int x;
         x = currentPlayer+1;
-        if(x == players.size()) //aggiungere controllo lastTurn -> magari exception
+        if(x == players.size())
             x=0;
         currentPlayer = x;
         return  players.get(x);

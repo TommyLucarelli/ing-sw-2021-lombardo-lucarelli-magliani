@@ -102,6 +102,9 @@ public class Cli implements UserInterface {
                     case "UPDATE":
                         handleUpdate(request);
                         break;
+                    case "FINAL_UPDATE":
+                        handleFinalUpdate(request);
+                        break;
                 }
                 break;
             default:
@@ -736,6 +739,7 @@ public class Cli implements UserInterface {
         int currentPlayerID = requestMsg.getPayload().get("currentPlayerID").getAsInt();
         String message = requestMsg.getPayload().get("message").getAsString();
 
+
         CompactPlayer player;
         if(mySelf.getPlayerID() == currentPlayerID)
             player = mySelf;
@@ -798,9 +802,6 @@ public class Cli implements UserInterface {
             p2.getCompactBoard().setFavCards(fav);
         }
 
-        if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-            System.out.println("\n"+message+"\n");
-
         if(requestMsg.getPayload().has("lorenzoTrack")){
             JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
             player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
@@ -808,6 +809,14 @@ public class Cli implements UserInterface {
             collectionType = new TypeToken<boolean[]>() {}.getType();
             boolean[] fav = gson.fromJson(json, collectionType);
             player.getCompactBoard().setLorenzoFavCards(fav);
+        }
+
+        if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
+            System.out.println("\n"+message+"\n");
+
+        if(requestMsg.getPayload().has("endMessage") && !mySelf.getLastTurn()){
+            mySelf.setLastTurn(true);
+            System.out.println(requestMsg.getPayload().get("endMessage").getAsString());
         }
 
         JsonObject payload3 = new JsonObject();
@@ -935,6 +944,32 @@ public class Cli implements UserInterface {
         for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
             System.out.println(entry.getValue().getPlayerName()+"'s Board"); //da colorare e mettere in grande
             fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+        }
+    }
+
+    private void handleFinalUpdate(RequestMsg requestMsg){
+        System.out.println("\nTHE GAME IS ENDED\n");
+        JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
+        int x, vp;
+        String name;
+        Boolean flag = false;
+        for (JsonElement player: players){
+            x = player.getAsJsonObject().get("position").getAsInt();
+            if(x == 1 && player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID())
+            {
+                System.out.println("YOU WON, CONGRATULATIONS!!");
+                flag = true;
+            }
+        }
+        if(!flag)
+            System.out.println("YOU LOST!!");
+
+        System.out.println("\nRANKING:");
+        for (JsonElement player: players){
+            x = player.getAsJsonObject().get("position").getAsInt();
+            vp = player.getAsJsonObject().get("victoryPoints").getAsInt();
+            name = player.getAsJsonObject().get("name").getAsString();
+            System.out.println(x+") "+name+", victory points: "+vp);
         }
     }
 
