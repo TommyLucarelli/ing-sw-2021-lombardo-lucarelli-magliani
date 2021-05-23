@@ -7,6 +7,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.Gui;
+import it.polimi.ingsw.view.gui.GuiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,18 +42,12 @@ public class Client implements Runnable{
             try {
                 ui = new Cli(this);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                System.err.println("\nFileNotFoundException in Client - Failed to launch CLI");
             }
-        }/* else {
-            ui = new Gui(this);
+        } else {
+            ui = new GuiManager(this);
         }
-        */
 
-        try {
-            this.ui = new Cli(this);
-        }catch(FileNotFoundException e){
-            System.out.println("\nFILE NON TROVATO");
-        }
     }
 
     public static void main(String[] args) {
@@ -93,7 +88,7 @@ public class Client implements Runnable{
             System.err.println("IOException from Client::run - server unreachable");
             return;
         }
-        System.out.println("Connected to server successful! Type \"quit\" to close the connection.");
+        System.out.println("Connection to server successful! Type \"quit\" to close the connection.");
 
         /*
          * Sends the first message to the server.
