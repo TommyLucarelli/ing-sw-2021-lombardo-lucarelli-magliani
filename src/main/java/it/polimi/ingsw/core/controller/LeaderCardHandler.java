@@ -37,8 +37,6 @@ public class LeaderCardHandler{
             if(check){
                 if(controller.getCurrentGame().getTurn().isEndGame()){
                     controller.getCurrentGame().getTurn().setEndGame(false);
-                    if(controller.getCurrentGame().getTurn().isLastTurn())
-                        vp = controller.getCurrentPlayer().getBoard().victoryPoints();
                     //update
                     controller.updateBuilder();
                 } else{
@@ -59,8 +57,6 @@ public class LeaderCardHandler{
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
             if(controller.getCurrentGame().getTurn().isEndGame()){
                 controller.getCurrentGame().getTurn().setEndGame(false);
-                if(controller.getCurrentGame().getTurn().isLastTurn())
-                    vp = controller.getCurrentPlayer().getBoard().victoryPoints();
                 //QUA PRENDERE I TOKEN
                 if(controller.getCurrentGame().getSinglePlayer()){
                     Gson gson = new Gson();

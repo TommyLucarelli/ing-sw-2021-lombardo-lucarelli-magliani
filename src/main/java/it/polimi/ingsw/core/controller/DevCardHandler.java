@@ -71,7 +71,7 @@ public class DevCardHandler{
         controller.getCurrentGame().getTurn().setTypeOfAction(1);
         //controllo 7 carte ed eventualmente messaggio UPDATE -> fine turno
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
-            controller.getCurrentGame().getTurn().setLastTurn(true);
+            controller.getCurrentGame().getTurn().setLastTurn(1);
             //update
             controller.updateBuilder();
         }

@@ -5,10 +5,10 @@ import it.polimi.ingsw.core.model.Resource;
 import java.util.Arrays;
 
 public class CompactBoard {
-    private int[] strongbox; //impostato come abbiamo fatto nel controller
+    private int[] strongbox;
     private Resource[] warehouse;
 
-    private int[][] devCardSlots; //disposizione??
+    private int[][] devCardSlots;
     private int[] abilityActivationFlag;
 
     private int[] leaderCards; //per capire quali mostrare, controllare se sono state attivate [deglio elementi possono essere 0]

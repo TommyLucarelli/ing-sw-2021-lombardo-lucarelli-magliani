@@ -67,10 +67,9 @@ public class FaithTrack {
      */
     public boolean moveFaithIndicator(){
         position++;
-        if(position == 8 || position == 16 || position == 24)
-            return true; //se è true bisogna controllare che non siamo arrivati alla fine
-        else
-            return false;
+        if(position > 24)
+            position = 24;
+        return position == 8 || position == 16 || position == 24; //se è true bisogna controllare che non siamo arrivati alla fine
     }
 
     /**

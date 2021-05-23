@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Turn {
     private ArrayList<Player> players;
     private int currentPlayer;
-    private boolean lastTurn;
+    private int lastTurn; //0 -> no | 1 -> fine partita per dev | 2 -> fine partita per faith
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare  3 per single player
     private int[] leaderCardDiscarded;
@@ -23,12 +23,13 @@ public class Turn {
         return currentPlayer;
     }
 
-    public boolean isLastTurn() {
+    public int isLastTurn() {
         return lastTurn;
     }
 
-    public void setLastTurn(boolean lastTurn) {
-        this.lastTurn = lastTurn;
+    public void setLastTurn(int x) {
+        if(lastTurn == 0)
+            lastTurn = x;
     }
 
     public boolean isEndGame() {
@@ -43,7 +44,7 @@ public class Turn {
     public Player nextPlayer(){
         int x;
         x = currentPlayer+1;
-        if(x == players.size())
+        if(x == players.size()) //aggiungere controllo lastTurn -> magari exception
             x=0;
         currentPlayer = x;
         return  players.get(x);

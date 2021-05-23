@@ -192,6 +192,8 @@ public class MainController{
         payload.addProperty("gameAction", "UPDATE");
         int x = currentGame.getTurn().getTypeOfAction();
 
+        //aggiungi messaggio lastTurn
+
         if(currentGame.getSinglePlayer()){
             payload.addProperty("message", ((SingleTurn)currentGame.getTurn()).getSoloActionToken().getMessage());
         }else {
@@ -204,11 +206,10 @@ public class MainController{
         }
 
         payload.addProperty("currentPlayerID", currentPlayer.getPlayerID());
-        System.out.println("finish player "+currentPlayer.getPlayerID());
-        //compute next player
+
+        //controlle se siamo nella fase finale, manda messaggio fine partita
         Player oldPlayer = currentPlayer;
-        currentPlayer = currentGame.getTurn().nextPlayer();
-        System.out.println("next player "+currentPlayer.getPlayerID());
+        currentPlayer = currentGame.getTurn().nextPlayer(); //controllo finepartita
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
         Gson gson = new Gson();
@@ -279,6 +280,27 @@ public class MainController{
             return true;
         else
             return false;
+    }
+
+    public void finalUpdate(){
+        JsonObject payload = new JsonObject();
+        JsonArray p = new JsonArray();
+        JsonObject payload2 = new JsonObject();
+        Player player;
+        int x;
+
+        for (int i = 0; i < players.size(); i++) {
+            player = currentGame.fromIdToPlayer(players.get(i).getPlayerId());
+            payload2.addProperty("playerID", player.getPlayerID());
+            x = player.getBoard().victoryPoints();
+            payload2.addProperty("victoryPoints", x);
+            p.add(payload2);
+        }
+
+        payload.add("players", p);
+        payload.addProperty("gameAction", "FINAL_UPDATE");
+
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
 }

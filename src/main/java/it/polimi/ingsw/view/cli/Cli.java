@@ -559,6 +559,7 @@ public class Cli implements UserInterface {
 
         System.out.println("1. Basic production");
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(), true);
+        available.add(0);
         available.add(1);
 
         for (int i = 0; i < 3; i++) {
@@ -591,10 +592,12 @@ public class Cli implements UserInterface {
             n = InputHandler.getInt(1, 3);
             if (n == 1) {
                 if(available.size() != 0) {
-                    System.out.println("Choose production: ");
+                    System.out.println("Choose production:  (0 to rollback)");
                     int t = InputHandler.getIntFromArray(available);
-                    productions.add(t);
-                    available.removeIf(a -> a == t);
+                    if(t != 0){
+                        productions.add(t);
+                        available.removeIf(a -> a == t);
+                    }
                 }else{
                     System.out.println("You have selected all the available productions");
                 }
