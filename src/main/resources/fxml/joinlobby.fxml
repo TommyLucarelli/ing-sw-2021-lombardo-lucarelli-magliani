@@ -4,12 +4,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.RegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -26,18 +28,24 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="746.0" layoutY="602.0" mnemonicParsing="false" onAction="#quitAction" styleClass="quit-btn" text="Join a game" AnchorPane.rightAnchor="397.0">
+      <Button layoutX="577.0" layoutY="672.0" mnemonicParsing="false" onAction="#joinLobby" styleClass="quit-btn" text="Join Game" AnchorPane.rightAnchor="507.5">
          <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="18.0" />
-         </font></Button>
-      <Button layoutX="400.0" layoutY="602.0" mnemonicParsing="false" onAction="#playAction" styleClass="action-btn" text="Create a game" AnchorPane.leftAnchor="400.0">
-         <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="18.0" />
+            <Font name="Academy Engraved LET Plain:1.0" size="24.0" />
          </font></Button>
       <ImageView fitHeight="395.0" fitWidth="745.0" layoutX="228.0" layoutY="106.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="227.0">
          <image>
             <Image url="@../images/title.png" />
          </image>
       </ImageView>
+      <Text layoutX="473.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the Lobby Id:">
+         <font>
+            <Font name="Academy Engraved LET Plain:1.0" size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="lobbyId" layoutX="457.0" layoutY="587.0" promptText="Lobby Id">
+         <font>
+            <Font name="Academy Engraved LET Plain:1.0" size="24.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

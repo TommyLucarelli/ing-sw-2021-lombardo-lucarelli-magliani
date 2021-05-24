@@ -60,13 +60,12 @@ public class Client implements Runnable{
             System.out.println("Launching with CLI on...");
             String[] parts = args[1].split(":");
             client = new Client(parts[0], Integer.parseInt(parts[1]), true);
+            client.run();
         } else {
             System.out.println("Launching with GUI on...");
             String[] parts = args[0].split(":");
             client = new Client(parts[0], Integer.parseInt(parts[1]), false);
         }
-
-        client.run();
     }
 
     protected void handleRequest(RequestMsg requestMsg){
@@ -105,8 +104,9 @@ public class Client implements Runnable{
     /**
      * Method used to close the connection to the server safely.
      */
-    protected void closeConnection(){
+    public void closeConnection(){
         System.out.println("Closing connection with server...");
+
         try {
             server.close();
         } catch (IOException e) {
