@@ -13,12 +13,13 @@ public class Turn {
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare  3 per single player
     private int[] leaderCardDiscarded;
-    //TODO: controllo che resetto tutto a fine turno
+    private ArrayList<Player> blackList;
 
     public Turn(ArrayList<Player> players){
         this.players = players;
         leaderCardDiscarded = new int[2];
         currentPlayer = 0;
+        blackList = new ArrayList<>();
     }
     public int getCurrentPlayer() {
         return currentPlayer;
@@ -43,12 +44,20 @@ public class Turn {
 
 
     public Player nextPlayer(){
-        int x;
-        x = currentPlayer+1;
-        if(x == players.size())
-            x=0;
-        currentPlayer = x;
-        return  players.get(x);
+        boolean flag;
+        do {
+            flag = false;
+            currentPlayer++;
+            if (currentPlayer == players.size())
+                currentPlayer = 0;
+            for (Player player : blackList) {
+                if (player.getPlayerID() == players.get(currentPlayer).getPlayerID()) {
+                    flag = true;
+                    break;
+                }
+            }
+        }while(flag);
+        return  players.get(currentPlayer);
     }
 
 
@@ -77,6 +86,22 @@ public class Turn {
     public void resetDiscarded(){
         leaderCardDiscarded[0] = 0;
         leaderCardDiscarded[1] = 0;
+    }
+
+    public void addInBlackList(int id){
+        for (Player player : players) {
+            if (player.getPlayerID() == id)
+                blackList.add(player);
+        }
+    }
+
+    public void removeFromBlacklist(int id){
+        for (int i = 0; i < blackList.size(); i++) {
+            if(blackList.get(i).getPlayerID() == id){
+                blackList.remove(i);
+                break;
+            }
+        }
     }
 }
 
