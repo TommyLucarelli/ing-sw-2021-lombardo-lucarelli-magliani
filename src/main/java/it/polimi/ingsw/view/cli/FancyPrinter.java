@@ -5,6 +5,7 @@ import it.polimi.ingsw.core.model.LeaderCard;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.view.compact.*;
 
+import javax.imageio.metadata.IIOMetadataFormatImpl;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -364,19 +365,23 @@ public class FancyPrinter {
             }
         }
 
-         for (int j = 0; j < 2; j++) {
+        for (int i = 0; i < 3; i++)
+            indexHelper[i]--;
+
+        for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
-                indexHelper[i]--;
                 if(indexHelper[i] < 0)
                     string.get(j + 9 + x).append(printBase(0).get(j)).append("\t");
                 else
                     string.get(j + 9 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
             }
-         }
+        }
+
+        for (int i = 0; i < 3; i++)
+            indexHelper[i]--;
 
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
-                indexHelper[i]--;
                 if(indexHelper[i] < 0)
                     string.get(j + 11 + x).append(printBase(0).get(j)).append("\t");
                 else

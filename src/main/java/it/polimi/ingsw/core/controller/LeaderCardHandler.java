@@ -75,11 +75,11 @@ public class LeaderCardHandler{
                             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
                         }
                     }
+                    if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                        controller.finalUpdate();
+                    else
+                        controller.updateBuilder();
                 }
-                if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
-                    controller.finalUpdate();
-                else
-                    controller.updateBuilder();
             } else {
                 payload.addProperty("gameAction", "MAIN_CHOICE");
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));

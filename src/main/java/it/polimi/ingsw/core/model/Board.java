@@ -206,10 +206,11 @@ public class Board {
         for (int i : x) {
             cont+=i;
         }
-        if(leaderCards.get(0).getAbilityActivation())
-            vp+=leaderCards.get(0).getVictoryPoints();
-        if(leaderCards.get(1).getAbilityActivation())
-            vp+=leaderCards.get(1).getVictoryPoints();
+        for (int i = 0; i < leaderCards.size(); i++)
+        {
+            if (leaderCards.get(i).getAbilityActivation())
+                vp += leaderCards.get(i).getVictoryPoints();
+        }
         vp+= (cont/5);
         return vp;
     }

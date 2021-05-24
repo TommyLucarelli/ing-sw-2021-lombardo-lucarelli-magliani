@@ -20,6 +20,7 @@ public class Turn {
         leaderCardDiscarded = new int[2];
         currentPlayer = 0;
         blackList = new ArrayList<>();
+        lastTurn = 0;
     }
     public int getCurrentPlayer() {
         return currentPlayer;

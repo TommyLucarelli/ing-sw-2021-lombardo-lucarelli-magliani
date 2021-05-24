@@ -63,11 +63,11 @@ public class TurnHandler {
                             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
                         }
                     }
+                    if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                        controller.finalUpdate();
+                    else
+                        controller.updateBuilder();
                 }
-                if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
-                    controller.finalUpdate();
-                else
-                    controller.updateBuilder();
             } else{
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "MAIN_CHOICE");
@@ -92,8 +92,7 @@ public class TurnHandler {
         int playerID = responseMsg.getPayload().get("playerID").getAsInt();
         JsonObject payload = new JsonObject();
         Turn turn = controller.getCurrentGame().getTurn();
-        //se è last turn ed è il primo giocatore vuol dire che è finito il giro
-        if((turn.isLastTurn() == 1 || turn.isLastTurn() == 1) && turn.getCurrentPlayer() == 1){
+        if((turn.isLastTurn() == 1 || turn.isLastTurn() == 2 || turn.isLastTurn() == 3) && turn.getCurrentPlayer() == 0){
             controller.finalUpdate();
         }else {
             if (playerID != controller.getCurrentPlayer().getPlayerID()) {

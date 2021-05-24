@@ -27,11 +27,11 @@ public class FancyPrinterTest {
         slots[0][1] = 0;
         slots[0][2] = 0;
         slots[1][0] = 20;
-        slots[1][1] = 20;
-        slots[1][2] = 3;
-        slots[2][0] = 16;
-        slots[2][1] = 16;
-        slots[2][2] = 16;
+        slots[1][1] = 15;
+        slots[1][2] = 0;
+        slots[2][0] = 11;
+        slots[2][1] = 12;
+        slots[2][2] = 3;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printDevCardSlot(board, false);
