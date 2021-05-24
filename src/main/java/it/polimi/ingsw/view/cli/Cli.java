@@ -530,9 +530,9 @@ public class Cli implements UserInterface {
         System.out.println("\nWhere do you want to want to put the card?");
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(),false);
         System.out.println("\nThe available slots are:");
-        for (Integer freeSpot : freeSpots){
-            freeSpot++;
-            System.out.println(freeSpot);
+        for (int i = 0; i < freeSpots.size(); i++) {
+            freeSpots.set(i, freeSpots.get(i) + 1);
+            System.out.println(freeSpots.get(i));
         }
         System.out.println("\nChoose one of them: ");
         x = InputHandler.getIntFromArray(freeSpots);
@@ -544,7 +544,7 @@ public class Cli implements UserInterface {
     }
 
     /**
-     * Method used to handle the selection of the production powers to activate.
+     * Method used to handle the selection of the n powers to activate.
      * @param requestMsg the request sent by the server.
      */
     private void handleChooseProduction(RequestMsg requestMsg){

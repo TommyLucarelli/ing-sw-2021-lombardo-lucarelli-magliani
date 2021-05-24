@@ -17,7 +17,7 @@ public class FaithTrack {
      * Class constructor
      */
     public FaithTrack(){
-        position = 0;
+        position = 20;
         favourCardsFlag = new boolean[3];
     }
 

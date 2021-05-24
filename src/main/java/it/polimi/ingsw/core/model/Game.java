@@ -113,7 +113,11 @@ public class Game
                 if(!flag)
                     flag = marker;
                 if (marker && (((SingleBoard)play.getBoard()).getLorenzoTrack().getPosition() > val))
+                {
                     val = ((SingleBoard)play.getBoard()).getLorenzoTrack().getPosition();
+                    if(val == 24)
+                        turn.setLastTurn(3);
+                }
             }
         }
         if(flag && (val > faithTrackMarker)){
