@@ -344,6 +344,7 @@ public class Cli implements UserInterface {
     private void handleLeaderActivation(RequestMsg requestMsg){
 
         if(!requestMsg.getPayload().get("endTurn").getAsBoolean()){
+            System.out.println("\nYOUR PERSONAL BOARD: \n");
             fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
             if(opponents.size()==0){
                 //stampa faithtrack lorenzo
@@ -529,8 +530,10 @@ public class Cli implements UserInterface {
         System.out.println("\nWhere do you want to want to put the card?");
         fancyPrinter.printDevCardSlot(mySelf.getCompactBoard(),false);
         System.out.println("\nThe available slots are:");
-        for (Integer freeSpot : freeSpots)
-            System.out.println(freeSpot + 1);
+        for (Integer freeSpot : freeSpots){
+            freeSpot++;
+            System.out.println(freeSpot);
+        }
         System.out.println("\nChoose one of them: ");
         x = InputHandler.getIntFromArray(freeSpots);
         JsonObject payload = new JsonObject();
@@ -942,7 +945,7 @@ public class Cli implements UserInterface {
     private void handleNotMyTurn(RequestMsg requestMsg){
         System.out.println("\n"+requestMsg.getPayload().get("message").getAsString()+"\n");
         for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
-            System.out.println(entry.getValue().getPlayerName()+"'s Board"); //da colorare e mettere in grande
+            System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
             fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
         }
     }
