@@ -17,6 +17,9 @@ public class Gui extends Application {
     public void start(Stage stage) throws Exception {
         scene = new Scene(loadFXML("opening"), 1200, 800);
         stage.setTitle("Masters of Renaissance");
+        scene.setOnKeyPressed(e -> {
+            manager.start();
+        });
         stage.setScene(scene);
         stage.getScene().getStylesheets().add(getClass().getResource("/css/master.css").toExternalForm());
         stage.show();
@@ -24,10 +27,6 @@ public class Gui extends Application {
 
     public static void setManager(GuiManager manager) {
         Gui.manager = manager;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public static void setRoot(String fxml){
@@ -45,5 +44,13 @@ public class Gui extends Application {
 
     public static void send(ResponseMsg responseMsg){
         manager.send(responseMsg);
+    }
+
+    public static void close(){
+        manager.close();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

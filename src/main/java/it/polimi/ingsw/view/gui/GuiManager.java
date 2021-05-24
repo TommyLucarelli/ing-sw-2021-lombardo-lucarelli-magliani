@@ -15,13 +15,14 @@ public class GuiManager implements UserInterface {
     public GuiManager(Client client){
         this.client = client;
         (new Thread(() -> Application.launch((Gui.class)))).start();
+        Gui.setManager(this);
     }
 
     @Override
     public void handleRequest(RequestMsg request) {
         switch (request.getMessageType()) {
             case REGISTRATION_MESSAGE:
-                Gui.setManager(this);
+                Platform.runLater(() -> Gui.setRoot("registration"));
                 break;
             case WELCOME_MESSAGE:
                 Platform.runLater(() -> Gui.setRoot("welcome"));
@@ -31,5 +32,14 @@ public class GuiManager implements UserInterface {
 
     public void send(ResponseMsg responseMsg){
         client.send(responseMsg);
+    }
+
+    public void start(){
+        this.client.run();
+    }
+
+    public void close(){
+        this.client.closeConnection();
+        System.exit(0);
     }
 }
