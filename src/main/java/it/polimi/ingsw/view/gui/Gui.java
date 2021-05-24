@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.beans.EventHandler;
 import java.io.IOException;
 
 public class Gui extends Application {
@@ -19,6 +20,7 @@ public class Gui extends Application {
         stage.setTitle("Masters of Renaissance");
         scene.setOnKeyPressed(e -> {
             manager.start();
+            scene.setOnKeyPressed(evt -> {});
         });
         stage.setScene(scene);
         stage.getScene().getStylesheets().add(getClass().getResource("/css/master.css").toExternalForm());
