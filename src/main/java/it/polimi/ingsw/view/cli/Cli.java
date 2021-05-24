@@ -348,8 +348,6 @@ public class Cli implements UserInterface {
             fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
             if(opponents.size()==0){
                 //stampa faithtrack lorenzo
-                System.out.println("\nLorenzo index: "+mySelf.getCompactBoard().getLorenzoIndex());
-                System.out.println("\nLorenzo fav: "+mySelf.getCompactBoard().getLorenzoFavCards()[0]);
             }
         }
 
@@ -808,10 +806,6 @@ public class Cli implements UserInterface {
         if(requestMsg.getPayload().has("lorenzoTrack")){
             JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
             player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
-            json = payload4.get("favCards").getAsString();
-            collectionType = new TypeToken<boolean[]>() {}.getType();
-            boolean[] fav = gson.fromJson(json, collectionType);
-            player.getCompactBoard().setLorenzoFavCards(fav);
         }
 
         if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)

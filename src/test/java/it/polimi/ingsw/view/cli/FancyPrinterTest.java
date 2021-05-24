@@ -100,6 +100,15 @@ public class FancyPrinterTest {
     }
 
     @Test
+    public void printBlackFaithTrack() {
+        CompactBoard board = new CompactBoard();
+        board.setLorenzoIndex(10);
+
+        FancyPrinter fancyPrinter = new FancyPrinter();
+        fancyPrinter.printBlackFaithTrack(board);
+    }
+
+    @Test
     public void printPersonalBoard() {
         CompactBoard board = new CompactBoard();
         FancyPrinter fancyPrinter = new FancyPrinter();

@@ -125,9 +125,6 @@ public class Game
             for(int i = 0; i < players.size(); i++){
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update
             }
-            if(singlePlayer){
-                ((SingleBoard)play.getBoard()).getLorenzoTrack().setFavourCardsFlag(val);
-            }
         }
         return marker;
     }

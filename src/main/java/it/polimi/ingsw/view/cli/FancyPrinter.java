@@ -982,22 +982,15 @@ public class FancyPrinter {
     public void printBlackFaithTrack(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append(Color.YELLOW_BOLD.color()).append("{●} = Victory Points Space\t").append(Color.RESET).append(Color.LIME.color()).append("{†} = Faith Marker\n").append(Color.RESET).append(Color.HEAVENLY_BOLD.color()).append("{☼} = Pope's Favor tiles\t").append(Color.RESET).append(Color.RED_BOLD.color()).append("{♣} = Pope Space\t").append(Color.RESET).append(Color.PURPLE_BOLD.color()).append("─── = Vatican Report section\n\n").append(Color.RESET);;
+        string.append(Color.BLACK_BOLD.color()).append("\tLORENZO FAITH TRACK\n\n");
 
         for (int i = 0; i < 25; i++) {
             if(board.getLorenzoIndex()==i){
-                if(i == 10 || i == 11 || i == 13 || i == 14 || i == 17 || i == 19 || i == 20 || i == 22 || i == 23)
-                    string.append(Color.BLACK_BOLD.color()).append(" {†} ").append(Color.RESET);
-                else
-                    string.append(Color.BLACK_BOLD.color()).append("{†} ").append(Color.RESET);
+                    string.append(Color.WHITE_BOLD.color()).append("{†} ").append(Color.RESET);
             } else if(i%8==0 && i!=0 && i!=24) {
                 string.append(Color.RED_BOLD.color()).append("{♣} ").append(Color.RESET);
             } else if(i!=24) {
                 string.append(Color.BLACK_BOLD.color()).append("{").append(i).append("} ").append(Color.RESET);
-            }
-
-            if(i==24){
-                string.append(Color.RED_BOLD.color()).append(" {♣}").append(Color.PURPLE_BOLD.color()).append(Color.RESET);
             }
         }
         string.append(Color.RESET);

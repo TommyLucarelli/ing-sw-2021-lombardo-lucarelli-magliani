@@ -16,7 +16,6 @@ public class CompactBoard {
     private boolean[] favCards;
 
     private int lorenzoIndex;
-    private boolean[] lorenzoFavCards;
 
     public CompactBoard(){
         setStrongbox(new int[4]);
@@ -33,7 +32,6 @@ public class CompactBoard {
             warehouse[i] = Resource.ANY;
         }
         lorenzoIndex = 0;
-        lorenzoFavCards = new boolean[3];
     }
 
     public int[] getStrongbox() {
@@ -107,17 +105,10 @@ public class CompactBoard {
         return lorenzoIndex;
     }
 
-    public boolean[] getLorenzoFavCards() {
-        return lorenzoFavCards;
-    }
-
     public void setLorenzoIndex(int lorenzoIndex) {
         this.lorenzoIndex = lorenzoIndex;
     }
 
-    public void setLorenzoFavCards(boolean[] lorenzoFavCards) {
-        this.lorenzoFavCards = lorenzoFavCards;
-    }
 
     public int[] printHelperSlots(){
         int[] result = new int[3];
