@@ -1,7 +1,6 @@
 package it.polimi.ingsw.net.client;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
@@ -32,7 +31,6 @@ public class ServerListener implements Runnable {
     public void run(){
         Gson gson = new Gson();
         RequestMsg serverRequest = null;
-        ResponseMsg response;
         try {
             /*
              * Main loop: reads the message from the server, passes the request to the RequestHandler
