@@ -57,7 +57,7 @@ public class MainController{
                 notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
             getPlayers().add(player);
-            if(getPlayers().size() == numPlayers) sendStartGameCommand();
+            if(getPlayers().size() == numPlayers && numPlayers > 1) sendStartGameCommand();
             return player;
         }
     }
@@ -142,11 +142,7 @@ public class MainController{
 
     public void sendStartGameCommand() {
         JsonObject payload = new JsonObject();
-        if(players.size() == 1)
-            payload.addProperty("message", "Lorenzo is ready! Type \"start\" to start the game!");
-        else
-            payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
-
+        payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
         payload.addProperty("gameAction", "START_GAME_COMMAND");
         payload.addProperty("activePlayerId", 0);
         JsonObject expectedResponse = new JsonObject();

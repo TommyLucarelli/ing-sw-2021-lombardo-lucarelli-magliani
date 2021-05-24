@@ -145,8 +145,18 @@ public class RequestManager {
         Lobby lobby = new Lobby(response.get("input").getAsInt());
         ServerUtils.lobbies.add(lobby);
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
-        payload.addProperty("message", "Lobby created successfully! Lobby ID: " + lobby.getId() + " - Waiting for other players to join");
+        if(lobby.getLobbySize() == 1){
+            payload.addProperty("gameAction", "START_GAME_COMMAND");
+            payload.addProperty("message", "Single player game initialized! Type \"start\" to start the game");
+            payload.addProperty("activePlayerId", 0);
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "string");
+            expectedResponse.addProperty("regex", "(start)");
+            payload.add("expectedResponse", expectedResponse);
+        } else {
+            payload.addProperty("gameAction", "WAIT_FOR_PLAYERS");
+            payload.addProperty("message", "Lobby created successfully! Lobby ID: " + lobby.getId() + " - Waiting for other players to join");
+        }
         client.send(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         try {
             TimeUnit.SECONDS.sleep(1);
