@@ -104,6 +104,7 @@ public class RequestManager {
             JsonObject payload = new JsonObject();
             payload.addProperty("message", "Welcome, " + input +
                     "! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+            payload.addProperty("username", input);
             JsonObject expectedResponse = new JsonObject();
             expectedResponse.addProperty("type", "int");
             expectedResponse.addProperty("min", 1);

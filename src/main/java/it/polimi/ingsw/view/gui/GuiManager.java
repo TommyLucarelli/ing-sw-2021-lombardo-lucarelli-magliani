@@ -27,7 +27,10 @@ public class GuiManager implements UserInterface {
                 Platform.runLater(() -> Gui.setRoot("registration"));
                 break;
             case WELCOME_MESSAGE:
-                Platform.runLater(() -> Gui.setRoot("welcome"));
+                Platform.runLater(() -> {
+                    Gui.setRoot("welcome");
+                    Gui.initData("username", request.getPayload().get("username").getAsString());
+                });
                 break;
             case NUMBER_OF_PLAYERS:
                 Platform.runLater(() -> Gui.setRoot("creategame"));
