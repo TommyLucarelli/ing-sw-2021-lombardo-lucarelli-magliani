@@ -1,24 +1,28 @@
 package it.polimi.ingsw.view.gui.controller;
 
-import com.google.gson.JsonObject;
-import it.polimi.ingsw.net.msg.MessageType;
-import it.polimi.ingsw.net.msg.ResponseMsg;
-import it.polimi.ingsw.view.gui.Gui;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
-public class OpeningController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class OpeningController implements Initializable {
     @FXML
-    TextField username;
+    Text label;
 
-    public void quitAction(){
-        System.out.println("quit");
-    }
 
-    public void playAction(){
-        JsonObject payload = new JsonObject();
-        payload.addProperty("input", username.getText());
-        Gui.send(new ResponseMsg(null, MessageType.REGISTRATION_MESSAGE, payload));
-        Gui.setRoot("load");
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), label);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.setCycleCount(Animation.INDEFINITE);
+        fadeTransition.play();
     }
 }
