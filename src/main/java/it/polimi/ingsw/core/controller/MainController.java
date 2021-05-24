@@ -326,4 +326,22 @@ public class MainController{
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
+    public void handleDisconnection(PlayerHandler playerHandler){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "SHORT_UPDATE");
+        payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has disconnected\n");
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
+        if(playerHandler.getPlayerId() == currentPlayer.getPlayerID())
+            updateBuilder();
+    }
+
+    public void handleReconnection(PlayerHandler playerHandler){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "SHORT_UPDATE");
+        payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has reconnected\n");
+        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+    }
+
 }

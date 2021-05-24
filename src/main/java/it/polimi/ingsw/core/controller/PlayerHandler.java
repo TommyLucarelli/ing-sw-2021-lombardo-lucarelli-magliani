@@ -9,12 +9,14 @@ public class PlayerHandler {
     private final String username;
     private final MainController controller;
     private final RequestManager manager;
+    private Boolean active;
 
     protected PlayerHandler(int playerId, String username, MainController controller, RequestManager manager){
         this.username = username;
         this.playerId = playerId;
         this.controller = controller;
         this.manager = manager;
+        this.active = true;
     }
 
     public int getPlayerId() {
@@ -30,6 +32,17 @@ public class PlayerHandler {
     }
 
     public void newMessage(RequestMsg updateMsg){
-        manager.sendGameMessage(updateMsg);
+        if(active)
+            manager.sendGameMessage(updateMsg);
+    }
+
+    public void handleDisconnection(){
+        active = false;
+        controller.handleDisconnection(this);
+    }
+
+    public void handleReconnection(){
+        active = true;
+        controller.handleReconnection(this);
     }
 }

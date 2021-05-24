@@ -347,7 +347,7 @@ public class Cli implements UserInterface {
             System.out.println("\nYOUR PERSONAL BOARD: \n");
             fancyPrinter.printPersonalBoard(mySelf.getCompactBoard());
             if(opponents.size()==0){
-                //stampa faithtrack lorenzo
+                fancyPrinter.printBlackFaithTrack(mySelf.getCompactBoard());
             }
         }
 
