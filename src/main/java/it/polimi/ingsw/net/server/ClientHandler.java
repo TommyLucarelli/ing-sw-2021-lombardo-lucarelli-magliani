@@ -86,6 +86,7 @@ public class ClientHandler implements Runnable{
             }
         } catch(IOException e){
             System.err.println("IOException from ClientHandler - Client ID: " + id);
+            disconnect();
         } catch (ClassNotFoundException e){
             System.err.println("ClassNotFoundException from ClientHandler - Client ID: " + id);
         }
@@ -140,7 +141,6 @@ public class ClientHandler implements Runnable{
         }
 
         ServerUtils.numClients--;
-        ServerUtils.usernames.remove(name);
         System.out.println("[clientId: " + id + "] Connection closed - number of clients currently connected: " + ServerUtils.numClients);
         Thread.currentThread().interrupt();
     }
