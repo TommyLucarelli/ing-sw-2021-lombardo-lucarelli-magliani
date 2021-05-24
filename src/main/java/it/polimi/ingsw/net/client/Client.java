@@ -7,7 +7,6 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.gui.Gui;
-import it.polimi.ingsw.view.gui.GuiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class Client implements Runnable{
                 System.err.println("\nFileNotFoundException in Client - Failed to launch CLI");
             }
         } else {
-            ui = new GuiManager(this);
+            ui = new Gui(this);
         }
 
     }

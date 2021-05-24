@@ -62,7 +62,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.6</version>
         <configuration>
-          <mainClass>it.polimi.ingsw.view.gui.Gui</mainClass>
+          <mainClass>it.polimi.ingsw.view.gui.JavaFxApp</mainClass>
         </configuration>
       </plugin>
     </plugins>

@@ -3,18 +3,14 @@ package it.polimi.ingsw.view.gui.controller;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.ResponseMsg;
-import it.polimi.ingsw.view.gui.Gui;
+import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +45,6 @@ public class CreateGameController implements Initializable {
     public void createGame(){
         JsonObject payload = new JsonObject();
         payload.addProperty("input", numPlayers);
-        Gui.send(new ResponseMsg(null, MessageType.NUMBER_OF_PLAYERS, payload));
+        JavaFxApp.send(new ResponseMsg(null, MessageType.NUMBER_OF_PLAYERS, payload));
     }
 }

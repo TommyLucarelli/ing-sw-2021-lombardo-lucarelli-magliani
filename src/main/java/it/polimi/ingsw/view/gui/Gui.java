@@ -1,73 +1,61 @@
 package it.polimi.ingsw.view.gui;
 
-import com.google.gson.JsonObject;
+import it.polimi.ingsw.net.client.Client;
+import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
-import it.polimi.ingsw.view.gui.controller.DynamicController;
+import it.polimi.ingsw.view.UserInterface;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.application.Platform;
 
-import java.io.IOException;
+public class Gui implements UserInterface {
+    private Client client;
 
-public class Gui extends Application {
-    private static Scene scene;
-    private static GuiManager manager;
-    private static FXMLLoader fxmlLoader;
+    public Gui(Client client){
+        this.client = client;
+        (new Thread(() -> Application.launch((JavaFxApp.class)))).start();
+        JavaFxApp.setManager(this);
+    }
+
+    //TODO: gestire gli errori di input da parte dell'utente: username già utilizzato, lobby non esistente, ecc...
 
     @Override
-    public void start(Stage stage) throws Exception {
-        scene = new Scene(loadFXML("opening"), 1200, 800);
-        stage.setTitle("Masters of Renaissance");
-        scene.setOnKeyPressed(e -> {
-            manager.start();
-            scene.setOnKeyPressed(evt -> {});
-        });
-        stage.setScene(scene);
-        stage.getScene().getStylesheets().add(getClass().getResource("/css/master.css").toExternalForm());
-        stage.show();
-    }
-
-    public static void setManager(GuiManager manager) {
-        Gui.manager = manager;
-    }
-
-    public static void setRoot(String fxml){
-        try {
-            scene.setRoot(loadFXML(fxml));
-        } catch (IOException e){
-            System.err.println("IOException - FXML file not found");
+    public void handleRequest(RequestMsg request) {
+        switch (request.getMessageType()) {
+            case REGISTRATION_MESSAGE:
+                Platform.runLater(() -> JavaFxApp.setRoot("registration"));
+                break;
+            case WELCOME_MESSAGE:
+                Platform.runLater(() -> {
+                    JavaFxApp.setRoot("welcome");
+                    JavaFxApp.initData("username", request.getPayload().get("username").getAsString());
+                });
+                break;
+            case NUMBER_OF_PLAYERS:
+                Platform.runLater(() -> JavaFxApp.setRoot("creategame"));
+                break;
+            case JOIN_GAME:
+                Platform.runLater(() -> JavaFxApp.setRoot("joinlobby"));
+                break;
+            case GAME_MESSAGE:
+                switch (request.getPayload().get("gameAction").getAsString()){
+                    case "WAIT_FOR_PLAYERS":
+                    case "WAIT_START_GAME":
+                        Platform.runLater(() -> JavaFxApp.setRoot("waitplayers"));
+                        break;
+                }
         }
     }
 
-    public static void initData(JsonObject data){
-        DynamicController controller = fxmlLoader.getController();
-        controller.initData(data);
+    public void send(ResponseMsg responseMsg){
+        client.send(responseMsg);
     }
 
-    public static void initData(String property, String value){
-        JsonObject data = new JsonObject();
-        data.addProperty(property, value);
-        DynamicController controller = fxmlLoader.getController();
-        controller.initData(data);
+    public void start(){
+        this.client.run();
     }
 
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        fxmlLoader = new FXMLLoader(Gui.class.getResource("/fxml/" + fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public static void send(ResponseMsg responseMsg){
-        manager.send(responseMsg);
-    }
-
-    public static void close(){
-        manager.close();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+    public void close(){
+        this.client.closeConnection();
+        System.exit(0);
     }
 }
