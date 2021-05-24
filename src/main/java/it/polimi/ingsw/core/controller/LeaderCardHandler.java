@@ -65,7 +65,8 @@ public class LeaderCardHandler{
                     ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
                     if(payload2.get("type").getAsInt() == 0){
                         Colour c = gson.fromJson(payload2.get("colour").getAsString(), Colour.class);
-                        controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
+                        if(controller.getCurrentGame().getDevCardStructure().discardSingle(c))
+                            controller.getCurrentGame().getTurn().setLastTurn(4);
                     }else{
                         if(payload2.get("shuffle").getAsBoolean()){
                             ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
@@ -75,8 +76,10 @@ public class LeaderCardHandler{
                         }
                     }
                 }
-                //update
-                controller.updateBuilder();
+                if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                    controller.finalUpdate();
+                else
+                    controller.updateBuilder();
             } else {
                 payload.addProperty("gameAction", "MAIN_CHOICE");
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));

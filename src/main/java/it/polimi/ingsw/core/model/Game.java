@@ -88,16 +88,22 @@ public class Game
                     marker = play.getBoard().getFaithTrack().moveFaithIndicator();
                     if(!flag)
                         flag = marker;
-                    if (marker && (play.getBoard().getFaithTrack().getPosition() > val))
-                        val = play.getBoard().getFaithTrack().getPosition(); //controllo se è 24 setta fine partita
+                    if (marker && (play.getBoard().getFaithTrack().getPosition() > val)) {
+                        val = play.getBoard().getFaithTrack().getPosition();
+                        if(val == 24)
+                            turn.setLastTurn(1);
+                    }
                 }
             }else{
                 for(int j = 0; j < p2; j++) {
                     marker = players.get(i).getBoard().getFaithTrack().moveFaithIndicator();
                     if(!flag)
                         flag = marker;
-                    if (marker && (players.get(i).getBoard().getFaithTrack().getPosition() > val))
+                    if (marker && (players.get(i).getBoard().getFaithTrack().getPosition() > val)){
                         val = players.get(i).getBoard().getFaithTrack().getPosition();
+                        if(val == 24)
+                            turn.setLastTurn(1);
+                    }
                 }
             }
         }
@@ -111,8 +117,6 @@ public class Game
             }
         }
         if(flag && (val > faithTrackMarker)){
-            if(val == 24)
-                turn.setLastTurn(1);
             faithTrackMarker = val;
             for(int i = 0; i < players.size(); i++){
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update

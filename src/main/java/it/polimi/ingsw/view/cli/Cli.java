@@ -953,23 +953,40 @@ public class Cli implements UserInterface {
         int x, vp;
         String name;
         Boolean flag = false;
-        for (JsonElement player: players){
-            x = player.getAsJsonObject().get("position").getAsInt();
-            if(x == 1 && player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID())
-            {
-                System.out.println("YOU WON, CONGRATULATIONS!!");
-                flag = true;
-            }
-        }
-        if(!flag)
-            System.out.println("YOU LOST!!");
 
-        System.out.println("\nRANKING:");
-        for (JsonElement player: players){
-            x = player.getAsJsonObject().get("position").getAsInt();
-            vp = player.getAsJsonObject().get("victoryPoints").getAsInt();
-            name = player.getAsJsonObject().get("name").getAsString();
-            System.out.println(x+") "+name+", victory points: "+vp);
+        if(requestMsg.getPayload().has("finalScenario")){
+            switch (requestMsg.getPayload().get("finalScenario").getAsInt()){
+                case 1:
+                case 2:
+                    System.out.println("YOU WON, CONGRATULATIONS!!");
+                    System.out.println("Your score is: "+players.get(0).getAsJsonObject().get("victoryPoints").getAsInt());
+                    break;
+                case 3:
+                    System.out.println("YOU LOST!! Lorenzo has reached the last spot on his Faith Track");
+                case 4:
+                    System.out.println("YOU LOST!! One column of the Development Card Structure is empty");
+                break;
+            }
+        }else {
+            for (JsonElement player : players) {
+                x = player.getAsJsonObject().get("position").getAsInt();
+                if (x == 1 && player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()) {
+                    System.out.println("YOU WON, CONGRATULATIONS!!");
+                    flag = true;
+                }
+            }
+            if (!flag)
+                System.out.println("YOU LOST!!");
+        }
+
+        if(!requestMsg.getPayload().has("finalScenario")) {
+            System.out.println("\nRANKING:");
+            for (JsonElement player : players) {
+                x = player.getAsJsonObject().get("position").getAsInt();
+                vp = player.getAsJsonObject().get("victoryPoints").getAsInt();
+                name = player.getAsJsonObject().get("name").getAsString();
+                System.out.println(x + ") " + name + ", victory points: " + vp);
+            }
         }
     }
 

@@ -307,6 +307,7 @@ public class MainController{
             if(!results.contains(vp))
                 results.add(vp);
         }
+        results.sort(Collections.reverseOrder());
         for (int i = 0; i < results.size(); i++) {
             for (int j = 0; j < players.size(); j++) {
                 player = currentGame.fromIdToPlayer(players.get(j).getPlayerId());
@@ -319,8 +320,11 @@ public class MainController{
                 }
             }
         }
-
         payload.add("players", p);
+
+        if(currentGame.getSinglePlayer())
+            payload.addProperty("finalScenario", currentGame.getTurn().isLastTurn());
+
         payload.addProperty("gameAction", "FINAL_UPDATE");
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));

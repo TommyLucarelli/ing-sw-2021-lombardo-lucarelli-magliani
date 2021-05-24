@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Turn {
     private ArrayList<Player> players;
     private int currentPlayer;
-    private int lastTurn; //0 -> no | 1 -> fine partita per dev | 2 -> fine partita per faith
+    //0 -> no | 1 -> fine partita per dev | 2 -> fine partita per faith | 3 -> fine faith lorenzo | 4 -> fine carte sviluppo
+    private int lastTurn;
     private boolean endGame;
     private int typeOfAction; //per decidere che tipo di update fare  3 per single player
     private int[] leaderCardDiscarded;

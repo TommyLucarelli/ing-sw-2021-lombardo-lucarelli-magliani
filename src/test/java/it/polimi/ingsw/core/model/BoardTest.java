@@ -201,4 +201,5 @@ public class BoardTest {
 
         assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 2, 0, 0, 0, 0, 3, 0});
     }
+
 }

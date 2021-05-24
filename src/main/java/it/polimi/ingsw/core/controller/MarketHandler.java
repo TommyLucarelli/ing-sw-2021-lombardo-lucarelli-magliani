@@ -92,11 +92,15 @@ public class MarketHandler {
             faithP1 = 0;
             //prep messaggio ShortUpdate / leader activation
             controller.getCurrentGame().getTurn().setTypeOfAction(0);
-            JsonObject payload = new JsonObject();
-            payload.addProperty("gameAction", "LEADER_ACTIVATION");
-            payload.addProperty("endTurn", true);
-            controller.getCurrentGame().getTurn().setEndGame(true);
-            controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            if(controller.getCurrentGame().getTurn().isLastTurn() == 3){
+                controller.finalUpdate();
+            }else {
+                JsonObject payload = new JsonObject();
+                payload.addProperty("gameAction", "LEADER_ACTIVATION");
+                payload.addProperty("endTurn", true);
+                controller.getCurrentGame().getTurn().setEndGame(true);
+                controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");

@@ -24,11 +24,11 @@ public class FancyPrinterTest {
         CompactBoard board = new CompactBoard();
         int[][] slots = new int[3][3];
         slots[0][0] = 3;
-        slots[0][1] = 3;
-        slots[0][2] = 3;
+        slots[0][1] = 0;
+        slots[0][2] = 0;
         slots[1][0] = 20;
         slots[1][1] = 20;
-        slots[1][2] = 20;
+        slots[1][2] = 3;
         slots[2][0] = 16;
         slots[2][1] = 16;
         slots[2][2] = 16;

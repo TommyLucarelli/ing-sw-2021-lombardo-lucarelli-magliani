@@ -118,4 +118,17 @@ public class CompactBoard {
     public void setLorenzoFavCards(boolean[] lorenzoFavCards) {
         this.lorenzoFavCards = lorenzoFavCards;
     }
+
+    public int[] printHelperSlots(){
+        int[] result = new int[3];
+        for (int j = 0; j < 3; j++) {
+            for (int i = 2; i >= 0; i--) {
+                if(devCardSlots[j][i] != 0 || i == 0) {
+                    result[j] = i;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 }

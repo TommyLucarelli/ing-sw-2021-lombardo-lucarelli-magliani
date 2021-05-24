@@ -351,6 +351,8 @@ public class FancyPrinter {
             string.add(new StringBuilder());
         }
 
+        int[] indexHelper = board.printHelperSlots();
+
         int x = 0;
         if(production){
             string.get(0).append("   \t\t\t 2\t\t\t\t\t\t\t 3\t\t\t\t\t\t\t 4");
@@ -358,19 +360,27 @@ public class FancyPrinter {
         }
         for (int j = 0; j < 9; j++) {
             for (int i = 0; i < 3; i++) {
-                string.get(j+x).append(devCardToArrayList(board.getDevCardSlots()[i][0]).get(j)).append("\t");
+                string.get(j+x).append(devCardToArrayList(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
             }
         }
 
          for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
-                string.get(j+9+x).append(printBase(board.getDevCardSlots()[i][1]).get(j)).append("\t");
+                indexHelper[i]--;
+                if(indexHelper[i] < 0)
+                    string.get(j + 9 + x).append(printBase(0).get(j)).append("\t");
+                else
+                    string.get(j + 9 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
             }
          }
 
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
-                string.get(j+11+x).append(printBase(board.getDevCardSlots()[i][2]).get(j)).append("\t");
+                indexHelper[i]--;
+                if(indexHelper[i] < 0)
+                    string.get(j + 11 + x).append(printBase(0).get(j)).append("\t");
+                else
+                    string.get(j + 11 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
             }
         }
 

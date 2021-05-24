@@ -53,7 +53,8 @@ public class TurnHandler {
                     ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
                     if(payload.get("type").getAsInt() == 0){
                         Colour c = gson.fromJson(payload.get("colour").getAsString(), Colour.class);
-                        controller.getCurrentGame().getDevCardStructure().discardSingle(c); //controllo boolean per endGame
+                        if(controller.getCurrentGame().getDevCardStructure().discardSingle(c))
+                            controller.getCurrentGame().getTurn().setLastTurn(4);
                     }else if(payload.get("type").getAsInt() == 1) {
                         if(payload.get("shuffle").getAsBoolean()){
                             ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
@@ -63,8 +64,10 @@ public class TurnHandler {
                         }
                     }
                 }
-                //update
-                controller.updateBuilder();
+                if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                    controller.finalUpdate();
+                else
+                    controller.updateBuilder();
             } else{
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "MAIN_CHOICE");
