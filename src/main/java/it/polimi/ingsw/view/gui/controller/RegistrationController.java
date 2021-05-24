@@ -17,8 +17,12 @@ public class RegistrationController {
 
     public void playAction(){
         JsonObject payload = new JsonObject();
-        payload.addProperty("input", username.getText());
-        Gui.send(new ResponseMsg(null, MessageType.REGISTRATION_MESSAGE, payload));
-        Gui.setRoot("loading");
+        if(!username.getText().isBlank()){
+            payload.addProperty("input", username.getText());
+            Gui.send(new ResponseMsg(null, MessageType.REGISTRATION_MESSAGE, payload));
+            Gui.setRoot("loading");
+        } else {
+            username.setPromptText("Please enter a username!");
+        }
     }
 }

@@ -25,4 +25,6 @@ public class OpeningController implements Initializable {
         fadeTransition.setCycleCount(Animation.INDEFINITE);
         fadeTransition.play();
     }
+
+
 }

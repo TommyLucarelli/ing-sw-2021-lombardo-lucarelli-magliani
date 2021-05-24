@@ -33,7 +33,7 @@
       </ImageView>
       <Text fx:id="label" layoutX="362.0" layoutY="589.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press any key to start the game!">
          <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="36.0" />
+            <Font name="Trattatello" size="48.0" />
          </font>
       </Text>
    </children>

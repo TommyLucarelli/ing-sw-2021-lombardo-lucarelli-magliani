@@ -18,6 +18,8 @@ public class GuiManager implements UserInterface {
         Gui.setManager(this);
     }
 
+    //TODO: gestire gli errori di input da parte dell'utente: username già utilizzato, lobby non esistente, ecc...
+
     @Override
     public void handleRequest(RequestMsg request) {
         switch (request.getMessageType()) {
@@ -27,6 +29,19 @@ public class GuiManager implements UserInterface {
             case WELCOME_MESSAGE:
                 Platform.runLater(() -> Gui.setRoot("welcome"));
                 break;
+            case NUMBER_OF_PLAYERS:
+                Platform.runLater(() -> Gui.setRoot("creategame"));
+                break;
+            case JOIN_GAME:
+                Platform.runLater(() -> Gui.setRoot("joinlobby"));
+                break;
+            case GAME_MESSAGE:
+                switch (request.getPayload().get("gameAction").getAsString()){
+                    case "WAIT_FOR_PLAYERS":
+                    case "WAIT_START_GAME":
+                        Platform.runLater(() -> Gui.setRoot("waitplayers"));
+                        break;
+                }
         }
     }
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.CreateGameController">
+   <children>
+      <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Quit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Instructions" />
+                  <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Button fx:id="btnCreate" layoutX="552.0" layoutY="539.0" mnemonicParsing="false" onAction="#createGame" styleClass="quit-btn" text="Create Game" AnchorPane.rightAnchor="454.5">
+         <font>
+            <Font name="Trattatello" size="36.0" />
+         </font></Button>
+      <ImageView fitHeight="227.0" fitWidth="745.0" layoutX="228.0" layoutY="106.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="227.0">
+         <image>
+            <Image url="@../images/longtitle.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="406.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many players will the game have?">
+         <font>
+            <Font name="Trattatello" size="36.0" />
+         </font>
+      </Text>
+          <ToggleButton fx:id="btn1" layoutX="432.0" layoutY="415.0" mnemonicParsing="false" prefWidth="90.0" text="1">
+              <font>
+                  <Font name="Trattatello" size="36.0" />
+              </font>
+          </ToggleButton>
+          <ToggleButton fx:id="btn2" layoutX="541.0" layoutY="415.0" mnemonicParsing="false" prefWidth="90.0" text="2">
+              <font>
+                  <Font name="Trattatello" size="36.0" />
+              </font>
+          </ToggleButton>
+          <ToggleButton fx:id="btn3" layoutX="649.0" layoutY="415.0" mnemonicParsing="false" prefWidth="90.0" text="3">
+              <font>
+                  <Font name="Trattatello" size="36.0" />
+              </font>
+          </ToggleButton>
+          <ToggleButton fx:id="btn4" layoutX="756.0" layoutY="415.0" mnemonicParsing="false" prefWidth="90.0" text="4">
+              <font>
+                  <Font name="Trattatello" size="36.0" />
+              </font>
+          </ToggleButton>
+   </children>
+</AnchorPane>

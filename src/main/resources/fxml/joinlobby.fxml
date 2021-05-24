@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -28,23 +28,23 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="577.0" layoutY="672.0" mnemonicParsing="false" onAction="#joinLobby" styleClass="quit-btn" text="Join Game" AnchorPane.rightAnchor="507.5">
+      <Button layoutX="550.0" layoutY="521.0" mnemonicParsing="false" onAction="#joinLobby" styleClass="quit-btn" text="Join Game" AnchorPane.rightAnchor="507.0">
          <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="24.0" />
+            <Font name="Trattatello" size="24.0" />
          </font></Button>
-      <ImageView fitHeight="395.0" fitWidth="745.0" layoutX="228.0" layoutY="106.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="227.0">
+      <ImageView fitHeight="227.0" fitWidth="745.0" layoutX="228.0" layoutY="106.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="227.0">
          <image>
-            <Image url="@../images/title.png" />
+            <Image url="@../images/longtitle.png" />
          </image>
       </ImageView>
-      <Text layoutX="473.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the Lobby Id:">
+      <Text layoutX="520.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the Lobby Id:">
          <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="36.0" />
+            <Font name="Trattatello" size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="lobbyId" layoutX="457.0" layoutY="587.0" promptText="Lobby Id">
+      <TextField fx:id="lobbyId" layoutX="479.0" layoutY="407.0" promptText="Lobby Id">
          <font>
-            <Font name="Academy Engraved LET Plain:1.0" size="24.0" />
+            <Font name="Trattatello" size="24.0" />
          </font>
       </TextField>
    </children>
