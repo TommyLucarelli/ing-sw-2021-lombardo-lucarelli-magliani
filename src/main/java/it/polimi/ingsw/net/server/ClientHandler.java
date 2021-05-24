@@ -132,6 +132,7 @@ public class ClientHandler implements Runnable{
      * Method invoked to close the connection to the client.
      */
     private void disconnect(){
+        connectionDroppedTimer.cancel();
         System.out.println("[clientId: " + id + "] Closing connection...");
 
         try {
