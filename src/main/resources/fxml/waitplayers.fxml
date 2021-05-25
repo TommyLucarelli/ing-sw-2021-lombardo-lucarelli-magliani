@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -31,10 +32,15 @@
             <Image url="@../images/longtitle.png" />
          </image>
       </ImageView>
-      <Text layoutX="460.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other players...">
+      <Text fx:id="textArea" layoutX="140.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other players..." textAlignment="CENTER" wrappingWidth="940.2680053710938" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
          <font>
             <Font name="Trattatello" size="36.0" />
          </font>
       </Text>
+      <Button fx:id="startGameBtn" layoutX="512.0" layoutY="650.0" mnemonicParsing="false" text="Start game" visible="false">
+         <font>
+            <Font name="Trattatello" size="36.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

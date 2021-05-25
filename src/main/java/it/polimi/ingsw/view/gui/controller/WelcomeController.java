@@ -24,7 +24,7 @@ public class WelcomeController implements DynamicController {
     }
 
     @Override
-    public void initData(JsonObject data) {
+    public void setData(JsonObject data) {
         welcomeMessage.setText("Welcome, " + data.get("username").getAsString() + "!");
     }
 }

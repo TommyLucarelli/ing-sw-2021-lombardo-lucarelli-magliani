@@ -41,16 +41,21 @@ public class JavaFxApp extends Application {
         }
     }
 
-    public static void initData(JsonObject data){
-        DynamicController controller = fxmlLoader.getController();
-        controller.initData(data);
+    public static void setRootWithData(String fxml, JsonObject data){
+        setRoot(fxml);
+        setData(data);
     }
 
-    public static void initData(String property, String value){
+    public static void setData(JsonObject data){
+        DynamicController controller = fxmlLoader.getController();
+        controller.setData(data);
+    }
+
+    public static void setData(String property, String value){
         JsonObject data = new JsonObject();
         data.addProperty(property, value);
         DynamicController controller = fxmlLoader.getController();
-        controller.initData(data);
+        controller.setData(data);
     }
 
 

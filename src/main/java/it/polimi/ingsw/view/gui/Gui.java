@@ -27,7 +27,7 @@ public class Gui implements UserInterface {
             case WELCOME_MESSAGE:
                 Platform.runLater(() -> {
                     JavaFxApp.setRoot("welcome");
-                    JavaFxApp.initData("username", request.getPayload().get("username").getAsString());
+                    JavaFxApp.setData("username", request.getPayload().get("username").getAsString());
                 });
                 break;
             case NUMBER_OF_PLAYERS:
@@ -40,7 +40,11 @@ public class Gui implements UserInterface {
                 switch (request.getPayload().get("gameAction").getAsString()){
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
-                        Platform.runLater(() -> JavaFxApp.setRoot("waitplayers"));
+                        Platform.runLater(() -> JavaFxApp.setRootWithData("waitplayers", request.getPayload()));
+                        break;
+                    case "SHORT_UPDATE":
+                    case "START_GAME_COMMAND":
+                        Platform.runLater(() -> JavaFxApp.setData(request.getPayload()));
                         break;
                 }
         }
