@@ -15,17 +15,17 @@
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Quit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Instructions" />
-                  <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Quit" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Instructions" />
+                    <MenuItem mnemonicParsing="false" text="About" />
+                </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Button fx:id="btnCreate" layoutX="552.0" layoutY="539.0" mnemonicParsing="false" onAction="#createGame" styleClass="quit-btn" text="Create Game" AnchorPane.rightAnchor="454.5">

@@ -15,17 +15,17 @@
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Quit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Instructions" />
-                  <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+           <Menu mnemonicParsing="false" text="File">
+              <items>
+                 <MenuItem mnemonicParsing="false" text="Quit" />
+              </items>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Help">
+              <items>
+                 <MenuItem mnemonicParsing="false" text="Instructions" />
+                 <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+           </Menu>
         </menus>
       </MenuBar>
       <Text fx:id="text" layoutX="521.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You are entitled to n starting resources!" textAlignment="CENTER" wrappingWidth="1000.0" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
