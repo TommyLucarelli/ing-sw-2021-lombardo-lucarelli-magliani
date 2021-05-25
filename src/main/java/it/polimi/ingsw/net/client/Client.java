@@ -86,7 +86,7 @@ public class Client implements Runnable{
             System.err.println("IOException from Client::run - server unreachable");
             return;
         }
-        System.out.println("Connection to server successful! Type \"quit\" to close the connection.");
+        System.out.println("Connection to server successful!");
 
         /*
          * Sends the first message to the server.
