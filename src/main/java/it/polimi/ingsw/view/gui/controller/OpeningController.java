@@ -2,8 +2,6 @@ package it.polimi.ingsw.view.gui.controller;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;

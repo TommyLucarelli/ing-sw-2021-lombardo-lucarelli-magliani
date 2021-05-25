@@ -4,11 +4,20 @@ import it.polimi.ingsw.net.client.Client;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.UserInterface;
+import it.polimi.ingsw.view.compact.CompactDevCardStructure;
+import it.polimi.ingsw.view.compact.CompactMarket;
+import it.polimi.ingsw.view.compact.CompactPlayer;
 import javafx.application.Application;
 import javafx.application.Platform;
 
+import java.util.HashMap;
+
 public class Gui implements UserInterface {
-    private Client client;
+    private final Client client;
+    private CompactPlayer mySelf;
+    private CompactMarket compactMarket;
+    private CompactDevCardStructure compactDevCardStructure;
+    private HashMap<Integer, CompactPlayer> opponents;
 
     public Gui(Client client){
         this.client = client;
@@ -46,6 +55,12 @@ public class Gui implements UserInterface {
                     case "START_GAME_COMMAND":
                         Platform.runLater(() -> JavaFxApp.setData(request.getPayload()));
                         break;
+                    case "CHOOSE_START_LEADERS":
+                        Platform.runLater(() -> JavaFxApp.setRootWithData("leaderschoice", request.getPayload()));
+                        break;
+                    case "CHOOSE_START_RESOURCES":
+                        Platform.runLater(() -> JavaFxApp.setRootWithData("resourceschoice", request.getPayload()));
+                        break;
                 }
         }
     }
@@ -61,5 +76,14 @@ public class Gui implements UserInterface {
     public void close(){
         this.client.closeConnection();
         System.exit(0);
+    }
+
+    public int getPlayerId(){
+        return mySelf.getPlayerID();
+    }
+
+    public void firstSetup(int playerId, String username, int[] leaders){
+        mySelf = new CompactPlayer(playerId, username);
+        mySelf.getCompactBoard().setLeaderCards(leaders);
     }
 }

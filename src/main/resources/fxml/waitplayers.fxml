@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.WaitPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.WaitPlayersController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -32,12 +32,12 @@
             <Image url="@../images/longtitle.png" />
          </image>
       </ImageView>
-      <Text fx:id="textArea" layoutX="140.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other players..." textAlignment="CENTER" wrappingWidth="940.2680053710938" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
+      <Text fx:id="textArea" layoutX="24.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other players..." textAlignment="CENTER" wrappingWidth="1153.2680053710938" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="22.73199462890625">
          <font>
             <Font name="Trattatello" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="startGameBtn" layoutX="512.0" layoutY="650.0" mnemonicParsing="false" text="Start game" visible="false">
+      <Button fx:id="startGameBtn" layoutX="512.0" layoutY="650.0" mnemonicParsing="false" onAction="#startGameAction" text="Start game" visible="false">
          <font>
             <Font name="Trattatello" size="36.0" />
          </font>

@@ -33,6 +33,10 @@ public class JavaFxApp extends Application {
         JavaFxApp.manager = manager;
     }
 
+    public static Gui getManager(){
+        return manager;
+    }
+
     public static void setRoot(String fxml){
         try {
             scene.setRoot(loadFXML(fxml));
