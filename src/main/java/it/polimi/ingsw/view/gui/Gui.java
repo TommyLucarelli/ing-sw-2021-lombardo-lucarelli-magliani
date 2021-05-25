@@ -25,19 +25,15 @@ public class Gui implements UserInterface {
         JavaFxApp.setManager(this);
     }
 
-    //TODO: gestire gli errori di input da parte dell'utente: username già utilizzato, lobby non esistente, ecc...
-
     @Override
     public void handleRequest(RequestMsg request) {
         switch (request.getMessageType()) {
             case REGISTRATION_MESSAGE:
                 Platform.runLater(() -> JavaFxApp.setRoot("registration"));
+                if(request.getPayload().has("error")) Platform.runLater(() -> JavaFxApp.setData("error", "true"));
                 break;
             case WELCOME_MESSAGE:
-                Platform.runLater(() -> {
-                    JavaFxApp.setRoot("welcome");
-                    JavaFxApp.setData("username", request.getPayload().get("username").getAsString());
-                });
+                Platform.runLater(() -> JavaFxApp.setRootWithData("welcome", request.getPayload()));
                 break;
             case NUMBER_OF_PLAYERS:
                 Platform.runLater(() -> JavaFxApp.setRoot("creategame"));

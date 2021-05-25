@@ -13,12 +13,12 @@ public class JoinLobbyController {
 
     public void joinLobby(){
         JsonObject payload = new JsonObject();
-        if(!lobbyId.getText().isBlank()){
+        if(!lobbyId.getText().isBlank() && lobbyId.getText().length() == 5){
             payload.addProperty("input", lobbyId.getText());
             JavaFxApp.send(new ResponseMsg(null, MessageType.JOIN_GAME, payload));
             JavaFxApp.setRoot("loading");
         } else {
-            lobbyId.setPromptText("Please enter a lobby Id!");
+            lobbyId.setPromptText("Please enter a valid lobby Id!");
         }
     }
 }

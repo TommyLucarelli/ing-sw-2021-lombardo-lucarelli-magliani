@@ -11,6 +11,12 @@ public class WelcomeController implements DynamicController {
     @FXML
     Text welcomeMessage;
 
+    @Override
+    public void setData(JsonObject data) {
+        if(data.has("error")) welcomeMessage.setText("The specified lobby doesn't exist!");
+        else welcomeMessage.setText("Welcome, " + data.get("username").getAsString() + "!");
+    }
+
     public void createGame() {
         JsonObject payload = new JsonObject();
         payload.addProperty("input", 1);
@@ -23,8 +29,4 @@ public class WelcomeController implements DynamicController {
         JavaFxApp.send(new ResponseMsg(null, MessageType.WELCOME_MESSAGE, payload));
     }
 
-    @Override
-    public void setData(JsonObject data) {
-        welcomeMessage.setText("Welcome, " + data.get("username").getAsString() + "!");
-    }
 }

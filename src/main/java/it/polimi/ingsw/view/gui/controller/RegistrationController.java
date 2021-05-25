@@ -6,10 +6,19 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
-public class RegistrationController {
+public class RegistrationController implements DynamicController{
     @FXML
     TextField username;
+
+    @FXML
+    Text errorMsg;
+
+    @Override
+    public void setData(JsonObject data) {
+        errorMsg.setVisible(data.get("error").getAsString().equals("true"));
+    }
 
     public void quitAction(){
         JavaFxApp.close();

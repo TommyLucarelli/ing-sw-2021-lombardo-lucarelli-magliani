@@ -94,6 +94,7 @@ public class RequestManager {
         } else if(ServerUtils.usernames.contains(input)){
             JsonObject payload = new JsonObject();
             payload.addProperty("message", "This username is already taken, please enter another username.");
+            payload.addProperty("error", true);
             JsonObject expectedResponse = new JsonObject();
             expectedResponse.addProperty("type", "string");
             payload.add("expectedResponse", expectedResponse);
@@ -187,6 +188,7 @@ public class RequestManager {
             }
         }
         payload.addProperty("message", msg);
+        payload.addProperty("error", true);
         JsonObject expectedResponse = new JsonObject();
         expectedResponse.addProperty("type", "int");
         expectedResponse.addProperty("min", 1);
