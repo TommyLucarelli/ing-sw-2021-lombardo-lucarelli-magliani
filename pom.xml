@@ -17,7 +17,6 @@
   </properties>
 
   <dependencies>
-
     <!-- JUnit provides unit testing for Java applications -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -44,7 +43,6 @@
 
   <build>
     <plugins>
-
       <!-- Java version -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
