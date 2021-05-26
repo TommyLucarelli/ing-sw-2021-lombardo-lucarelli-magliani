@@ -289,10 +289,9 @@ public class MainController{
             return false;
     }
 
-    public void finalUpdate(){
+    public void finalUpdate(int playerID){
         JsonObject payload = new JsonObject();
         JsonArray p = new JsonArray();
-        JsonObject payload2 = new JsonObject();
         ArrayList<Integer> results = new ArrayList<>();
         Player player;
         int vp;
@@ -308,6 +307,7 @@ public class MainController{
             for (int j = 0; j < players.size(); j++) {
                 player = currentGame.fromIdToPlayer(players.get(j).getPlayerId());
                 if(player.getBoard().victoryPoints() == results.get(i)){
+                    JsonObject payload2 = new JsonObject();
                     payload2.addProperty("position", i+1);
                     payload2.addProperty("playerID", player.getPlayerID());
                     payload2.addProperty("name", player.getNickname());
@@ -323,7 +323,7 @@ public class MainController{
 
         payload.addProperty("gameAction", "FINAL_UPDATE");
 
-        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        this.notifyPlayer(fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
     public void handleDisconnection(PlayerHandler playerHandler){

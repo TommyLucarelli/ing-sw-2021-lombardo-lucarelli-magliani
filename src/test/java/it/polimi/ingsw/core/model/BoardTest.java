@@ -155,7 +155,7 @@ public class BoardTest {
         board.getStrongbox().addResource(rq);
         board.getStrongbox().addResource(rq4);
 
-        assertEquals(board.victoryPoints(), 42);
+        assertEquals(board.victoryPoints(), 34);
 
     }
 

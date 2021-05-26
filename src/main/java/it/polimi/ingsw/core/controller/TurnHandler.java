@@ -64,9 +64,11 @@ public class TurnHandler {
                         }
                     }
                     if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
-                        controller.finalUpdate();
+                        controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
                     else
                         controller.updateBuilder();
+                }else{
+                    controller.updateBuilder();
                 }
             } else{
                 JsonObject payload = new JsonObject();
@@ -93,7 +95,7 @@ public class TurnHandler {
         JsonObject payload = new JsonObject();
         Turn turn = controller.getCurrentGame().getTurn();
         if((turn.isLastTurn() == 1 || turn.isLastTurn() == 2 || turn.isLastTurn() == 3) && turn.getCurrentPlayer() == 0){
-            controller.finalUpdate();
+            controller.finalUpdate(playerID);
         }else {
             if (playerID != controller.getCurrentPlayer().getPlayerID()) {
                 payload.addProperty("gameAction", "START_TURN");

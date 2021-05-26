@@ -200,7 +200,7 @@ public class Board {
                 vp+=devCardSlots.get(i).getSlot().get(j).getVictoryPoints();
             }
         }
-        vp+= faithtrack.getPosition();
+        vp+= faithtrack.faithVictoryPoints();
         vp+= faithtrack.favourVictoryPoints();
         x = personalResQtyToArray();
         for (int i : x) {

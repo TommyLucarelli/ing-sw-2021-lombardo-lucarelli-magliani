@@ -44,4 +44,13 @@ public class FaithTrackTest {
 
         assertEquals(3, ft.favourVictoryPoints());
     }
+
+    @Test
+    public void testFaithVictoryPoints(){
+        FaithTrack ft = new FaithTrack();
+        for(int i=0; i<16; i++)
+            ft.moveFaithIndicator();
+
+        assertEquals(6, ft.faithVictoryPoints());
+    }
 }

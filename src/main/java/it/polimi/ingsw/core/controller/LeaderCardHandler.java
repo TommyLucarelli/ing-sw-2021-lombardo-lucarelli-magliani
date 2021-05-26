@@ -76,9 +76,11 @@ public class LeaderCardHandler{
                         }
                     }
                     if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
-                        controller.finalUpdate();
+                        controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
                     else
                         controller.updateBuilder();
+                }else{
+                    controller.updateBuilder();
                 }
             } else {
                 payload.addProperty("gameAction", "MAIN_CHOICE");

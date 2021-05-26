@@ -980,6 +980,7 @@ public class Cli implements UserInterface {
                 if (x == 1 && player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()) {
                     printFinish(true);
                     flag = true;
+                    break;
                 }
             }
             if (!flag)

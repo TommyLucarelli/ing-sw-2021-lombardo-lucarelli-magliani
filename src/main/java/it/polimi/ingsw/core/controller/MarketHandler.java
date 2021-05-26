@@ -93,7 +93,7 @@ public class MarketHandler {
             //prep messaggio ShortUpdate / leader activation
             controller.getCurrentGame().getTurn().setTypeOfAction(0);
             if(controller.getCurrentGame().getTurn().isLastTurn() == 3){
-                controller.finalUpdate();
+                controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
             }else {
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "LEADER_ACTIVATION");

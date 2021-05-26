@@ -17,6 +17,7 @@ public class FaithTrack {
      * Class constructor
      */
     public FaithTrack(){
+        //TODO: sistema
         position = 0;
         favourCardsFlag = new boolean[3];
     }
@@ -83,6 +84,29 @@ public class FaithTrack {
                 cont= cont+i+2;
         }
         return cont;
+    }
+
+    public int faithVictoryPoints(){
+        int i = position;
+        if(position < 3)
+            return 0;
+        if(position < 6)
+            return 1;
+        if(position < 9)
+            return 2;
+        if(position < 12)
+            return 4;
+        if(position < 15)
+            return 6;
+        if(position < 18)
+            return 9;
+        if(position < 21)
+            return 12;
+        if(position < 24)
+            return 16;
+        if(position == 24)
+            return 20;
+        return 1000;
     }
 
     /**
