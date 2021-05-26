@@ -45,7 +45,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         this.data = data;
         this.resources = data.get("resources").getAsInt();
         if(resources == 0){
-            JavaFxApp.setRoot("loading");
+            JsonObject payload = new JsonObject();
+            payload.addProperty("message", "Waiting for other players...");
+            JavaFxApp.setRootWithData("loading", payload);
         }
         if(data.has("faithPoints")) text.setText("You are entitled to " + resources + " starting resources and " +
                 data.get("faithPoints").getAsInt() + " faith points!");
@@ -148,6 +150,8 @@ public class ResourcesChoiceController implements DynamicController, Initializab
 
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
 
-        JavaFxApp.setRoot("gameboard");
+        payload = new JsonObject();
+        payload.addProperty("message", "Waiting for other players...");
+        JavaFxApp.setRootWithData("loading", payload);
     }
 }
