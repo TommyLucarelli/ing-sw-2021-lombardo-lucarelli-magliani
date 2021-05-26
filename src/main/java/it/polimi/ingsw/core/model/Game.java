@@ -2,10 +2,8 @@ package it.polimi.ingsw.core.model;
 
 import it.polimi.ingsw.core.controller.PlayerHandler;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Class representing the main game
@@ -75,9 +73,8 @@ public class Game
      * p represent the value of faithtrack movement
      * @param p1 main player
      * @param p2 other player
-     * @return true if Favour Cards have been flipped, it's useful for shortupdate
      */
-    public boolean faithTrackUpdate(Player play, int p1, int p2){
+    public void faithTrackUpdate(Player play, int p1, int p2){
         boolean marker = false;
         boolean flag = false;
         int val = 0;
@@ -91,7 +88,7 @@ public class Game
                     if (marker && (play.getBoard().getFaithTrack().getPosition() > val)) {
                         val = play.getBoard().getFaithTrack().getPosition();
                         if(val == 24)
-                            turn.setLastTurn(1);
+                            turn.setLastTurn(2);
                     }
                 }
             }else{
@@ -102,7 +99,7 @@ public class Game
                     if (marker && (players.get(i).getBoard().getFaithTrack().getPosition() > val)){
                         val = players.get(i).getBoard().getFaithTrack().getPosition();
                         if(val == 24)
-                            turn.setLastTurn(1);
+                            turn.setLastTurn(2);
                     }
                 }
             }
@@ -126,7 +123,6 @@ public class Game
                 players.get(i).getBoard().getFaithTrack().setFavourCardsFlag(val); //potrebbe essere interessante controllare il true/false per il short update
             }
         }
-        return marker;
     }
 
     public int getFaithTrackMarker() {
