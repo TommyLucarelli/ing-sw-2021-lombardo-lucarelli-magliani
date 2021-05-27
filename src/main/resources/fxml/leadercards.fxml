@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.LeaderCardsController">
+   <children>
+      <ImageView fx:id="l0" fitHeight="371.0" fitWidth="272.0" layoutX="31.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="31.0" />
+      <ImageView fx:id="l1" fitHeight="371.0" fitWidth="272.0" layoutX="326.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="31.0" />
+      <ImageView fx:id="w0" fitHeight="66.0" fitWidth="64.0" layoutX="78.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w1" fitHeight="66.0" fitWidth="64.0" layoutX="169.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w2" fitHeight="66.0" fitWidth="64.0" layoutX="370.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w3" fitHeight="66.0" fitWidth="64.0" layoutX="463.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
