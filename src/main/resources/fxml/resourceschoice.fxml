@@ -40,22 +40,22 @@
       </Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="205.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/resources/coin.png" />
+            <Image url="@../images/resources/0.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="871.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/resources/servant.png" />
+            <Image url="@../images/resources/3.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="423.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/resources/stone.png" />
+            <Image url="@../images/resources/1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="632.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/resources/shield.png" />
+            <Image url="@../images/resources/2.png" />
          </image>
       </ImageView>
       <TextField fx:id="coin" editable="false" layoutX="269.0" layoutY="440.0" prefHeight="62.0" prefWidth="45.0" promptText="0">

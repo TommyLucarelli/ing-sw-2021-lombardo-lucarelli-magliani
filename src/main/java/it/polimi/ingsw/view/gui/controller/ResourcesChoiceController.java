@@ -143,7 +143,7 @@ public class ResourcesChoiceController implements DynamicController, Initializab
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
-        payload.addProperty("playerID", JavaFxApp.getManager().getPlayerId());
+        payload.addProperty("playerID", JavaFxApp.getManager().getMyself().getPlayerID());
         Gson gson = new Gson();
         String json = gson.toJson(new ArrayList<>(Arrays.asList(placed)));
         payload.addProperty("placed", json);

@@ -24,13 +24,9 @@ import java.util.HashMap;
 public class Gui implements UserInterface {
     private final Client client;
     private CompactPlayer mySelf;
-    private CompactMarket compactMarket;
-    private CompactDevCardStructure compactDevCardStructure;
-    private HashMap<Integer, CompactPlayer> opponents;
 
     public Gui(Client client){
         this.client = client;
-        this.opponents = new HashMap<>();
         (new Thread(() -> Application.launch((JavaFxApp.class)))).start();
         JavaFxApp.setManager(this);
     }
@@ -68,9 +64,7 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.setRootWithData("resourceschoice", request.getPayload()));
                         break;
                     case "INITIAL_UPDATE":
-                        handleInitialUpdate(request);
-                        Platform.runLater(() -> JavaFxApp.setRoot("gameboard"));
-                        //TODO: setData()
+                        Platform.runLater(() -> JavaFxApp.setRootWithData("gameboard", request.getPayload()));
                         break;
 
                 }
@@ -90,8 +84,8 @@ public class Gui implements UserInterface {
         System.exit(0);
     }
 
-    public int getPlayerId(){
-        return mySelf.getPlayerID();
+    public CompactPlayer getMyself(){
+        return mySelf;
     }
 
     public void firstSetup(int playerId, String username, int[] leaders){
@@ -99,70 +93,5 @@ public class Gui implements UserInterface {
         mySelf.getCompactBoard().setLeaderCards(leaders);
     }
 
-    /**
-     * Method used to handle the initial update sent by the server to initialize the client-side model structures.
-     * @param requestMsg the request sent by the server.
-     */
-    private void handleInitialUpdate(RequestMsg requestMsg){
-        compactMarket = new CompactMarket();
-        compactDevCardStructure = new CompactDevCardStructure();
-        int nextPlayerID;
 
-        JsonObject payload = requestMsg.getPayload().get("market").getAsJsonObject();
-        nextPlayerID = requestMsg.getPayload().get("nextPlayerID").getAsInt();
-        Gson gson = new Gson();
-        String json = payload.get("structure").getAsString();
-        Type collectionType = new TypeToken<int[]>(){}.getType();
-        int[] structure = gson.fromJson(json, collectionType);
-        compactMarket.setMarket(structure);
-
-        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
-        json = payload.get("structure").getAsString();
-        collectionType = new TypeToken<int[][]>(){}.getType();
-        int[][] structure2 = gson.fromJson(json, collectionType);
-        compactDevCardStructure.setDevCardStructure(structure2);
-
-        JsonObject payload2;
-        JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
-        for (JsonElement player: players) {
-            if(player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()){
-                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
-                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
-                json = payload2.get("favCards").getAsString();
-                collectionType = new TypeToken<boolean[]>(){}.getType();
-                boolean[] fav = gson.fromJson(json, collectionType);
-                mySelf.getCompactBoard().setFavCards(fav);
-
-                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
-                json = payload2.get("structure").getAsString();
-                collectionType = new TypeToken<Resource[]>(){}.getType();
-                Resource[] ware = gson.fromJson(json, collectionType);
-                mySelf.getCompactBoard().setWarehouse(ware);
-
-            }else{
-                opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
-
-                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
-                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
-                json = payload2.get("favCards").getAsString();
-                collectionType = new TypeToken<boolean[]>(){}.getType();
-                boolean[] fav = gson.fromJson(json, collectionType);
-                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFavCards(fav);
-
-                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
-                json = payload2.get("structure").getAsString();
-                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
-                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
-                Resource[] wa = new Resource[10];
-                wa = ware.toArray(wa);
-                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setWarehouse(wa);
-            }
-        }
-
-
-        JsonObject payload3 = new JsonObject();
-        payload3.addProperty("gameAction", "INITIAL_UPDATE");
-        payload3.addProperty("playerID", mySelf.getPlayerID());
-        client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload3));
-    }
 }

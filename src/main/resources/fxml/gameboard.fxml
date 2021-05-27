@@ -5,13 +5,16 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.WaitPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -49,6 +52,11 @@
                   <Font name="Trattatello" size="24.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="204.0" text="Show Leader Cards">
+               <font>
+                  <Font name="Trattatello" size="24.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
       <TextArea editable="false" layoutX="-1.0" layoutY="740.0" prefHeight="61.0" prefWidth="997.0" promptText="Updates:" text="Updates:">
@@ -56,5 +64,160 @@
             <Font size="14.0" />
          </font>
       </TextArea>
+      <ImageView fx:id="f0" fitHeight="45.0" fitWidth="44.0" layoutX="39.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f1" fitHeight="45.0" fitWidth="44.0" layoutX="88.0" layoutY="167.0" pickOnBounds="true" />
+      <ImageView fx:id="f2" fitHeight="45.0" fitWidth="44.0" layoutX="137.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f3" fitHeight="45.0" fitWidth="44.0" layoutX="137.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f4" fitHeight="45.0" fitWidth="44.0" layoutX="136.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f5" fitHeight="45.0" fitWidth="44.0" layoutX="185.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f6" fitHeight="45.0" fitWidth="44.0" layoutX="235.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f7" fitHeight="45.0" fitWidth="44.0" layoutX="282.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f8" fitHeight="45.0" fitWidth="44.0" layoutX="331.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f9" fitHeight="45.0" fitWidth="44.0" layoutX="381.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f10" fitHeight="45.0" fitWidth="44.0" layoutX="381.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f11" fitHeight="45.0" fitWidth="44.0" layoutX="381.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f12" fitHeight="45.0" fitWidth="44.0" layoutX="431.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f13" fitHeight="45.0" fitWidth="44.0" layoutX="477.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f14" fitHeight="45.0" fitWidth="44.0" layoutX="527.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f15" fitHeight="45.0" fitWidth="44.0" layoutX="576.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f16" fitHeight="45.0" fitWidth="44.0" layoutX="625.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f17" fitHeight="45.0" fitWidth="44.0" layoutX="625.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f18" fitHeight="45.0" fitWidth="44.0" layoutX="625.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f19" fitHeight="45.0" fitWidth="44.0" layoutX="673.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f20" fitHeight="45.0" fitWidth="44.0" layoutX="723.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f21" fitHeight="45.0" fitWidth="44.0" layoutX="771.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f22" fitHeight="45.0" fitWidth="44.0" layoutX="821.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f23" fitHeight="45.0" fitWidth="44.0" layoutX="868.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f24" fitHeight="45.0" fitWidth="44.0" layoutX="918.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp1" fitHeight="61.0" fitWidth="60.0" layoutX="251.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp2" fitHeight="61.0" fitWidth="60.0" layoutX="497.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp3" fitHeight="61.0" fitWidth="60.0" layoutX="787.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="113.0" fitWidth="73.0" layoutX="25.0" layoutY="543.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/0.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="113.0" fitWidth="73.0" layoutX="107.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="113.0" fitWidth="73.0" layoutX="25.0" layoutY="607.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="113.0" fitWidth="73.0" layoutX="110.0" layoutY="542.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/2.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="sCoin" fill="WHITE" layoutX="87.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="sStone" fill="WHITE" layoutX="174.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="sShield" fill="WHITE" layoutX="87.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="sServant" fill="WHITE" layoutX="174.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="slot11" fitHeight="265.0" fitWidth="181.0" layoutX="385.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot12" fitHeight="265.0" fitWidth="181.0" layoutX="385.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot13" fitHeight="265.0" fitWidth="181.0" layoutX="385.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot21" fitHeight="265.0" fitWidth="181.0" layoutX="576.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot22" fitHeight="265.0" fitWidth="181.0" layoutX="576.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot23" fitHeight="265.0" fitWidth="181.0" layoutX="576.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot31" fitHeight="265.0" fitWidth="181.0" layoutX="771.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot32" fitHeight="265.0" fitWidth="181.0" layoutX="771.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot33" fitHeight="265.0" fitWidth="181.0" layoutX="771.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="w0" fitHeight="54.0" fitWidth="44.0" layoutX="111.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w1" fitHeight="54.0" fitWidth="44.0" layoutX="89.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w2" fitHeight="54.0" fitWidth="44.0" layoutX="128.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w3" fitHeight="54.0" fitWidth="44.0" layoutX="71.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w4" fitHeight="54.0" fitWidth="44.0" layoutX="109.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w5" fitHeight="54.0" fitWidth="44.0" layoutX="147.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
