@@ -137,6 +137,11 @@ public class DevCardStructure {
         return payload;
     }
 
+    /**
+     * Method to discard a card when a devCard token is activated
+     * @param colour of the flag
+     * @return boolean, if it's true the lastTurn is activated
+     */
     public Boolean discardSingle(Colour colour) {
         int i = 0;
         Boolean flag;

@@ -51,6 +51,6 @@ public class FaithTrackTest {
         for(int i=0; i<16; i++)
             ft.moveFaithIndicator();
 
-        assertEquals(6, ft.faithVictoryPoints());
+        assertEquals(9, ft.faithVictoryPoints());
     }
 }

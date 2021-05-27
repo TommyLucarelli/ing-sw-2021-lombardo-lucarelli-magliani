@@ -78,6 +78,10 @@ public class MainController{
         return currentPlayer;
     }
 
+    /**
+     * Method to handle the different messages from the client
+     * @param responseMsg message from the client
+     */
     public synchronized void handle(ResponseMsg responseMsg){
         switch (responseMsg.getPayload().get("gameAction").getAsString()){
             case "START_GAME_COMMAND":
@@ -129,8 +133,11 @@ public class MainController{
         }
     }
 
+    /**
+     * Method to start the game, when the first player is ready
+     */
     private void startGame(){
-        Collections.shuffle(players); //ma lo fa sto shuffle
+        Collections.shuffle(players);
         try {
             currentGame = new Game(this.id, players);
         } catch (FileNotFoundException e) {
@@ -140,6 +147,9 @@ public class MainController{
         startHandler.startMatch();
     }
 
+    /**
+     * Method to send the command to start the game
+     */
     public void sendStartGameCommand() {
         JsonObject payload = new JsonObject();
         payload.addProperty("message", "All the players have joined the lobby! Type \"start\" to start the game!");
@@ -163,16 +173,29 @@ public class MainController{
         new RequestMsg(MessageType.GAME_MESSAGE, payload);
     }
 
+    /**
+     * Method to send a broadcast message to all the players, usually used for update
+     * @param updateMsg
+     */
     public void notifyAllPlayers(RequestMsg updateMsg){
         for(PlayerHandler player: getPlayers()){
             player.newMessage(updateMsg);
         }
     }
 
+    /**
+     * Method to send a message to a specific player
+     * @param player 
+     * @param updateMsg
+     */
     public void notifyPlayer(PlayerHandler player, RequestMsg updateMsg){
         player.newMessage(updateMsg);
     }
 
+    /**
+     * Method to send a message to the current player
+     * @param updateMsg
+     */
     public void notifyCurrentPlayer(RequestMsg updateMsg){
         for(PlayerHandler player: getPlayers()){
             if(player.getPlayerId() == currentPlayer.getPlayerID()) {
@@ -182,7 +205,9 @@ public class MainController{
         }
     }
 
-
+    /**
+     * Method to build the update at the end of each turn. It contains all the information to update the board.
+     */
     public void updateBuilder(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "UPDATE");
@@ -247,6 +272,10 @@ public class MainController{
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     *  Method to prepare the initialUpdate. This update contains all the choice that the players have taken
+     *  in the first phase of the game.
+     */
     public void initialUpdate(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "INITIAL_UPDATE");
@@ -272,6 +301,7 @@ public class MainController{
         return players;
     }
 
+    
     public PlayerHandler fromIdToPlayerHandler(int id){
         for (int i = 0; i < players.size(); i++) {
             if(players.get(i).getPlayerId() == id)
@@ -281,6 +311,10 @@ public class MainController{
         return null;
     }
 
+    /**
+     * Counter for the first phase of the game. It counts the number of players that have completed the first phase.
+     * @return true, if all the players are ready to start the real turn.
+     */
     public boolean setCountStartPhase() {
         countStartPhase++;
         if(countStartPhase==numPlayers)
@@ -289,6 +323,10 @@ public class MainController{
             return false;
     }
 
+    /**
+     * Method that prepare the final update, with the winner and the victory points of each player
+     * @param playerID of the player that has asked for the final update
+     */
     public void finalUpdate(int playerID){
         JsonObject payload = new JsonObject();
         JsonArray p = new JsonArray();
@@ -326,6 +364,10 @@ public class MainController{
         this.notifyPlayer(fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method to handle the event of a player going offline
+     * @param playerHandler
+     */
     public void handleDisconnection(PlayerHandler playerHandler){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "SHORT_UPDATE");
@@ -336,6 +378,10 @@ public class MainController{
             updateBuilder();
     }
 
+    /**
+     * Method to handle the event of a player coming back online
+     * @param playerHandler
+     */
     public void handleReconnection(PlayerHandler playerHandler){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "SHORT_UPDATE");

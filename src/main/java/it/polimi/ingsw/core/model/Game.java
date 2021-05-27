@@ -133,6 +133,11 @@ public class Game
         return turn;
     }
 
+    /**
+     * Method to get a player from his id
+     * @param id of the player
+     * @return player
+     */
     public Player fromIdToPlayer(int id){
         for (int i = 0; i < players.size(); i++) {
             if(players.get(i).getPlayerID() == id)

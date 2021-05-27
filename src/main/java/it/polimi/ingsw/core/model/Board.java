@@ -162,8 +162,9 @@ public class Board {
     }
 
     /**
-     * @param f
-     * @param level
+     * Method to count the amount of flag of a specified colour or level in the devCard Slots
+     * @param f flag
+     * @param level boolean representing whether level is relevant or not
      * @return number of required flags to buy a leaderCard
      */
     public int countFlags(Flag f, boolean level) {
