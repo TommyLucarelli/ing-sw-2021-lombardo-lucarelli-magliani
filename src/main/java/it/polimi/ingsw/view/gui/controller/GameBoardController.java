@@ -13,17 +13,19 @@ import it.polimi.ingsw.view.compact.CompactMarket;
 import it.polimi.ingsw.view.compact.CompactPlayer;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameBoardController implements DynamicController, Initializable {
     @FXML
@@ -63,6 +65,7 @@ public class GameBoardController implements DynamicController, Initializable {
         devCardSlot[2][2] = slot33;
 
         mySelf = new CompactPlayer(JavaFxApp.getManager().getMyself().getPlayerID(), JavaFxApp.getManager().getMyself().getPlayerName());
+        mySelf.getCompactBoard().setLeaderCards(JavaFxApp.getManager().getMyself().getCompactBoard().getLeaderCards());
     }
 
     @Override
@@ -228,8 +231,10 @@ public class GameBoardController implements DynamicController, Initializable {
 
     private void updateView(){
         for (int i = 0; i < mySelf.getCompactBoard().getFaithTrackIndex(); i++) {
-            faithTrack.get(i).setImage(null);
-            System.gc();
+            if(faithTrack.get(i).getImage() == null){
+                faithTrack.get(i).setImage(null);
+                System.gc();
+            }
         }
         faithTrack.get(mySelf.getCompactBoard().getFaithTrackIndex()).setImage(new Image(getClass().getResourceAsStream("/images/resources/4.png")));
 
@@ -261,5 +266,43 @@ public class GameBoardController implements DynamicController, Initializable {
                     devCardSlot[i][j].setImage(new Image(getClass().getResourceAsStream("/images/resources/" + mySelf.getCompactBoard().getWarehouse()[i].ordinal() + ".png")));
             }
         }
+    }
+
+    public void showLeaders() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(GameBoardController.class.getResource("/fxml/leadercards.fxml"));
+        Parent root = fxmlLoader.load();
+        Dialog dialog = new Dialog<>();
+        dialog.getDialogPane().setContent(root);
+
+        JsonObject data = new JsonObject();
+        data.addProperty("l0", mySelf.getCompactBoard().getLeaderCards()[0]);
+        data.addProperty("l1", mySelf.getCompactBoard().getLeaderCards()[1]);
+        ArrayList<Integer> resources = new ArrayList<>();
+        ArrayList<Integer> warehouseLeaders = new ArrayList<>(Arrays.asList(53, 54, 55, 56));
+        if(mySelf.getCompactBoard().getAbilityActivationFlag()[0] != 0){
+            if(warehouseLeaders.contains(mySelf.getCompactBoard().getLeaderCards()[0])){
+                resources.addAll(Arrays.asList(mySelf.getCompactBoard().getWarehouse()[6].ordinal(), mySelf.getCompactBoard().getWarehouse()[7].ordinal()));
+                if(warehouseLeaders.contains(mySelf.getCompactBoard().getLeaderCards()[1])){
+                    resources.addAll(Arrays.asList(mySelf.getCompactBoard().getWarehouse()[8].ordinal(), mySelf.getCompactBoard().getWarehouse()[9].ordinal()));
+                } else {
+                    resources.addAll(Arrays.asList(5, 5));
+                }
+            } else {
+                resources.addAll(Arrays.asList(5, 5, mySelf.getCompactBoard().getWarehouse()[6].ordinal(), mySelf.getCompactBoard().getWarehouse()[7].ordinal()));
+            }
+        } else
+            resources.addAll(Arrays.asList(5, 5, 5, 5));
+        Gson gson = new Gson();
+
+        data.addProperty("warehouse", gson.toJson(resources));
+
+        DynamicController controller = fxmlLoader.getController();
+        controller.setData(data);
+
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(event -> window.hide());
+
+        dialog.show();
+
     }
 }

@@ -50,7 +50,7 @@
                   <Font name="Trattatello" size="24.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="74.0" prefWidth="204.0" text="Show Leader Cards">
+            <Button onAction="#showLeaders" mnemonicParsing="false" prefHeight="74.0" prefWidth="204.0" text="Show Leader Cards">
                <font>
                   <Font name="Trattatello" size="24.0" />
                </font>
