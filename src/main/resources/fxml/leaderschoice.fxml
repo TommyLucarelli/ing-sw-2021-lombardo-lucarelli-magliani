@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.LeadersChoiceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.LeadersChoiceController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -45,7 +45,7 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="30.0">
                <children>
-                  <Button fx:id="btn4" mnemonicParsing="false" onAction="#add4" prefHeight="363.0" prefWidth="239.0">
+                  <Button fx:id="btn1" mnemonicParsing="false" onAction="#add4" prefHeight="363.0" prefWidth="239.0">
                      <graphic>
                         <ImageView fx:id="img4" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -57,7 +57,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn3" mnemonicParsing="false" onAction="#add3" prefHeight="363.0" prefWidth="239.0">
+                  <Button fx:id="btn2" mnemonicParsing="false" onAction="#add3" prefHeight="363.0" prefWidth="239.0">
                      <graphic>
                         <ImageView fx:id="img3" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -69,7 +69,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn1" mnemonicParsing="false" onAction="#add1" prefHeight="363.0" prefWidth="239.0">
+                  <Button fx:id="btn3" mnemonicParsing="false" onAction="#add1" prefHeight="363.0" prefWidth="239.0">
                       <graphic>
                           <ImageView fx:id="img1" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -81,7 +81,7 @@
                           </ImageView>
                       </graphic>
                   </Button>
-                   <Button fx:id="btn2" mnemonicParsing="false" onAction="#add2" prefHeight="363.0" prefWidth="239.0">
+                   <Button fx:id="btn4" mnemonicParsing="false" onAction="#add2" prefHeight="363.0" prefWidth="239.0">
                       <graphic>
                          <ImageView fx:id="img2" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -101,9 +101,9 @@
             <HBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="40.0">
                <children>
                   <Rectangle fx:id="rect1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
-                  <Rectangle fx:id="rect4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
-                  <Rectangle fx:id="rect3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
                   <Rectangle fx:id="rect2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
+                  <Rectangle fx:id="rect3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
+                  <Rectangle fx:id="rect4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="239.0" />
                </children>
                <VBox.margin>
                   <Insets right="20.0" />

@@ -35,11 +35,16 @@
             </Menu>
         </menus>
       </MenuBar>
-      <VBox layoutX="996.0" layoutY="28.0" prefHeight="686.0" prefWidth="204.0">
+      <VBox layoutX="971.0" layoutY="28.0" prefHeight="690.0" prefWidth="309.0">
          <children>
+            <TextArea editable="false" maxHeight="20.0" maxWidth="400.0" prefHeight="20.0" prefWidth="400.0" promptText="Updates:" text="Updates:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextArea>
             <Button mnemonicParsing="false" prefHeight="110.0" prefWidth="160.0" text="Player 1" />
             <Button mnemonicParsing="false" prefHeight="113.0" prefWidth="160.0" text="Player 1" />
-            <Button mnemonicParsing="false" prefHeight="107.0" prefWidth="160.0" text="Player 1" />
+            <Button mnemonicParsing="false" prefHeight="83.0" prefWidth="306.0" text="Player 1" />
             <Button mnemonicParsing="false" prefHeight="79.0" prefWidth="204.0" text="Show Dev. Cards" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Trattatello" size="24.0" />
@@ -50,16 +55,11 @@
                   <Font name="Trattatello" size="24.0" />
                </font>
             </Button>
-            <Button onAction="#showLeaders" mnemonicParsing="false" prefHeight="74.0" prefWidth="204.0" text="Show Leader Cards">
+            <Button mnemonicParsing="false" onAction="#showLeaders" prefHeight="74.0" prefWidth="204.0" text="Show Leader Cards">
                <font>
                   <Font name="Trattatello" size="24.0" />
                </font>
             </Button>
-            <TextArea editable="false" maxHeight="20.0" maxWidth="400.0" prefHeight="20.0" prefWidth="400.0" promptText="Updates:" text="Updates:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextArea>
          </children>
       </VBox>
       <ImageView fx:id="f0" fitHeight="45.0" fitWidth="44.0" layoutX="39.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />

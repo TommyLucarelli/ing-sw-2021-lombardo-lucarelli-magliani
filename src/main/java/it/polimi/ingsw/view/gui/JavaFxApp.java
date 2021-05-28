@@ -18,7 +18,7 @@ public class JavaFxApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        scene = new Scene(loadFXML("opening"), 1200, 800);
+        scene = new Scene(loadFXML("opening"), 1280, 720);
         stage.setTitle("Masters of Renaissance");
         scene.setOnKeyPressed(e -> {
             manager.start();

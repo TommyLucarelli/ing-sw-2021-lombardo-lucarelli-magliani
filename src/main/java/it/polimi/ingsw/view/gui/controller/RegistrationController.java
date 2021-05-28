@@ -29,7 +29,7 @@ public class RegistrationController implements DynamicController{
         if(!username.getText().isBlank()){
             payload.addProperty("input", username.getText());
             JavaFxApp.send(new ResponseMsg(null, MessageType.REGISTRATION_MESSAGE, payload));
-            JavaFxApp.setRoot("loading");
+            //JavaFxApp.setRoot("loading");
         } else {
             username.setPromptText("Please enter a username!");
         }
