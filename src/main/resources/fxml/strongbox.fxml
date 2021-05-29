@@ -9,42 +9,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="916.0" fitWidth="1613.0" layoutY="-196.0" opacity="0.42" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="239.0" fitWidth="346.0" layoutX="-6.0" layoutY="-9.0" opacity="0.42" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/board_grey.png" />
+            <Image url="@../images/strongbox.png" />
          </image>
          <effect>
             <BoxBlur />
          </effect>
       </ImageView>
-      <HBox alignment="CENTER" layoutY="222.0" prefHeight="148.0" prefWidth="1280.0" spacing="100.0" AnchorPane.bottomAnchor="350.0" AnchorPane.topAnchor="350.0">
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="119.0" prefHeight="59.0" prefWidth="321.0" spacing="75.0" AnchorPane.topAnchor="10.0">
          <children>
-            <ImageView fitHeight="110.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="122.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="71.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/3.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="129.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/resources/1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="136.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/resources/2.png" />
-               </image>
-            </ImageView>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="-14.0" layoutY="634.0" prefHeight="55.0" prefWidth="742.0" spacing="200.0" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="280.0">
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="63.0" prefHeight="39.0" prefWidth="320.0" spacing="120.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Text fx:id="sCoin" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
@@ -59,18 +48,48 @@
                   <Font name="Trattatello" size="24.0" />
                </font>
             </Text>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="329.0" spacing="50.0" AnchorPane.topAnchor="110.0">
+         <children>
+            <ImageView fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/resources/1.png" />
+               </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fitHeight="54.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/resources/2.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="10.0" right="20.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="159.0" prefHeight="39.0" prefWidth="320.0" spacing="120.0">
+         <children>
             <Text fx:id="sShield" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
                   <Font name="Trattatello" size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" right="35.0" />
+                  <Insets />
                </HBox.margin>
             </Text>
             <Text fx:id="sServant" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
                   <Font name="Trattatello" size="24.0" />
                </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </Text>
          </children>
       </HBox>
