@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem onAction="#quit" mnemonicParsing="false" text="Quit" />
+              <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem onAction="#helpDialog" mnemonicParsing="false" text="Instructions" />
-                <MenuItem onAction="#aboutDialog" mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#helpDialog" text="Instructions" />
+                <MenuItem mnemonicParsing="false" onAction="#aboutDialog" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
-      <Button layoutX="550.0" layoutY="521.0" mnemonicParsing="false" onAction="#joinLobby" styleClass="quit-btn" text="Join Game" AnchorPane.rightAnchor="507.0">
-         <font>
-            <Font name="Trattatello" size="24.0" />
-         </font></Button>
-      <ImageView fitHeight="227.0" fitWidth="745.0" layoutX="228.0" layoutY="106.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="227.0">
-         <image>
-            <Image url="@../images/longtitle.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="520.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the Lobby Id:">
-         <font>
-            <Font name="Trattatello" size="36.0" />
-         </font>
-      </Text>
-      <TextField fx:id="lobbyId" layoutX="479.0" layoutY="407.0" promptText="Lobby Id">
-         <font>
-            <Font name="Trattatello" size="24.0" />
-         </font>
-      </TextField>
+      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="40.0">
+         <children>
+            <ImageView fitHeight="227.0" fitWidth="745.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@../images/longtitle.png" />
+               </image>
+            </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the Lobby Id:">
+               <font>
+                  <Font name="Trattatello" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="lobbyId" maxWidth="500.0" prefHeight="51.0" prefWidth="500.0" promptText="Lobby Id">
+               <font>
+                  <Font name="Trattatello" size="24.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#joinLobby" styleClass="quit-btn" text="Join Game">
+               <font>
+                  <Font name="Trattatello" size="24.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
