@@ -11,7 +11,7 @@ public class PlayerHandler {
     private final RequestManager manager;
     private Boolean active;
 
-    protected PlayerHandler(int playerId, String username, MainController controller, RequestManager manager){
+    public PlayerHandler(int playerId, String username, MainController controller, RequestManager manager){
         this.username = username;
         this.playerId = playerId;
         this.controller = controller;

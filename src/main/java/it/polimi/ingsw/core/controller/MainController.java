@@ -206,7 +206,9 @@ public class MainController{
     }
 
     /**
-     * Method to build the update at the end of each turn. It contains all the information to update the board.
+     * Method that builds and sends the update to all players at the end of the round.
+     * Inside the update there are all the structures that have been modified in the model. The structures are sent in compact format
+     * as a json file.
      */
     public void updateBuilder(){
         JsonObject payload = new JsonObject();

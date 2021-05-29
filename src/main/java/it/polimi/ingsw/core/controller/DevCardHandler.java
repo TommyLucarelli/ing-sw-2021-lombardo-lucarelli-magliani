@@ -22,6 +22,12 @@ public class DevCardHandler{
     }
 
 
+    /**
+     * Method to handle the choice of a development card from a player.
+     * This method check, if the player has the amount of resources needed to buy the card.
+     * If the check is successful then the card is bought, otherwise the user is signaled that he cannot buy the card.
+     * @param ms client message
+     */
     public void chooseDevCard(ResponseMsg ms) {
         board = controller.getCurrentPlayer().getBoard();
         ArrayList<Integer> checkPlace;
@@ -58,11 +64,16 @@ public class DevCardHandler{
             } else {
                 JsonObject payload = new JsonObject();
                 payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+                payload.addProperty("problem", true);
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         }
     }
 
+    /**
+     * Method to manage the positioning of the newly purchased card in the devcardslots
+     * @param ms client message
+     */
     public void devCardPlacement(ResponseMsg ms){
         //arriva posizione di dove mettere la carta nel devcard slot
         int index = ms.getPayload().get("index").getAsInt();

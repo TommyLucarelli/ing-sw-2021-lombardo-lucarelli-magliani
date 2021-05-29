@@ -34,6 +34,11 @@ public class MarketHandler {
         this.controller = controller;
     }
 
+    /**
+     * Method that manages the taking of resources from the market.
+     * The resources are taken, processed and sent to the player to be placed in the warehouse.
+     * @param ms client message
+     */
     public void pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
         int number = ms.getPayload().get("number").getAsInt();
@@ -78,6 +83,11 @@ public class MarketHandler {
         controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
+    /**
+     * Method that manages the placement of resources in the warehouse.
+     * If the placement is not correct, it will be reported to the user.
+     * @param ms client message
+     */
     public void warehousePlacement(ResponseMsg ms){
         faithP2 = ms.getPayload().get("discarded").getAsInt();
         Gson gson = new Gson();
@@ -104,6 +114,7 @@ public class MarketHandler {
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
+            payload.addProperty("problem", true);
             json = gson.toJson(resources);
             payload.addProperty("resourcesArray", json);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));

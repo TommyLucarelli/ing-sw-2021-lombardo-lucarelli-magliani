@@ -380,6 +380,10 @@ public class Cli implements UserInterface {
         JsonObject payload = new JsonObject();
         int x, cont = 0;
         boolean flag;
+
+        if(requestMsg.getPayload().has("problem"))
+            System.out.println("\nOperation failed, retry or skip action");
+
         System.out.println("\nChoose a Leader Card to activate or discard: ");
         for (int i = 0; i < 2; i++) {
             flag = false;
@@ -464,6 +468,10 @@ public class Cli implements UserInterface {
         int l=0, c=0;
         boolean flag = false;
         Resource r1, r2;
+        JsonObject payload = new JsonObject();
+
+        if(requestMsg.getPayload().has("problem"))
+            System.out.println("\nOperation failed, retry or skip action");
 
         System.out.println("Choose a development card: ");
         //discount da sistemare esteticamente
@@ -482,36 +490,39 @@ public class Cli implements UserInterface {
             System.out.println("None");
 
         fancyPrinter.printDevCardStructure(compactDevCardStructure);
-        System.out.println("\nChoose level:");
-        l = InputHandler.getInt(1,3)-1;
+        System.out.println("\nChoose level: (4-comeback to main choice)");
+        l = InputHandler.getInt(1,4)-1;
 
-        System.out.println("\nChoose color (green/blue/yellow/purple)");
-        String s = InputHandler.getString("(green|blue|yellow|purple)");
-        switch(s) {
-            case "green":
-                c = 0;
-                break;
-            case "blue":
-                c = 1;
-                break;
-            case "yellow":
-                c = 2;
-                break;
-            case "purple":
-                c = 3;
-                break;
-        }
-
-        System.out.println("1. confirm purchase");
-        System.out.println("2. comeback to main choice");
-        int m = InputHandler.getInt(1,2);
-        JsonObject payload = new JsonObject();
-        if(m==1) {
-            payload.addProperty("gameAction", "CHOOSE_DEVCARD");
-            payload.addProperty("line", l);
-            payload.addProperty("column", c);
-        }else{
+        if(l==3){
             payload.addProperty("gameAction", "COME_BACK");
+        }else {
+            System.out.println("\nChoose color (green/blue/yellow/purple)");
+            String s = InputHandler.getString("(green|blue|yellow|purple)");
+            switch (s) {
+                case "green":
+                    c = 0;
+                    break;
+                case "blue":
+                    c = 1;
+                    break;
+                case "yellow":
+                    c = 2;
+                    break;
+                case "purple":
+                    c = 3;
+                    break;
+            }
+
+            System.out.println("1. confirm purchase");
+            System.out.println("2. comeback to main choice");
+            int m = InputHandler.getInt(1, 2);
+            if (m == 1) {
+                payload.addProperty("gameAction", "CHOOSE_DEVCARD");
+                payload.addProperty("line", l);
+                payload.addProperty("column", c);
+            } else {
+                payload.addProperty("gameAction", "COME_BACK");
+            }
         }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
@@ -555,6 +566,9 @@ public class Cli implements UserInterface {
 
         ArrayList<Integer> productions = new ArrayList<>();
         ArrayList<Integer> available = new ArrayList<>();
+
+        if(requestMsg.getPayload().has("problem"))
+            System.out.println("\nOperation failed, retry or skip action");
 
         System.out.println("\nPRODUCTION");
         System.out.println("\nThese are your resources");
@@ -680,40 +694,47 @@ public class Cli implements UserInterface {
      * @param requestMsg the request sent by the server.
      */
     private void handlePick(RequestMsg requestMsg){
+        JsonObject payload = new JsonObject();
         String s;
         System.out.println("\nMARKET");
         //per qualche motivo lo stampa senza reserve marble
         fancyPrinter.printMarket(compactMarket);
-        System.out.println("\nDo you want to pick a line or a column? (l/c)");
-        s = InputHandler.getString("(l|c)");
-        int x;
-        if(s.equals("c")){
-            System.out.println("Which column do you want to pick?");
-            x = InputHandler.getInt(1, 4);
-        } else {
-            System.out.println("Which line do you want to pick?");
-            x = InputHandler.getInt(1, 3);
-        }
 
-        JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "PICK");
-        payload.addProperty("choice", s);
-        payload.addProperty("number", x - 1);
 
-        if((mySelf.getCompactBoard().getAbilityActivationFlag()[2] != 0) && (mySelf.getCompactBoard().getAbilityActivationFlag()[3] != 0)){
-            System.out.println("\nYou have two special marble that can replace the white one, which one you want: ");
-            Resource r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
-            Resource r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
-            System.out.println("\n1. "+ r1.toString());
-            System.out.println("\n2. "+ r2.toString());
-            x = InputHandler.getInt(1,2);
-            Gson gson = new Gson();
-            String json;
-            if(x == 1)
-                 json = gson.toJson(r1);
-            else
-                json = gson.toJson(r2);
-            payload.addProperty("resource", json);
+        System.out.println("\nDo you want to pick a line or a column? (l/c) (b-comeback to main choice)");
+        s = InputHandler.getString("(l|c|b)");
+        if(s.equals("b")){
+            payload.addProperty("gameAction", "COME_BACK");
+        }else {
+            int x;
+            if (s.equals("c")) {
+                System.out.println("Which column do you want to pick?");
+                x = InputHandler.getInt(1, 4);
+            } else {
+                System.out.println("Which line do you want to pick?");
+                x = InputHandler.getInt(1, 3);
+            }
+
+
+            payload.addProperty("gameAction", "PICK");
+            payload.addProperty("choice", s);
+            payload.addProperty("number", x - 1);
+
+            if ((mySelf.getCompactBoard().getAbilityActivationFlag()[2] != 0) && (mySelf.getCompactBoard().getAbilityActivationFlag()[3] != 0)) {
+                System.out.println("\nYou have two special marble that can replace the white one, which one you want: ");
+                Resource r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
+                Resource r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
+                System.out.println("\n1. " + r1.toString());
+                System.out.println("\n2. " + r2.toString());
+                x = InputHandler.getInt(1, 2);
+                Gson gson = new Gson();
+                String json;
+                if (x == 1)
+                    json = gson.toJson(r1);
+                else
+                    json = gson.toJson(r2);
+                payload.addProperty("resource", json);
+            }
         }
 
         client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload));
@@ -728,6 +749,9 @@ public class Cli implements UserInterface {
         Type collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
         String json = requestMsg.getPayload().get("resourcesArray").getAsString();
         ArrayList<Resource> resources = gson.fromJson(json, collectionType);
+
+        if(requestMsg.getPayload().has("problem"))
+            System.out.println("\nOperation failed, retry or skip action");
 
         JsonObject payload = warehousePlacementProcedure(resources);
 

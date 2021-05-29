@@ -14,13 +14,19 @@ import static org.junit.Assert.*;
  */
 public class GameTest
 {
-    /*@Test
-    public void testFaithTrackUpdate() throws FileNotFoundException {
+    @Test
+    public void faithTrackUpdate() {
+        Game gioco = null;
         ArrayList<Player> players;
         ArrayList<PlayerHandler> playerHandlers = new ArrayList<>();
-        //TODO: sistemare test, peerchè lungo creare playerHandler
-        playerHandlers.add(new PlayerHandler())
-        Game gioco = new Game(123, playerHandlers);
+        playerHandlers.add(new PlayerHandler(1, "tom", null, null));
+        playerHandlers.add(new PlayerHandler(2, "tom2", null, null));
+        playerHandlers.add(new PlayerHandler(3, "tom3", null, null));
+        try {
+            gioco = new Game(222, playerHandlers);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         players = gioco.getPlayers();
         for(int i=0; i<6; i++)
             players.get(0).getBoard().getFaithTrack().moveFaithIndicator();
@@ -42,5 +48,27 @@ public class GameTest
         assertTrue(players.get(0).getBoard().getFaithTrack().getFavourCardsFlag(0));
         assertTrue(players.get(2).getBoard().getFaithTrack().getFavourCardsFlag(0));
         assertFalse(players.get(1).getBoard().getFaithTrack().getFavourCardsFlag(0));
-    }*/
+    }
+
+    @Test
+    public void fromIdToPlayer() {
+        Game gioco = null;
+        ArrayList<Player> players;
+        ArrayList<PlayerHandler> playerHandlers = new ArrayList<>();
+        playerHandlers.add(new PlayerHandler(1, "tom", null, null));
+        playerHandlers.add(new PlayerHandler(2, "tom2", null, null));
+        playerHandlers.add(new PlayerHandler(3, "tom3", null, null));
+        try {
+            gioco = new Game(222, playerHandlers);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        players = gioco.getPlayers();
+
+        assertEquals(players.get(0), gioco.fromIdToPlayer(1));
+        assertEquals(players.get(1), gioco.fromIdToPlayer(2));
+        assertEquals(players.get(2), gioco.fromIdToPlayer(3));
+
+    }
+
 }

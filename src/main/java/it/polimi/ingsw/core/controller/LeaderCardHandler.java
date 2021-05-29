@@ -20,6 +20,11 @@ public class LeaderCardHandler{
     }
 
 
+    /**
+     * Method to manage the action made by the player on the leader card.
+     * If the action is possible it will be done, otherwise it will be signaled to the user that he cannot activate the leader card.
+     * @param ms client message
+     */
     public void leaderAction(ResponseMsg ms){
         //parse risposta con carta scelta -> lcID e  azione -> action boolean (T -> activate) (F -> discard)
         boolean action = ms.getPayload().get("action").getAsBoolean();
@@ -48,6 +53,7 @@ public class LeaderCardHandler{
                 }
             }else{
                 payload.addProperty("gameAction", "LEADER_ACTION");
+                payload.addProperty("problem", true);
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         } else {
@@ -91,6 +97,11 @@ public class LeaderCardHandler{
 
     }
 
+    /**
+     * Method for checking the requirements to activate a leader card.
+     * @param lc Leader card
+     * @return True or false depending on whether the requirements are met or not
+     */
     protected boolean checkRequirements(LeaderCard lc){
         int check1, check2;
         Resource r;

@@ -23,7 +23,12 @@ public class ProductionHandler {
         this.controller = controller;
     }
 
-
+    /**
+     * Method to manage production.
+     * First of all it will be checked if it is possible to do the production and then the new resources will be generated and
+     * placed in the strongbox.
+     * @param ms client message
+     */
     public void chooseProduction(ResponseMsg ms){
         boolean check = true;
         ArrayList<ResourceQty> inputResources = new ArrayList<>();
@@ -102,10 +107,17 @@ public class ProductionHandler {
            //costruzione messaggio choose_production e invio
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "CHOOSE_PRODUCTION");
+            payload.addProperty("problem", true);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }
     }
 
+    /**
+     * Method to reduce the resources, with the array representation
+     * @param inputResources input resources for the production
+     * @param personalResources player resources from strongbox and warehouse
+     * @return personalResources updated
+     */
     protected int[] reduceResource(ArrayList<ResourceQty> inputResources, int[] personalResources){
         for(int i=0; i < inputResources.size(); i++) {
             personalResources[inputResources.get(i).getResource().ordinal()] -= inputResources.get(i).getQty();

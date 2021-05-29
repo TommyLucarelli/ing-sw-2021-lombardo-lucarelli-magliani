@@ -14,8 +14,12 @@ public class TurnHandler {
         this.controller = controller;
     }
 
+    /**
+     * Method that manages the choice of the main action of the turn made by the user.
+     * Depending on the choice, a different message will be prepared that will start the process of each action.
+     * @param ms
+     */
     public void mainChoice(ResponseMsg ms) {
-
         String actionChoice = ms.getPayload().get("actionChoice").getAsString();
         if (actionChoice.equals("market")) {
             controller.getCurrentGame().getTurn().setTypeOfAction(0);
@@ -35,6 +39,11 @@ public class TurnHandler {
         }
     }
 
+    /**
+     * Method that manages the choice of activating or not a leader card.
+     * This method for the action it represents can also be called at the end of the turn, so possibly also prepare the update.
+     * @param ms client message
+     */
     public void leaderActivation(ResponseMsg ms){
         boolean activation = ms.getPayload().get("activation").getAsBoolean();
         if(activation){
@@ -78,6 +87,9 @@ public class TurnHandler {
         }
     }
 
+    /**
+     * Method called when a user wants to go back in the turn or go to the next turn.
+     */
     public void comeBack(){
         if(controller.getCurrentGame().getTurn().isEndGame()){
             //update
@@ -89,6 +101,11 @@ public class TurnHandler {
         }
     }
 
+    /**
+     * Method that receives the acknowledgment of receipt of the update and starts the new turn.
+     * To the user who has to play, the message "LEADER ACTIVATION" will be sent, to the others the message "START_TURN".
+     * @param responseMsg client message
+     */
     public void update(ResponseMsg responseMsg){
         controller.getCurrentGame().getTurn().setEndGame(false);
         int playerID = responseMsg.getPayload().get("playerID").getAsInt();

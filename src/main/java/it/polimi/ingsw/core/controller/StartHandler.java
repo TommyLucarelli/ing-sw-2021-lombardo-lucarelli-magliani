@@ -21,6 +21,10 @@ public class StartHandler {
     }
 
 
+    /**
+     * Method to prepare the first request for the clients.
+     * Four leader cards will be chosen for each player and sent to them.
+     */
     public void startMatch() {
         Player player;
         int[] cardID = new int[4];
@@ -46,6 +50,11 @@ public class StartHandler {
     }
 
 
+    /**
+     * Method that removes from the board the cards discarded by users
+     * and depending on their position in the turns asks them to choose resources.
+     * @param ms client message
+     */
     public void chooseStartLeaders(ResponseMsg ms) {
         //arrivo scelta carte leader array con id carte scartate
         //invio messaggio start resources
@@ -97,6 +106,10 @@ public class StartHandler {
 
     }
 
+    /**
+     * Method that places the resources chosen by the user in the warehouse and calls the construction of the initial update.
+     * @param ms client message
+     */
     public void chooseStartResources(ResponseMsg ms) {
         int playerID = ms.getPayload().get("playerID").getAsInt();
         Player player = controller.getCurrentGame().fromIdToPlayer(playerID);
