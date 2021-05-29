@@ -9,8 +9,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.LeaderActionController">
    <children>
-      <ImageView fx:id="l0" fitHeight="371.0" fitWidth="272.0" layoutX="31.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="31.0" />
-      <ImageView fx:id="l1" fitHeight="371.0" fitWidth="272.0" layoutX="323.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="31.438400268554688" />
       <Button fx:id="actBtn" layoutX="154.0" layoutY="474.0" mnemonicParsing="false" onAction="#activate" text="Activate">
          <font>
             <Font name="Trattatello" size="24.0" />
@@ -21,12 +19,27 @@
             <Font name="Trattatello" size="24.0" />
          </font>
       </Button>
-      <Rectangle fx:id="r0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" layoutX="31.0" layoutY="434.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="246.0" />
-      <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" layoutX="323.0" layoutY="434.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="246.0" />
+      <Rectangle fx:id="r0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" layoutX="23.0" layoutY="446.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="246.0" />
+      <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="12.0" layoutX="332.0" layoutY="446.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="246.0" />
       <Text layoutX="204.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a card to activate or discard">
          <font>
             <Font name="Trattatello" size="18.0" />
          </font>
       </Text>
+      <Button fx:id="b0" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#active0">
+         <graphic>
+            <ImageView fx:id="l0" fitHeight="371.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Button>
+      <Button fx:id="b1" layoutX="323.0" layoutY="66.0" mnemonicParsing="false" onAction="#active1">
+         <graphic>
+            <ImageView fx:id="l1" fitHeight="371.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Button>
+      <Button fx:id="comebackBtn" layoutX="483.0" layoutY="474.0" mnemonicParsing="false" onAction="#comeback" text="Go back">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

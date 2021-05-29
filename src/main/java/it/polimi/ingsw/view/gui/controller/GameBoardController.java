@@ -58,7 +58,6 @@ public class GameBoardController implements DynamicController, Initializable {
 
     @Override
     public void setData(JsonObject data) {
-        System.out.println(faithTrack.size());
         Gson gson = new Gson();
         for (int i = 0; i < data.get("faithPoints").getAsInt(); i++) {
             if(faithTrack.get(i).getImage() == null){

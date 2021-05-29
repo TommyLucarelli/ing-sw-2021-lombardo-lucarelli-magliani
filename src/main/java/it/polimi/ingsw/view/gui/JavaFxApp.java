@@ -85,6 +85,24 @@ public class JavaFxApp extends Application {
         dialog.show();
     }
 
+    public static void showPopupWithData(String fxml, JsonObject data){
+        fxmlLoader = new FXMLLoader(JavaFxApp.class.getResource("/fxml/" + fxml + ".fxml"));
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            System.err.println("IOException - FXML file not found: " + fxml + ".fxml");
+        }
+        Dialog dialog = new Dialog<>();
+        dialog.getDialogPane().setContent(root);
+
+        DynamicController controller = fxmlLoader.getController();
+        controller.setData(data);
+
+        dialog.show();
+    }
+
     public static void send(ResponseMsg responseMsg){
         manager.send(responseMsg);
     }

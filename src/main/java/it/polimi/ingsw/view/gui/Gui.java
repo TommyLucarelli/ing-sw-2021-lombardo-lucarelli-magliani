@@ -73,13 +73,17 @@ public class Gui implements UserInterface {
                         });
                         break;
                     case "UPDATE":
-                        Platform.runLater(() -> JavaFxApp.setData(request.getPayload()));
                         handleUpdate(request.getPayload());
                     case "LEADER_ACTIVATION":
                         Platform.runLater(() -> JavaFxApp.showPopup("leaderactivation"));
                         break;
                     case "LEADER_ACTION":
-                        Platform.runLater(() -> JavaFxApp.showPopup("leaderaction"));
+                        JsonObject data = new JsonObject();
+                        data.addProperty("leaders", (new Gson()).toJson(mySelf.getCompactBoard().getLeaderCards()));
+                        Platform.runLater(() -> JavaFxApp.showPopupWithData("leaderaction", data));
+                        break;
+                    case "MAIN_CHOICE":
+                        Platform.runLater(() -> JavaFxApp.showPopup("mainchoice"));
                         break;
                 }
         }
