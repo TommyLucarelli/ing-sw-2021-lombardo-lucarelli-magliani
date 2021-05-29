@@ -50,7 +50,7 @@
       </Button>
       <VBox alignment="TOP_CENTER" layoutX="973.0" layoutY="28.0" prefHeight="720.0" prefWidth="307.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
          <children>
-            <TextArea editable="false" maxHeight="40.0" maxWidth="400.0" prefHeight="40.0" prefWidth="307.0" promptText="Updates:" text="Updates:">
+            <TextArea fx:id="updates" editable="false" maxHeight="40.0" maxWidth="400.0" prefHeight="40.0" prefWidth="307.0" promptText="Updates:" text="Updates:">
                <font>
                   <Font size="14.0" />
                </font>
