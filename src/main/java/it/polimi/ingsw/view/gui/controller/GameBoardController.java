@@ -31,13 +31,9 @@ public class GameBoardController implements DynamicController, Initializable {
     @FXML
     ImageView f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, w0, w1, w2, w3, w4, w5, slot11, slot12, slot13, slot21, slot22, slot23, slot31, slot32, slot33, fp1, fp2, fp3;
 
-    @FXML
-    Text sCoin, sStone, sShield, sServant;
-
     ArrayList<ImageView> faithTrack = new ArrayList<>();
     ArrayList<ImageView> warehouse = new ArrayList<>();
     ArrayList<ImageView> favourCards = new ArrayList<>();
-    ArrayList<Text> strongbox = new ArrayList<>();
     ImageView[][] devCardSlot = new ImageView[3][3];
     CompactPlayer mySelf;
     CompactMarket compactMarket;
@@ -50,10 +46,6 @@ public class GameBoardController implements DynamicController, Initializable {
         faithTrack.addAll(Arrays.asList(f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24));
         warehouse.addAll(Arrays.asList(w0, w1, w2, w3, w4, w5));
         favourCards.addAll(Arrays.asList(fp1, fp2, fp3));
-        strongbox.addAll(Arrays.asList(sCoin, sStone, sShield, sServant));
-        for(Text t: strongbox){
-            t.setText("0");
-        }
         devCardSlot[0][0] = slot11;
         devCardSlot[0][1] = slot12;
         devCardSlot[0][2] = slot13;
@@ -63,9 +55,6 @@ public class GameBoardController implements DynamicController, Initializable {
         devCardSlot[2][0] = slot31;
         devCardSlot[2][1] = slot32;
         devCardSlot[2][2] = slot33;
-
-        mySelf = new CompactPlayer(JavaFxApp.getManager().getMyself().getPlayerID(), JavaFxApp.getManager().getMyself().getPlayerName());
-        mySelf.getCompactBoard().setLeaderCards(JavaFxApp.getManager().getMyself().getCompactBoard().getLeaderCards());
     }
 
     @Override
@@ -75,6 +64,8 @@ public class GameBoardController implements DynamicController, Initializable {
     }
 
     private void handleInitialUpdate(JsonObject update){
+        mySelf = new CompactPlayer(JavaFxApp.getManager().getMyself().getPlayerID(), JavaFxApp.getManager().getMyself().getPlayerName());
+        mySelf.getCompactBoard().setLeaderCards(JavaFxApp.getManager().getMyself().getCompactBoard().getLeaderCards());
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
         int nextPlayerID;
@@ -253,10 +244,6 @@ public class GameBoardController implements DynamicController, Initializable {
             } else {
                 warehouse.get(i).setImage(new Image(getClass().getResourceAsStream("/images/resources/" + mySelf.getCompactBoard().getWarehouse()[i].ordinal() + ".png")));
             }
-        }
-
-        for (int i = 0; i < 4; i++) {
-            strongbox.get(i).setText(String.valueOf(mySelf.getCompactBoard().getStrongbox()[i]));
         }
 
         for (int i = 0; i < 3; i++) {

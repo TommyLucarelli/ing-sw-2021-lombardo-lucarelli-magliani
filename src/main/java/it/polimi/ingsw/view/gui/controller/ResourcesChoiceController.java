@@ -141,6 +141,10 @@ public class ResourcesChoiceController implements DynamicController, Initializab
             }
         }
 
+        JsonObject data = new JsonObject();
+        data.addProperty("message", "Waiting for other players...");
+        JavaFxApp.setRootWithData("loading", data);
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
         payload.addProperty("playerID", JavaFxApp.getManager().getMyself().getPlayerID());
@@ -149,9 +153,5 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         payload.addProperty("placed", json);
 
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
-
-        payload = new JsonObject();
-        payload.addProperty("message", "Waiting for other players...");
-        JavaFxApp.setRootWithData("loading", payload);
     }
 }

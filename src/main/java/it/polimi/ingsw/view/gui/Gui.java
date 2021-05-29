@@ -66,7 +66,14 @@ public class Gui implements UserInterface {
                     case "INITIAL_UPDATE":
                         Platform.runLater(() -> JavaFxApp.setRootWithData("gameboard", request.getPayload()));
                         break;
-
+                    case "UPDATE":
+                        Platform.runLater(() -> JavaFxApp.setData(request.getPayload()));
+                    case "LEADER_ACTIVATION":
+                        Platform.runLater(() -> JavaFxApp.showPopup("leaderactivation"));
+                        break;
+                    case "LEADER_ACTION":
+                        Platform.runLater(() -> JavaFxApp.showPopup("leaderaction"));
+                        break;
                 }
         }
     }
