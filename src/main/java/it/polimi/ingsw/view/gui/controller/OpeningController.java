@@ -10,10 +10,12 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the opening scene.
+ */
 public class OpeningController implements Initializable {
     @FXML
     Text label;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

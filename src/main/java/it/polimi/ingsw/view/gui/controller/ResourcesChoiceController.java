@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the resources choice scene.
+ */
 public class ResourcesChoiceController implements DynamicController, Initializable {
     JsonObject data;
     int resources;
@@ -54,10 +57,17 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         else text.setText("You are entitled to " + resources + " starting resources!");
     }
 
+    /**
+     * Method called everytime a resource is increased or decreased. Enables/disables the confirm button if the amount
+     * of selected resources equals the amount of resources to select.
+     */
     private void enableConfirm(){
         confirmBtn.setDisable((selected[0] + selected[1] + selected[2] + selected[3]) != resources);
     }
 
+    /**
+     * onAction method: increases the coin quantity
+     */
     public void incCoin(){
         selected[0]++;
         decCoinBtn.setDisable(false);
@@ -65,6 +75,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: increases the stone quantity
+     */
     public void incStone(){
         selected[1]++;
         decStoneBtn.setDisable(false);
@@ -72,6 +85,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: increases the shield quantity
+     */
     public void incShield(){
         selected[2]++;
         decShieldBtn.setDisable(false);
@@ -79,6 +95,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: increases the servant quantity
+     */
     public void incServant(){
         selected[3]++;
         decServantBtn.setDisable(false);
@@ -86,6 +105,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: decreases the coin quantity
+     */
     public void decCoin(){
         selected[0]--;
         decCoinBtn.setDisable(selected[0] == 0);
@@ -93,6 +115,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: decreases the stone quantity
+     */
     public void decStone(){
         selected[1]--;
         decStoneBtn.setDisable(selected[1] == 0);
@@ -100,6 +125,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: decreases the shield quantity
+     */
     public void decShield(){
         selected[2]--;
         decShieldBtn.setDisable(selected[2] == 0);
@@ -107,6 +135,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: decreases the servant quantity
+     */
     public void decServant(){
         selected[3]--;
         decServantBtn.setDisable(selected[3] == 0);
@@ -114,6 +145,9 @@ public class ResourcesChoiceController implements DynamicController, Initializab
         enableConfirm();
     }
 
+    /**
+     * onAction method: sends to the server the selected resources.
+     */
     public void confirmAction(){
         Resource[] placed = new Resource[10];
 

@@ -6,10 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.Resource;
-import it.polimi.ingsw.net.msg.MessageType;
-import it.polimi.ingsw.net.msg.ResponseMsg;
-import it.polimi.ingsw.view.compact.CompactDevCardStructure;
-import it.polimi.ingsw.view.compact.CompactMarket;
 import it.polimi.ingsw.view.compact.CompactPlayer;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
@@ -20,14 +16,15 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.Window;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller class for the game board scene.
+ */
 public class GameBoardController implements DynamicController, Initializable {
     @FXML
     ImageView f0, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, w0, w1, w2, w3, w4, w5, slot11, slot12, slot13, slot21, slot22, slot23, slot31, slot32, slot33, fp1, fp2, fp3;
@@ -96,7 +93,10 @@ public class GameBoardController implements DynamicController, Initializable {
         }
     }
 
-
+    /**
+     * onAction method: opens a popup that shows the player's leader cards.
+     * @throws IOException if the fxmlLoader cannot load the desired resource.
+     */
     public void showLeaders() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GameBoardController.class.getResource("/fxml/leadercards.fxml"));
         Parent root = fxmlLoader.load();

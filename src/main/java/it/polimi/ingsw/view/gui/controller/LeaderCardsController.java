@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Controller class for the leader cards popup scene.
+ */
 public class LeaderCardsController implements DynamicController{
     @FXML
     ImageView l0, l1, w0, w1, w2, w3;

@@ -8,10 +8,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller class for the join lobby scene
+ */
 public class JoinLobbyController {
     @FXML
     TextField lobbyId;
 
+    /**
+     * onAction method: sends to the server the user's input.
+     */
     public void joinLobby(){
         JsonObject payload = new JsonObject();
         if(!lobbyId.getText().isBlank() && lobbyId.getText().length() == 5){
@@ -23,6 +29,10 @@ public class JoinLobbyController {
         }
     }
 
+    /**
+     * MenuBar onAction method.
+     * Shows a popup containing the project's information.
+     */
     public void aboutDialog(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
@@ -32,6 +42,10 @@ public class JoinLobbyController {
         alert.showAndWait();
     }
 
+    /**
+     * MenuBar onAction method.
+     * Shows a popup containing instructions about the current scene.
+     */
     public void helpDialog(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Instructions");
@@ -41,6 +55,10 @@ public class JoinLobbyController {
         alert.showAndWait();
     }
 
+    /**
+     * MenuBar onAction method.
+     * Closes the application.
+     */
     public void quit(){
         JavaFxApp.close();
     }

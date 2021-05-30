@@ -9,7 +9,6 @@ import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -19,9 +18,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the leaders choice scene.
+ */
 public class LeadersChoiceController implements DynamicController, Initializable {
     JsonObject data;
-    int playerId;
     ArrayList<Integer> leaderCards;
     ArrayList<Integer> selectedCards = new ArrayList<>();
 
@@ -60,6 +61,9 @@ public class LeadersChoiceController implements DynamicController, Initializable
         text.setText("You are player " + data.get("playerOrder").getAsString() + ". Choose your two leader cards!");
     }
 
+    /**
+     * onAction method: adds the first leader card to the selected ones.
+     */
     public void add1(){
         if(rect1.isVisible()){
             selectedCards.remove(leaderCards.get(0));
@@ -71,6 +75,9 @@ public class LeadersChoiceController implements DynamicController, Initializable
         enableConfirm();
     }
 
+    /**
+     * onAction method: adds the second leader card to the selected ones.
+     */
     public void add2(){
         if(rect2.isVisible()){
             selectedCards.remove(leaderCards.get(1));
@@ -82,6 +89,9 @@ public class LeadersChoiceController implements DynamicController, Initializable
         enableConfirm();
     }
 
+    /**
+     * onAction method: adds the third leader card to the selected ones.
+     */
     public void add3(){
         if(rect3.isVisible()){
             selectedCards.remove(leaderCards.get(2));
@@ -93,6 +103,9 @@ public class LeadersChoiceController implements DynamicController, Initializable
         enableConfirm();
     }
 
+    /**
+     * onAction method: adds the fourth leader card to the selected ones.
+     */
     public void add4(){
         if(rect4.isVisible()){
             selectedCards.remove(leaderCards.get(3));
@@ -104,10 +117,16 @@ public class LeadersChoiceController implements DynamicController, Initializable
         enableConfirm();
     }
 
+    /**
+     * Method called after selecting a leader card: activates the confirm button if the amount of selected cards equals 2.
+     */
     public void enableConfirm(){
         confirmBtn.setDisable(selectedCards.size() != 2);
     }
 
+    /**
+     * onAction method: sends to the server the selected leader cards.
+     */
     public void confirmAction(){
         for (int i = 0; i < 2; i++) {
             leaderCards.remove(selectedCards.get(i));

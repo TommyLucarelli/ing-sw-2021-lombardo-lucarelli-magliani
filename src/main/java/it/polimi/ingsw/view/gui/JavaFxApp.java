@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.gui;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.controller.DynamicController;
-import it.polimi.ingsw.view.gui.controller.GameBoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Entry point for the JavaFX application.
+ */
 public class JavaFxApp extends Application {
     private static Scene scene;
     private static Gui manager;
@@ -31,14 +33,26 @@ public class JavaFxApp extends Application {
         stage.show();
     }
 
+    /**
+     * Setter method: sets the Gui manager.
+     * @param manager the Gui manager class' instance.
+     */
     public static void setManager(Gui manager) {
         JavaFxApp.manager = manager;
     }
 
+    /**
+     * Getter method.
+     * @return the application's manager.
+     */
     public static Gui getManager(){
         return manager;
     }
 
+    /**
+     * Sets the root of the scene.
+     * @param fxml the name of the fxml file to set the scene.
+     */
     public static void setRoot(String fxml){
         try {
             scene.setRoot(loadFXML(fxml));
@@ -47,16 +61,20 @@ public class JavaFxApp extends Application {
         }
     }
 
-    public static void setRootWithData(String fxml, JsonObject data){
-        setRoot(fxml);
-        setData(data);
-    }
-
+    /**
+     * Passes data to the active scene via the DynamicController interface.
+     * @param data the JsonObject containing the data to be passed to the scene.
+     */
     public static void setData(JsonObject data){
         DynamicController controller = fxmlLoader.getController();
         controller.setData(data);
     }
 
+    /**
+     * Passes a single property as JSON ({"property": "value"}) to the active scene via the DynamicController interface.
+     * @param property the name of the property.
+     * @param value the value of the property.
+     */
     public static void setData(String property, String value){
         JsonObject data = new JsonObject();
         data.addProperty(property, value);
@@ -64,12 +82,31 @@ public class JavaFxApp extends Application {
         controller.setData(data);
     }
 
+    /**
+     * Combination of setRoot and setData.
+     * @param fxml the name of the fxml file to set the scene.
+     * @param data the JsonObject containing the data to be passed to the scene.
+     */
+    public static void setRootWithData(String fxml, JsonObject data){
+        setRoot(fxml);
+        setData(data);
+    }
 
+    /**
+     * Loads the specified fxml file into the fxmlLoader.
+     * @param fxml the fxml filename.
+     * @return the Parent object loaded by the loader.
+     * @throws IOException if the specified file does not exists.
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         fxmlLoader = new FXMLLoader(JavaFxApp.class.getResource("/fxml/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * Shows a popup in front of the scene.
+     * @param fxml the filename of the popup scene fxml.
+     */
     public static void showPopup(String fxml){
         fxmlLoader = new FXMLLoader(JavaFxApp.class.getResource("/fxml/" + fxml + ".fxml"));
 
@@ -85,6 +122,11 @@ public class JavaFxApp extends Application {
         dialog.show();
     }
 
+    /**
+     * Cobination of showPopup and setData.
+     * @param fxml the filename of the popup scene fxml.
+     * @param data the JsonObject containing the data to be passed to the scene.
+     */
     public static void showPopupWithData(String fxml, JsonObject data){
         fxmlLoader = new FXMLLoader(JavaFxApp.class.getResource("/fxml/" + fxml + ".fxml"));
 
@@ -103,14 +145,25 @@ public class JavaFxApp extends Application {
         dialog.show();
     }
 
+    /**
+     * Sends a message to the server.
+     * @param responseMsg the ResponseMsg to be sent.
+     */
     public static void send(ResponseMsg responseMsg){
         manager.send(responseMsg);
     }
 
+    /**
+     * Closes the application and the connection to the server.
+     */
     public static void close(){
         manager.close();
     }
 
+    /**
+     * Launches the application.
+     * @param args args passed to main method.
+     */
     public static void main(String[] args) {
         launch(args);
     }

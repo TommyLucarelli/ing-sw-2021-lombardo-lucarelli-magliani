@@ -15,6 +15,9 @@ import javafx.scene.control.ToggleGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the create game scene.
+ */
 public class CreateGameController implements Initializable {
     @FXML
     ToggleButton btn1, btn2, btn3, btn4;
@@ -42,6 +45,9 @@ public class CreateGameController implements Initializable {
         });
     }
 
+    /**
+     * onAction method: sends to the server the selected action.
+     */
     public void createGame(){
         JsonObject payload = new JsonObject();
         payload.addProperty("input", numPlayers);

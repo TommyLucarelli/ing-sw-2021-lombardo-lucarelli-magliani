@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+/**
+ * Controller class for the wait players scene.
+ */
 public class WaitPlayersController implements DynamicController {
     StringBuilder text;
 
@@ -37,6 +40,9 @@ public class WaitPlayersController implements DynamicController {
         }
     }
 
+    /**
+     * onAction method: sends to the server the command to start the game.
+     */
     public void startGameAction(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "START_GAME_COMMAND");

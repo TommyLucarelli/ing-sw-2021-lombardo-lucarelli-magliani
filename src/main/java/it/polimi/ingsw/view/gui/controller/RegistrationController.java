@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * Controller class for the registration controller.
+ */
 public class RegistrationController implements DynamicController{
     @FXML
     TextField username;
@@ -20,10 +23,16 @@ public class RegistrationController implements DynamicController{
         errorMsg.setVisible(data.get("error").getAsString().equals("true"));
     }
 
+    /**
+     * onAction method: closes the application.
+     */
     public void quitAction(){
         JavaFxApp.close();
     }
 
+    /**
+     * onAction method: sends to the server the entered username.
+     */
     public void playAction(){
         JsonObject payload = new JsonObject();
         if(!username.getText().isBlank()){

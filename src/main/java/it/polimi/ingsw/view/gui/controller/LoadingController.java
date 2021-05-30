@@ -11,6 +11,9 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the loading scene.
+ */
 public class LoadingController implements DynamicController, Initializable {
     @FXML
     Text loadMsg;

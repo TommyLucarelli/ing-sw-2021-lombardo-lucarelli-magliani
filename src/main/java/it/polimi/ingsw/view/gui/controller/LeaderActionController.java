@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.gui.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.JavaFxApp;
@@ -18,7 +17,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller class for the Leader action scene.
+ */
 public class LeaderActionController implements DynamicController, Initializable {
     @FXML
     ImageView l0, l1;
@@ -51,6 +52,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         }
     }
 
+    /**
+     * onAction method: selects the first leader card.
+     */
     public void active0(){
         r0. setVisible(true);
         r1.setVisible(false);
@@ -59,6 +63,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         activeCard = leaders[0];
     }
 
+    /**
+     * onAction method: selects the second leader card.
+     */
     public void active1(){
         r0. setVisible(false);
         r1.setVisible(true);
@@ -67,6 +74,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         activeCard = leaders[1];
     }
 
+    /**
+     * onAction method: activates the selected leader card.
+     */
     public void activate(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTION");
@@ -76,6 +86,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         closePopup();
     }
 
+    /**
+     * onAction method: discards the selected leader card.
+     */
     public void discard(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTION");
@@ -85,6 +98,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         closePopup();
     }
 
+    /**
+     * onAction method: cancels the leader action.
+     */
     public void comeback(){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "COME_BACK");
@@ -92,6 +108,9 @@ public class LeaderActionController implements DynamicController, Initializable 
         closePopup();
     }
 
+    /**
+     * Closes the popup at the end of the action.
+     */
     public void closePopup(){
         Stage stage = (Stage) actBtn.getScene().getWindow();
         stage.close();

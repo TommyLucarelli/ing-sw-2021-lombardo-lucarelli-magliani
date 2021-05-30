@@ -28,6 +28,10 @@ public class Gui implements UserInterface {
     private CompactDevCardStructure compactDevCardStructure;
     private HashMap<Integer, CompactPlayer> opponents = new HashMap<>();
 
+    /**
+     * Class constructor that launches the JavaFX application.
+     * @param client the Client connected to the server.
+     */
     public Gui(Client client){
         this.client = client;
         (new Thread(() -> Application.launch((JavaFxApp.class)))).start();
@@ -89,28 +93,53 @@ public class Gui implements UserInterface {
         }
     }
 
+    /**
+     * Sends a message to the server.
+     * @param responseMsg the message to be sent.
+     */
     public void send(ResponseMsg responseMsg){
         client.send(responseMsg);
     }
 
+    /**
+     * Starts the client thread.
+     */
     public void start(){
         this.client.run();
     }
 
+    /**
+     * Closes the application and the connection to the server.
+     */
     public void close(){
         this.client.closeConnection();
         System.exit(0);
     }
 
+    /**
+     * Getter method.
+     * @return the compactPlayer object containing the player's information.
+     */
     public CompactPlayer getMyself(){
         return mySelf;
     }
 
+    /**
+     * Initializes the compactPlayer containing the player's information.
+     * @param playerId the player's Id.
+     * @param username the player's username.
+     * @param leaders the player's starting leader cards.
+     */
     public void firstSetup(int playerId, String username, int[] leaders){
         mySelf = new CompactPlayer(playerId, username);
         mySelf.getCompactBoard().setLeaderCards(leaders);
     }
 
+    /**
+     * Handles the first update sent by the server at the beginning of the game, saving the information into the data
+     * structures.
+     * @param update the data sent by the server.
+     */
     private void handleInitialUpdate(JsonObject update){
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
@@ -179,6 +208,11 @@ public class Gui implements UserInterface {
         client.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload3));
     }
 
+    /**
+     * Handles the  update sent by the server at the end of every turn, saving the information into the data
+     * structures.
+     * @param data the data sent by the server.
+     */
     private void handleUpdate(JsonObject data){
         Gson gson = new Gson();
         JsonObject payload, payload2;
@@ -270,6 +304,9 @@ public class Gui implements UserInterface {
         client.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload3));
     }
 
+    /**
+     * Method called to update the game board scene everytime an update is received.
+     */
     private void updateGameBoard(){
         JsonObject data = new JsonObject();
         Gson gson = new Gson();
