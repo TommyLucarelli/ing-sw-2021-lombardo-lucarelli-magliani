@@ -48,6 +48,9 @@ public class Gui implements UserInterface {
             case WELCOME_MESSAGE:
                 Platform.runLater(() -> JavaFxApp.setRootWithData("welcome", request.getPayload()));
                 break;
+            case RECONNECTION_MESSAGE:
+                Platform.runLater(() -> JavaFxApp.setRootWithData("reconnection", request.getPayload()));
+                break;
             case NUMBER_OF_PLAYERS:
                 Platform.runLater(() -> JavaFxApp.setRoot("creategame"));
                 break;
