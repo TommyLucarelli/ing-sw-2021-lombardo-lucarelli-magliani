@@ -40,6 +40,7 @@ public class Gui implements UserInterface {
 
     @Override
     public void handleRequest(RequestMsg request) {
+        JsonObject data;
         switch (request.getMessageType()) {
             case REGISTRATION_MESSAGE:
                 Platform.runLater(() -> JavaFxApp.setRoot("registration"));
@@ -85,12 +86,17 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.showPopup("leaderactivation"));
                         break;
                     case "LEADER_ACTION":
-                        JsonObject data = new JsonObject();
+                        data = new JsonObject();
                         data.addProperty("leaders", (new Gson()).toJson(mySelf.getCompactBoard().getLeaderCards()));
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("leaderaction", data));
                         break;
                     case "MAIN_CHOICE":
                         Platform.runLater(() -> JavaFxApp.showPopup("mainchoice"));
+                        break;
+                    case "PICK":
+                        data = new JsonObject();
+                        data.addProperty("marbles", (new Gson()).toJson(compactMarket.getMarket()));
+                        Platform.runLater(() -> JavaFxApp.showPopupWithData("marketaction", data));
                         break;
                 }
         }
