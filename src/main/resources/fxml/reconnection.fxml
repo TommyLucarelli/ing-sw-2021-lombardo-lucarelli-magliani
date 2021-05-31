@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ReconnectionController">
+   <children>
+      <ImageView fitHeight="900.0" fitWidth="1489.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/background1.jpg" />
+         </image>
+      </ImageView>
+      <MenuBar prefHeight="28.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+           <Menu mnemonicParsing="false" text="File">
+              <items>
+                 <MenuItem mnemonicParsing="false" text="Quit" />
+              </items>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Help">
+              <items>
+                 <MenuItem mnemonicParsing="false" text="Instructions" />
+                 <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+           </Menu>
+        </menus>
+      </MenuBar>
+      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="444.0" fitWidth="819.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../images/title.png" />
+               </image>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back, username!" textAlignment="CENTER" wrappingWidth="381.8948974609375">
+               <font>
+                  <Font name="Trattatello" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to resume from where you left?">
+               <font>
+                  <Font name="Trattatello" size="36.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#resumeAction" prefHeight="57.0" prefWidth="189.0" styleClass="quit-btn" text="Resume game">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow height="31.0" radius="15.0" width="31.0" />
+                     </effect>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#newGameAction" prefHeight="57.0" prefWidth="189.0" styleClass="action-btn" text="Start new game">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow height="31.0" radius="15.0" width="31.0" />
+                     </effect>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" top="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
