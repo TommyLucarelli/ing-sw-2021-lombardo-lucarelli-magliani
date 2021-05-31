@@ -1,6 +1,9 @@
 package it.polimi.ingsw.net.server;
 
+import it.polimi.ingsw.core.controller.PlayerHandler;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,5 +22,9 @@ public class ServerUtils {
      */
     public static int numClients = 0;
 
+    public static int totalClients = 0;
+
     public static ArrayList<Lobby> lobbies = new ArrayList<>();
+
+    public static HashMap<String, PlayerHandler> disconnectedPlayers = new HashMap();
 }

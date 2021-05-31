@@ -385,6 +385,7 @@ public class MainController{
      * @param playerHandler
      */
     public void handleReconnection(PlayerHandler playerHandler){
+        System.out.println("maincontroller");
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "SHORT_UPDATE");
         payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has reconnected\n");

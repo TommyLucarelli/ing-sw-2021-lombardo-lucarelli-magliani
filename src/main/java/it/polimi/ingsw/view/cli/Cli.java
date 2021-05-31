@@ -49,6 +49,7 @@ public class Cli implements UserInterface {
             case JOIN_GAME:
             case NUMBER_OF_PLAYERS:
             case START_GAME:
+            case RECONNECTION_MESSAGE:
                 handleSimpleRequest(request);
                 break;
             case WAIT_START_GAME:

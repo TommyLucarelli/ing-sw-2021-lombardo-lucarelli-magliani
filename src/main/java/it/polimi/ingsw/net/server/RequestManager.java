@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class RequestManager {
     private final ClientHandler client;
     private PlayerHandler playerHandler;
-    private MessageType lastType;
 
     /**
      * Class constructor.
@@ -46,6 +45,9 @@ public class RequestManager {
                 break;
             case REGISTRATION_MESSAGE:
                 handleRegistration(response.getPayload());
+                break;
+            case RECONNECTION_MESSAGE:
+                handleReconnection(response.getPayload());
                 break;
             case WELCOME_MESSAGE:
                 handleWelcome(response.getPayload());
@@ -89,8 +91,19 @@ public class RequestManager {
     private void handleRegistration(JsonObject response) throws InvalidResponseException {
         String input = response.get("input").getAsString();
         input = input.trim();
-        if(input.isBlank()){
+        if(input.isBlank()) {
             throw new InvalidResponseException("Invalid username. Please enter a valid username");
+        } else if(ServerUtils.disconnectedPlayers.containsKey(input)){
+            client.setName(input);
+            JsonObject payload = new JsonObject();
+            payload.addProperty("message", "Welcome back, " + input + "! Enter \"1\" if you want to resume the game you left, \"2\" if you want to start a new one.");
+            payload.addProperty("username", input);
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "int");
+            expectedResponse.addProperty("min", 1);
+            expectedResponse.addProperty("max", 2);
+            payload.add("expectedResponse", expectedResponse);
+            client.send(new RequestMsg(MessageType.RECONNECTION_MESSAGE, payload));
         } else if(ServerUtils.usernames.contains(input)){
             JsonObject payload = new JsonObject();
             payload.addProperty("message", "This username is already taken, please enter another username.");
@@ -199,6 +212,36 @@ public class RequestManager {
 
     public void sendGameMessage(RequestMsg msg){
         client.send(msg);
+    }
+
+    public void disconnection(){
+        if(playerHandler != null){
+            System.out.println("[CLIENT " + client.getId() +"] handling disconnection from game...");
+            this.playerHandler.handleDisconnection();
+            ServerUtils.disconnectedPlayers.put(client.getName(), playerHandler);
+        }
+    }
+
+    public void handleReconnection(JsonObject response){
+        if(response.get("input").getAsInt() == 1) {
+            System.out.println("requestmanager");
+            this.playerHandler = ServerUtils.disconnectedPlayers.get(client.getName());
+            this.playerHandler.setManager(this);
+            ServerUtils.disconnectedPlayers.remove(client.getName());
+            playerHandler.handleReconnection();
+        } else {
+            ServerUtils.disconnectedPlayers.remove(client.getName());
+            JsonObject payload = new JsonObject();
+            payload.addProperty("message", "Welcome, " + client.getName() +
+                    "! Enter \"1\" to create a new lobby or \"2\" to join an existing one.");
+            payload.addProperty("username", client.getName());
+            JsonObject expectedResponse = new JsonObject();
+            expectedResponse.addProperty("type", "int");
+            expectedResponse.addProperty("min", 1);
+            expectedResponse.addProperty("max", 2);
+            payload.add("expectedResponse", expectedResponse);
+            client.send(new RequestMsg(MessageType.WELCOME_MESSAGE, payload));
+        }
     }
 
     /**

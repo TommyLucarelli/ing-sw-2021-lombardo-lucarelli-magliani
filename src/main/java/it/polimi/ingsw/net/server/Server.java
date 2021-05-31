@@ -34,8 +34,9 @@ public class Server {
          */
         try {
             while(true){
-                pool.execute(new ClientHandler(socket.accept(), ServerUtils.numClients + 1));
+                pool.execute(new ClientHandler(socket.accept(), ServerUtils.totalClients + 1));
                 ServerUtils.numClients++;
+                ServerUtils.totalClients++;
                 System.out.println("New client connected - number of clients currently connected: " + ServerUtils.numClients);
             }
         } catch (IOException e){

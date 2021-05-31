@@ -9,9 +9,9 @@ public enum MessageType {
     REGISTRATION_MESSAGE, //Ask for username
     WELCOME_MESSAGE, //Ask to create/join lobby
     NUMBER_OF_PLAYERS, //Specify the game's number of players
-    WAIT_FOR_PLAYERS,
     JOIN_GAME, //Join lobby
     WAIT_START_GAME, //Wait for start game
     START_GAME, //Start game
     GAME_MESSAGE,
+    RECONNECTION_MESSAGE,
 }

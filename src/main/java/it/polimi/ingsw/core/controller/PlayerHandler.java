@@ -5,10 +5,10 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.net.server.RequestManager;
 
 public class PlayerHandler {
-    private final int playerId;
+    private int playerId;
     private final String username;
     private final MainController controller;
-    private final RequestManager manager;
+    private  RequestManager manager;
     private Boolean active;
 
     public PlayerHandler(int playerId, String username, MainController controller, RequestManager manager){
@@ -31,6 +31,10 @@ public class PlayerHandler {
         controller.handle(msg);
     }
 
+    public void setManager(RequestManager manager) {
+        this.manager = manager;
+    }
+
     public void newMessage(RequestMsg updateMsg){
         if(active)
             manager.sendGameMessage(updateMsg);
@@ -42,6 +46,7 @@ public class PlayerHandler {
     }
 
     public void handleReconnection(){
+        System.out.println("playerhandler");
         active = true;
         controller.handleReconnection(this);
     }

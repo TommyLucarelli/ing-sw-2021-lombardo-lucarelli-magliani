@@ -25,7 +25,6 @@ public class ClientHandler implements Runnable{
     private ObjectOutputStream outputStream;
     private Timer connectionDroppedTimer;
     private final RequestManager requestManager;
-    private Lobby lobby;
     private final Gson gson;
 
     /**
@@ -134,6 +133,8 @@ public class ClientHandler implements Runnable{
     private void disconnect(){
         connectionDroppedTimer.cancel();
         System.out.println("[clientId: " + id + "] Closing connection...");
+
+        requestManager.disconnection();
 
         try {
             socket.close();
