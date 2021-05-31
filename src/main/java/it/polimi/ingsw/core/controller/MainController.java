@@ -220,13 +220,15 @@ public class MainController{
         if(currentGame.getSinglePlayer()){
             payload.addProperty("message", ((SingleTurn)currentGame.getTurn()).getSoloActionToken().getMessage());
         }else {
-            if (x == 0)
+            if (x == 1)
                 payload.addProperty("message", currentPlayer.getNickname() + " has taken resources from the Market");
-            else if (x == 1)
+            else if (x == 2)
                 payload.addProperty("message", currentPlayer.getNickname() + " has bought a Development Card");
-            else
+            else if(x == 3)
                 payload.addProperty("message", currentPlayer.getNickname() + " has activated the production");
         }
+
+        currentGame.getTurn().setTypeOfAction(0);
 
         if(currentGame.getTurn().isLastTurn() == 1)
             payload.addProperty("endMessage", "\nThis is the final turn, because "+currentPlayer.getNickname()+" has bought the seventh development card \n");
@@ -247,10 +249,8 @@ public class MainController{
 
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
         Gson gson = new Gson();
-        String json = gson.toJson(oldPlayer.getBoard().getAbilityActivationFlag());
-        payload.addProperty("abilityActivationFlag", json);
 
-        json = gson.toJson(currentGame.getTurn().getLeaderCardDiscarded());
+        String json = gson.toJson(currentGame.getTurn().getLeaderCardDiscarded());
         payload.addProperty("discardedLeaderCards", json);
         currentGame.getTurn().resetDiscarded();
 
@@ -385,12 +385,41 @@ public class MainController{
      * @param playerHandler
      */
     public void handleReconnection(PlayerHandler playerHandler){
-        System.out.println("maincontroller");
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "SHORT_UPDATE");
-        payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has reconnected\n");
-        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+        for (PlayerHandler player : players) {
+            if (player.equals(playerHandler)) {
+                reconnectionUpdate(playerHandler);
+            } else {
+                payload.addProperty("gameAction", "SHORT_UPDATE");
+                payload.addProperty("message", "\nINFO: " + playerHandler.getUsername() + " has reconnected\n");
+                this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            }
+
+        }
         currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+    }
+
+    private void reconnectionUpdate(PlayerHandler playerHandler){
+        JsonObject payload = new JsonObject();
+        payload.addProperty("gameAction", "RECONNECTION_UPDATE");
+
+        payload.addProperty("currPlayer", currentPlayer.getNickname());
+
+        payload.addProperty("myPlayerID", playerHandler.getPlayerId());
+        payload.addProperty("myName", playerHandler.getUsername());
+
+        payload.add("market", currentGame.getMarket().toCompactMarket());
+        payload.add("devCardStructure", currentGame.getDevCardStructure().toCompactDevCardStructure());
+
+        payload.addProperty("numOfPlayers", players.size());
+
+        JsonArray playersArray = new JsonArray();
+        for (int i=0; i<players.size();i++) {
+            playersArray.add(currentGame.fromIdToPlayer(players.get(i).getPlayerId()).toCompactPlayerInitial());
+        }
+        payload.add("players", playersArray);
+
+        this.notifyPlayer(playerHandler, new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
 }

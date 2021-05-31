@@ -224,7 +224,6 @@ public class RequestManager {
 
     public void handleReconnection(JsonObject response){
         if(response.get("input").getAsInt() == 1) {
-            System.out.println("requestmanager");
             this.playerHandler = ServerUtils.disconnectedPlayers.get(client.getName());
             this.playerHandler.setManager(this);
             ServerUtils.disconnectedPlayers.remove(client.getName());

@@ -79,7 +79,7 @@ public class DevCardHandler{
         int index = ms.getPayload().get("index").getAsInt();
         board.getDevCardSlot(index).addCard(devCard);
         devCard = null;
-        controller.getCurrentGame().getTurn().setTypeOfAction(1);
+        controller.getCurrentGame().getTurn().setTypeOfAction(2);
         //controllo 7 carte ed eventualmente messaggio UPDATE -> fine turno
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
             controller.getCurrentGame().getTurn().setLastTurn(1);

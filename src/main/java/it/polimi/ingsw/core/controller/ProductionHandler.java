@@ -100,7 +100,7 @@ public class ProductionHandler {
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "LEADER_ACTIVATION");
             payload.addProperty("endTurn", true);
-            controller.getCurrentGame().getTurn().setTypeOfAction(2);
+            controller.getCurrentGame().getTurn().setTypeOfAction(3);
             controller.getCurrentGame().getTurn().setEndGame(true);
             controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         }else{

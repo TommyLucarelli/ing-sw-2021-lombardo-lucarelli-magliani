@@ -25,6 +25,7 @@ public class Turn {
         currentPlayer = 0;
         blackList = new ArrayList<>();
         lastTurn = 0;
+        typeOfAction = 0;
     }
 
     /**

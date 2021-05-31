@@ -63,6 +63,8 @@ public class Player {
         Gson gson = new Gson();
         String json = gson.toJson(game.getTurn().getLeaderCardDiscarded());
         payload.addProperty("discardedLeaderCard", json);
+        json = gson.toJson(board.getAbilityActivationFlag());
+        payload.addProperty("abilityActivationFlag", json);
 
         return payload;
     }
@@ -71,8 +73,12 @@ public class Player {
         JsonObject payload = new JsonObject();
         payload.addProperty("playerID", playerID);
         payload.addProperty("playerName", nickname);
+        payload.add("strongbox", board.getStrongbox().toCompactStrongBox());
         payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         payload.add("warehouse", board.getWarehouse().toCompactWarehouse());
+        Gson gson = new Gson();
+        String json = gson.toJson(board.getAbilityActivationFlag());
+        payload.addProperty("abilityActivationFlag", json);
 
         return payload;
     }

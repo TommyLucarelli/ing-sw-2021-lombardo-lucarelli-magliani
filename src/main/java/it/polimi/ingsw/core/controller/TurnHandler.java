@@ -116,6 +116,7 @@ public class TurnHandler {
         }else {
             if (playerID != controller.getCurrentPlayer().getPlayerID()) {
                 payload.addProperty("gameAction", "START_TURN");
+                payload.addProperty("playerID", controller.getCurrentPlayer().getPlayerID());
                 payload.addProperty("message", controller.getCurrentPlayer().getNickname() + " is now playing");
                 controller.notifyPlayer(controller.fromIdToPlayerHandler(playerID), new RequestMsg(MessageType.GAME_MESSAGE, payload));
             } else {

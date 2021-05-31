@@ -75,6 +75,8 @@ public class MarketHandler {
             }
         }
 
+        controller.getCurrentGame().getTurn().setTypeOfAction(1);
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
         Gson gson = new Gson();
@@ -101,7 +103,7 @@ public class MarketHandler {
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), faithP1, faithP2);
             faithP1 = 0;
             //prep messaggio ShortUpdate / leader activation
-            controller.getCurrentGame().getTurn().setTypeOfAction(0);
+
             if(controller.getCurrentGame().getTurn().isLastTurn() == 3){
                 controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
             }else {

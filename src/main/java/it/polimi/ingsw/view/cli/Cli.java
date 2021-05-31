@@ -106,6 +106,9 @@ public class Cli implements UserInterface {
                     case "FINAL_UPDATE":
                         handleFinalUpdate(request);
                         break;
+                    case "RECONNECTION_UPDATE":
+                        handleReconnectionUpdate(request);
+                        break;
                 }
                 break;
             default:
@@ -382,6 +385,7 @@ public class Cli implements UserInterface {
         int x, cont = 0;
         boolean flag;
 
+        if(requestMsg.getPayload().has("problem"))
         if(requestMsg.getPayload().has("problem"))
             System.out.println("\nOperation failed, retry or skip action");
 
@@ -767,9 +771,10 @@ public class Cli implements UserInterface {
 
         Gson gson = new Gson();
         JsonObject payload, payload2;
+        String message;
 
         int currentPlayerID = requestMsg.getPayload().get("currentPlayerID").getAsInt();
-        String message = requestMsg.getPayload().get("message").getAsString();
+
 
 
         CompactPlayer player;
@@ -778,13 +783,10 @@ public class Cli implements UserInterface {
         else
             player = opponents.get(currentPlayerID); //da controllare
 
-        String json = requestMsg.getPayload().get("abilityActivationFlag").getAsString();
-        Type collectionType = new TypeToken<int[]>(){}.getType();
-        int[] abilityActivationFlag = gson.fromJson(json, collectionType);
-        player.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
 
-        json = requestMsg.getPayload().get("discardedLeaderCards").getAsString();
-        collectionType = new TypeToken<int[]>(){}.getType();
+
+        String json = requestMsg.getPayload().get("discardedLeaderCards").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
         player.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
 
 
@@ -802,6 +804,11 @@ public class Cli implements UserInterface {
 
         payload = requestMsg.getPayload().get("player").getAsJsonObject();
 
+
+        json = payload.get("abilityActivationFlag").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+        player.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
 
         payload2 = payload.get("warehouse").getAsJsonObject();
         json = payload2.get("structure").getAsString();
@@ -834,13 +841,17 @@ public class Cli implements UserInterface {
             p2.getCompactBoard().setFavCards(fav);
         }
 
+        if(requestMsg.getPayload().has("message")){
+            message = requestMsg.getPayload().get("message").getAsString();
+            if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
+                System.out.println("\n"+message+"\n");
+        }
+
         if(requestMsg.getPayload().has("lorenzoTrack")){
             JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
             player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
         }
 
-        if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-            System.out.println("\n"+message+"\n");
 
         if(requestMsg.getPayload().has("endMessage") && !mySelf.getLastTurn()){
             mySelf.setLastTurn(true);
@@ -970,8 +981,10 @@ public class Cli implements UserInterface {
     private void handleNotMyTurn(RequestMsg requestMsg){
         System.out.println("\n"+requestMsg.getPayload().get("message").getAsString()+"\n");
         for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
-            System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
-            fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+            if(entry.getValue().getPlayerID() == requestMsg.getPayload().get("playerID").getAsInt()){
+                System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
+                fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+            }
         }
     }
 
@@ -1047,6 +1060,98 @@ public class Cli implements UserInterface {
                     "       _______\\/\\\\\\__________\\///\\\\\\\\\\/______\\///\\\\\\\\\\\\\\\\\\/_____________\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\____\\///\\\\\\\\\\/_____\\///\\\\\\\\\\\\\\\\\\\\\\/_________\\/\\\\\\_______ \n" +
                     "        _______\\///_____________\\/////__________\\/////////_______________\\///////////////_______\\/////_________\\///////////___________\\///________\n");
         }
+    }
+
+    private void handleReconnectionUpdate(RequestMsg requestMsg){
+        compactMarket = new CompactMarket();
+        compactDevCardStructure = new CompactDevCardStructure();
+
+        int playerID = requestMsg.getPayload().get("myPlayerID").getAsInt();
+        String playerName = requestMsg.getPayload().get("myName").getAsString();
+        mySelf = new CompactPlayer(playerID, playerName);
+
+        JsonObject payload = requestMsg.getPayload().get("market").getAsJsonObject();
+        Gson gson = new Gson();
+        String json = payload.get("structure").getAsString();
+        Type collectionType = new TypeToken<int[]>(){}.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+
+        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>(){}.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
+
+        JsonObject payload2;
+        JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
+        for (JsonElement player: players) {
+            if(player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()){
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
+                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setFavCards(fav);
+
+                json = player.getAsJsonObject().get("abilityActivationFlag").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
+
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<Resource[]>(){}.getType();
+                Resource[] ware = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setWarehouse(ware);
+
+                payload2 = player.getAsJsonObject().get("strongbox").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                mySelf.getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
+
+            }else{
+                opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
+
+                json = player.getAsJsonObject().get("abilityActivationFlag").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
+
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFavCards(fav);
+
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setWarehouse(wa);
+
+                payload2 = player.getAsJsonObject().get("strongbox").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
+            }
+        }
+
+        String currPlayer = requestMsg.getPayload().get("currPlayer").getAsString();
+
+        System.out.println("\nYou are back in the game");
+        System.out.println("\n"+currPlayer+" is now playing");
+
+        for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
+            if(entry.getValue().getPlayerName().equals(currPlayer)){
+                System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
+                fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+            }
+        }
+
     }
 
 

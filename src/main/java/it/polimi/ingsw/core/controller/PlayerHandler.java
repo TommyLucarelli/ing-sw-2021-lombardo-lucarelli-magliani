@@ -46,7 +46,6 @@ public class PlayerHandler {
     }
 
     public void handleReconnection(){
-        System.out.println("playerhandler");
         active = true;
         controller.handleReconnection(this);
     }
