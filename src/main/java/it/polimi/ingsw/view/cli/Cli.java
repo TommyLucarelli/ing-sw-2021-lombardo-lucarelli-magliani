@@ -62,6 +62,7 @@ public class Cli implements UserInterface {
                         break;
                     case "START_TURN":
                         handleNotMyTurn(request);
+                        break;
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
                     case "SHORT_UPDATE":
