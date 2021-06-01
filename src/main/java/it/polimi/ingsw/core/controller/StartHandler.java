@@ -121,8 +121,6 @@ public class StartHandler {
 
         boolean check = controller.setCountStartPhase();
 
-        JsonObject payload = new JsonObject();
-
         if (check) {
             controller.initialUpdate();
         }

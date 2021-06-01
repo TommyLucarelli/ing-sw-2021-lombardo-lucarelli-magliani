@@ -250,5 +250,14 @@ public class Board {
         return payload;
     }
 
+    public void randomRemoveLeaderCard(){
+        if(leaderCards.size()>2){
+            leaderCards.remove(3);
+            leaderCards.remove(2);
+            System.out.println("id: "+leaderCards.get(0));
+            System.out.println("id: "+leaderCards.get(1));
+        }
+    }
+
 
 }
