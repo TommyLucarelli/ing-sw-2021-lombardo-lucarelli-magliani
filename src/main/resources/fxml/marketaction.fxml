@@ -8,106 +8,111 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.MarketActionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.MarketActionController">
    <children>
-      <ImageView fitHeight="506.0" fitWidth="547.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="506.0" fitWidth="547.0" layoutX="66.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/board/market_ext.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="223.0" fitWidth="281.0" layoutX="62.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="223.0" fitWidth="281.0" layoutX="128.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/board/market_int.jpeg" />
          </image>
       </ImageView>
-      <ImageView fx:id="m8" fitHeight="46.0" fitWidth="36.0" layoutX="116.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m8" fitHeight="46.0" fitWidth="36.0" layoutX="182.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m9" fitHeight="46.0" fitWidth="36.0" layoutX="157.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m9" fitHeight="46.0" fitWidth="36.0" layoutX="223.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m10" fitHeight="46.0" fitWidth="36.0" layoutX="197.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m10" fitHeight="46.0" fitWidth="36.0" layoutX="263.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m11" fitHeight="46.0" fitWidth="36.0" layoutX="237.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m11" fitHeight="46.0" fitWidth="36.0" layoutX="303.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m0" fitHeight="46.0" fitWidth="36.0" layoutX="116.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m0" fitHeight="46.0" fitWidth="36.0" layoutX="182.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m1" fitHeight="46.0" fitWidth="36.0" layoutX="157.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m1" fitHeight="46.0" fitWidth="36.0" layoutX="223.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m2" fitHeight="46.0" fitWidth="36.0" layoutX="197.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m2" fitHeight="46.0" fitWidth="36.0" layoutX="263.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m3" fitHeight="46.0" fitWidth="36.0" layoutX="237.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m3" fitHeight="46.0" fitWidth="36.0" layoutX="303.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m4" fitHeight="46.0" fitWidth="36.0" layoutX="116.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m4" fitHeight="46.0" fitWidth="36.0" layoutX="182.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m5" fitHeight="46.0" fitWidth="36.0" layoutX="157.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m5" fitHeight="46.0" fitWidth="36.0" layoutX="223.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m6" fitHeight="46.0" fitWidth="36.0" layoutX="197.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m6" fitHeight="46.0" fitWidth="36.0" layoutX="263.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m7" fitHeight="46.0" fitWidth="36.0" layoutX="237.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m7" fitHeight="46.0" fitWidth="36.0" layoutX="303.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="m12" fitHeight="46.0" fitWidth="36.0" layoutX="287.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="m12" fitHeight="46.0" fitWidth="36.0" layoutX="353.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/marbles/5.png" />
          </image>
       </ImageView>
-      <Text layoutX="42.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a line/column from the market!">
+      <Text layoutX="52.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a line/column from the market!" textAlignment="CENTER" wrappingWidth="422.0">
          <font>
             <Font name="Trattatello" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="c0" layoutX="124.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectc0" onMouseEntered="#showrc0" onMouseExited="#hiderc0" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c1" layoutX="170.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectc1" onMouseEntered="#showrc1" onMouseExited="#hiderc1" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c2" layoutX="215.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectc2" onMouseEntered="#showrc2" onMouseExited="#hiderc2" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c3" layoutX="262.0" layoutY="376.0" mnemonicParsing="false" onAction="#selectc3" onMouseEntered="#showrc3" onMouseExited="#hiderc3" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="l0" layoutX="350.0" layoutY="200.0" mnemonicParsing="false" onAction="#selectl0" onMouseEntered="#showrl0" onMouseExited="#hiderl0" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
-      <Button fx:id="l1" layoutX="349.0" layoutY="243.0" mnemonicParsing="false" onAction="#selectl1" onMouseEntered="#showrl1" onMouseExited="#hiderl1" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
-      <Button fx:id="l2" layoutX="348.0" layoutY="290.0" mnemonicParsing="false" onAction="#selectl2" onMouseEntered="#showrl2" onMouseExited="#hiderl2" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
-      <Rectangle fx:id="rc0" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="116.0" layoutY="187.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
-      <Rectangle fx:id="rc1" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="157.0" layoutY="187.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
-      <Rectangle fx:id="rc2" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="197.0" layoutY="187.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
-      <Rectangle fx:id="rc3" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="237.0" layoutY="187.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
-      <Rectangle fx:id="rl0" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="110.0" layoutY="195.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
-      <Rectangle fx:id="rl1" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="110.0" layoutY="235.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
-      <Rectangle fx:id="rl2" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="110.0" layoutY="276.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
-      <Button layoutX="141.0" layoutY="589.0" mnemonicParsing="false" onAction="#comebackAction" text="Come back">
+      <Button fx:id="c0" layoutX="190.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc0" onMouseEntered="#showrc0" onMouseExited="#hiderc0" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c1" layoutX="236.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc1" onMouseEntered="#showrc1" onMouseExited="#hiderc1" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c2" layoutX="281.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc2" onMouseEntered="#showrc2" onMouseExited="#hiderc2" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c3" layoutX="328.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc3" onMouseEntered="#showrc3" onMouseExited="#hiderc3" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="l0" layoutX="416.0" layoutY="192.0" mnemonicParsing="false" onAction="#selectl0" onMouseEntered="#showrl0" onMouseExited="#hiderl0" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Button fx:id="l1" layoutX="415.0" layoutY="235.0" mnemonicParsing="false" onAction="#selectl1" onMouseEntered="#showrl1" onMouseExited="#hiderl1" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Button fx:id="l2" layoutX="414.0" layoutY="282.0" mnemonicParsing="false" onAction="#selectl2" onMouseEntered="#showrl2" onMouseExited="#hiderl2" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Rectangle fx:id="rc0" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="182.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
+      <Rectangle fx:id="rc1" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="223.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
+      <Rectangle fx:id="rc2" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="263.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
+      <Rectangle fx:id="rc3" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="303.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
+      <Rectangle fx:id="rl0" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="176.0" layoutY="187.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
+      <Rectangle fx:id="rl1" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="176.0" layoutY="227.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
+      <Rectangle fx:id="rl2" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="36.0" layoutX="176.0" layoutY="268.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="170.0" />
+      <Button layoutX="472.0" layoutY="524.0" mnemonicParsing="false" onAction="#comebackAction" opacity="0.0" prefHeight="51.0" prefWidth="53.0" text="Come back">
          <font>
             <Font name="Trattatello" size="24.0" />
          </font>
       </Button>
+      <ImageView fitHeight="57.0" fitWidth="59.0" layoutX="459.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/undo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

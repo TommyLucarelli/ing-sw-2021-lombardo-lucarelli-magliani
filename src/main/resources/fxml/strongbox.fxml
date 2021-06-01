@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="320.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.StrongBoxController">
    <children>
-      <ImageView fitHeight="239.0" fitWidth="346.0" layoutX="-6.0" layoutY="-9.0" opacity="0.42" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="291.0" fitWidth="404.0" layoutX="-6.0" layoutY="-9.0" opacity="0.42" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/strongbox.png" />
          </image>
@@ -19,21 +22,27 @@
             <BoxBlur />
          </effect>
       </ImageView>
-      <HBox alignment="CENTER" layoutX="-1.0" layoutY="119.0" prefHeight="59.0" prefWidth="321.0" spacing="75.0" AnchorPane.topAnchor="10.0">
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="119.0" prefHeight="59.0" prefWidth="400.0" spacing="75.0" AnchorPane.topAnchor="30.0">
          <children>
             <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <ImageView fitHeight="71.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/3.png" />
                </image>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="1.0" layoutY="63.0" prefHeight="39.0" prefWidth="320.0" spacing="120.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="1.0" layoutY="63.0" prefHeight="39.0" prefWidth="400.0" spacing="120.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <children>
             <Text fx:id="sCoin" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
@@ -42,38 +51,50 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
             <Text fx:id="sStone" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
                   <Font name="Trattatello" size="24.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="329.0" spacing="50.0" AnchorPane.topAnchor="110.0">
+      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="400.0" spacing="50.0" AnchorPane.topAnchor="130.0">
          <children>
             <ImageView fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/1.png" />
                </image>
                <HBox.margin>
-                  <Insets />
+                  <Insets left="10.0" />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
             <ImageView fitHeight="54.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/2.png" />
                </image>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="15.0" />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
          </children>
          <padding>
             <Insets left="10.0" right="20.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER" layoutX="-1.0" layoutY="159.0" prefHeight="39.0" prefWidth="320.0" spacing="120.0">
+      <HBox alignment="CENTER" layoutX="-1.0" layoutY="159.0" prefHeight="39.0" prefWidth="400.0" spacing="120.0" AnchorPane.topAnchor="180.0">
          <children>
             <Text fx:id="sShield" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
@@ -82,6 +103,9 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
             <Text fx:id="sServant" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                <font>
@@ -90,8 +114,16 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Text>
          </children>
       </HBox>
+      <Button layoutX="173.0" layoutY="229.0" mnemonicParsing="false" text="Undo">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>
