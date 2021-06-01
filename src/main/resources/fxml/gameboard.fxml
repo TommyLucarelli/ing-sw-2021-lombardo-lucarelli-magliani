@@ -15,26 +15,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
    <children>
-      <ImageView fitHeight="696.0" fitWidth="983.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="703.0" fitWidth="1309.0" layoutX="-1.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/board.png" />
          </image>
       </ImageView>
-      <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="File">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="Quit" />
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="Instructions" />
-                    <MenuItem mnemonicParsing="false" text="About" />
-                </items>
-            </Menu>
-        </menus>
-      </MenuBar>
       <Button layoutX="84.0" layoutY="601.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="31.0" wrapText="true">
          <effect>
             <InnerShadow />
@@ -47,7 +32,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <VBox alignment="CENTER" layoutX="972.0" layoutY="28.0" prefHeight="692.0" prefWidth="308.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="972.0" layoutY="28.0" prefHeight="699.0" prefWidth="316.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
          <children>
             <Button maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
                <graphic>
@@ -181,7 +166,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot23" fitHeight="265.0" fitWidth="181.0" layoutX="576.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot23" fitHeight="265.0" fitWidth="181.0" layoutX="580.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -223,7 +208,7 @@
       <ImageView fx:id="w3" fitHeight="54.0" fitWidth="44.0" layoutX="71.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="w4" fitHeight="54.0" fitWidth="44.0" layoutX="109.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="w5" fitHeight="54.0" fitWidth="44.0" layoutX="147.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="84.0" fitWidth="84.0" layoutX="12.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="101.0" fitWidth="107.0" layoutX="11.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/avatars/4.png" />
          </image>
@@ -233,5 +218,20 @@
             <Font size="14.0" />
          </font>
       </TextArea>
+      <MenuBar prefHeight="13.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Quit" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Instructions" />
+                    <MenuItem mnemonicParsing="false" text="About" />
+                </items>
+            </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>
