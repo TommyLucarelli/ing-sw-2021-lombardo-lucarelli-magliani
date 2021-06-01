@@ -143,7 +143,7 @@ public class MainController{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        currentPlayer = currentGame.fromIdToPlayer(players.get(0).getPlayerId());
+        currentPlayer = currentGame.fromIdToPlayer(players.get(players.size()-1).getPlayerId());
         startHandler.startMatch();
     }
 
@@ -295,6 +295,8 @@ public class MainController{
         }
         payload.add("players", playersArray);
 
+        currentPlayer = currentGame.getTurn().nextPlayer();
+
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
 
@@ -376,8 +378,17 @@ public class MainController{
         payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has disconnected\n");
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
         currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
-        if(playerHandler.getPlayerId() == currentPlayer.getPlayerID())
-            updateBuilder();
+
+        if(countStartPhase == players.size()){
+            if(playerHandler.getPlayerId() == currentPlayer.getPlayerID())
+                updateBuilder();
+        }else{
+            //rimuovo due carte leader a caso se non l'ha fatto
+            currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
+            boolean check = setCountStartPhase();
+            if (check)
+                initialUpdate();
+        }
     }
 
     /**
@@ -388,7 +399,13 @@ public class MainController{
         JsonObject payload = new JsonObject();
         for (PlayerHandler player : players) {
             if (player.equals(playerHandler)) {
-                reconnectionUpdate(playerHandler);
+                if(countStartPhase == players.size())
+                    reconnectionUpdate(playerHandler);
+                else{
+                    payload.addProperty("gameAction", "SHORT_UPDATE");
+                    payload.addProperty("message", "\nWait for others player\n");
+                    this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                }
             } else {
                 payload.addProperty("gameAction", "SHORT_UPDATE");
                 payload.addProperty("message", "\nINFO: " + playerHandler.getUsername() + " has reconnected\n");

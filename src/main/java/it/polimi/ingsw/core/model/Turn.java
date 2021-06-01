@@ -156,5 +156,10 @@ public class Turn {
             }
         }
     }
+
+    public int blackListSize(){
+        return blackList.size();
+    }
+
 }
 

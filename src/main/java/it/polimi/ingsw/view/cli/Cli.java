@@ -213,7 +213,6 @@ public class Cli implements UserInterface {
             j++;
         }
 
-        mySelf.getCompactBoard().setLeaderCards(leaders);
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_LEADERS");
@@ -323,9 +322,16 @@ public class Cli implements UserInterface {
                 Resource[] ware = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setWarehouse(ware);
 
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setLeaderCards(lcs);
+
             }else{
                 opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
 
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setOpponent(true);
+                
                 payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
@@ -340,6 +346,11 @@ public class Cli implements UserInterface {
                 Resource[] wa = new Resource[10];
                 wa = ware.toArray(wa);
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setWarehouse(wa);
+
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setLeaderCards(lcs);
             }
         }
 
@@ -1111,8 +1122,15 @@ public class Cli implements UserInterface {
                 collectionType = new TypeToken<int[]>(){}.getType();
                 mySelf.getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
 
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setLeaderCards(lcs);
+
             }else{
                 opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
+
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setOpponent(true);
 
                 json = player.getAsJsonObject().get("abilityActivationFlag").getAsString();
                 collectionType = new TypeToken<int[]>(){}.getType();
@@ -1138,6 +1156,12 @@ public class Cli implements UserInterface {
                 json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<int[]>(){}.getType();
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
+
+
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setLeaderCards(lcs);
             }
         }
 

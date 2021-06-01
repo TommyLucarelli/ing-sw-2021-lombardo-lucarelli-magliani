@@ -17,6 +17,8 @@ public class CompactBoard {
 
     private int lorenzoIndex;
 
+    private boolean opponent;
+
     public CompactBoard(){
         setStrongbox(new int[4]);
         setWarehouse(new Resource[10]);
@@ -32,6 +34,7 @@ public class CompactBoard {
             warehouse[i] = Resource.ANY;
         }
         lorenzoIndex = 0;
+        opponent = false;
     }
 
     public int[] getStrongbox() {
@@ -59,7 +62,20 @@ public class CompactBoard {
     }
 
     public int[] getLeaderCards() {
-        return leaderCards;
+        int[] lcs = {0, 0};
+        if(!opponent)
+            return leaderCards;
+        else{
+            for (int i = 0; i < 2; i++) {
+                if(leaderCards[i]!=0) {
+                    for (int k = 0; k < 8; k++) {
+                        if (abilityActivationFlag[k] == leaderCards[i])
+                            lcs[i] = leaderCards[i];
+                    }
+                }
+            }
+            return lcs;
+        }
     }
 
     public void setLeaderCards(int[] leaderCards) {
@@ -121,5 +137,13 @@ public class CompactBoard {
             }
         }
         return result;
+    }
+
+    public boolean isOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(boolean opponent) {
+        this.opponent = opponent;
     }
 }

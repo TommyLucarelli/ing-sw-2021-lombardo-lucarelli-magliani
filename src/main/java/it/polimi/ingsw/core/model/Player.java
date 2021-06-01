@@ -79,6 +79,11 @@ public class Player {
         Gson gson = new Gson();
         String json = gson.toJson(board.getAbilityActivationFlag());
         payload.addProperty("abilityActivationFlag", json);
+        int[] lcs = new int[2];
+        lcs[0] = board.getLeaderCard(0).getId();
+        lcs[1] = board.getLeaderCard(1).getId();
+        json = gson.toJson(lcs);
+        payload.addProperty("leaderCards", json);
 
         return payload;
     }
