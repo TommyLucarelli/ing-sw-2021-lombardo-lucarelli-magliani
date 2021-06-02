@@ -380,8 +380,12 @@ public class MainController{
 
         if(!flag) {
             if (countStartPhase == players.size()) {
-                if (playerHandler.getPlayerId() == currentPlayer.getPlayerID())
+                if (playerHandler.getPlayerId() == currentPlayer.getPlayerID()){
+                    if(getCurrentGame().getTurn().getTypeOfAction()==2){
+                        devCardHandler.disconnectionPlacement();
+                    }
                     updateBuilder();
+                }
             } else {
                 //rimuovo due carte leader a caso se non l'ha fatto
                 currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
@@ -401,8 +405,8 @@ public class MainController{
         for (PlayerHandler player : players) {
             if (player.equals(playerHandler)) {
                 if(currentGame.getTurn().blackListSize() == numPlayers){
-                    currentPlayer = currentGame.getTurn().nextPlayer();
                     currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+                    currentPlayer = currentGame.getTurn().nextPlayer();
                     reconnectionUpdate(playerHandler, true);
                 }else {
                     currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
@@ -430,6 +434,10 @@ public class MainController{
 
         if(first)
             payload.addProperty("first", true);
+
+        if(currentGame.getSinglePlayer()){
+            payload.add("lorenzoTrack", ((SingleBoard)currentPlayer.getBoard()).getLorenzoTrack().toCompactFaithTrack());
+        }
 
         payload.addProperty("currPlayer", currentPlayer.getNickname());
 

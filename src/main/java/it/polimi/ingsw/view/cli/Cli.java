@@ -1095,6 +1095,11 @@ public class Cli implements UserInterface {
         int[][] structure2 = gson.fromJson(json, collectionType);
         compactDevCardStructure.setDevCardStructure(structure2);
 
+        if(requestMsg.getPayload().has("lorenzoTrack")){
+            JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
+            mySelf.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
+        }
+
         JsonObject payload2;
         JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
         for (JsonElement player: players) {
@@ -1121,6 +1126,11 @@ public class Cli implements UserInterface {
                 json = payload2.get("structure").getAsString();
                 collectionType = new TypeToken<int[]>(){}.getType();
                 mySelf.getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
+
+                payload2 = player.getAsJsonObject().get("devCardSlots").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[][]>(){}.getType();
+                mySelf.getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
 
                 json = player.getAsJsonObject().get("leaderCards").getAsString();
                 collectionType = new TypeToken<int[]>(){}.getType();
@@ -1157,6 +1167,10 @@ public class Cli implements UserInterface {
                 collectionType = new TypeToken<int[]>(){}.getType();
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setStrongbox(gson.fromJson(json,collectionType));
 
+                payload2 = player.getAsJsonObject().get("devCardSlots").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[][]>(){}.getType();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setDevCardSlots(gson.fromJson(json,collectionType));
 
                 json = player.getAsJsonObject().get("leaderCards").getAsString();
                 collectionType = new TypeToken<int[]>(){}.getType();
