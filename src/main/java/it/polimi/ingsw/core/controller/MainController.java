@@ -143,7 +143,6 @@ public class MainController{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        currentPlayer = currentGame.fromIdToPlayer(players.get(players.size()-1).getPlayerId());
         startHandler.startMatch();
     }
 
@@ -279,6 +278,8 @@ public class MainController{
      *  in the first phase of the game.
      */
     public void initialUpdate(){
+        currentPlayer = currentGame.getTurn().nextPlayer();
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "INITIAL_UPDATE");
         payload.addProperty("nextPlayerID", currentPlayer.getPlayerID());
@@ -294,8 +295,6 @@ public class MainController{
             //verificare se il nome della proprietà va bene
         }
         payload.add("players", playersArray);
-
-        currentPlayer = currentGame.getTurn().nextPlayer();
 
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
@@ -377,17 +376,19 @@ public class MainController{
         payload.addProperty("gameAction", "SHORT_UPDATE");
         payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has disconnected\n");
         this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
+        boolean flag = currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
 
-        if(countStartPhase == players.size()){
-            if(playerHandler.getPlayerId() == currentPlayer.getPlayerID())
-                updateBuilder();
-        }else{
-            //rimuovo due carte leader a caso se non l'ha fatto
-            currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
-            boolean check = setCountStartPhase();
-            if (check)
-                initialUpdate();
+        if(!flag) {
+            if (countStartPhase == players.size()) {
+                if (playerHandler.getPlayerId() == currentPlayer.getPlayerID())
+                    updateBuilder();
+            } else {
+                //rimuovo due carte leader a caso se non l'ha fatto
+                currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
+                boolean check = setCountStartPhase();
+                if (check)
+                    initialUpdate();
+            }
         }
     }
 
@@ -399,12 +400,19 @@ public class MainController{
         JsonObject payload = new JsonObject();
         for (PlayerHandler player : players) {
             if (player.equals(playerHandler)) {
-                if(countStartPhase == players.size())
-                    reconnectionUpdate(playerHandler);
-                else{
-                    payload.addProperty("gameAction", "SHORT_UPDATE");
-                    payload.addProperty("message", "\nWait for others player\n");
-                    this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                if(currentGame.getTurn().blackListSize() == numPlayers){
+                    currentPlayer = currentGame.getTurn().nextPlayer();
+                    currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+                    reconnectionUpdate(playerHandler, true);
+                }else {
+                    currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+                    if (countStartPhase == players.size())
+                        reconnectionUpdate(playerHandler, false);
+                    else {
+                        payload.addProperty("gameAction", "SHORT_UPDATE");
+                        payload.addProperty("message", "\nWait for others player\n");
+                        this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                    }
                 }
             } else {
                 payload.addProperty("gameAction", "SHORT_UPDATE");
@@ -413,12 +421,15 @@ public class MainController{
             }
 
         }
-        currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+
     }
 
-    private void reconnectionUpdate(PlayerHandler playerHandler){
+    private void reconnectionUpdate(PlayerHandler playerHandler, boolean first){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "RECONNECTION_UPDATE");
+
+        if(first)
+            payload.addProperty("first", true);
 
         payload.addProperty("currPlayer", currentPlayer.getNickname());
 

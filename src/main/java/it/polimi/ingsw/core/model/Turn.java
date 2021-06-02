@@ -22,7 +22,7 @@ public class Turn {
     public Turn(ArrayList<Player> players){
         this.players = players;
         leaderCardDiscarded = new int[2];
-        currentPlayer = 0;
+        currentPlayer = players.size() - 1;
         blackList = new ArrayList<>();
         lastTurn = 0;
         typeOfAction = 0;
@@ -70,7 +70,7 @@ public class Turn {
     }
 
     /**
-     * Methot to compute next player. Blacklist is used to skip the players that are currently offline
+     * Method to compute next player. Blacklist is used to skip the players that are currently offline
      * @return the next player
      */
     public Player nextPlayer(){
@@ -137,11 +137,12 @@ public class Turn {
      * Method to put a player, momentarily offline, in the blackList
      * @param id of the player
      */
-    public void addInBlackList(int id){
+    public boolean addInBlackList(int id){
         for (Player player : players) {
             if (player.getPlayerID() == id)
                 blackList.add(player);
         }
+        return blackList.size() == players.size();
     }
 
     /**
@@ -155,6 +156,7 @@ public class Turn {
                 break;
             }
         }
+
     }
 
     public int blackListSize(){

@@ -331,7 +331,7 @@ public class Cli implements UserInterface {
                 opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
 
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setOpponent(true);
-                
+
                 payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
@@ -1175,6 +1175,14 @@ public class Cli implements UserInterface {
                 System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
                 fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
             }
+        }
+
+        if(requestMsg.getPayload().has("first")){
+            JsonObject payload3 = new JsonObject();
+            payload3.addProperty("gameAction", "UPDATE");
+            payload3.addProperty("playerID", mySelf.getPlayerID());
+
+            client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload3));
         }
 
     }
