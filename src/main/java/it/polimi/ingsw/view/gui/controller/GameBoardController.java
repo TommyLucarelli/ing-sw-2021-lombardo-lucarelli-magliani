@@ -136,8 +136,4 @@ public class GameBoardController implements DynamicController, Initializable {
         dialog.show();
 
     }
-
-    public void showStrongbox(){
-
-    }
 }
