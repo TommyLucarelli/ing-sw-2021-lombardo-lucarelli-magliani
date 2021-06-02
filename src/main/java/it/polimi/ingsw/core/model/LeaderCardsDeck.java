@@ -41,8 +41,8 @@ public class LeaderCardsDeck {
      * Getter method.
      * @return the entire deck.
      */
-    public Stack<LeaderCardsDeck> getDeck(){
-        return (Stack<LeaderCardsDeck>) deck.clone();
+    public Stack<LeaderCard> getDeck(){
+        return (Stack<LeaderCard>) deck.clone();
     }
 
     /**
