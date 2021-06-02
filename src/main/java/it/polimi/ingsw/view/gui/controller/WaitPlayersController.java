@@ -22,6 +22,7 @@ public class WaitPlayersController implements DynamicController {
 
     @Override
     public void setData(JsonObject data) {
+        text = new StringBuilder(textArea.getText());
         switch (data.get("gameAction").getAsString()){
             case "WAIT_FOR_PLAYERS":
             case "WAIT_START_GAME":

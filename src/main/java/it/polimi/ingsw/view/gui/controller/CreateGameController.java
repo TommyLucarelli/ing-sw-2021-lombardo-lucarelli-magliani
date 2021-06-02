@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.JavaFxApp;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -52,5 +53,7 @@ public class CreateGameController implements Initializable {
         JsonObject payload = new JsonObject();
         payload.addProperty("input", numPlayers);
         JavaFxApp.send(new ResponseMsg(null, MessageType.NUMBER_OF_PLAYERS, payload));
+
+        Platform.runLater(() -> JavaFxApp.setRoot("waitplayers"));
     }
 }
