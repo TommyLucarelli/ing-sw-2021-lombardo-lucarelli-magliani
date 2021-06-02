@@ -73,6 +73,7 @@ public class Player {
         JsonObject payload = new JsonObject();
         payload.addProperty("playerID", playerID);
         payload.addProperty("playerName", nickname);
+        payload.add("devCardSlots", board.toCompactDevCardSlots());
         payload.add("strongbox", board.getStrongbox().toCompactStrongBox());
         payload.add("faithTrack", board.getFaithTrack().toCompactFaithTrack());
         payload.add("warehouse", board.getWarehouse().toCompactWarehouse());

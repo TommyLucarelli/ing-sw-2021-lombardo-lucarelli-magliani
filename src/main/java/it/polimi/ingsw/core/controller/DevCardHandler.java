@@ -16,6 +16,7 @@ public class DevCardHandler{
     private DevCard devCard;
     private Resource resource;
     private int[] costArray;
+    ArrayList<Integer> checkPlace;
 
     public DevCardHandler(MainController controller){
         this.controller = controller;
@@ -29,8 +30,8 @@ public class DevCardHandler{
      * @param ms client message
      */
     public void chooseDevCard(ResponseMsg ms) {
+        controller.getCurrentGame().getTurn().setTypeOfAction(2);
         board = controller.getCurrentPlayer().getBoard();
-        ArrayList<Integer> checkPlace;
         Boolean flag = true;
         //arriva il messaggio dal client con la scelta della carta sviluppo come pos (i,j) nel devcardstructure
         int i = ms.getPayload().get("line").getAsInt();
@@ -79,7 +80,7 @@ public class DevCardHandler{
         int index = ms.getPayload().get("index").getAsInt();
         board.getDevCardSlot(index).addCard(devCard);
         devCard = null;
-        controller.getCurrentGame().getTurn().setTypeOfAction(2);
+        checkPlace.removeAll(checkPlace);
         //controllo 7 carte ed eventualmente messaggio UPDATE -> fine turno
         if(controller.getCurrentPlayer().getBoard().numberOfDevCard()>=7){
             controller.getCurrentGame().getTurn().setLastTurn(1);
@@ -131,5 +132,11 @@ public class DevCardHandler{
             }
         }
         return check;
+    }
+
+    public void disconnectionPlacement(){
+        board.getDevCardSlot(checkPlace.get(0)).addCard(devCard);
+        devCard = null;
+        checkPlace.removeAll(checkPlace);
     }
 }

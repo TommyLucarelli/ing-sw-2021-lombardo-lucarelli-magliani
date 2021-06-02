@@ -70,8 +70,8 @@ public class StartHandler {
         playerHandler = controller.fromIdToPlayerHandler(playerID);
         player = controller.getCurrentGame().fromIdToPlayer(playerID);
 
-        player.getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(discardedID[0]));
-        player.getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(discardedID[1]));
+        player.getBoard().removeLeaderCard(controller.getCurrentGame().fromIdToPlayer(playerID).getBoard().getLeader(discardedID[0]));
+        player.getBoard().removeLeaderCard(controller.getCurrentGame().fromIdToPlayer(playerID).getBoard().getLeader(discardedID[1]));
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_START_RESOURCES");
