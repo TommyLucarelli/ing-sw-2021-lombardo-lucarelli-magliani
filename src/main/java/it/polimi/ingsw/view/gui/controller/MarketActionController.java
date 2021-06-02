@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -143,5 +144,8 @@ public class MarketActionController implements Initializable, DynamicController 
         payload.addProperty("choice", lineOrColumn ? "l" : "c");
         payload.addProperty("number", index);
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
+
+        Stage stage = (Stage) c0.getScene().getWindow();
+        stage.close();
     }
 }
