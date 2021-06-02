@@ -53,7 +53,7 @@
                   <InnerShadow />
                </effect>
                <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets top="25.0" />
                </VBox.margin>
             </Button>
          </children>
