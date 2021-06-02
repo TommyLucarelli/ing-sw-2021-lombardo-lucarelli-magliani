@@ -27,6 +27,8 @@ public class Gui implements UserInterface {
     private CompactMarket compactMarket;
     private CompactDevCardStructure compactDevCardStructure;
     private HashMap<Integer, CompactPlayer> opponents = new HashMap<>();
+    private StringBuilder updates = new StringBuilder("Updates: \n");
+
 
     /**
      * Class constructor that launches the JavaFX application.
@@ -73,10 +75,7 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.setRootWithData("resourceschoice", request.getPayload()));
                         break;
                     case "INITIAL_UPDATE":
-                        Platform.runLater(() -> {
-                            JavaFxApp.setRoot("gameboard");
-                            handleInitialUpdate(request.getPayload());
-                        });
+                        handleInitialUpdate(request.getPayload());
                         break;
                     case "UPDATE":
                         handleUpdate(request.getPayload());
@@ -219,7 +218,10 @@ public class Gui implements UserInterface {
             }
         }
 
-        updateGameBoard();
+        Platform.runLater(() -> {
+            JavaFxApp.setRoot("gameboard");
+            updateGameBoard();
+        });
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "INITIAL_UPDATE");
@@ -240,20 +242,15 @@ public class Gui implements UserInterface {
 
         int currentPlayerID = data.get("currentPlayerID").getAsInt();
 
-
-
         CompactPlayer player;
         if(mySelf.getPlayerID() == currentPlayerID)
             player = mySelf;
         else
             player = opponents.get(currentPlayerID); //da controllare
 
-
-
         String json = data.get("discardedLeaderCards").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
         player.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
-
 
         payload = data.get("market").getAsJsonObject();
         json = payload.get("structure").getAsString();
@@ -268,7 +265,6 @@ public class Gui implements UserInterface {
         compactDevCardStructure.setDevCardStructure(structure2);
 
         payload = data.get("player").getAsJsonObject();
-
 
         json = payload.get("abilityActivationFlag").getAsString();
         collectionType = new TypeToken<int[]>(){}.getType();
@@ -309,7 +305,7 @@ public class Gui implements UserInterface {
         if(data.has("message")){
             message = data.get("message").getAsString();
             if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-                System.out.println("\n"+message+"\n");
+                updates.append(message).append("\n");
         }
 
         if(data.has("lorenzoTrack")){
@@ -317,13 +313,15 @@ public class Gui implements UserInterface {
             player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
         }
 
-
         if(data.has("endMessage") && !mySelf.getLastTurn()){
             mySelf.setLastTurn(true);
             System.out.println(data.get("endMessage").getAsString());
         }
 
-        updateGameBoard();
+        Platform.runLater(() -> {
+            JavaFxApp.setRoot("gameboard");
+            updateGameBoard();
+        });
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "UPDATE");
@@ -352,8 +350,9 @@ public class Gui implements UserInterface {
         data.addProperty("favourCards", gson.toJson(mySelf.getCompactBoard().getFavCards()));
         data.addProperty("market", gson.toJson(compactMarket.getMarket()));
         data.addProperty("cardStructure", gson.toJson(compactDevCardStructure.getDevCardStructure()));
+        data.addProperty("updates", updates.toString());
 
-        Platform.runLater(() -> JavaFxApp.setData(data));
+        JavaFxApp.setData(data);
     }
 
 
