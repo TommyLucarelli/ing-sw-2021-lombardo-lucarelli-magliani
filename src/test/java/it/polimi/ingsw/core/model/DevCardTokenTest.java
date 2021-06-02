@@ -1,5 +1,7 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.Colour;
 import it.polimi.ingsw.core.model.DevCardToken;
 import org.junit.Test;
@@ -11,11 +13,13 @@ public class DevCardTokenTest {
     @Test
     public void getAction() {
         DevCardToken dt = new DevCardToken(Colour.GREEN);
-        String s1 = "DTGREEN";
-        String s2;
 
-        //s2 = dt.getAction();
 
-        //assertEquals(s1,s2);
+        JsonObject payload = dt.getAction();
+
+        assertEquals(0, payload.get("type").getAsInt());
+        String json = payload.get("colour").getAsString();
+        Gson gson = new Gson();
+        assertEquals(Colour.GREEN, gson.fromJson(json, Colour.class));
     }
 }

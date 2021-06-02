@@ -21,10 +21,32 @@ public class TurnTest {
 
         Turn turn = new Turn(players);
 
+        turn.nextPlayer();
         assertEquals(turn.nextPlayer(), a);
 
         turn.addInBlackList(3);
 
         assertEquals(turn.nextPlayer(), c);
+    }
+
+    @Test
+    public void testLeaderCardDiscarded(){
+        ArrayList<Player> p = new ArrayList<>();
+        p.add(new Player(0, "n", null, true));
+        Turn turn = new Turn(p);
+
+        turn.setLeaderCardDiscarded(1);
+        turn.setLeaderCardDiscarded(2);
+
+        int[] x = turn.getLeaderCardDiscarded();
+
+        assertEquals(x[0], 1);
+        assertEquals(x[1], 2);
+
+        turn.resetDiscarded();
+        x = turn.getLeaderCardDiscarded();
+
+        assertEquals(x[0], 0);
+        assertEquals(x[1], 0);
     }
 }
