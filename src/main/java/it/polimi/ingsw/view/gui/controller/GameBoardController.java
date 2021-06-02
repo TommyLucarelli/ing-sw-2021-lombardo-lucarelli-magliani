@@ -91,6 +91,8 @@ public class GameBoardController implements DynamicController, Initializable {
                     devCardSlot[i][j].setImage(new Image(getClass().getResourceAsStream("/images/resources/" + updatedDevCardSlots[i][j] + ".png")));
             }
         }
+
+        updates.setText(data.get("updates").getAsString());
     }
 
     /**

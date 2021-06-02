@@ -1,5 +1,7 @@
 package it.polimi.ingsw.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import it.polimi.ingsw.core.model.BlackFlagToken;
 import org.junit.Test;
 
@@ -23,12 +25,11 @@ public class BlackFlagTokenTest {
     @Test
     public void getAction() {
         BlackFlagToken bft = new BlackFlagToken(1,true);
-        String s1 = "BFT1true";
-        String s2;
 
-        //s2 = bft.getAction();
+        JsonObject payload = bft.getAction();
 
-        //assertEquals(s1,s2);
+        assertEquals(1, payload.get("type").getAsInt());
+        assertEquals(true, payload.get("shuffle").getAsBoolean());
 
     }
 }

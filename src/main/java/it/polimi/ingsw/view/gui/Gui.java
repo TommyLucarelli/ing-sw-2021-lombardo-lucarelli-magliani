@@ -27,6 +27,8 @@ public class Gui implements UserInterface {
     private CompactMarket compactMarket;
     private CompactDevCardStructure compactDevCardStructure;
     private HashMap<Integer, CompactPlayer> opponents = new HashMap<>();
+    private StringBuilder updates = new StringBuilder("Updates: \n");
+
 
     /**
      * Class constructor that launches the JavaFX application.
@@ -62,8 +64,6 @@ public class Gui implements UserInterface {
                 switch (request.getPayload().get("gameAction").getAsString()){
                     case "WAIT_FOR_PLAYERS":
                     case "WAIT_START_GAME":
-                        Platform.runLater(() -> JavaFxApp.setRootWithData("waitplayers", request.getPayload()));
-                        break;
                     case "SHORT_UPDATE":
                     case "START_GAME_COMMAND":
                         Platform.runLater(() -> JavaFxApp.setData(request.getPayload()));
@@ -75,13 +75,11 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.setRootWithData("resourceschoice", request.getPayload()));
                         break;
                     case "INITIAL_UPDATE":
-                        Platform.runLater(() -> {
-                            JavaFxApp.setRoot("gameboard");
-                            handleInitialUpdate(request.getPayload());
-                        });
+                        handleInitialUpdate(request.getPayload());
                         break;
                     case "UPDATE":
                         handleUpdate(request.getPayload());
+                        break;
                     case "LEADER_ACTIVATION":
                         Platform.runLater(() -> JavaFxApp.showPopup("leaderactivation"));
                         break;
@@ -97,6 +95,9 @@ public class Gui implements UserInterface {
                         data = new JsonObject();
                         data.addProperty("marbles", (new Gson()).toJson(compactMarket.getMarket()));
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("marketaction", data));
+                        break;
+                    case "WAREHOUSE_PLACEMENT":
+                        handleWarehousePlacement(request.getPayload());
                         break;
                 }
         }
@@ -147,69 +148,80 @@ public class Gui implements UserInterface {
     /**
      * Handles the first update sent by the server at the beginning of the game, saving the information into the data
      * structures.
-     * @param update the data sent by the server.
+     * @param data the data sent by the server.
      */
-    private void handleInitialUpdate(JsonObject update){
+    private void handleInitialUpdate(JsonObject data){
         compactMarket = new CompactMarket();
         compactDevCardStructure = new CompactDevCardStructure();
         int nextPlayerID;
 
-        JsonObject payload = update.get("market").getAsJsonObject();
-        nextPlayerID = update.get("nextPlayerID").getAsInt();
+        JsonObject payload = data.get("market").getAsJsonObject();
+        nextPlayerID = data.get("nextPlayerID").getAsInt();
         Gson gson = new Gson();
         String json = payload.get("structure").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
         int[] structure = gson.fromJson(json, collectionType);
         compactMarket.setMarket(structure);
 
-        payload = update.get("devCardStructure").getAsJsonObject();
+        payload = data.get("devCardStructure").getAsJsonObject();
         json = payload.get("structure").getAsString();
         collectionType = new TypeToken<int[][]>(){}.getType();
         int[][] structure2 = gson.fromJson(json, collectionType);
         compactDevCardStructure.setDevCardStructure(structure2);
 
         JsonObject payload2;
-        JsonArray players = update.get("players").getAsJsonArray();
+        JsonArray players = data.get("players").getAsJsonArray();
         for (JsonElement player: players) {
-            if (player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()) {
+            if(player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()){
                 payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
                 mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
-                collectionType = new TypeToken<boolean[]>() {
-                }.getType();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setFavCards(fav);
 
                 payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
                 json = payload2.get("structure").getAsString();
-                collectionType = new TypeToken<Resource[]>() {
-                }.getType();
+                collectionType = new TypeToken<Resource[]>(){}.getType();
                 Resource[] ware = gson.fromJson(json, collectionType);
                 mySelf.getCompactBoard().setWarehouse(ware);
 
-            } else {
-                opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(), player.getAsJsonObject().get("playerName").getAsString()));
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setLeaderCards(lcs);
+
+            }else{
+                opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(),player.getAsJsonObject().get("playerName").getAsString()));
+
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setOpponent(true);
 
                 payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
                 json = payload2.get("favCards").getAsString();
-                collectionType = new TypeToken<boolean[]>() {
-                }.getType();
+                collectionType = new TypeToken<boolean[]>(){}.getType();
                 boolean[] fav = gson.fromJson(json, collectionType);
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFavCards(fav);
 
                 payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
                 json = payload2.get("structure").getAsString();
-                collectionType = new TypeToken<ArrayList<Resource>>() {
-                }.getType();
+                collectionType = new TypeToken<ArrayList<Resource>>(){}.getType();
                 ArrayList<Resource> ware = gson.fromJson(json, collectionType);
                 Resource[] wa = new Resource[10];
                 wa = ware.toArray(wa);
                 opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setWarehouse(wa);
+
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>(){}.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setLeaderCards(lcs);
             }
         }
 
-        updateGameBoard();
+        Platform.runLater(() -> {
+            JavaFxApp.setRoot("gameboard");
+            updateGameBoard();
+        });
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "INITIAL_UPDATE");
@@ -223,12 +235,12 @@ public class Gui implements UserInterface {
      * @param data the data sent by the server.
      */
     private void handleUpdate(JsonObject data){
+
         Gson gson = new Gson();
         JsonObject payload, payload2;
+        String message;
 
         int currentPlayerID = data.get("currentPlayerID").getAsInt();
-        String message = data.get("message").getAsString();
-
 
         CompactPlayer player;
         if(mySelf.getPlayerID() == currentPlayerID)
@@ -236,15 +248,9 @@ public class Gui implements UserInterface {
         else
             player = opponents.get(currentPlayerID); //da controllare
 
-        String json = data.get("abilityActivationFlag").getAsString();
+        String json = data.get("discardedLeaderCards").getAsString();
         Type collectionType = new TypeToken<int[]>(){}.getType();
-        int[] abilityActivationFlag = gson.fromJson(json, collectionType);
-        player.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
-
-        json = data.get("discardedLeaderCards").getAsString();
-        collectionType = new TypeToken<int[]>(){}.getType();
         player.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
-
 
         payload = data.get("market").getAsJsonObject();
         json = payload.get("structure").getAsString();
@@ -259,6 +265,11 @@ public class Gui implements UserInterface {
         compactDevCardStructure.setDevCardStructure(structure2);
 
         payload = data.get("player").getAsJsonObject();
+
+        json = payload.get("abilityActivationFlag").getAsString();
+        collectionType = new TypeToken<int[]>(){}.getType();
+        int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+        player.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
 
         payload2 = payload.get("warehouse").getAsJsonObject();
         json = payload2.get("structure").getAsString();
@@ -291,26 +302,38 @@ public class Gui implements UserInterface {
             p2.getCompactBoard().setFavCards(fav);
         }
 
+        if(data.has("message")){
+            message = data.get("message").getAsString();
+            if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
+                updates.append(message).append("\n");
+        }
+
         if(data.has("lorenzoTrack")){
             JsonObject payload4 = data.get("lorenzoTrack").getAsJsonObject();
             player.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
         }
-
-        if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-            System.out.println("\n"+message+"\n");
 
         if(data.has("endMessage") && !mySelf.getLastTurn()){
             mySelf.setLastTurn(true);
             System.out.println(data.get("endMessage").getAsString());
         }
 
-        updateGameBoard();
+        Platform.runLater(() -> {
+            JavaFxApp.setRoot("gameboard");
+            updateGameBoard();
+        });
 
         JsonObject payload3 = new JsonObject();
         payload3.addProperty("gameAction", "UPDATE");
         payload3.addProperty("playerID", mySelf.getPlayerID());
 
         client.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload3));
+    }
+
+    private void handleWarehousePlacement(JsonObject data){
+        Gson gson = new Gson();
+        data.addProperty("warehouse", gson.toJson(mySelf.getCompactBoard().getWarehouse()));
+        Platform.runLater(() -> JavaFxApp.showPopupWithData("warehouseplacement", data));
     }
 
     /**
@@ -327,8 +350,9 @@ public class Gui implements UserInterface {
         data.addProperty("favourCards", gson.toJson(mySelf.getCompactBoard().getFavCards()));
         data.addProperty("market", gson.toJson(compactMarket.getMarket()));
         data.addProperty("cardStructure", gson.toJson(compactDevCardStructure.getDevCardStructure()));
+        data.addProperty("updates", updates.toString());
 
-        Platform.runLater(() -> JavaFxApp.setData(data));
+        JavaFxApp.setData(data);
     }
 
 

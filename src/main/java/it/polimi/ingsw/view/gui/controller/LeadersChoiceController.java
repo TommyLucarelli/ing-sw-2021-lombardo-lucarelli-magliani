@@ -58,7 +58,10 @@ public class LeadersChoiceController implements DynamicController, Initializable
         img3.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards.get(2) + ".png")));
         img4.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards.get(3) + ".png")));
 
-        text.setText("You are player " + data.get("playerOrder").getAsString() + ". Choose your two leader cards!");
+        if(data.has("playerOrder"))
+            text.setText("You are player " + data.get("playerOrder").getAsString() + ". Choose your two leader cards!");
+        else
+            text.setText("Choose your two leader cards!");
     }
 
     /**
