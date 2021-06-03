@@ -25,7 +25,6 @@ public class Strongbox
         resources.add(new ResourceQty(Resource.STONE, 100));
         resources.add(new ResourceQty(Resource.SHIELD, 100));
         resources.add(new ResourceQty(Resource.SERVANT, 100));
-
          */
 
 

@@ -9,6 +9,10 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 
+/**
+ * Class that handles the activation or discard of a Leader Card
+ * @author Martina Magliani
+ */
 public class LeaderCardHandler{
 
     private MainController controller;

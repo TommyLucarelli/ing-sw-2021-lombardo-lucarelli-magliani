@@ -4,6 +4,10 @@ import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.net.server.RequestManager;
 
+/**
+ * Class that link the controller with the network
+ * @author Giacomo Lombardo
+ */
 public class PlayerHandler {
     private int playerId;
     private final String username;

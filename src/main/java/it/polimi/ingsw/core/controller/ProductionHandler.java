@@ -14,6 +14,10 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Class that handles the production
+ * @author Martina Magliani
+ */
 public class ProductionHandler {
 
     private Board board;

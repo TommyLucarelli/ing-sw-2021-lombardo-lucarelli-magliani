@@ -12,6 +12,10 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Class that handles all the initial phase of the game
+ * @author Tommaso Lucarelli
+ */
 public class StartHandler {
 
     private MainController controller;

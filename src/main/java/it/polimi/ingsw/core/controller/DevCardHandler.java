@@ -9,6 +9,10 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.util.ArrayList;
 
+/**
+ * Class that handles the purchase and placement of a development card
+ * @author Martina Magliani
+ */
 public class DevCardHandler{
 
     private MainController controller;
@@ -134,6 +138,9 @@ public class DevCardHandler{
         return check;
     }
 
+    /**
+     * Method that handle the placement of a development card in a slot when a user go offline in the process
+     */
     public void disconnectionPlacement(){
         board.getDevCardSlot(checkPlace.get(0)).addCard(devCard);
         devCard = null;

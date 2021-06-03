@@ -7,6 +7,10 @@ import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.RequestMsg;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 
+/**
+ * Class that handles intermediate phases inside the turn
+ * @author Tommaso Lucarelli
+ */
 public class TurnHandler {
     private MainController controller;
 

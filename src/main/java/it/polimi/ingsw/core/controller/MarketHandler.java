@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * This Class will handle the phase of acquiring resource from the market
+ * Class that handles the phase of acquiring resource from the market
  * @author Tommaso Lucarelli
  */
 public class MarketHandler {

@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * Class that represent the main controller, which manages every aspect and action of the controller
+ * @author Tommaso Lucarelli
+ */
 public class MainController{
     private int id;
     private Game currentGame;
