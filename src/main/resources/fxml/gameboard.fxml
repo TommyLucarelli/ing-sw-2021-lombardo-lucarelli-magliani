@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
    <children>
       <ImageView fitHeight="703.0" fitWidth="1309.0" layoutX="-1.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -194,12 +194,12 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="w0" fitHeight="40.0" fitWidth="39.0" layoutX="112.0" layoutY="327.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w1" fitHeight="40.0" fitWidth="39.0" layoutX="90.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w2" fitHeight="40.0" fitWidth="35.0" layoutX="128.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w3" fitHeight="40.0" fitWidth="35.0" layoutX="75.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w4" fitHeight="44.0" fitWidth="35.0" layoutX="109.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w5" fitHeight="45.0" fitWidth="33.0" layoutX="147.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w0" fitHeight="46.0" fitWidth="50.0" layoutX="105.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w1" fitHeight="46.0" fitWidth="48.0" layoutX="75.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w2" fitHeight="45.0" fitWidth="50.0" layoutX="122.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w3" fitHeight="46.0" fitWidth="50.0" layoutX="58.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w4" fitHeight="52.0" fitWidth="50.0" layoutX="99.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w5" fitHeight="52.0" fitWidth="48.0" layoutX="147.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="101.0" fitWidth="107.0" layoutX="11.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/avatars/4.png" />
@@ -255,7 +255,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="1.0" layoutY="113.0" prefHeight="32.0" prefWidth="176.0" spacing="70.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="65.0">
                <children>
-                  <Text fx:id="sCoin" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sCoin" fill="#ddcf4b" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -266,7 +266,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sStone" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sStone" fill="#ddcf4b" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -304,7 +304,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="22.0" layoutY="137.0" prefHeight="54.0" prefWidth="158.0" spacing="70.0" AnchorPane.topAnchor="137.0">
                <children>
-                  <Text fx:id="sShield" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sShield" fill="#bfb237" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -315,7 +315,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sServant" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sServant" fill="#bfb237" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>

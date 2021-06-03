@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.JoinLobbyController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -33,7 +33,7 @@
       </MenuBar>
       <VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="40.0">
          <children>
-            <ImageView fitHeight="227.0" fitWidth="745.0" pickOnBounds="true" smooth="false">
+            <ImageView fitHeight="227.0" fitWidth="920.0" pickOnBounds="true" smooth="false">
                <image>
                   <Image url="@../images/longtitle.png" />
                </image>

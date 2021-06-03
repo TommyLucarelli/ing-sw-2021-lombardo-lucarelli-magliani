@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.WaitPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.WaitPlayersController">
    <children>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -30,22 +30,19 @@
             </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="227.0" fitWidth="887.0" pickOnBounds="true" smooth="false" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="30.0">
+         <image>
+            <Image url="@../images/longtitle.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="TOP_CENTER" layoutX="-2.0" layoutY="234.0" prefHeight="496.0" prefWidth="1280.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.topAnchor="234.0">
          <children>
-            <ImageView fitHeight="227.0" fitWidth="745.0" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../images/longtitle.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="50.0" />
-               </VBox.margin>
-            </ImageView>
             <Text fx:id="textArea" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for other players..." textAlignment="CENTER" wrappingWidth="1153.2680053710938">
                <font>
                   <Font name="Trattatello" size="36.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="60.0" />
+                  <Insets />
                </VBox.margin>
             </Text>
             <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#startGameAction" prefHeight="115.0" prefWidth="302.0" text="Start game" visible="false">
@@ -56,7 +53,7 @@
                   <InnerShadow />
                </effect>
                <VBox.margin>
-                  <Insets top="170.0" />
+                  <Insets top="25.0" />
                </VBox.margin>
             </Button>
          </children>
