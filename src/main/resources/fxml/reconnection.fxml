@@ -15,8 +15,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ReconnectionController">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ReconnectionController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/intro.png" />
+         </image>
+      </ImageView>
       <MenuBar prefHeight="28.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
            <Menu mnemonicParsing="false" text="File">
@@ -32,22 +37,14 @@
            </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutY="90.0" prefHeight="658.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
          <children>
-            <ImageView fitHeight="418.0" fitWidth="770.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@../images/title.png" />
-               </image>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </ImageView>
-            <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back, username!" textAlignment="CENTER" wrappingWidth="381.8948974609375">
+            <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back, username!" textAlignment="CENTER" wrappingWidth="427.8948974609375">
                <font>
                   <Font name="Trattatello" size="36.0" />
                </font>
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="80.0" />
                </VBox.margin>
                <effect>
                   <ColorAdjust />
