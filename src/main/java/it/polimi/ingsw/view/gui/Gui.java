@@ -106,6 +106,10 @@ public class Gui implements UserInterface {
                         data = new JsonObject();
                         data.addProperty("structure", (new Gson()).toJson(compactDevCardStructure.getDevCardStructure()));
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("choosedevcard", data));
+                        break;
+                    case "DEVCARD_PLACEMENT":
+                        Platform.runLater(() -> JavaFxApp.showPopup("placedevcard"));
+                        break;
                 }
         }
     }
