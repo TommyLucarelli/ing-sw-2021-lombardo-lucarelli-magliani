@@ -1,86 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ProductionController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/background.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="1.0" layoutY="108.8984375" strokeType="OUTSIDE" strokeWidth="0.0" text="What production do you want to activate?" textAlignment="CENTER" wrappingWidth="997.13671875" AnchorPane.topAnchor="83.0">
+      <Text layoutX="55.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Which production do you want to activate?" textAlignment="CENTER" wrappingWidth="833.13671875" AnchorPane.topAnchor="61.1015625">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="53.0" layoutY="261.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="88.0" />
-      <ImageView fitHeight="132.0" fitWidth="133.0" layoutX="32.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/production.png" />
-         </image>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ImageView>
-      <HBox alignment="CENTER_RIGHT" layoutX="167.0" layoutY="122.0" prefHeight="370.0" prefWidth="600.0" spacing="20.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="167.0" layoutY="90.0" prefHeight="421.0" prefWidth="590.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="280.0" prefWidth="180.0" text="Button">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="280.0" prefWidth="180.0" text="Button">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </InnerShadow>
-               </effect>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="280.0" prefWidth="180.0" text="Button">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </InnerShadow>
-               </effect>
-            </Button>
+            <ImageView fx:id="s0" fitHeight="326.0" fitWidth="192.0" onMouseClicked="#adds0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="s1" fitHeight="320.0" fitWidth="192.0" onMouseClicked="#adds1" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="s2" fitHeight="326.0" fitWidth="193.0" onMouseClicked="#adds2" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <Button layoutX="816.0" layoutY="344.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="132.0" text="Button" />
-      <ImageView fitHeight="120.0" fitWidth="152.0" layoutX="800.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/specialprodshield.png" />
-         </image>
+      <Button layoutX="437.0" layoutY="535.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="41.0" prefWidth="103.0" text="Confirm">
          <effect>
-            <DropShadow />
+            <InnerShadow />
          </effect>
-      </ImageView>
-      <Button layoutX="816.0" layoutY="194.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="120.0" text="Button" />
-      <ImageView fitHeight="120.0" fitWidth="152.0" layoutX="800.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="233.0" onMouseClicked="#addbasic" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/specialprodservant.png" />
+            <Image url="@../images/production/production.png" />
          </image>
-         <effect>
-            <DropShadow />
-         </effect>
       </ImageView>
-      <Button layoutX="450.0" layoutY="499.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" text="Confirm">
+      <ImageView fx:id="e0" fitHeight="182.0" fitWidth="173.0" layoutX="802.0" layoutY="156.0" onMouseClicked="#adde0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="e1" fitHeight="182.0" fitWidth="173.0" layoutX="802.0" layoutY="327.0" onMouseClicked="#adde1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres0" fitHeight="80.0" fitWidth="59.0" layoutX="916.0" layoutY="167.0" onMouseClicked="#changeEres0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres1" fitHeight="80.0" fitWidth="59.0" layoutX="909.0" layoutY="344.0" onMouseClicked="#changeEres1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="basic0" fitHeight="80.0" fitWidth="59.0" layoutX="20.0" layoutY="265.0" onMouseClicked="#changeBasic0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="basic1" fitHeight="80.0" fitWidth="59.0" layoutX="20.0" layoutY="301.0" onMouseClicked="#changeBasic1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="basic2" fitHeight="80.0" fitWidth="59.0" layoutX="90.0" layoutY="282.0" onMouseClicked="#changeBasic2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/resources/0.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="20.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on a resource to change its type!" wrappingWidth="118.30224609375">
+         <font>
+            <Font name="Trattatello" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="extratext0" layoutX="904.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
+         <font>
+            <Font name="Trattatello" size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="extratext1" layoutX="907.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
+         <font>
+            <Font name="Trattatello" size="13.0" />
+         </font>
+      </Text>
+      <Rectangle fx:id="r0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="7.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="199.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="411.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="623.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Button layoutX="858.0" layoutY="535.0" mnemonicParsing="false" onAction="#comebackAction" prefHeight="41.0" prefWidth="103.0" text="Come back">
          <effect>
             <InnerShadow />
          </effect>
