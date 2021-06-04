@@ -102,6 +102,10 @@ public class Gui implements UserInterface {
                     case "CHOOSE_PRODUCTION":
                         Platform.runLater(() -> JavaFxApp.showPopup("production"));
                         break;
+                    case "CHOOSE_DEVCARD":
+                        data = new JsonObject();
+                        data.addProperty("structure", (new Gson()).toJson(compactDevCardStructure.getDevCardStructure()));
+                        Platform.runLater(() -> JavaFxApp.showPopupWithData("choosedevcard", data));
                 }
         }
     }

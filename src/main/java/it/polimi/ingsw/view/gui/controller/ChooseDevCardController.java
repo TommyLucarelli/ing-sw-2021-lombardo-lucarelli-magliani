@@ -24,13 +24,13 @@ public class ChooseDevCardController implements DynamicController {
 
         Gson gson = new Gson();
 
-        String json = data.get("structure").getAsString();;
+        String json = data.get("structure").getAsString();
         int[][] structure = gson.fromJson(json, new TypeToken<int[][]>(){}.getType());
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
                 if(structure[i][j] != 0)
-                    cards.get(i*3 + j).setImage(new Image(getClass().getResourceAsStream("/images/cards/" + structure[i][j] + ".png")));
+                    cards.get((i * 4) + j).setImage(new Image(getClass().getResourceAsStream("/images/cards/" + structure[i][j] + ".png")));
             }
         }
     }
