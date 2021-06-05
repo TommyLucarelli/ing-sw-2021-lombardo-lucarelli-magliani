@@ -4,11 +4,15 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.controller.DynamicController;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -116,14 +120,22 @@ public class JavaFxApp extends Application {
         } catch (IOException e) {
             System.err.println("IOException - FXML file not found: " + fxml + ".fxml");
         }
-        Dialog dialog = new Dialog<>();
-        dialog.getDialogPane().setContent(root);
 
-        dialog.show();
+        Parent finalRoot = root;
+        new Thread(() -> Platform.runLater(() -> {
+            Stage dialog = new Stage();
+            dialog.initStyle(StageStyle.UTILITY);
+            Scene scene = new Scene(finalRoot);
+
+            dialog.setOnCloseRequest(Event::consume);
+
+            dialog.setScene(scene);
+            dialog.showAndWait();
+        })).start();
     }
 
     /**
-     * Cobination of showPopup and setData.
+     * Combination of showPopup and setData.
      * @param fxml the filename of the popup scene fxml.
      * @param data the JsonObject containing the data to be passed to the scene.
      */
@@ -136,13 +148,20 @@ public class JavaFxApp extends Application {
         } catch (IOException e) {
             System.err.println("IOException - FXML file not found: " + fxml + ".fxml");
         }
-        Dialog dialog = new Dialog<>();
-        dialog.getDialogPane().setContent(root);
 
-        DynamicController controller = fxmlLoader.getController();
-        controller.setData(data);
+        Parent finalRoot = root;
+        new Thread(() -> Platform.runLater(() -> {
+            Stage dialog = new Stage();
+            dialog.initStyle(StageStyle.UTILITY);
+            Scene scene = new Scene(finalRoot);
 
-        dialog.show();
+            DynamicController controller = fxmlLoader.getController();
+            controller.setData(data);
+
+            dialog.setOnCloseRequest(Event::consume);
+            dialog.setScene(scene);
+            dialog.showAndWait();
+        })).start();
     }
 
     /**
