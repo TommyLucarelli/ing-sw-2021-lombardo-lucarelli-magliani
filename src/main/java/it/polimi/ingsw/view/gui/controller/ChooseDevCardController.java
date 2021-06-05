@@ -9,6 +9,7 @@ import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -18,11 +19,18 @@ public class ChooseDevCardController implements DynamicController {
     @FXML
     ImageView c11, c12, c13, c14, c21, c22, c23, c24, c31, c32, c33, c34;
 
+    @FXML
+    Text problem;
+
     @Override
     public void setData(JsonObject data) {
         ArrayList<ImageView> cards = new ArrayList<>(Arrays.asList(c11, c12, c13, c14, c21, c22, c23, c24, c31, c32, c33, c34));
 
         Gson gson = new Gson();
+
+        if(data.has("problem")){
+            problem.setVisible(true);
+        }
 
         String json = data.get("structure").getAsString();
         int[][] structure = gson.fromJson(json, new TypeToken<int[][]>(){}.getType());

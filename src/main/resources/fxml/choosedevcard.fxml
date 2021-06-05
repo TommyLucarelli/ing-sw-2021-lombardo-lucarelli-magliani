@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ChooseDevCardController">
    <children>
       <Text layoutX="203.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the development card you want to buy" />
@@ -29,5 +28,6 @@
             <Image url="@../images/undo.png" />
          </image>
       </ImageView>
+      <Text fx:id="problem" layoutX="160.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid selection! Please choose another Card or go back." visible="false" />
    </children>
 </AnchorPane>
