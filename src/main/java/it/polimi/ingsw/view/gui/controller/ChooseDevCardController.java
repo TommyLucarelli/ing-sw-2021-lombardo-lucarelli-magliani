@@ -48,8 +48,8 @@ public class ChooseDevCardController implements DynamicController {
     private void choose(int row, int column){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_DEVCARD");
-        payload.addProperty("line", row);
-        payload.addProperty("column", column);
+        payload.addProperty("line", row - 1);
+        payload.addProperty("column", column - 1);
 
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
 

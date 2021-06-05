@@ -108,7 +108,7 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("choosedevcard", data));
                         break;
                     case "DEVCARD_PLACEMENT":
-                        Platform.runLater(() -> JavaFxApp.showPopup("placedevcard"));
+                        Platform.runLater(() -> JavaFxApp.showPopupWithData("placedevcard", request.getPayload()));
                         break;
                 }
         }
