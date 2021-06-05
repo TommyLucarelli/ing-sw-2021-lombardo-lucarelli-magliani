@@ -240,16 +240,13 @@
                         <DropShadow />
                      </effect>
                   </ImageView>
-                  <ImageView fitHeight="71.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/resources/3.png" />
+                        <Image url="@../images/resources/1.png" />
                      </image>
                      <effect>
                         <DropShadow />
                      </effect>
-                     <HBox.margin>
-                        <Insets bottom="2.0" />
-                     </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
@@ -276,29 +273,29 @@
                   </Text>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="18.0" layoutY="96.0" prefHeight="59.0" prefWidth="160.0" AnchorPane.topAnchor="96.0">
+            <HBox alignment="CENTER" layoutX="18.0" layoutY="96.0" prefHeight="59.0" prefWidth="160.0" spacing="20.0" AnchorPane.topAnchor="96.0">
                <children>
-                  <ImageView fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/resources/1.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
                   <ImageView fitHeight="54.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/resources/2.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="15.0" />
+                        <Insets />
                      </HBox.margin>
                      <effect>
                         <DropShadow />
                      </effect>
+                  </ImageView>
+                  <ImageView fitHeight="71.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/3.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <HBox.margin>
+                        <Insets bottom="2.0" />
+                     </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
