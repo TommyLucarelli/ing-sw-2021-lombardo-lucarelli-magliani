@@ -75,8 +75,8 @@ public class GameBoardController implements DynamicController, Initializable {
         for (int i = 0; i < 3; i++) {
             favourCards.get(i).setImage(
                     (updatedFavourCards[i]) ?
-                            new Image(getClass().getResourceAsStream("/images/resources/4.png")) :
-                            new Image(getClass().getResourceAsStream("/images/resources/4.png"))
+                            new Image(getClass().getResourceAsStream("/images/faithtrack/" + (i + 1) +"true.png")) :
+                            new Image(getClass().getResourceAsStream("/images/faithtrack/" + (i + 1) +"false.png"))
             );
         }
 
@@ -99,8 +99,8 @@ public class GameBoardController implements DynamicController, Initializable {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(updatedDevCardSlots[i][j] != 0 &&
-                        devCardSlot[i][j].getImage() != null)
-                    devCardSlot[i][j].setImage(new Image(getClass().getResourceAsStream("/images/resources/" + updatedDevCardSlots[i][j] + ".png")));
+                        devCardSlot[i][j].getImage() == null)
+                    devCardSlot[i][j].setImage(new Image(getClass().getResourceAsStream("/images/cards/" + updatedDevCardSlots[i][j] + ".png")));
             }
         }
 
