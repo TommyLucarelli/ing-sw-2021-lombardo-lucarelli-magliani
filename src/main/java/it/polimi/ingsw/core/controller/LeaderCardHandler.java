@@ -115,33 +115,21 @@ public class LeaderCardHandler{
             case 0: //controllo nel warehouse e nello strongbox se ho 5 risorse del tipo r
                 r = lc.getRequiredResources().getResource();
                 resPlayer = controller.getCurrentPlayer().getBoard().personalResQtyToArray();
-                if(resPlayer[r.ordinal()] >= 5)
-                    return true;
-                else
-                    return false;
+                return resPlayer[r.ordinal()] >= 5;
             case 1: //2 carte di una bandiera e 1 di un altra
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);
                 check2 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(1), false);
-                if(check1 > 1 && check2 > 0)
-                    return true;
-                else
-                    return false;
+                return check1 > 1 && check2 > 0;
             case 2: //1 carta di una bandiera e 1 di un altra
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);
                 check2 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(1), false);
-                if(check1 > 0 && check2 > 0)
-                    return true;
-                else
-                    return false;
+                return check1 > 0 && check2 > 0;
             case 3: //1 carta di una bandiera, ma di livello 2
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), true);
-                if(check1 > 0)
-                    return true;
-                else
-                    return false;
+                return check1 > 0;
         }
         return true;
     }

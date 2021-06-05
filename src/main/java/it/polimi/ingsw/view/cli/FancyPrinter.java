@@ -483,11 +483,11 @@ public class FancyPrinter {
 
                 if (num[0] != 0)
                     string2.append(num[0]).append(Color.GREEN_BOLD.color()).append(" ▓  ").append(Color.RESET);
-                if (num[1] != 0)
-                    string2.append(num[1]).append(Color.YELLOW_BOLD.color()).append(" ▓  ").append(Color.RESET);
                 if (num[2] != 0)
-                    string2.append(num[2]).append(Color.PURPLE_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                    string2.append(num[1]).append(Color.YELLOW_BOLD.color()).append(" ▓  ").append(Color.RESET);
                 if (num[3] != 0)
+                    string2.append(num[2]).append(Color.PURPLE_BOLD.color()).append(" ▓  ").append(Color.RESET);
+                if (num[1] != 0)
                     string2.append(num[3]).append(Color.HEAVENLY_BOLD.color()).append(" ▓  ").append(Color.RESET);
 
                 int cont = 0;
