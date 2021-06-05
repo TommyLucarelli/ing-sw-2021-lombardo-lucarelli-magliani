@@ -101,7 +101,7 @@ public class DevCardHandler{
      */
     public boolean affordable(){
         for (int i=0; i<4; i++) {
-            if (board.personalResQtyToArray()[i] < devCard.resQtyToArray()[i])
+            if (board.personalResQtyToArray()[i] < costArray[i])
                 return false;
         }
     return true;

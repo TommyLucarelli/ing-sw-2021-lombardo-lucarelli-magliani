@@ -499,7 +499,7 @@ public class Cli implements UserInterface {
             flag = true;
         }
         if(mySelf.getCompactBoard().getAbilityActivationFlag()[5] != 0){
-            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[4]).getSpecialAbility().getAbilityResource();
+            r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[5]).getSpecialAbility().getAbilityResource();
             System.out.println(r2.toString());
             flag = true;
         }
