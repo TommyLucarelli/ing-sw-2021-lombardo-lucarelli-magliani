@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ChooseDevCardController">
+   <children>
+      <Text layoutX="203.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the development card you want to buy" />
+      <ImageView fx:id="c31" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="61.0" onMouseClicked="#choose31" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c32" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="61.0" onMouseClicked="#choose32" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c33" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="61.0" onMouseClicked="#choose33" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c34" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="61.0" onMouseClicked="#choose34" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c21" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="235.0" onMouseClicked="#choose21" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c22" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="235.0" onMouseClicked="#choose22" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c23" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="235.0" onMouseClicked="#choose23" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c24" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="235.0" onMouseClicked="#choose24" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c11" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="405.0" onMouseClicked="#choose11" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c12" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="405.0" onMouseClicked="#choose12" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c13" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="405.0" onMouseClicked="#choose13" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="c14" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="405.0" onMouseClicked="#choose14" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="21.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text layoutX="24.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+      <Text layoutX="27.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+      <ImageView fitHeight="60.0" fitWidth="44.0" layoutX="556.0" layoutY="543.0" onMouseClicked="#comebackAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/undo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

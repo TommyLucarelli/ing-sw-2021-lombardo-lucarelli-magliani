@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.PlaceDevCardController">
+   <children>
+      <ImageView fx:id="slot11" fitHeight="270.0" fitWidth="168.0" layoutX="28.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot12" fitHeight="265.0" fitWidth="168.0" layoutX="28.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot13" fitHeight="268.0" fitWidth="168.0" layoutX="28.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot21" fitHeight="270.0" fitWidth="168.0" layoutX="216.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot22" fitHeight="265.0" fitWidth="168.0" layoutX="216.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot23" fitHeight="268.0" fitWidth="168.0" layoutX="216.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot31" fitHeight="270.0" fitWidth="168.0" layoutX="404.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot32" fitHeight="265.0" fitWidth="168.0" layoutX="404.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot33" fitHeight="268.0" fitWidth="168.0" layoutX="404.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <Text layoutX="145.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Where do you want to place the card?">
+         <font>
+            <Font name="Trattatello" size="24.0" />
+         </font>
+      </Text>
+      <Rectangle fx:id="r13" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="28.0" layoutY="85.0" onMouseClicked="#place1" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r12" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="28.0" layoutY="141.0" onMouseClicked="#place1" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r11" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="28.0" layoutY="197.0" onMouseClicked="#place1" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r23" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="216.0" layoutY="87.0" onMouseClicked="#place2" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r22" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="216.0" layoutY="143.0" onMouseClicked="#place2" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r21" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="216.0" layoutY="199.0" onMouseClicked="#place2" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r33" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="404.0" layoutY="87.0" onMouseClicked="#place3" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r32" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="404.0" layoutY="143.0" onMouseClicked="#place3" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+      <Rectangle fx:id="r31" arcHeight="5.0" arcWidth="5.0" disable="true" fill="#1f93ff00" height="254.0" layoutX="404.0" layoutY="199.0" onMouseClicked="#place3" stroke="YELLOW" strokeType="INSIDE" strokeWidth="8.0" visible="false" width="168.0" />
+   </children>
+</AnchorPane>

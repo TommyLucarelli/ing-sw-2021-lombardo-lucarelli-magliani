@@ -27,7 +27,7 @@ public class Gui implements UserInterface {
     private CompactMarket compactMarket;
     private CompactDevCardStructure compactDevCardStructure;
     private HashMap<Integer, CompactPlayer> opponents = new HashMap<>();
-    private StringBuilder updates = new StringBuilder("Updates: \n");
+    private String update = "Updates";
 
 
     /**
@@ -98,6 +98,17 @@ public class Gui implements UserInterface {
                         break;
                     case "WAREHOUSE_PLACEMENT":
                         handleWarehousePlacement(request.getPayload());
+                        break;
+                    case "CHOOSE_PRODUCTION":
+                        Platform.runLater(() -> JavaFxApp.showPopup("production"));
+                        break;
+                    case "CHOOSE_DEVCARD":
+                        data = new JsonObject();
+                        data.addProperty("structure", (new Gson()).toJson(compactDevCardStructure.getDevCardStructure()));
+                        Platform.runLater(() -> JavaFxApp.showPopupWithData("choosedevcard", data));
+                        break;
+                    case "DEVCARD_PLACEMENT":
+                        Platform.runLater(() -> JavaFxApp.showPopup("placedevcard"));
                         break;
                 }
         }
@@ -305,7 +316,7 @@ public class Gui implements UserInterface {
         if(data.has("message")){
             message = data.get("message").getAsString();
             if(player.getPlayerID() != mySelf.getPlayerID() || opponents.size()==0)
-                updates.append(message).append("\n");
+                update = message;
         }
 
         if(data.has("lorenzoTrack")){
@@ -315,7 +326,7 @@ public class Gui implements UserInterface {
 
         if(data.has("endMessage") && !mySelf.getLastTurn()){
             mySelf.setLastTurn(true);
-            System.out.println(data.get("endMessage").getAsString());
+            update = data.get("endMessage").getAsString();
         }
 
         Platform.runLater(() -> {
@@ -345,12 +356,13 @@ public class Gui implements UserInterface {
 
         data.addProperty("leaders", gson.toJson(mySelf.getCompactBoard().getLeaderCards()));
         data.addProperty("warehouse", gson.toJson(mySelf.getCompactBoard().getWarehouse()));
+        data.addProperty("strongbox", gson.toJson(mySelf.getCompactBoard().getStrongbox()));
         data.addProperty("devCardSlots", gson.toJson(mySelf.getCompactBoard().getDevCardSlots()));
         data.addProperty("faithPoints", mySelf.getCompactBoard().getFaithTrackIndex());
         data.addProperty("favourCards", gson.toJson(mySelf.getCompactBoard().getFavCards()));
         data.addProperty("market", gson.toJson(compactMarket.getMarket()));
         data.addProperty("cardStructure", gson.toJson(compactDevCardStructure.getDevCardStructure()));
-        data.addProperty("updates", updates.toString());
+        data.addProperty("updates", update);
 
         JavaFxApp.setData(data);
     }
