@@ -80,6 +80,9 @@ public class Gui implements UserInterface {
                     case "UPDATE":
                         handleUpdate(request.getPayload());
                         break;
+                    case "RECONNECTION_UPDATE":
+                        handleReconnectionUpdate(request);
+                        break;
                     case "LEADER_ACTIVATION":
                         Platform.runLater(() -> JavaFxApp.showPopup("leaderactivation"));
                         break;
@@ -346,6 +349,142 @@ public class Gui implements UserInterface {
         payload3.addProperty("playerID", mySelf.getPlayerID());
 
         client.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload3));
+    }
+
+    private void handleReconnectionUpdate(RequestMsg requestMsg) {
+        compactMarket = new CompactMarket();
+        compactDevCardStructure = new CompactDevCardStructure();
+
+        int playerID = requestMsg.getPayload().get("myPlayerID").getAsInt();
+        String playerName = requestMsg.getPayload().get("myName").getAsString();
+        mySelf = new CompactPlayer(playerID, playerName);
+
+        JsonObject payload = requestMsg.getPayload().get("market").getAsJsonObject();
+        Gson gson = new Gson();
+        String json = payload.get("structure").getAsString();
+        Type collectionType = new TypeToken<int[]>() {
+        }.getType();
+        int[] structure = gson.fromJson(json, collectionType);
+        compactMarket.setMarket(structure);
+
+        payload = requestMsg.getPayload().get("devCardStructure").getAsJsonObject();
+        json = payload.get("structure").getAsString();
+        collectionType = new TypeToken<int[][]>() {
+        }.getType();
+        int[][] structure2 = gson.fromJson(json, collectionType);
+        compactDevCardStructure.setDevCardStructure(structure2);
+
+        if (requestMsg.getPayload().has("lorenzoTrack")) {
+            JsonObject payload4 = requestMsg.getPayload().get("lorenzoTrack").getAsJsonObject();
+            mySelf.getCompactBoard().setLorenzoIndex(payload4.get("index").getAsInt());
+        }
+
+        JsonObject payload2;
+        JsonArray players = requestMsg.getPayload().get("players").getAsJsonArray();
+        for (JsonElement player : players) {
+            if (player.getAsJsonObject().get("playerID").getAsInt() == mySelf.getPlayerID()) {
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
+                mySelf.getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>() {
+                }.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setFavCards(fav);
+
+                json = player.getAsJsonObject().get("abilityActivationFlag").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
+
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<Resource[]>() {
+                }.getType();
+                Resource[] ware = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setWarehouse(ware);
+
+                payload2 = player.getAsJsonObject().get("strongbox").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                mySelf.getCompactBoard().setStrongbox(gson.fromJson(json, collectionType));
+
+                payload2 = player.getAsJsonObject().get("devCardSlots").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[][]>() {
+                }.getType();
+                mySelf.getCompactBoard().setDevCardSlots(gson.fromJson(json, collectionType));
+
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                mySelf.getCompactBoard().setLeaderCards(lcs);
+
+            } else {
+                opponents.put(player.getAsJsonObject().get("playerID").getAsInt(), new CompactPlayer(player.getAsJsonObject().get("playerID").getAsInt(), player.getAsJsonObject().get("playerName").getAsString()));
+
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setOpponent(true);
+
+                json = player.getAsJsonObject().get("abilityActivationFlag").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                int[] abilityActivationFlag = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setAbilityActivationFlag(abilityActivationFlag);
+
+                payload2 = player.getAsJsonObject().get("faithTrack").getAsJsonObject();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFaithTrackIndex(payload2.get("index").getAsInt());
+                json = payload2.get("favCards").getAsString();
+                collectionType = new TypeToken<boolean[]>() {
+                }.getType();
+                boolean[] fav = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setFavCards(fav);
+
+                payload2 = player.getAsJsonObject().get("warehouse").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<ArrayList<Resource>>() {
+                }.getType();
+                ArrayList<Resource> ware = gson.fromJson(json, collectionType);
+                Resource[] wa = new Resource[10];
+                wa = ware.toArray(wa);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setWarehouse(wa);
+
+                payload2 = player.getAsJsonObject().get("strongbox").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setStrongbox(gson.fromJson(json, collectionType));
+
+                payload2 = player.getAsJsonObject().get("devCardSlots").getAsJsonObject();
+                json = payload2.get("structure").getAsString();
+                collectionType = new TypeToken<int[][]>() {
+                }.getType();
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setDevCardSlots(gson.fromJson(json, collectionType));
+
+                json = player.getAsJsonObject().get("leaderCards").getAsString();
+                collectionType = new TypeToken<int[]>() {
+                }.getType();
+                int[] lcs = gson.fromJson(json, collectionType);
+                opponents.get(player.getAsJsonObject().get("playerID").getAsInt()).getCompactBoard().setLeaderCards(lcs);
+            }
+        }
+
+        update = "You are back in the game. " + requestMsg.getPayload().get("currPlayer").getAsString() +
+                " is now playing";
+
+        Platform.runLater(() -> {
+            JavaFxApp.setRoot("gameboard");
+            updateGameBoard();
+        });
+
+        if (requestMsg.getPayload().has("first")) {
+            JsonObject payload3 = new JsonObject();
+            payload3.addProperty("gameAction", "UPDATE");
+            payload3.addProperty("playerID", mySelf.getPlayerID());
+
+            client.send(new ResponseMsg(requestMsg.getIdentifier(), MessageType.GAME_MESSAGE, payload3));
+        }
     }
 
     private void handleWarehousePlacement(JsonObject data){
