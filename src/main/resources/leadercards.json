@@ -189,15 +189,15 @@
         [
             {
                 "level":0,
-                "colour":"BLUE"
-            },
-            {
-                "level":0,
-                "colour":"BLUE"
-            },
-            {
-                "level":0,
                 "colour":"YELLOW"
+            },
+            {
+                "level":0,
+                "colour":"BLUE"
+            },
+            {
+                "level":0,
+                "colour":"BLUE"
             }
         ],
         "victoryPoints":5,

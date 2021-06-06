@@ -40,6 +40,7 @@ public class LeaderCardHandler{
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
             if(check){
+                System.out.println("Quaaaaaaa "+lcID);
                 lc.setAbilityActivation();
                 controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
             }
@@ -120,7 +121,7 @@ public class LeaderCardHandler{
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);
                 check2 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(1), false);
-                return check1 > 1 && check2 > 0;
+                return check1 > 0 && check2 > 1;
             case 2: //1 carta di una bandiera e 1 di un altra
                 flags = lc.getRequiredFlags();
                 check1 = controller.getCurrentPlayer().getBoard().countFlags(flags.get(0), false);

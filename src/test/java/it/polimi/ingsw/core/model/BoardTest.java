@@ -200,6 +200,10 @@ public class BoardTest {
         b.setAbilityActivationFlag(3, 3);
 
         assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 2, 0, 0, 0, 0, 3, 0});
+
+        b.setAbilityActivationFlag(3, 10);
+
+        assertArrayEquals(b.getAbilityActivationFlag(), new int[]{1, 2, 0, 0, 0, 0, 3, 10});
     }
 
 }
