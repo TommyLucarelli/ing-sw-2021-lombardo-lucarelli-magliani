@@ -144,6 +144,14 @@ public class Gui implements UserInterface {
         return mySelf;
     }
 
+    public CompactMarket getCompactMarket(){
+        return compactMarket;
+    }
+
+    public CompactDevCardStructure getCompactDevCardStructure(){
+        return compactDevCardStructure;
+    }
+
     /**
      * Initializes the compactPlayer containing the player's information.
      * @param playerId the player's Id.

@@ -134,6 +134,30 @@ public class JavaFxApp extends Application {
         })).start();
     }
 
+    public static void showPopup(String fxml, boolean closeable){
+        fxmlLoader = new FXMLLoader(JavaFxApp.class.getResource("/fxml/" + fxml + ".fxml"));
+
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            System.err.println("IOException - FXML file not found: " + fxml + ".fxml");
+        }
+
+        Parent finalRoot = root;
+        new Thread(() -> Platform.runLater(() -> {
+            Stage dialog = new Stage();
+            dialog.initStyle(StageStyle.UTILITY);
+            Scene scene = new Scene(finalRoot);
+
+            dialog.setOnCloseRequest(event -> dialog.hide());
+
+            dialog.setScene(scene);
+            dialog.showAndWait();
+        })).start();
+    }
+
+
     /**
      * Combination of showPopup and setData.
      * @param fxml the filename of the popup scene fxml.
