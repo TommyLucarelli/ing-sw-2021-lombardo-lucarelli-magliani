@@ -90,13 +90,13 @@
             <Font name="Trattatello" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="c0" layoutX="190.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc0" onMouseEntered="#showrc0" onMouseExited="#hiderc0" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c1" layoutX="236.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc1" onMouseEntered="#showrc1" onMouseExited="#hiderc1" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c2" layoutX="281.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc2" onMouseEntered="#showrc2" onMouseExited="#hiderc2" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="c3" layoutX="328.0" layoutY="368.0" mnemonicParsing="false" onAction="#selectc3" onMouseEntered="#showrc3" onMouseExited="#hiderc3" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
-      <Button fx:id="l0" layoutX="416.0" layoutY="192.0" mnemonicParsing="false" onAction="#selectl0" onMouseEntered="#showrl0" onMouseExited="#hiderl0" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
-      <Button fx:id="l1" layoutX="415.0" layoutY="235.0" mnemonicParsing="false" onAction="#selectl1" onMouseEntered="#showrl1" onMouseExited="#hiderl1" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
-      <Button fx:id="l2" layoutX="414.0" layoutY="282.0" mnemonicParsing="false" onAction="#selectl2" onMouseEntered="#showrl2" onMouseExited="#hiderl2" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Button fx:id="c0" layoutX="190.0" layoutY="368.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c1" layoutX="236.0" layoutY="368.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c2" layoutX="281.0" layoutY="368.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="c3" layoutX="328.0" layoutY="368.0" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="21.0" />
+      <Button fx:id="l0" layoutX="416.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Button fx:id="l1" layoutX="415.0" layoutY="235.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
+      <Button fx:id="l2" layoutX="414.0" layoutY="282.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="43.0" />
       <Rectangle fx:id="rc0" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="182.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
       <Rectangle fx:id="rc1" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="223.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />
       <Rectangle fx:id="rc2" arcHeight="5.0" arcWidth="5.0" fill="#fffb2100" height="131.0" layoutX="263.0" layoutY="179.0" stroke="#fdff00" strokeType="INSIDE" strokeWidth="3.0" visible="false" width="36.0" />

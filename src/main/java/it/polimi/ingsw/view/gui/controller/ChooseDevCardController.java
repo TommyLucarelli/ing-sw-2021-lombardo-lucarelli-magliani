@@ -37,8 +37,13 @@ public class ChooseDevCardController implements DynamicController {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                if(structure[i][j] != 0)
+                if(structure[i][j] != 0){
                     cards.get((i * 4) + j).setImage(new Image(getClass().getResourceAsStream("/images/cards/" + structure[i][j] + ".png")));
+                    int row = i;
+                    int column = j;
+                    cards.get((i * 4) + j).setOnMouseClicked(evt -> choose(row, column));
+                }
+
             }
         }
     }
@@ -56,60 +61,12 @@ public class ChooseDevCardController implements DynamicController {
     private void choose(int row, int column){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "CHOOSE_DEVCARD");
-        payload.addProperty("line", row - 1);
-        payload.addProperty("column", column - 1);
+        payload.addProperty("line", row);
+        payload.addProperty("column", column);
 
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
 
         Stage stage = (Stage) c11.getScene().getWindow();
         stage.close();
-    }
-
-    public void choose11(){
-        choose(1, 1);
-    }
-
-    public void choose12(){
-        choose(1, 2);
-    }
-
-    public void choose13(){
-        choose(1, 3);
-    }
-
-    public void choose14(){
-        choose(1, 4);
-    }
-
-    public void choose21(){
-        choose(2, 1);
-    }
-
-    public void choose22(){
-        choose(2, 2);
-    }
-
-    public void choose23(){
-        choose(2, 3);
-    }
-
-    public void choose24(){
-        choose(2, 4);
-    }
-
-    public void choose31(){
-        choose(3, 1);
-    }
-
-    public void choose32(){
-        choose(3, 2);
-    }
-
-    public void choose33(){
-        choose(3, 3);
-    }
-
-    public void choose34(){
-        choose(3, 4);
     }
 }
