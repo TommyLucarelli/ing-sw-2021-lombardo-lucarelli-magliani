@@ -52,7 +52,7 @@
                <children>
                   <Button fx:id="btn1" mnemonicParsing="false" onAction="#add1" prefHeight="363.0" prefWidth="239.0">
                      <graphic>
-                        <ImageView fx:id="img4" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img1" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/cards/1.png" />
                            </image>
@@ -64,7 +64,7 @@
                   </Button>
                   <Button fx:id="btn2" mnemonicParsing="false" onAction="#add2" prefHeight="363.0" prefWidth="239.0">
                      <graphic>
-                        <ImageView fx:id="img3" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="img2" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/cards/1.png" />
                            </image>
@@ -76,7 +76,7 @@
                   </Button>
                   <Button fx:id="btn3" mnemonicParsing="false" onAction="#add3" prefHeight="363.0" prefWidth="239.0">
                       <graphic>
-                          <ImageView fx:id="img1" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+                          <ImageView fx:id="img3" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                               <image>
                                   <Image url="@../images/cards/1.png" />
                               </image>
@@ -88,7 +88,7 @@
                   </Button>
                    <Button fx:id="btn4" mnemonicParsing="false" onAction="#add4" prefHeight="363.0" prefWidth="239.0">
                       <graphic>
-                         <ImageView fx:id="img2" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+                         <ImageView fx:id="img4" fitHeight="431.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                <Image url="@../images/cards/1.png" />
                            </image>
