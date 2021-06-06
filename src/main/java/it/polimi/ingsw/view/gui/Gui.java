@@ -361,6 +361,9 @@ public class Gui implements UserInterface {
         JsonObject data = new JsonObject();
         Gson gson = new Gson();
 
+        ArrayList<String> opponentNames = new ArrayList<>();
+        for(CompactPlayer opponent: opponents.values()) opponentNames.add(opponent.getPlayerName());
+
         data.addProperty("leaders", gson.toJson(mySelf.getCompactBoard().getLeaderCards()));
         data.addProperty("warehouse", gson.toJson(mySelf.getCompactBoard().getWarehouse()));
         data.addProperty("strongbox", gson.toJson(mySelf.getCompactBoard().getStrongbox()));
@@ -370,6 +373,7 @@ public class Gui implements UserInterface {
         data.addProperty("market", gson.toJson(compactMarket.getMarket()));
         data.addProperty("cardStructure", gson.toJson(compactDevCardStructure.getDevCardStructure()));
         data.addProperty("updates", update);
+        data.addProperty("opponents", gson.toJson(opponentNames));
 
         JavaFxApp.setData(data);
     }

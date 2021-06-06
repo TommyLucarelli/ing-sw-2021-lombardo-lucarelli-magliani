@@ -26,7 +26,7 @@
       </ImageView>
       <VBox alignment="CENTER" layoutX="972.0" layoutY="28.0" prefHeight="699.0" prefWidth="316.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
          <children>
-            <Button maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
+            <Button fx:id="player2" disable="true" maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
                <graphic>
                   <ImageView fitHeight="115.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +37,7 @@
                <effect>
                   <InnerShadow />
                </effect></Button>
-            <Button maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
+            <Button fx:id="player3" disable="true" maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
                <graphic>
                   <ImageView fitHeight="115.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,7 +48,7 @@
                <effect>
                   <InnerShadow />
                </effect></Button>
-            <Button maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
+            <Button fx:id="player4" disable="true" maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
                <graphic>
                   <ImageView fitHeight="115.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                      <image>

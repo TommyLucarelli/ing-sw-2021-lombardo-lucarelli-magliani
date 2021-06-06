@@ -8,10 +8,12 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.view.compact.CompactPlayer;
 import it.polimi.ingsw.view.gui.JavaFxApp;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -34,11 +36,15 @@ public class GameBoardController implements DynamicController, Initializable {
     Text sCoin, sStone, sShield, sServant;
 
     @FXML
+    Button player2, player3, player4;
+
+    @FXML
     TextArea updates;
 
     ArrayList<ImageView> faithTrack = new ArrayList<>();
     ArrayList<ImageView> warehouse = new ArrayList<>();
     ArrayList<ImageView> favourCards = new ArrayList<>();
+    ArrayList<Button> playerButtons = new ArrayList<>();
     ArrayList<Text> strongbox = new ArrayList<>();
     ImageView[][] devCardSlot = new ImageView[3][3];
 
@@ -48,6 +54,9 @@ public class GameBoardController implements DynamicController, Initializable {
         warehouse.addAll(Arrays.asList(w0, w1, w2, w3, w4, w5));
         favourCards.addAll(Arrays.asList(fp1, fp2, fp3));
         strongbox.addAll(Arrays.asList(sCoin, sStone, sShield, sServant));
+        playerButtons.addAll(Arrays.asList(player2, player3, player4));
+
+        for(Button playerButton: playerButtons) playerButton.setVisible(false);
 
         devCardSlot[0][0] = slot11;
         devCardSlot[0][1] = slot12;
@@ -101,6 +110,20 @@ public class GameBoardController implements DynamicController, Initializable {
                 if(updatedDevCardSlots[i][j] != 0 &&
                         devCardSlot[i][j].getImage() == null)
                     devCardSlot[i][j].setImage(new Image(getClass().getResourceAsStream("/images/cards/" + updatedDevCardSlots[i][j] + ".png")));
+            }
+        }
+
+        ArrayList<String> opponents = gson.fromJson(data.get("opponents").getAsString(), new TypeToken<ArrayList<String>>(){}.getType());
+        if(opponents.size() == 0){
+            playerButtons.get(0).setText("Lorenzo");
+            playerButtons.get(0).setVisible(true);
+            playerButtons.get(0).setDisable(false);
+            playerButtons.get(0).setOnAction(Event::consume);
+        } else {
+            for (int i = 0; i < opponents.size(); i++) {
+                playerButtons.get(i).setText(opponents.get(i));
+                playerButtons.get(i).setVisible(true);
+                playerButtons.get(i).setDisable(false);
             }
         }
 

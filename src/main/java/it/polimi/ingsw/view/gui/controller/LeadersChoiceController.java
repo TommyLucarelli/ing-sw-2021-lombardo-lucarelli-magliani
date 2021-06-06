@@ -52,7 +52,6 @@ public class LeadersChoiceController implements DynamicController, Initializable
         Gson gson = new Gson();
         String json = data.get("leaderCards").getAsString();
         leaderCards = gson.fromJson(json, new TypeToken<ArrayList<Integer>>(){}.getType());
-        System.out.println(leaderCards.toString());
 
         img1.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards.get(0) + ".png")));
         img2.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards.get(1) + ".png")));
@@ -143,8 +142,6 @@ public class LeadersChoiceController implements DynamicController, Initializable
             selectedLeaders[i] = selectedCards.get(i);
             discardedLeaders[i] = leaderCards.get(i);
         }
-
-        System.out.println("Selected: " + selectedLeaders[0] + " " + selectedLeaders[1] + " " + "Discarded: " + discardedLeaders[0] + " " + discardedLeaders[1]);
 
         JavaFxApp.getManager().firstSetup(data.get("playerID").getAsInt(), data.get("playerName").getAsString(), selectedLeaders);
 
