@@ -1,30 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ChooseDevCardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ChooseDevCardController">
    <children>
-      <Text layoutX="203.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the development card you want to buy" />
-      <ImageView fx:id="c31" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="61.0" onMouseClicked="#choose31" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c32" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="61.0" onMouseClicked="#choose32" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c33" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="61.0" onMouseClicked="#choose33" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c34" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="61.0" onMouseClicked="#choose34" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c21" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="235.0" onMouseClicked="#choose21" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c22" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="235.0" onMouseClicked="#choose22" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c23" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="235.0" onMouseClicked="#choose23" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c24" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="235.0" onMouseClicked="#choose24" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c11" fitHeight="147.0" fitWidth="100.0" layoutX="63.0" layoutY="405.0" onMouseClicked="#choose11" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c12" fitHeight="147.0" fitWidth="100.0" layoutX="188.0" layoutY="405.0" onMouseClicked="#choose12" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c13" fitHeight="147.0" fitWidth="100.0" layoutX="314.0" layoutY="405.0" onMouseClicked="#choose13" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="c14" fitHeight="147.0" fitWidth="100.0" layoutX="440.0" layoutY="405.0" onMouseClicked="#choose14" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="21.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text layoutX="24.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-      <Text layoutX="27.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-      <ImageView fitHeight="60.0" fitWidth="44.0" layoutX="556.0" layoutY="543.0" onMouseClicked="#comebackAction" pickOnBounds="true" preserveRatio="true">
+      <Text fx:id="problem" layoutX="160.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid selection! Please choose another Card or go back." visible="false" wrappingWidth="301.025390625" />
+      <Text layoutX="183.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the development card you want to buy" />
+      <VBox layoutY="41.0" prefHeight="532.0" prefWidth="615.0" spacing="20.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="170.0" prefWidth="581.0" spacing="40.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <ImageView fx:id="c31" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose31" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c32" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose32" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c33" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose33" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c34" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose34" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="170.0" prefWidth="581.0" spacing="40.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <ImageView fx:id="c21" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose21" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c22" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose22" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c23" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose23" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c24" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose24" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+                  <ImageView fx:id="c11" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose11" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c12" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose12" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c13" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose13" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="c14" fitHeight="147.0" fitWidth="100.0" onMouseClicked="#choose14" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ImageView fitHeight="60.0" fitWidth="44.0" layoutX="557.0" layoutY="573.0" onMouseClicked="#comebackAction" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/undo.png" />
          </image>

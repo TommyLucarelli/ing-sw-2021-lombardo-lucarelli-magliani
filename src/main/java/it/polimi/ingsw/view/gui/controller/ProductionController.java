@@ -42,6 +42,8 @@ public class ProductionController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         e0.setVisible(false);
         e1.setVisible(false);
+        extratext0.setVisible(false);
+        extratext1.setVisible(false);
 
         ArrayList<ImageView> slots = new ArrayList<>(Arrays.asList(s0, s1, s2));
         rectangles.addAll(Arrays.asList(r0, r1, r2, r3, r4, r5));

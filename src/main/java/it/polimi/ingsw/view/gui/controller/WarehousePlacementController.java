@@ -236,6 +236,7 @@ public class WarehousePlacementController implements DynamicController {
         warehouse.set(index2, activeResource);
 
         resourceImages.get(index1 - 10).setImage(null);
+        resourceImages.get(index1 - 10).setDisable(true);
         resources.set(index1 - 10, Resource.ANY);
         System.gc();
         warehouseImages.get(index2).setImage((warehouse.get(index2) != Resource.ANY) ?
@@ -248,7 +249,9 @@ public class WarehousePlacementController implements DynamicController {
     private void addResourceWithSwap(int index1, int index2){
         resourceImages.get(index1 - 10).setImage(new Image(getClass().getResourceAsStream("/images/resources/" + warehouse.get(index2).ordinal() + ".png")));
 
+        resources.set(index1 - 10, warehouse.get(index2));
         warehouse.set(index2, activeResource);
+
 
         warehouseImages.get(index2).setImage((warehouse.get(index2) != Resource.ANY) ?
                 new Image(getClass().getResourceAsStream("/images/resources/" + warehouse.get(index2).ordinal() + ".png")) :

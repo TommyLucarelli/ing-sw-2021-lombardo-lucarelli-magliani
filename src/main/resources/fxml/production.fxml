@@ -53,7 +53,7 @@
             <Image url="@../images/resources/0.png" />
          </image>
       </ImageView>
-      <Text layoutX="20.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on a resource to change its type!" wrappingWidth="118.30224609375">
+      <Text layoutX="20.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click on a resource to change its type!" textAlignment="CENTER" wrappingWidth="118.30224609375">
          <font>
             <Font name="Trattatello" size="18.0" />
          </font>

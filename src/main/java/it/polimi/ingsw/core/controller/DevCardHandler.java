@@ -40,6 +40,7 @@ public class DevCardHandler{
         //arriva il messaggio dal client con la scelta della carta sviluppo come pos (i,j) nel devcardstructure
         int i = ms.getPayload().get("line").getAsInt();
         int j = ms.getPayload().get("column").getAsInt();
+
         try {
             devCard = controller.getCurrentGame().getDevCardStructure().getTopCard(i, j);
         }catch(IndexOutOfBoundsException e){
