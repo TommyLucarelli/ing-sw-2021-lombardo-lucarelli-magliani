@@ -85,7 +85,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1205.0">
                <children>
-                  <Button fx:id="decCoinBtn" alignment="CENTER" mnemonicParsing="false" onAction="#decCoin" prefHeight="62.0" prefWidth="54.0" text="-">
+                  <Button fx:id="decCoinBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="-">
                      <HBox.margin>
                         <Insets left="200.0" />
                      </HBox.margin>
@@ -101,7 +101,7 @@
                         <InnerShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                   </TextField>
-                  <Button fx:id="incCoinBtn" alignment="CENTER" mnemonicParsing="false" onAction="#incCoin" prefHeight="62.0" prefWidth="54.0" text="+">
+                  <Button fx:id="incCoinBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="+">
                      <HBox.margin>
                         <Insets right="85.0" />
                      </HBox.margin>
@@ -109,7 +109,7 @@
                         <InnerShadow />
                      </effect>
                   </Button>
-                  <Button fx:id="decStoneBtn" alignment="CENTER" mnemonicParsing="false" onAction="#decStone" prefHeight="62.0" prefWidth="54.0" text="-">
+                  <Button fx:id="decStoneBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="-">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -125,7 +125,7 @@
                         <InnerShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                   </TextField>
-                  <Button fx:id="incStoneBtn" alignment="CENTER" mnemonicParsing="false" onAction="#incStone" prefHeight="62.0" prefWidth="54.0" text="+">
+                  <Button fx:id="incStoneBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="+">
                      <HBox.margin>
                         <Insets right="90.0" />
                      </HBox.margin>
@@ -133,7 +133,7 @@
                         <InnerShadow />
                      </effect>
                   </Button>
-                  <Button fx:id="decShieldBtn" alignment="CENTER" mnemonicParsing="false" onAction="#decShield" prefHeight="62.0" prefWidth="54.0" text="-">
+                  <Button fx:id="decShieldBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="-">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -149,7 +149,7 @@
                         <InnerShadow height="10.0" radius="4.5" width="10.0" />
                      </effect>
                   </TextField>
-                  <Button fx:id="incShieldBtn" alignment="CENTER" mnemonicParsing="false" onAction="#incShield" prefHeight="62.0" prefWidth="54.0" text="+">
+                  <Button fx:id="incShieldBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="+">
                      <HBox.margin>
                         <Insets right="90.0" />
                      </HBox.margin>
@@ -157,7 +157,7 @@
                         <InnerShadow />
                      </effect>
                   </Button>
-                  <Button fx:id="decServantBtn" alignment="CENTER" mnemonicParsing="false" onAction="#decServant" prefHeight="62.0" prefWidth="54.0" text="-">
+                  <Button fx:id="decServantBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="-">
                      <effect>
                         <InnerShadow />
                      </effect>
@@ -173,7 +173,7 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="incServantBtn" alignment="CENTER" mnemonicParsing="false" onAction="#incServant" prefHeight="62.0" prefWidth="54.0" text="+">
+                  <Button fx:id="incServantBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="62.0" prefWidth="54.0" text="+">
                      <effect>
                         <InnerShadow />
                      </effect>

@@ -37,10 +37,31 @@ public class ResourcesChoiceController implements DynamicController, Initializab
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         confirmBtn.setDisable(true);
-        decCoinBtn.setDisable(true);
-        decStoneBtn.setDisable(true);
-        decServantBtn.setDisable(true);
-        decShieldBtn.setDisable(true);
+        ArrayList<Button> decButtons = new ArrayList<>(Arrays.asList(decCoinBtn, decStoneBtn, decShieldBtn, decServantBtn));
+        ArrayList<Button> incButtons = new ArrayList<>(Arrays.asList(incCoinBtn, incStoneBtn, incShieldBtn, incServantBtn));
+        ArrayList<TextField> textFields = new ArrayList<>(Arrays.asList(coin, stone, shield, servant));
+
+        for (int i = 0; i < decButtons.size(); i++) {
+            decButtons.get(i).setDisable(true);
+            int index = i;
+            decButtons.get(i).setOnAction(evt -> {
+                selected[index]--;
+                decButtons.get(index).setDisable(selected[index] == 0);
+                textFields.get(index).setText(String.valueOf(selected[index]));
+                enableConfirm();
+            });
+        }
+
+        for (int i = 0; i < incButtons.size(); i++) {
+            int index = i;
+            incButtons.get(i).setOnAction(evt -> {
+                selected[index]++;
+                decButtons.get(index).setDisable(false);
+                textFields.get(index).setText(String.valueOf(selected[index]));
+                enableConfirm();
+            });
+        }
+
     }
 
     @Override
@@ -63,86 +84,6 @@ public class ResourcesChoiceController implements DynamicController, Initializab
      */
     private void enableConfirm(){
         confirmBtn.setDisable((selected[0] + selected[1] + selected[2] + selected[3]) != resources);
-    }
-
-    /**
-     * onAction method: increases the coin quantity
-     */
-    public void incCoin(){
-        selected[0]++;
-        decCoinBtn.setDisable(false);
-        coin.setText(String.valueOf(selected[0]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: increases the stone quantity
-     */
-    public void incStone(){
-        selected[1]++;
-        decStoneBtn.setDisable(false);
-        stone.setText(String.valueOf(selected[1]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: increases the shield quantity
-     */
-    public void incShield(){
-        selected[2]++;
-        decShieldBtn.setDisable(false);
-        shield.setText(String.valueOf(selected[2]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: increases the servant quantity
-     */
-    public void incServant(){
-        selected[3]++;
-        decServantBtn.setDisable(false);
-        servant.setText(String.valueOf(selected[3]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: decreases the coin quantity
-     */
-    public void decCoin(){
-        selected[0]--;
-        decCoinBtn.setDisable(selected[0] == 0);
-        coin.setText(String.valueOf(selected[0]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: decreases the stone quantity
-     */
-    public void decStone(){
-        selected[1]--;
-        decStoneBtn.setDisable(selected[1] == 0);
-        stone.setText(String.valueOf(selected[1]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: decreases the shield quantity
-     */
-    public void decShield(){
-        selected[2]--;
-        decShieldBtn.setDisable(selected[2] == 0);
-        shield.setText(String.valueOf(selected[2]));
-        enableConfirm();
-    }
-
-    /**
-     * onAction method: decreases the servant quantity
-     */
-    public void decServant(){
-        selected[3]--;
-        decServantBtn.setDisable(selected[3] == 0);
-        servant.setText(String.valueOf(selected[3]));
-        enableConfirm();
     }
 
     /**
