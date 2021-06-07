@@ -89,6 +89,22 @@
          <font>
             <Font name="Trattatello" size="18.0" />
          </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color green="1.0" blue="0.9333333373069763" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6812875866889954" green="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
       </Text>
       <Text fx:id="extratext0" layoutX="951.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
          <font>

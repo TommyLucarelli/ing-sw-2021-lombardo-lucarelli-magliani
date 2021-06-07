@@ -37,7 +37,7 @@
            </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="TOP_CENTER" layoutY="254.0" prefHeight="491.0" prefWidth="1280.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="254.0">
+      <VBox alignment="TOP_CENTER" layoutY="240.0" prefHeight="502.0" prefWidth="1272.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0">
          <children>
             <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, username!" textAlignment="CENTER">
                <font>
