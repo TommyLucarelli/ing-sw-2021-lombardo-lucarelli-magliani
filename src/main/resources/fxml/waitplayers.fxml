@@ -35,7 +35,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="TOP_CENTER" layoutX="-2.0" layoutY="106.0" prefHeight="624.0" prefWidth="1280.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.topAnchor="106.0">
+      <VBox alignment="TOP_CENTER" layoutX="-2.0" layoutY="94.0" prefHeight="613.0" prefWidth="1280.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="94.0">
          <children>
             <ImageView fitHeight="195.0" fitWidth="744.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -50,7 +50,7 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#startGameAction" prefHeight="115.0" prefWidth="302.0" text="Start game" visible="false">
+            <Button fx:id="startGameBtn" mnemonicParsing="false" onAction="#startGameAction" text="Start game" visible="false">
                <font>
                   <Font name="Trattatello" size="36.0" />
                </font>
@@ -58,7 +58,7 @@
                   <InnerShadow />
                </effect>
                <VBox.margin>
-                  <Insets top="25.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </Button>
          </children>
