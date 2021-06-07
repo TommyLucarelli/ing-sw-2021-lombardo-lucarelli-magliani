@@ -37,14 +37,14 @@
            </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="CENTER" layoutY="90.0" prefHeight="658.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+      <VBox alignment="TOP_CENTER" layoutY="236.0" prefHeight="530.0" prefWidth="1280.0" AnchorPane.bottomAnchor="-18.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="236.0">
          <children>
             <Text fx:id="welcomeMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back, username!" textAlignment="CENTER" wrappingWidth="427.8948974609375">
                <font>
                   <Font name="Trattatello" size="36.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="80.0" />
+                  <Insets />
                </VBox.margin>
                <effect>
                   <ColorAdjust />
@@ -55,7 +55,7 @@
                   <Font name="Trattatello" size="36.0" />
                </font>
             </Text>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="140.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="160.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#resumeAction" prefHeight="57.0" prefWidth="189.0" styleClass="quit-btn" text="Resume game">
                      <font>
@@ -65,10 +65,10 @@
                         <InnerShadow height="31.0" radius="15.0" width="31.0" />
                      </effect>
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#newGameAction" prefHeight="52.0" prefWidth="239.0" styleClass="action-btn" text="Start new game">
+                  <Button mnemonicParsing="false" onAction="#newGameAction" prefHeight="52.0" styleClass="action-btn" text="Start new game">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -78,7 +78,7 @@
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
+                  <Insets bottom="20.0" top="100.0" />
                </VBox.margin>
             </HBox>
          </children>

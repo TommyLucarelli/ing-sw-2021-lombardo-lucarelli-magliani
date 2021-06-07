@@ -86,33 +86,33 @@
          </children>
       </VBox>
       <ImageView fx:id="f0" fitHeight="45.0" fitWidth="44.0" layoutX="39.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f1" fitHeight="45.0" fitWidth="44.0" layoutX="88.0" layoutY="167.0" pickOnBounds="true" />
-      <ImageView fx:id="f2" fitHeight="46.0" fitWidth="52.0" layoutX="130.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f3" fitHeight="45.0" fitWidth="44.0" layoutX="137.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f4" fitHeight="45.0" fitWidth="44.0" layoutX="136.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f5" fitHeight="45.0" fitWidth="44.0" layoutX="185.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f6" fitHeight="45.0" fitWidth="45.0" layoutX="227.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f7" fitHeight="45.0" fitWidth="41.0" layoutX="278.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f8" fitHeight="45.0" fitWidth="48.0" layoutX="320.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f9" fitHeight="45.0" fitWidth="45.0" layoutX="369.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f10" fitHeight="45.0" fitWidth="45.0" layoutX="369.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f11" fitHeight="45.0" fitWidth="41.0" layoutX="372.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f12" fitHeight="45.0" fitWidth="45.0" layoutX="420.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f13" fitHeight="45.0" fitWidth="41.0" layoutX="468.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f14" fitHeight="45.0" fitWidth="41.0" layoutX="516.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f15" fitHeight="45.0" fitWidth="41.0" layoutX="564.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f16" fitHeight="45.0" fitWidth="45.0" layoutX="609.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f17" fitHeight="45.0" fitWidth="45.0" layoutX="606.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f18" fitHeight="45.0" fitWidth="45.0" layoutX="609.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f19" fitHeight="45.0" fitWidth="45.0" layoutX="657.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f1" fitHeight="45.0" fitWidth="44.0" layoutX="86.0" layoutY="158.0" pickOnBounds="true" />
+      <ImageView fx:id="f2" fitHeight="46.0" fitWidth="45.0" layoutX="132.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f3" fitHeight="45.0" fitWidth="45.0" layoutX="132.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f4" fitHeight="45.0" fitWidth="44.0" layoutX="132.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f5" fitHeight="45.0" fitWidth="44.0" layoutX="180.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f6" fitHeight="45.0" fitWidth="45.0" layoutX="227.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f7" fitHeight="45.0" fitWidth="41.0" layoutX="278.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f8" fitHeight="45.0" fitWidth="48.0" layoutX="323.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f9" fitHeight="45.0" fitWidth="45.0" layoutX="372.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f10" fitHeight="45.0" fitWidth="45.0" layoutX="372.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f11" fitHeight="45.0" fitWidth="41.0" layoutX="372.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f12" fitHeight="45.0" fitWidth="45.0" layoutX="420.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f13" fitHeight="45.0" fitWidth="41.0" layoutX="472.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f14" fitHeight="45.0" fitWidth="41.0" layoutX="520.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f15" fitHeight="45.0" fitWidth="41.0" layoutX="568.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f16" fitHeight="45.0" fitWidth="45.0" layoutX="614.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f17" fitHeight="45.0" fitWidth="45.0" layoutX="614.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f18" fitHeight="45.0" fitWidth="45.0" layoutX="614.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f19" fitHeight="45.0" fitWidth="45.0" layoutX="661.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="f20" fitHeight="45.0" fitWidth="41.0" layoutX="706.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f21" fitHeight="45.0" fitWidth="45.0" layoutX="752.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f22" fitHeight="45.0" fitWidth="45.0" layoutX="798.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f23" fitHeight="45.0" fitWidth="45.0" layoutX="844.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="f24" fitHeight="45.0" fitWidth="47.0" layoutX="897.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fp1" fitHeight="72.0" fitWidth="70.0" layoutX="239.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fp2" fitHeight="80.0" fitWidth="80.0" layoutX="470.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="fp3" fitHeight="73.0" fitWidth="73.0" layoutX="762.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f21" fitHeight="45.0" fitWidth="45.0" layoutX="757.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f22" fitHeight="45.0" fitWidth="45.0" layoutX="806.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f23" fitHeight="45.0" fitWidth="45.0" layoutX="854.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f24" fitHeight="45.0" fitWidth="47.0" layoutX="902.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp1" fitHeight="75.0" fitWidth="77.0" layoutX="238.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp2" fitHeight="75.0" fitWidth="77.0" layoutX="478.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp3" fitHeight="73.0" fitWidth="73.0" layoutX="770.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="slot11" fitHeight="270.0" fitWidth="168.0" layoutX="381.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
@@ -194,12 +194,12 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="w0" fitHeight="46.0" fitWidth="50.0" layoutX="105.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w1" fitHeight="46.0" fitWidth="48.0" layoutX="75.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w2" fitHeight="45.0" fitWidth="50.0" layoutX="122.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w3" fitHeight="46.0" fitWidth="50.0" layoutX="58.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w4" fitHeight="52.0" fitWidth="50.0" layoutX="99.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="w5" fitHeight="52.0" fitWidth="48.0" layoutX="147.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w0" fitHeight="46.0" fitWidth="50.0" layoutX="105.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w1" fitHeight="45.0" fitWidth="50.0" layoutX="75.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w2" fitHeight="45.0" fitWidth="50.0" layoutX="122.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w3" fitHeight="52.0" fitWidth="50.0" layoutX="58.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w4" fitHeight="52.0" fitWidth="50.0" layoutX="99.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w5" fitHeight="52.0" fitWidth="50.0" layoutX="147.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="101.0" fitWidth="107.0" layoutX="11.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/avatars/4.png" />
