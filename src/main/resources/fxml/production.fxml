@@ -6,9 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -24,29 +21,8 @@
          <font>
             <Font size="24.0" />
          </font>
-         <fill>
-            <LinearGradient endX="0.5095238095238096" endY="1.0" startX="0.2904761904761905">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.13425925374031067" green="1.0" blue="0.9278549551963806" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007662835249042145">
-                     <color>
-                        <Color red="0.13425925374031067" green="1.0" blue="0.9278549551963806" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.9342105388641357" green="0.9342105388641357" blue="0.12542641162872314" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
       </Text>
-      <HBox alignment="CENTER_RIGHT" layoutX="210.0" layoutY="108.0" prefHeight="403.0" prefWidth="624.0" spacing="20.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="220.0" layoutY="114.0" prefHeight="403.0" prefWidth="624.0" spacing="20.0">
          <children>
             <ImageView fx:id="s0" fitHeight="326.0" fitWidth="192.0" onMouseClicked="#adds0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="s1" fitHeight="326.0" fitWidth="192.0" onMouseClicked="#adds1" pickOnBounds="true" preserveRatio="true" />
@@ -55,32 +31,32 @@
       </HBox>
       <Button layoutX="490.0" layoutY="535.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="41.0" prefWidth="103.0" text="Confirm">
          <effect>
-            <InnerShadow />
+            <InnerShadow height="23.0" radius="11.0" width="23.0" />
          </effect>
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="153.0" layoutX="39.0" layoutY="235.0" onMouseClicked="#addbasic" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="164.0" fitWidth="185.0" layoutX="39.0" layoutY="221.0" onMouseClicked="#addbasic" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/production/production.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="e0" fitHeight="182.0" fitWidth="173.0" layoutX="870.0" layoutY="155.0" onMouseClicked="#adde0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="e1" fitHeight="182.0" fitWidth="173.0" layoutX="870.0" layoutY="326.0" onMouseClicked="#adde1" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="eres0" fitHeight="80.0" fitWidth="59.0" layoutX="984.0" layoutY="166.0" onMouseClicked="#changeEres0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="eres1" fitHeight="80.0" fitWidth="59.0" layoutX="977.0" layoutY="343.0" onMouseClicked="#changeEres1" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="basic0" fitHeight="80.0" fitWidth="59.0" layoutX="59.0" layoutY="267.0" onMouseClicked="#changeBasic0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="e0" fitHeight="182.0" fitWidth="173.0" layoutX="884.0" layoutY="148.0" onMouseClicked="#adde0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="e1" fitHeight="182.0" fitWidth="173.0" layoutX="884.0" layoutY="319.0" onMouseClicked="#adde1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres0" fitHeight="80.0" fitWidth="59.0" layoutX="998.0" layoutY="159.0" onMouseClicked="#changeEres0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres1" fitHeight="80.0" fitWidth="59.0" layoutX="991.0" layoutY="336.0" onMouseClicked="#changeEres1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="basic0" fitHeight="41.0" fitWidth="44.0" layoutX="74.0" layoutY="267.0" onMouseClicked="#changeBasic0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/resources/0.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="basic1" fitHeight="80.0" fitWidth="59.0" layoutX="59.0" layoutY="303.0" onMouseClicked="#changeBasic1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="basic1" fitHeight="41.0" fitWidth="44.0" layoutX="74.0" layoutY="305.0" onMouseClicked="#changeBasic1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/resources/0.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="basic2" fitHeight="80.0" fitWidth="59.0" layoutX="129.0" layoutY="284.0" onMouseClicked="#changeBasic2" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="basic2" fitHeight="41.0" fitWidth="44.0" layoutX="144.0" layoutY="284.0" onMouseClicked="#changeBasic2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/resources/0.png" />
          </image>
@@ -89,77 +65,24 @@
          <font>
             <Font name="Trattatello" size="18.0" />
          </font>
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color green="1.0" blue="0.9333333373069763" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.6812875866889954" green="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
       </Text>
       <Text fx:id="extratext0" layoutX="951.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
          <font>
             <Font name="Trattatello" size="13.0" />
          </font>
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color green="1.0" blue="0.9333333373069763" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.9845367074012756" green="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
       </Text>
       <Text fx:id="extratext1" layoutX="951.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
          <font>
             <Font name="Trattatello" size="13.0" />
          </font>
-         <fill>
-            <LinearGradient endX="0.5095238095238096" endY="1.0" startX="0.2904761904761905">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.13425925374031067" green="1.0" blue="0.9278549551963806" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.007662835249042145">
-                     <color>
-                        <Color red="0.13425925374031067" green="1.0" blue="0.9278549551963806" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.9342105388641357" green="0.9342105388641357" blue="0.12542641162872314" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
       </Text>
       <Rectangle fx:id="r0" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="46.0" layoutY="377.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
-      <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="220.0" layoutY="475.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
-      <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="430.0" layoutY="475.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
-      <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="645.0" layoutY="475.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
+      <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="230.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
+      <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="442.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
+      <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="655.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
       <Rectangle fx:id="r5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
       <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
-      <Button layoutX="898.0" layoutY="535.0" mnemonicParsing="false" onAction="#comebackAction" prefHeight="41.0" prefWidth="118.0" text="Come back">
+      <Button layoutX="912.0" layoutY="535.0" mnemonicParsing="false" onAction="#comebackAction" prefHeight="41.0" prefWidth="118.0" text="Come back">
          <effect>
             <InnerShadow />
          </effect>
