@@ -84,6 +84,7 @@ public class Client implements Runnable{
             new Thread(serverListener).start();
         } catch (IOException e){
             System.err.println("IOException from Client::run - server unreachable");
+            ui.connectionError();
             return;
         }
         System.out.println("Connection to server successful!");
@@ -103,15 +104,17 @@ public class Client implements Runnable{
     /**
      * Method used to close the connection to the server safely.
      */
-    public void closeConnection(){
-        System.out.println("Closing connection with server...");
+    public void closeConnection() {
+        if (server != null) {
+            System.out.println("Closing connection with server...");
 
-        try {
-            server.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Connection closed!");
         }
-        System.out.println("Connection closed!");
     }
 
     /**

@@ -22,7 +22,6 @@ public class MarketHandler {
     private MainController controller;
     private ArrayList<Resource> resources;
     private boolean configWorks;
-    private Resource r;
     private ArrayList<Resource> placed;
     int faithP1 = 0, faithP2 = 0;
 
@@ -42,7 +41,8 @@ public class MarketHandler {
     public void pick(ResponseMsg ms){
         String choice = ms.getPayload().get("choice").getAsString();
         int number = ms.getPayload().get("number").getAsInt();
-        boolean flag = false;
+        int flag = 0;
+        Resource r = null;
 
         if(choice.equals("c"))
             resources = controller.getCurrentGame().getMarket().updateColumnAndGetResources(number);
@@ -50,16 +50,21 @@ public class MarketHandler {
             resources = controller.getCurrentGame().getMarket().updateLineAndGetResources(number);
 
         if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0 && controller.getCurrentPlayer().getBoard().isActivated(3) != 0){
-            flag = true;
-            Gson gson = new Gson();
-            String json = ms.getPayload().get("resource").getAsString();
-            r = gson.fromJson(json, Resource.class);
+            flag = 1;
         } else if(controller.getCurrentPlayer().getBoard().isActivated(2) != 0){
-            flag = true;
+            flag = 2;
             r = controller.getCurrentPlayer().getBoard().getLeader(controller.getCurrentPlayer().getBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
         }
-
-        if(flag) {
+        Gson gson = new Gson();
+        String json;
+        if(flag == 1) {
+            for (int i = 0; i < resources.size(); i++) {
+                if (resources.get(i) == Resource.ANY){
+                    json = ms.getPayload().get("resource"+i).getAsString();
+                    resources.set(i, gson.fromJson(json, Resource.class));
+                }
+            }
+        }else if(flag == 2){
             for (int i = 0; i < resources.size(); i++) {
                 if (resources.get(i) == Resource.ANY)
                     resources.set(i, r);
@@ -79,8 +84,7 @@ public class MarketHandler {
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
-        Gson gson = new Gson();
-        String json = gson.toJson(resources); //forse sarebbe meglio trasformarlo in array
+        json = gson.toJson(resources); //forse sarebbe meglio trasformarlo in array
         payload.addProperty("resourcesArray", json);
         controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
     }
@@ -131,6 +135,7 @@ public class MarketHandler {
      */
     protected boolean checkPlacement(ArrayList<Resource> placed)
     {
+        Resource r;
         ArrayList<Resource> blackList = new ArrayList<>();
         //check normal warehouse
         if(placed.get(0) != Resource.ANY)

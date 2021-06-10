@@ -5,7 +5,6 @@ package it.polimi.ingsw.core.model;
  * @author Martina Magliani
  */
 public enum Colour {
-
     GREEN,
     BLUE,
     YELLOW,

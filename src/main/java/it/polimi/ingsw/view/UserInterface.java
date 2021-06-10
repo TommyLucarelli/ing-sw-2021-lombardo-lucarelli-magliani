@@ -8,4 +8,6 @@ import it.polimi.ingsw.net.msg.RequestMsg;
  */
 public interface UserInterface {
     void handleRequest(RequestMsg request);
+
+    void connectionError();
 }
