@@ -93,7 +93,7 @@ public class LeaderActionController implements DynamicController, Initializable 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "LEADER_ACTION");
         payload.addProperty("cardID", activeCard);
-        payload.addProperty("action", true);
+        payload.addProperty("action", false);
         JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
         closePopup();
     }
