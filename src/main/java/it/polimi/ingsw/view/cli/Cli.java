@@ -713,6 +713,7 @@ public class Cli implements UserInterface {
     private void handlePick(RequestMsg requestMsg){
         JsonObject payload = new JsonObject();
         String s;
+        int cont;
         System.out.println("\nMARKET");
         //per qualche motivo lo stampa senza reserve marble
         fancyPrinter.printMarket(compactMarket);
@@ -732,25 +733,28 @@ public class Cli implements UserInterface {
                 x = InputHandler.getInt(1, 3);
             }
 
+            cont = compactMarket.getWhites(s.equals("c"), x-1);
 
             payload.addProperty("gameAction", "PICK");
             payload.addProperty("choice", s);
             payload.addProperty("number", x - 1);
 
             if ((mySelf.getCompactBoard().getAbilityActivationFlag()[2] != 0) && (mySelf.getCompactBoard().getAbilityActivationFlag()[3] != 0)) {
-                System.out.println("\nYou have two special marble that can replace the white one, which one you want: ");
-                Resource r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
-                Resource r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
-                System.out.println("\n1. " + r1.toString());
-                System.out.println("\n2. " + r2.toString());
-                x = InputHandler.getInt(1, 2);
-                Gson gson = new Gson();
-                String json;
-                if (x == 1)
-                    json = gson.toJson(r1);
-                else
-                    json = gson.toJson(r2);
-                payload.addProperty("resource", json);
+                for (int i = 0; i < cont; i++) {
+                    System.out.println("\nChoose a special marble that can replace the white one, which one you want: ");
+                    Resource r1 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[2]).getSpecialAbility().getAbilityResource();
+                    Resource r2 = cardCollector.getLeaderCard(mySelf.getCompactBoard().getAbilityActivationFlag()[3]).getSpecialAbility().getAbilityResource();
+                    System.out.println("\n1. " + r1.toString());
+                    System.out.println("\n2. " + r2.toString());
+                    x = InputHandler.getInt(1, 2);
+                    Gson gson = new Gson();
+                    String json;
+                    if (x == 1)
+                        json = gson.toJson(r1);
+                    else
+                        json = gson.toJson(r2);
+                    payload.addProperty("resource"+i, json);
+                }
             }
         }
 
