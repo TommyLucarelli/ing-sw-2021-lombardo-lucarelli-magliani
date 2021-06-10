@@ -10,6 +10,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ChooseDevCardController">
    <children>
+      <ImageView fitHeight="663.0" fitWidth="621.0" layoutX="-5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/backgroundPopoup.png" />
+         </image>
+      </ImageView>
       <Text fx:id="problem" layoutX="160.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid selection! Please choose another Card or go back." visible="false" wrappingWidth="301.025390625" />
       <Text layoutX="183.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the development card you want to buy" />
       <VBox layoutY="41.0" prefHeight="532.0" prefWidth="615.0" spacing="20.0">

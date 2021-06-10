@@ -38,7 +38,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="CENTER" layoutY="110.0" prefHeight="589.0" prefWidth="1280.0">
+      <VBox alignment="CENTER" layoutY="125.0" prefHeight="574.0" prefWidth="1280.0">
          <children>
             <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your two leader cards!" textAlignment="CENTER" wrappingWidth="1000.0">
                <font>
