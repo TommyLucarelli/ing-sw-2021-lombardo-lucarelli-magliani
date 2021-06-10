@@ -463,7 +463,6 @@ public class Cli implements UserInterface {
             mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
         }
 
-
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "MAIN_CHOICE");
 

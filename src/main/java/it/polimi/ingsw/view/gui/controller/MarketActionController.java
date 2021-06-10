@@ -3,8 +3,10 @@ package it.polimi.ingsw.view.gui.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.core.model.Resource;
 import it.polimi.ingsw.net.msg.MessageType;
 import it.polimi.ingsw.net.msg.ResponseMsg;
+import it.polimi.ingsw.view.cli.InputHandler;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,11 +68,19 @@ public class MarketActionController implements Initializable, DynamicController 
 
     private void pick(boolean lineOrColumn, int index){
         JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "PICK");
-        payload.addProperty("choice", lineOrColumn ? "l" : "c");
-        payload.addProperty("number", index);
-        JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
 
+        if ((JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[2] != 0) && (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[3] != 0)) {
+            payload.addProperty("gameAction", "PICK");
+            payload.addProperty("choice", lineOrColumn ? "l" : "c");
+            payload.addProperty("number", index);
+            payload.addProperty("whiteMarbles", JavaFxApp.getManager().getCompactMarket().getWhites(!lineOrColumn, index));
+            JavaFxApp.showPopupWithData("whitemarble", payload);
+        } else {
+            payload.addProperty("gameAction", "PICK");
+            payload.addProperty("choice", lineOrColumn ? "l" : "c");
+            payload.addProperty("number", index);
+            JavaFxApp.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload));
+        }
         Stage stage = (Stage) c0.getScene().getWindow();
         stage.close();
     }

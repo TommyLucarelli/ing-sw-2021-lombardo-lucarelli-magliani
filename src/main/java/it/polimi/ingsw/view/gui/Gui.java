@@ -92,6 +92,7 @@ public class Gui implements UserInterface {
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("leaderaction", data));
                         break;
                     case "MAIN_CHOICE":
+                        handleMainChoice(request.getPayload());
                         Platform.runLater(() -> JavaFxApp.showPopup("mainchoice"));
                         break;
                     case "PICK":
@@ -354,6 +355,15 @@ public class Gui implements UserInterface {
         payload3.addProperty("playerID", mySelf.getPlayerID());
 
         client.send(new ResponseMsg(null, MessageType.GAME_MESSAGE, payload3));
+    }
+
+    private void handleMainChoice(JsonObject data){
+        Gson gson = new Gson();
+        if(data.has("abilityActivationFlag")){
+            String json = data.get("abilityActivationFlag").getAsString();
+            Type collectionType = new TypeToken<int[]>(){}.getType();
+            mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
+        }
     }
 
     private void handleReconnectionUpdate(RequestMsg requestMsg) {
