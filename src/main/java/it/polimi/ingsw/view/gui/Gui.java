@@ -139,6 +139,11 @@ public class Gui implements UserInterface {
         System.exit(0);
     }
 
+    @Override
+    public void connectionError(){
+        Platform.runLater(() -> JavaFxApp.setRoot("error"));
+    }
+
     /**
      * Getter method.
      * @return the compactPlayer object containing the player's information.

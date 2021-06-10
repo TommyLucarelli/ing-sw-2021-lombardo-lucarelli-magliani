@@ -117,6 +117,11 @@ public class Cli implements UserInterface {
         }
     }
 
+    @Override
+    public void connectionError(){
+        System.out.println("ERROR: Server unreachable! Try again later...");
+        System.exit(0);
+    }
 
     /**
      * Method used to handle "simple" requests from the server: a simple request consists in a message and an expected
