@@ -32,6 +32,7 @@ public class JavaFxApp extends Application {
             manager.start();
             scene.setOnKeyPressed(evt -> {});
         });
+        stage.setOnCloseRequest(evt -> JavaFxApp.close());
         stage.setScene(scene);
         stage.getScene().getStylesheets().add(getClass().getResource("/css/master.css").toExternalForm());
         stage.show();
