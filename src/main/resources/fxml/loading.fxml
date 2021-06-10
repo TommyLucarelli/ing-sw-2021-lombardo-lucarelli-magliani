@@ -12,6 +12,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.LoadingController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1298.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/intro.png" />
+         </image>
+      </ImageView>
       <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
             <Menu mnemonicParsing="false" text="File">
@@ -27,13 +32,8 @@
             </Menu>
         </menus>
       </MenuBar>
-      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0">
+      <VBox alignment="TOP_CENTER" layoutY="235.0" prefHeight="485.0" prefWidth="1280.0">
          <children>
-            <ImageView fitHeight="500.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/title.png" />
-               </image>
-            </ImageView>
             <Text fx:id="loadMsg" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading..." textAlignment="CENTER" wrappingWidth="1000.0">
                <font>
                   <Font name="Trattatello" size="48.0" />
