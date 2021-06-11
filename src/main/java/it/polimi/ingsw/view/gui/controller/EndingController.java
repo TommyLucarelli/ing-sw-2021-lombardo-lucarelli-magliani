@@ -5,22 +5,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 public class EndingController implements DynamicController{
     @FXML
-    Text singlePlayerMsg, rankings, rankingText, winOrLose;
+    Text singlePlayerMsg, rankings, winOrLose;
 
-    @FXML
-    HBox rankingsBox;
+    StringBuilder rankingString = new StringBuilder();
 
     @Override
     public void setData(JsonObject data) {
         JsonArray players = data.get("players").getAsJsonArray();
         int x, vp;
         String name;
-        Boolean flag = false;
+        boolean flag = false;
 
         if(data.has("finalScenario")){
             singlePlayerMsg.setVisible(true);
@@ -54,15 +52,14 @@ public class EndingController implements DynamicController{
 
         if(!data.has("finalScenario")) {
             rankings.setVisible(true);
+            rankingString.append(rankings.getText());
             for (JsonElement player : players) {
-                Text ranking = rankingText;
                 x = player.getAsJsonObject().get("position").getAsInt();
                 vp = player.getAsJsonObject().get("victoryPoints").getAsInt();
                 name = player.getAsJsonObject().get("name").getAsString();
-                ranking.setText(x + ". " + name + "\nVictory Points: " + vp);
-                ranking.setVisible(true);
-                rankingsBox.getChildren().add(ranking);
+                rankingString.append("\n").append(x).append(". ").append(name).append(" - VP: ").append(vp);
             }
+            rankings.setText(rankingString.toString());
         }
     }
 
