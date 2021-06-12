@@ -80,7 +80,6 @@ public class MarketHandler {
             }
         }
 
-        controller.getCurrentGame().getTurn().setTypeOfAction(1);
 
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "WAREHOUSE_PLACEMENT");
@@ -95,6 +94,8 @@ public class MarketHandler {
      * @param ms client message
      */
     public void warehousePlacement(ResponseMsg ms){
+        controller.getCurrentGame().getTurn().setTypeOfAction(1);
+
         faithP2 = ms.getPayload().get("discarded").getAsInt();
         Gson gson = new Gson();
         String json = ms.getPayload().get("placed").getAsString();
