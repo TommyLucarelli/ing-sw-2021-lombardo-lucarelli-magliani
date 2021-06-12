@@ -917,7 +917,7 @@ public class Cli implements UserInterface {
             System.out.println("\nChoose an action:\n1. Add a resource to the warehouse\n2. Move/swap resources in the warehouse" +
                     "\n3. Reset the changes\n4. Exit the placement procedure");
             int choice = InputHandler.getInt(1, 4);
-            fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
+            if(choice != 3) fancyPrinter.printWarehouseV2(mySelf.getCompactBoard());
             switch (choice){
                 case 1: //ADD RESOURCE TO WAREHOUSE
                     if(resourcesToPlace.size() == 0){
@@ -974,6 +974,7 @@ public class Cli implements UserInterface {
                 case 3: //RESET
                     warehouseResources = warehouseResourcesBackup;
                     resourcesToPlace = new ArrayList<>(resourcesBackup);
+                    mySelf.getCompactBoard().setWarehouse(warehouseResourcesBackup);
                     break;
                 case 4: //EXIT
                     if(resourcesToPlace.size() != 0){
