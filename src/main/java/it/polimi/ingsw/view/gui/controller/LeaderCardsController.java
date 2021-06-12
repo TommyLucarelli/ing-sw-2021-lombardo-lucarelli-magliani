@@ -27,17 +27,26 @@ public class LeaderCardsController implements Initializable {
         int[] leaderCards = JavaFxApp.getManager().getMyself().getCompactBoard().getLeaderCards();
         ArrayList<ImageView> warehouseImages = new ArrayList<>(Arrays.asList(w0, w1, w2, w3));
 
+        l0.setOpacity(0.75);
+        l1.setOpacity(0.75);
+
         if(leaderCards[0] != 0){
             l0.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards[0] + ".png")));
+            for(int i: JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()){
+                if(i == leaderCards[0]) l0.setOpacity(1);
+            }
         }
         if(leaderCards[1] != 0){
             l1.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaderCards[1] + ".png")));
+            for(int i: JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()){
+                if(i == leaderCards[1]) l1.setOpacity(1);
+            }
         }
 
         Resource[] warehouse = JavaFxApp.getManager().getMyself().getCompactBoard().getWarehouse();
         for (int i = 6; i < 10; i++) {
             if(warehouse[i].ordinal() != 5){
-                warehouseImages.get(i).setImage(new Image(getClass().getResourceAsStream("/images/resources/" + warehouse[i].ordinal() + ".png")));
+                warehouseImages.get(i - 6).setImage(new Image(getClass().getResourceAsStream("/images/resources/" + warehouse[i].ordinal() + ".png")));
             }
         }
     }

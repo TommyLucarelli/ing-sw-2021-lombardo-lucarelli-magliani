@@ -55,6 +55,8 @@ public class WarehousePlacementController implements DynamicController {
         w8.setVisible(false);
         w9.setVisible(false);
 
+        specialAbilityText2.setVisible(false);
+
         if(JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[0] != 0){
             specialAbilityText.setVisible(false);
             s0.setImage(new Image(getClass().getResourceAsStream("/images/warehouse/extra" + (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[0] - 53) + ".png")));
@@ -62,7 +64,7 @@ public class WarehousePlacementController implements DynamicController {
             w6.setVisible(true);
             w7.setVisible(true);
             if(JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[1] != 0) {
-                s0.setImage(new Image(getClass().getResourceAsStream("/images/warehouse/extra" + (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[1] - 53) + ".png")));
+                s1.setImage(new Image(getClass().getResourceAsStream("/images/warehouse/extra" + (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[1] - 53) + ".png")));
                 warehouseSize += 2;
                 w8.setVisible(true);
                 w9.setVisible(true);

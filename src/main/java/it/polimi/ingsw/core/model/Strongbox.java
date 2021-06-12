@@ -17,10 +17,9 @@ public class Strongbox
      * Constructor method
      */
     public Strongbox(){
-        resources = new ArrayList<ResourceQty>();
-        //TODO: rimuovere 10 e aggiornare test
+        resources = new ArrayList<>();
 
-        /*
+        /* only for testing
         resources.add(new ResourceQty(Resource.COIN, 100));
         resources.add(new ResourceQty(Resource.STONE, 100));
         resources.add(new ResourceQty(Resource.SHIELD, 100));
