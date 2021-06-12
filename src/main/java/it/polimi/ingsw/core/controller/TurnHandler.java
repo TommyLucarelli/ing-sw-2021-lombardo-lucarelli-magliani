@@ -96,8 +96,30 @@ public class TurnHandler {
      */
     public void comeBack(){
         if(controller.getCurrentGame().getTurn().isEndGame()){
-            //update
-            controller.updateBuilder();
+            if(controller.getCurrentGame().getSinglePlayer()){
+                Gson gson = new Gson();
+                SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
+                JsonObject payload2 = sat.getAction();
+                ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
+                if(payload2.get("type").getAsInt() == 0){
+                    Colour c = gson.fromJson(payload2.get("colour").getAsString(), Colour.class);
+                    if(controller.getCurrentGame().getDevCardStructure().discardSingle(c))
+                        controller.getCurrentGame().getTurn().setLastTurn(4);
+                }else{
+                    if(payload2.get("shuffle").getAsBoolean()){
+                        ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                        controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 1);
+                    }else{
+                        controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
+                    }
+                }
+                if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                    controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
+                else
+                    controller.updateBuilder();
+            }else{
+                controller.updateBuilder();
+            }
         }else{
             JsonObject payload = new JsonObject();
             payload.addProperty("gameAction", "MAIN_CHOICE");
