@@ -463,6 +463,13 @@ public class Cli implements UserInterface {
             mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
         }
 
+        if(requestMsg.getPayload().has("discardedLeaderCards")) {
+            json = requestMsg.getPayload().get("discardedLeaderCards").getAsString();
+            Type collectionType = new TypeToken<int[]>() {}.getType();
+            mySelf.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
+        }
+
+
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "MAIN_CHOICE");
 

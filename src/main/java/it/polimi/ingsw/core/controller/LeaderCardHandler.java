@@ -94,6 +94,10 @@ public class LeaderCardHandler{
                 }
             } else {
                 payload.addProperty("gameAction", "MAIN_CHOICE");
+                Gson gson = new Gson();
+                String json = gson.toJson(controller.getCurrentGame().getTurn().getLeaderCardDiscarded());
+                payload.addProperty("discardedLeaderCards", json);
+                controller.getCurrentGame().getTurn().resetDiscarded();
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         }

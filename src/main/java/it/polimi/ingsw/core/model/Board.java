@@ -84,7 +84,10 @@ public class Board {
      * @return the Leader Card selected
      */
     public LeaderCard getLeaderCard(int i){
-        return leaderCards.get(i);
+        if(leaderCards.size()>i)
+            return leaderCards.get(i);
+        else
+            return null;
     }
 
     /**
