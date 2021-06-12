@@ -40,7 +40,6 @@ public class LeaderCardHandler{
             lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
             if(check){
-                System.out.println("Quaaaaaaa "+lcID);
                 lc.setAbilityActivation();
                 controller.getCurrentPlayer().getBoard().setAbilityActivationFlag(lc.getSpecialAbility().getAbilityType(), lcID);
             }
