@@ -364,6 +364,12 @@ public class Gui implements UserInterface {
             Type collectionType = new TypeToken<int[]>(){}.getType();
             mySelf.getCompactBoard().setAbilityActivationFlag(gson.fromJson(json, collectionType));
         }
+
+        if(data.has("discardedLeaderCards")) {
+            String json = data.get("discardedLeaderCards").getAsString();
+            Type collectionType = new TypeToken<int[]>() {}.getType();
+            mySelf.getCompactBoard().removeDiscardedCards(gson.fromJson(json, collectionType));
+        }
     }
 
     private void handleReconnectionUpdate(RequestMsg requestMsg) {
