@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Stack;
@@ -16,7 +16,6 @@ import java.util.Stack;
  */
 public class LeaderCardsDeck {
     private Stack<LeaderCard> deck;
-    private static final String filename = "src/main/resources/leadercards.json";
 
     /**
      * Class constructor. Generates the 16 leader cards.
@@ -24,7 +23,7 @@ public class LeaderCardsDeck {
     public LeaderCardsDeck() throws FileNotFoundException {
         Type CARD_TYPE = new TypeToken<Stack<LeaderCard>>() {}.getType();
         Gson g = new Gson();
-        JsonReader jsonReader = new JsonReader(new FileReader(filename));
+        JsonReader jsonReader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/leadercards.json")));
         deck = g.fromJson(jsonReader, CARD_TYPE);
 
         Collections.shuffle(deck);
