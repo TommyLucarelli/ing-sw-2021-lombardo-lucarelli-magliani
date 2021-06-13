@@ -29,6 +29,10 @@ public class JoinLobbyController {
         }
     }
 
+    public void backAction(){
+        JavaFxApp.setRoot("welcome");
+    }
+
     /**
      * MenuBar onAction method.
      * Shows a popup containing the project's information.
