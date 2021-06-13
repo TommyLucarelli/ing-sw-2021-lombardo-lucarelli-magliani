@@ -35,11 +35,12 @@ public class RegistrationController implements DynamicController{
      */
     public void playAction(){
         JsonObject payload = new JsonObject();
-        if(!username.getText().isBlank()){
+        if(!username.getText().strip().isBlank()){
             payload.addProperty("input", username.getText());
             JavaFxApp.send(new ResponseMsg(null, MessageType.REGISTRATION_MESSAGE, payload));
             //JavaFxApp.setRoot("loading");
         } else {
+            username.setText(null);
             username.setPromptText("Please enter a username!");
         }
     }

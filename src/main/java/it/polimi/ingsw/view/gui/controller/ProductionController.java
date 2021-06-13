@@ -69,12 +69,14 @@ public class ProductionController implements Initializable {
             e0.setVisible(true);
             e0.setImage(new Image(getClass().getResourceAsStream("/images/production/special" +
                     (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[6] - 61) + ".png")));
+            eres0.setImage(new Image(getClass().getResourceAsStream("/images/resources/0.png")));
             if(JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[7] != 0){
                 e1.setVisible(true);
                 extratext1.setVisible(true);
                 eres1.setVisible(true);
                 e1.setImage(new Image(getClass().getResourceAsStream("/images/production/special" +
                         (JavaFxApp.getManager().getMyself().getCompactBoard().getAbilityActivationFlag()[7] - 61) + ".png")));
+                eres1.setImage(new Image(getClass().getResourceAsStream("/images/resources/0.png")));
             }
         }
     }
@@ -137,15 +139,15 @@ public class ProductionController implements Initializable {
     }
 
     public void adds2(){
-        addProd(2);
-    }
-
-    public void adde0(){
         addProd(3);
     }
 
-    public void adde1(){
+    public void adde0(){
         addProd(4);
+    }
+
+    public void adde1(){
+        addProd(5);
     }
 
     public void changeBasic0(){

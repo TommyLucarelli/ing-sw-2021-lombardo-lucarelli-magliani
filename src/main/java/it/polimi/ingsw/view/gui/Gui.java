@@ -89,6 +89,8 @@ public class Gui implements UserInterface {
                     case "LEADER_ACTION":
                         data = new JsonObject();
                         data.addProperty("leaders", (new Gson()).toJson(mySelf.getCompactBoard().getLeaderCards()));
+                        data.addProperty("flags", (new Gson()).toJson(mySelf.getCompactBoard().getAbilityActivationFlag()));
+                        if(request.getPayload().has("problem")) data.addProperty("problem", true);
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("leaderaction", data));
                         break;
                     case "MAIN_CHOICE":

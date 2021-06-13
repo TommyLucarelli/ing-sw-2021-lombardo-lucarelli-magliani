@@ -182,20 +182,21 @@ public class WarehousePlacementController implements DynamicController {
 
     private void placementMethod(int index){
         if(activeResource == Resource.ANY){ //SELECTING
-            activeResourceIndex = index;
-            if(index < 10){
-                activeResource = warehouse.get(index);
-                alreadyStored = true;
-            }
-            else activeResource = resources.get(index - 10);
+            if(allImages.get(index).getImage() != null) {
+                activeResourceIndex = index;
+                if (index < 10) {
+                    activeResource = warehouse.get(index);
+                    alreadyStored = true;
+                } else activeResource = resources.get(index - 10);
 
-            rectangles.get(index).setStroke(Color.BLUE);
-            rectangles.get(index).setVisible(true);
+                rectangles.get(index).setStroke(Color.BLUE);
+                rectangles.get(index).setVisible(true);
 
-            for (int i = 0; i < warehouseSize; i++) {
-                if(alreadyStored || canBeRemoved[i]){
-                    rectangles.get(i).setStroke(Color.YELLOW);
-                    rectangles.get(i).setVisible(true);
+                for (int i = 0; i < warehouseSize; i++) {
+                    if (alreadyStored || canBeRemoved[i]) {
+                        rectangles.get(i).setStroke(Color.YELLOW);
+                        rectangles.get(i).setVisible(true);
+                    }
                 }
             }
         } else { //PLACEMENT

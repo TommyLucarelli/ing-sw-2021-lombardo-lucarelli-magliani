@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.ProductionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.ProductionController">
    <children>
       <ImageView fitHeight="619.0" fitWidth="1113.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,7 +19,7 @@
       </ImageView>
       <Text layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Which production do you want to activate?" textAlignment="CENTER" wrappingWidth="1100.0">
          <font>
-            <Font size="24.0" />
+            <Font name="Trattatello" size="24.0" />
          </font>
       </Text>
       <HBox alignment="CENTER_RIGHT" layoutX="220.0" layoutY="114.0" prefHeight="403.0" prefWidth="624.0" spacing="20.0">
@@ -34,7 +34,7 @@
             <InnerShadow height="23.0" radius="11.0" width="23.0" />
          </effect>
          <font>
-            <Font size="18.0" />
+            <Font name="Trattatello" size="18.0" />
          </font>
       </Button>
       <ImageView fitHeight="164.0" fitWidth="185.0" layoutX="39.0" layoutY="221.0" onMouseClicked="#addbasic" pickOnBounds="true" preserveRatio="true">
@@ -44,8 +44,8 @@
       </ImageView>
       <ImageView fx:id="e0" fitHeight="182.0" fitWidth="173.0" layoutX="884.0" layoutY="148.0" onMouseClicked="#adde0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="e1" fitHeight="182.0" fitWidth="173.0" layoutX="884.0" layoutY="319.0" onMouseClicked="#adde1" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="eres0" fitHeight="80.0" fitWidth="59.0" layoutX="998.0" layoutY="159.0" onMouseClicked="#changeEres0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="eres1" fitHeight="80.0" fitWidth="59.0" layoutX="991.0" layoutY="336.0" onMouseClicked="#changeEres1" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres0" fitHeight="41.0" fitWidth="44.0" layoutX="998.0" layoutY="170.0" onMouseClicked="#changeEres0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="eres1" fitHeight="41.0" fitWidth="44.0" layoutX="998.0" layoutY="339.0" onMouseClicked="#changeEres1" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="basic0" fitHeight="41.0" fitWidth="44.0" layoutX="74.0" layoutY="267.0" onMouseClicked="#changeBasic0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/resources/0.png" />
@@ -66,12 +66,12 @@
             <Font name="Trattatello" size="18.0" />
          </font>
       </Text>
-      <Text fx:id="extratext0" layoutX="951.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
+      <Text fx:id="extratext0" layoutX="982.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
          <font>
             <Font name="Trattatello" size="13.0" />
          </font>
       </Text>
-      <Text fx:id="extratext1" layoutX="951.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
+      <Text fx:id="extratext1" layoutX="982.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to change">
          <font>
             <Font name="Trattatello" size="13.0" />
          </font>
@@ -80,15 +80,12 @@
       <Rectangle fx:id="r1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="230.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
       <Rectangle fx:id="r2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="442.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
       <Rectangle fx:id="r3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="655.0" layoutY="478.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="185.0" />
-      <Rectangle fx:id="r5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="452.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
-      <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="826.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
-      <Button layoutX="912.0" layoutY="535.0" mnemonicParsing="false" onAction="#comebackAction" prefHeight="41.0" prefWidth="118.0" text="Come back">
-         <effect>
-            <InnerShadow />
-         </effect>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <Rectangle fx:id="r4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="905.0" layoutY="275.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <Rectangle fx:id="r5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="8.0" layoutX="906.0" layoutY="447.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="130.0" />
+      <ImageView fitHeight="94.0" fitWidth="70.0" layoutX="985.0" layoutY="524.0" onMouseClicked="#comebackAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/undo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

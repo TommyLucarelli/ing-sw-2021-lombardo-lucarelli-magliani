@@ -38,11 +38,9 @@ public class CreateGameController implements Initializable {
         btn3.setUserData(3);
         btn4.setUserData(4);
 
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-            public void changed(ObservableValue<? extends Toggle> ov,
-                                Toggle toggle, Toggle new_toggle) {
-                numPlayers = (int) group.getSelectedToggle().getUserData();
-            }
+        group.selectedToggleProperty().addListener((ov, toggle, new_toggle) -> {
+            if(new_toggle == null) toggle.setSelected(true);
+            numPlayers = (int) group.getSelectedToggle().getUserData();
         });
     }
 

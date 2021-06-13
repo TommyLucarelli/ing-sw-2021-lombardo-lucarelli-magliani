@@ -12,9 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -30,6 +33,9 @@ public class LeaderActionController implements DynamicController, Initializable 
     @FXML
     Button actBtn, disBtn, comebackBtn, b0, b1;
 
+    @FXML
+    Text problem;
+
     int activeCard;
     int[] leaders;
 
@@ -44,12 +50,22 @@ public class LeaderActionController implements DynamicController, Initializable 
         Gson gson = new Gson();
         String json = data.get("leaders").getAsString();
         leaders = gson.fromJson(json, new TypeToken<int[]>(){}.getType());
+
+        ArrayList<Integer> flags;
+        json = data.get("flags").getAsString();
+        flags = gson.fromJson(json, new TypeToken<ArrayList<Integer>>(){}.getType());
+
         if(leaders[0] != 0){
             l0.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaders[0] + ".png")));
+            if(flags.contains(leaders[0])) b0.setDisable(true);
         }
+
         if(leaders[1] != 0){
             l1.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaders[1] + ".png")));
+            if(flags.contains(leaders[1])) b1.setDisable(true);
         }
+
+        if(data.has("problem")) problem.setVisible(true);
     }
 
     /**
