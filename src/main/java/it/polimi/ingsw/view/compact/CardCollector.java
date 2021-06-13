@@ -7,7 +7,7 @@ import it.polimi.ingsw.core.model.DevCard;
 import it.polimi.ingsw.core.model.LeaderCard;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -21,8 +21,6 @@ import java.util.List;
 public class CardCollector {
     private final List<DevCard> devCards;
     private final List<LeaderCard> leaderCards;
-    private static final String leaderCardsURI = "src/main/resources/leadercards.json";
-    private static final String devCardsURI = "src/main/resources/devcards.json";
 
     /**
      * Class constructor.
@@ -33,10 +31,10 @@ public class CardCollector {
         Type LEADERCARD_TYPE = new TypeToken<List<LeaderCard>>() {}.getType();
         Gson g = new Gson();
 
-        JsonReader jsonReader = new JsonReader(new FileReader(leaderCardsURI));
+        JsonReader jsonReader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/leadercards.json")));
         leaderCards = g.fromJson(jsonReader, LEADERCARD_TYPE);
 
-        jsonReader = new JsonReader(new FileReader(devCardsURI));
+        jsonReader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/devcards.json")));
         devCards = g.fromJson(jsonReader, DEVCARD_TYPE);
     }
 

@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Stack;
@@ -19,14 +19,13 @@ public class DevCardStructure {
     // memo: green-blue-yellow-purple 3 rows, 4 columns
     private Stack<DevCard>[][] structure;
     private static final Type CARD_TYPE = new TypeToken<Stack<DevCard>>() {}.getType();
-    private static final String filename = "src/main/resources/devcards.json";
 
     /**
      * Class constructor. Initializes the structure and then generates the development cards.
      */
     public DevCardStructure() throws FileNotFoundException{
         Gson g = new Gson();
-        JsonReader jsonReader = new JsonReader(new FileReader(filename));
+        JsonReader jsonReader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/devcards.json")));
         Stack<DevCard> cards = g.fromJson(jsonReader, CARD_TYPE);
 
         Collections.shuffle(cards);
