@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
    <children>
       <ImageView fitHeight="703.0" fitWidth="1309.0" layoutX="-1.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -113,7 +113,7 @@
       <ImageView fx:id="fp1" fitHeight="75.0" fitWidth="77.0" layoutX="238.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="fp2" fitHeight="75.0" fitWidth="77.0" layoutX="478.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="fp3" fitHeight="73.0" fitWidth="73.0" layoutX="770.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="slot11" fitHeight="270.0" fitWidth="168.0" layoutX="381.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot11" fitHeight="265.0" fitWidth="168.0" layoutX="380.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -122,7 +122,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot12" fitHeight="265.0" fitWidth="168.0" layoutX="382.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot12" fitHeight="265.0" fitWidth="168.0" layoutX="380.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -131,7 +131,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot13" fitHeight="268.0" fitWidth="168.0" layoutX="377.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot13" fitHeight="265.0" fitWidth="168.0" layoutX="380.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -140,7 +140,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot21" fitHeight="265.0" fitWidth="168.0" layoutX="568.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot21" fitHeight="265.0" fitWidth="168.0" layoutX="568.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -149,7 +149,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot22" fitHeight="265.0" fitWidth="168.0" layoutX="571.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot22" fitHeight="265.0" fitWidth="168.0" layoutX="568.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -158,7 +158,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot23" fitHeight="245.0" fitWidth="168.0" layoutX="568.0" layoutY="311.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot23" fitHeight="245.0" fitWidth="168.0" layoutX="568.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -167,7 +167,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot31" fitHeight="265.0" fitWidth="168.0" layoutX="763.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot31" fitHeight="265.0" fitWidth="168.0" layoutX="763.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -176,7 +176,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot32" fitHeight="265.0" fitWidth="168.0" layoutX="763.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot32" fitHeight="265.0" fitWidth="168.0" layoutX="763.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -185,7 +185,7 @@
             </InnerShadow>
          </effect>
       </ImageView>
-      <ImageView fx:id="slot33" fitHeight="265.0" fitWidth="168.0" layoutX="760.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="slot33" fitHeight="265.0" fitWidth="168.0" layoutX="763.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow choke="0.46">
                <color>
@@ -205,7 +205,7 @@
             <Image url="@../images/avatars/4.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="updates" editable="false" layoutX="401.0" layoutY="325.0" maxHeight="45.0" maxWidth="564.0" opacity="0.66" prefHeight="45.0" prefWidth="508.0" promptText="Updates:" text="Updates:">
+      <TextArea fx:id="updates" editable="false" layoutX="394.0" layoutY="683.0" maxWidth="1.7976931348623157E308" opacity="0.88" prefHeight="45.0" prefWidth="534.0" promptText="Updates:" text="Updates:">
          <font>
             <Font size="14.0" />
          </font>
@@ -252,7 +252,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="1.0" layoutY="113.0" prefHeight="32.0" prefWidth="176.0" spacing="70.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="65.0">
                <children>
-                  <Text fx:id="sCoin" fill="#ddcf4b" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sCoin" fill="#fff200" strokeType="INSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -263,7 +263,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sStone" fill="#ddcf4b" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sStone" fill="#c6c6c6" strokeType="INSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -294,14 +294,14 @@
                         <DropShadow />
                      </effect>
                      <HBox.margin>
-                        <Insets bottom="2.0" />
+                        <Insets bottom="2.0" left="4.0" />
                      </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="22.0" layoutY="137.0" prefHeight="54.0" prefWidth="158.0" spacing="70.0" AnchorPane.topAnchor="137.0">
                <children>
-                  <Text fx:id="sShield" fill="#bfb237" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sShield" fill="#00dcff" strokeType="INSIDE" strokeWidth="0.0" text="3">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -312,7 +312,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sServant" fill="#bfb237" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sServant" fill="#bd43ff" strokeType="INSIDE" strokeWidth="0.0" text="3" wrappingWidth="10.270843505859375">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>

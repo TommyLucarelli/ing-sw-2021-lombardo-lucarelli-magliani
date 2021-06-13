@@ -11,19 +11,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.WhiteMarbleController">
    <children>
-      <Text layoutX="9.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For each white marble, choose the desired resource!">
+      <ImageView fitHeight="543.0" fitWidth="487.0" layoutX="-69.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/backgroundPopoup.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="4.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For each white marble, choose the desired resource!" textAlignment="CENTER" wrappingWidth="418.0">
          <font>
             <Font name="Trattatello" size="24.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="pane1" layoutX="79.0" layoutY="58.0" prefHeight="75.0" prefWidth="267.0">
+      <AnchorPane fx:id="pane1" layoutX="80.0" layoutY="99.0" prefHeight="75.0" prefWidth="267.0">
          <children>
             <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/marbles/5.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="resource1" fitHeight="53.0" fitWidth="55.0" layoutX="180.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="resource1" fitHeight="62.0" fitWidth="70.0" layoutX="177.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
@@ -32,15 +37,18 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" layoutX="102.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" width="53.0" />
          </children>
       </AnchorPane>
-      <Button layoutX="182.0" layoutY="412.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm" />
-      <AnchorPane fx:id="pane2" layoutX="79.0" layoutY="133.0" prefHeight="75.0" prefWidth="267.0">
+      <Button layoutX="169.0" layoutY="417.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <AnchorPane fx:id="pane2" layoutX="80.0" layoutY="174.0" prefHeight="75.0" prefWidth="267.0">
          <children>
             <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/marbles/5.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="resource2" fitHeight="53.0" fitWidth="55.0" layoutX="180.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="resource2" fitHeight="62.0" fitWidth="70.0" layoutX="177.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
@@ -49,14 +57,14 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" layoutX="102.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" width="53.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane3" layoutX="79.0" layoutY="208.0" prefHeight="75.0" prefWidth="267.0">
+      <AnchorPane fx:id="pane3" layoutX="80.0" layoutY="249.0" prefHeight="75.0" prefWidth="267.0">
          <children>
             <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/marbles/5.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="resource3" fitHeight="53.0" fitWidth="55.0" layoutX="180.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="resource3" fitHeight="62.0" fitWidth="70.0" layoutX="177.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
@@ -65,14 +73,14 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" layoutX="102.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" width="53.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane4" layoutX="79.0" layoutY="283.0" prefHeight="75.0" prefWidth="267.0">
+      <AnchorPane fx:id="pane4" layoutX="80.0" layoutY="324.0" prefHeight="75.0" prefWidth="267.0">
          <children>
             <ImageView fitHeight="53.0" fitWidth="55.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/marbles/5.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="resource4" fitHeight="53.0" fitWidth="55.0" layoutX="180.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="resource4" fitHeight="62.0" fitWidth="70.0" layoutX="177.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/resources/0.png" />
                </image>
