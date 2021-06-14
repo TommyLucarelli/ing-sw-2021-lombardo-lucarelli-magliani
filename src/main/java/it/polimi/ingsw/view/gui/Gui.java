@@ -115,6 +115,8 @@ public class Gui implements UserInterface {
                     case "DEVCARD_PLACEMENT":
                         Platform.runLater(() -> JavaFxApp.showPopupWithData("placedevcard", request.getPayload()));
                         break;
+                    case "FINAL_UPDATE":
+                        Platform.runLater(() -> JavaFxApp.setRootWithData("ending", request.getPayload()));
                 }
         }
     }
@@ -161,6 +163,10 @@ public class Gui implements UserInterface {
 
     public CompactDevCardStructure getCompactDevCardStructure(){
         return compactDevCardStructure;
+    }
+
+    public CompactPlayer getOpponent(int index){
+        return opponents.get(index);
     }
 
     /**

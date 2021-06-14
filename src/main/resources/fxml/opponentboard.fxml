@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="979.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.OpponentBoardController">
+   <children>
+      <ImageView fitHeight="703.0" fitWidth="1309.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/board.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="f0" fitHeight="45.0" fitWidth="44.0" layoutX="40.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f1" fitHeight="45.0" fitWidth="44.0" layoutX="87.0" layoutY="133.0" pickOnBounds="true" />
+      <ImageView fx:id="f2" fitHeight="46.0" fitWidth="45.0" layoutX="133.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f3" fitHeight="45.0" fitWidth="45.0" layoutX="133.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f4" fitHeight="45.0" fitWidth="44.0" layoutX="133.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f5" fitHeight="45.0" fitWidth="44.0" layoutX="181.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f6" fitHeight="45.0" fitWidth="45.0" layoutX="228.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f7" fitHeight="45.0" fitWidth="41.0" layoutX="279.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f8" fitHeight="45.0" fitWidth="48.0" layoutX="324.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f9" fitHeight="45.0" fitWidth="45.0" layoutX="373.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f10" fitHeight="45.0" fitWidth="45.0" layoutX="373.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f11" fitHeight="45.0" fitWidth="41.0" layoutX="373.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f12" fitHeight="45.0" fitWidth="45.0" layoutX="421.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f13" fitHeight="45.0" fitWidth="41.0" layoutX="473.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f14" fitHeight="45.0" fitWidth="41.0" layoutX="521.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f15" fitHeight="45.0" fitWidth="41.0" layoutX="569.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f16" fitHeight="45.0" fitWidth="45.0" layoutX="615.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f17" fitHeight="45.0" fitWidth="45.0" layoutX="615.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f18" fitHeight="45.0" fitWidth="45.0" layoutX="615.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f19" fitHeight="45.0" fitWidth="45.0" layoutX="662.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f20" fitHeight="45.0" fitWidth="41.0" layoutX="707.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f21" fitHeight="45.0" fitWidth="45.0" layoutX="758.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f22" fitHeight="45.0" fitWidth="45.0" layoutX="807.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f23" fitHeight="45.0" fitWidth="45.0" layoutX="855.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="f24" fitHeight="45.0" fitWidth="47.0" layoutX="903.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp1" fitHeight="75.0" fitWidth="77.0" layoutX="239.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp2" fitHeight="75.0" fitWidth="77.0" layoutX="479.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="fp3" fitHeight="73.0" fitWidth="73.0" layoutX="771.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot11" fitHeight="265.0" fitWidth="168.0" layoutX="381.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot12" fitHeight="265.0" fitWidth="168.0" layoutX="381.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot13" fitHeight="265.0" fitWidth="168.0" layoutX="381.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot21" fitHeight="265.0" fitWidth="168.0" layoutX="569.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot22" fitHeight="265.0" fitWidth="168.0" layoutX="569.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot23" fitHeight="245.0" fitWidth="168.0" layoutX="569.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot31" fitHeight="265.0" fitWidth="168.0" layoutX="764.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot32" fitHeight="265.0" fitWidth="168.0" layoutX="764.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="slot33" fitHeight="265.0" fitWidth="168.0" layoutX="764.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow choke="0.46">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
+      <ImageView fx:id="w0" fitHeight="46.0" fitWidth="50.0" layoutX="106.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w1" fitHeight="45.0" fitWidth="50.0" layoutX="76.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w2" fitHeight="45.0" fitWidth="50.0" layoutX="123.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w3" fitHeight="52.0" fitWidth="50.0" layoutX="59.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w4" fitHeight="52.0" fitWidth="50.0" layoutX="100.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="w5" fitHeight="52.0" fitWidth="50.0" layoutX="148.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="101.0" fitWidth="107.0" layoutX="12.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/avatars/4.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="12.0" layoutY="500.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="200.0">
+         <children>
+            <HBox alignment="CENTER" layoutX="17.0" layoutY="18.0" prefHeight="60.0" prefWidth="169.0" spacing="25.0" AnchorPane.topAnchor="18.0">
+               <children>
+                  <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/0.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <ImageView fitHeight="62.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/1.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="1.0" layoutY="113.0" prefHeight="32.0" prefWidth="176.0" spacing="70.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="65.0">
+               <children>
+                  <Text fx:id="sCoin" fill="#fff200" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="sStone" fill="#c6c6c6" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="18.0" layoutY="96.0" prefHeight="59.0" prefWidth="160.0" spacing="20.0" AnchorPane.topAnchor="96.0">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/2.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <ImageView fitHeight="71.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/3.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="4.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="22.0" layoutY="137.0" prefHeight="54.0" prefWidth="158.0" spacing="70.0" AnchorPane.topAnchor="137.0">
+               <children>
+                  <Text fx:id="sShield" fill="#00dcff" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+                  <Text fx:id="sServant" fill="#bd43ff" strokeType="INSIDE" strokeWidth="0.0" text="3" wrappingWidth="10.270843505859375">
+                     <font>
+                        <Font name="Trattatello" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
