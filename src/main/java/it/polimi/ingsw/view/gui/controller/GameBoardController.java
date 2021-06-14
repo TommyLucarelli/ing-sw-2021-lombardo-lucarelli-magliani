@@ -135,20 +135,29 @@ public class GameBoardController implements DynamicController, Initializable {
 
     /**
      * onAction method: opens a popup that shows the player's leader cards.
-     * @throws IOException if the fxmlLoader cannot load the desired resource.
      */
     public void showLeaders(){
         JavaFxApp.showPopup("leadercards", true);
     }
 
+    /**
+     * onAction method: opens a popup that shows the market.
+     */
     public void showMarket(){
         JavaFxApp.showPopup("marketview", true);
     }
 
+    /**
+     * onAction method: opens a popup that shows the development card structure.
+     */
     public void showDevCards(){
         JavaFxApp.showPopup("devcardview", true);
     }
 
+    /**
+     * Show another player's board.
+     * @param player the index of the player in the opponents HashMap.
+     */
     private void showPlayer(CompactPlayer player){
         JsonObject data = new JsonObject();
         Gson gson = new Gson();
