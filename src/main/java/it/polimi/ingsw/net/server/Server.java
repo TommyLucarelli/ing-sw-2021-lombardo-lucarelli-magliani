@@ -2,6 +2,7 @@ package it.polimi.ingsw.net.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,7 +11,7 @@ import java.util.concurrent.Executors;
  * @author Giacomo Lombardo
  */
 public class Server {
-    public final static int SOCKET_PORT = 7777;
+    public static int SOCKET_PORT;
 
     public static void main(String[] args) {
         ServerSocket socket;
@@ -19,10 +20,11 @@ public class Server {
         /**
          * Initialize the ServerSocket.
          */
+        SOCKET_PORT = Integer.parseInt(args[0]);
         try{
             socket = new ServerSocket(SOCKET_PORT);
         } catch (IOException e){
-            System.err.println("IOException from Server: cannot open server socket");
+            System.err.println("IOException from Server: cannot open server socket on port " + SOCKET_PORT);
             System.exit(1);
             return;
         }

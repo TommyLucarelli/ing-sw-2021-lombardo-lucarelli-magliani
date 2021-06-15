@@ -17,7 +17,21 @@ public class Launcher {
         }
         switch (args[0]){
             case "-s":
-                Server.main(args);
+                if(args.length == 1){
+                    printHelpMessage("Missing argument:");
+                    return;
+                } else {
+                    int portNumber;
+                    try{
+                        portNumber = Integer.parseInt(args[1]);
+                        if(portNumber > 1 && portNumber < 65535) {
+                            Server.main(Arrays.copyOfRange(args, 1, 2));
+                            return;
+                        } else printHelpMessage("Invalid argument.");
+                    } catch (NumberFormatException e){
+                        printHelpMessage("Invalid argument.");
+                    }
+                }
                 break;
             case "-c":
                 if(args.length == 1){
@@ -51,8 +65,8 @@ public class Launcher {
      */
     public static void printHelpMessage(String errorMessage){
         System.out.println(errorMessage);
-        System.out.println("-s to launch the server");
-        System.out.println("-c IP_ADDRESS:PORT to launch the client in GUI mode");
-        System.out.println("-c -cli IP_ADDRESS:PORT to launch the client in CLI mode");
+        System.out.println("-s PORT_NUMBER to launch the server");
+        System.out.println("-c IP_ADDRESS:PORT_NUMBER to launch the client in GUI mode");
+        System.out.println("-c -cli IP_ADDRESS:PORT_NUMBER to launch the client in CLI mode");
     }
 }
