@@ -10,6 +10,7 @@ import it.polimi.ingsw.net.msg.ResponseMsg;
 import it.polimi.ingsw.view.gui.JavaFxApp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +32,9 @@ public class ProductionController implements Initializable {
     @FXML
     Text extratext0, extratext1;
 
+    @FXML
+    Button confirmButton;
+
     int eres0index = 0, eres1index = 0;
 
     int[] devCards = new int[3];
@@ -40,6 +44,7 @@ public class ProductionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        confirmButton.setDisable(true);
         e0.setVisible(false);
         e1.setVisible(false);
         extratext0.setVisible(false);
@@ -124,6 +129,7 @@ public class ProductionController implements Initializable {
             productions.add(prod + 1);
             rectangles.get(prod).setVisible(true);
         }
+        confirmButton.setDisable(productions.size() == 0);
     }
 
     public void addbasic(){
