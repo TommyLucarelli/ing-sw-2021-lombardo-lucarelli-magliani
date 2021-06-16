@@ -36,8 +36,8 @@ public class LeaderCardHandler{
         int vp;
         check = false;
         JsonObject payload = new JsonObject();
+        lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
         if (action) {
-            lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             check = checkRequirements(lc);
             if(check){
                 lc.setAbilityActivation();
@@ -46,8 +46,30 @@ public class LeaderCardHandler{
             if(check){
                 if(controller.getCurrentGame().getTurn().isEndGame()){
                     controller.getCurrentGame().getTurn().setEndGame(false);
-                    //update
-                    controller.updateBuilder();
+                    if(controller.getCurrentGame().getSinglePlayer()){
+                        Gson gson = new Gson();
+                        SoloActionToken sat = ((SingleBoard)controller.getCurrentPlayer().getBoard()).getSoloActionToken();
+                        JsonObject payload2 = sat.getAction();
+                        ((SingleTurn)controller.getCurrentGame().getTurn()).setSoloActionToken(sat);
+                        if(payload2.get("type").getAsInt() == 0){
+                            Colour c = gson.fromJson(payload2.get("colour").getAsString(), Colour.class);
+                            if(controller.getCurrentGame().getDevCardStructure().discardSingle(c))
+                                controller.getCurrentGame().getTurn().setLastTurn(4);
+                        }else{
+                            if(payload2.get("shuffle").getAsBoolean()){
+                                ((SingleBoard) controller.getCurrentPlayer().getBoard()).shuffleDeck();
+                                controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 1);
+                            }else{
+                                controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 0, 2);
+                            }
+                        }
+                        if(controller.getCurrentGame().getTurn().isLastTurn() == 4)
+                            controller.finalUpdate(controller.getCurrentPlayer().getPlayerID());
+                        else
+                            controller.updateBuilder();
+                    }else{
+                        controller.updateBuilder();
+                    }
                 } else{
                     payload.addProperty("gameAction", "MAIN_CHOICE");
                     Gson gson = new Gson();
@@ -61,7 +83,6 @@ public class LeaderCardHandler{
                 controller.notifyCurrentPlayer(new RequestMsg(MessageType.GAME_MESSAGE, payload));
             }
         } else {
-            lc = controller.getCurrentPlayer().getBoard().getLeader(lcID);
             controller.getCurrentGame().getTurn().setLeaderCardDiscarded(lc.getId());
             controller.getCurrentPlayer().getBoard().removeLeaderCard(controller.getCurrentPlayer().getBoard().getLeader(lcID));
             controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);

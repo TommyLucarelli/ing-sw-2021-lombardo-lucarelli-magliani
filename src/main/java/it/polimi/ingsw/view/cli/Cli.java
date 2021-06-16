@@ -1195,15 +1195,20 @@ public class Cli implements UserInterface {
             }
         }
 
-        String currPlayer = requestMsg.getPayload().get("currPlayer").getAsString();
+
 
         System.out.println("\nYou are back in the game");
-        System.out.println("\n"+currPlayer+" is now playing");
 
-        for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
-            if(entry.getValue().getPlayerName().equals(currPlayer)){
-                System.out.println("\n"+entry.getValue().getPlayerName().toUpperCase()+"'S BOARD\n"); //da colorare e mettere in grande
-                fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+        if(requestMsg.getPayload().has("initial")){
+            System.out.println("\nWait for the other players to finish their initial turn");
+        }else {
+            String currPlayer = requestMsg.getPayload().get("currPlayer").getAsString();
+            System.out.println("\n" + currPlayer + " is now playing");
+            for (HashMap.Entry<Integer, CompactPlayer> entry : opponents.entrySet()) {
+                if (entry.getValue().getPlayerName().equals(currPlayer)) {
+                    System.out.println("\n" + entry.getValue().getPlayerName().toUpperCase() + "'S BOARD\n"); //da colorare e mettere in grande
+                    fancyPrinter.printPersonalBoard(entry.getValue().getCompactBoard());
+                }
             }
         }
 
