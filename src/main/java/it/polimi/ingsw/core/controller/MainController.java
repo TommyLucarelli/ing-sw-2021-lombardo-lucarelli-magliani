@@ -411,15 +411,14 @@ public class MainController{
                 if(currentGame.getTurn().blackListSize() == numPlayers){
                     currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
                     currentPlayer = currentGame.getTurn().nextPlayer();
-                    reconnectionUpdate(playerHandler, true);
+                    reconnectionUpdate(playerHandler, true, false);
+                    countStartPhase = players.size();
                 }else {
                     currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
                     if (countStartPhase == players.size())
-                        reconnectionUpdate(playerHandler, false);
+                        reconnectionUpdate(playerHandler, false, false);
                     else {
-                        payload.addProperty("gameAction", "SHORT_UPDATE");
-                        payload.addProperty("message", "\nWait for others player\n");
-                        this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+                        reconnectionUpdate(playerHandler, false, true);
                     }
                 }
             } else {
@@ -432,18 +431,21 @@ public class MainController{
 
     }
 
-    private void reconnectionUpdate(PlayerHandler playerHandler, boolean first){
+    private void reconnectionUpdate(PlayerHandler playerHandler, boolean first, boolean initial){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "RECONNECTION_UPDATE");
 
         if(first)
             payload.addProperty("first", true);
+        if(initial)
+            payload.addProperty("initial", false);
+        else
+            payload.addProperty("currPlayer", currentPlayer.getNickname());
 
         if(currentGame.getSinglePlayer()){
             payload.add("lorenzoTrack", ((SingleBoard)currentPlayer.getBoard()).getLorenzoTrack().toCompactFaithTrack());
         }
 
-        payload.addProperty("currPlayer", currentPlayer.getNickname());
 
         payload.addProperty("myPlayerID", playerHandler.getPlayerId());
         payload.addProperty("myName", playerHandler.getUsername());
