@@ -20,7 +20,7 @@ public class FancyPrinter {
 
     public FancyPrinter(){
         try {
-           cardCollector = new CardCollector();
+            cardCollector = new CardCollector();
         }catch(FileNotFoundException e){
             System.out.println("\nFile not found");
         }
@@ -33,41 +33,41 @@ public class FancyPrinter {
      */
     public void printMarket(CompactMarket market) {
         StringBuilder string = new StringBuilder();
-        string.append("\t\t").append(1).append(" \t\t").append(2).append("\t\t").append(3).append("\t\t").append(4).append("\n");
-        string.append("\t -------------------------------\n").append(1).append("\t|");
+        string.append("       ").append(1).append("      ").append(2).append("      ").append(3).append("      ").append(4).append("\n");
+        string.append("   -------------------------------\n").append(1).append("  |");
 
         for (int i = 0; i < 13; i++) {
             switch (market.getMarket()[i]) {
                 case 0:
-                    string.append("\t").append(Color.YELLOW_BOLD.color()).append("●\t");
+                    string.append("   ").append(Color.YELLOW_BOLD.color()).append("●   ");
                     break;
                 case 1:
-                    string.append("\t").append(Color.WHITE_BOLD.color()).append("●\t");
+                    string.append("   ").append(Color.WHITE_BOLD.color()).append("●   ");
                     break;
                 case 2:
-                    string.append("\t").append(Color.BLUE_BOLD.color()).append("●\t");
+                    string.append("   ").append(Color.BLUE_BOLD.color()).append("●   ");
                     break;
                 case 3:
-                    string.append("\t").append(Color.PURPLE_BOLD.color()).append("●\t");
+                    string.append("   ").append(Color.PURPLE_BOLD.color()).append("●   ");
                     break;
                 case 4:
-                    string.append("\t").append(Color.RED_BOLD.color()).append("●\t");
+                    string.append("   ").append(Color.RED_BOLD.color()).append("●   ");
                     break;
                 case 5:
-                    string.append("\t").append(Color.RESET).append("●\t");
+                    string.append("   ").append(Color.RESET).append("●   ");
                     break;
-        }
+            }
 
             if (i == 3) {
-                string.append(Color.RESET).append("|\n").append(2).append("\t|");
+                string.append(Color.RESET).append(" |\n").append(2).append("  |");
             } else if (i == 7) {
-                string.append(Color.RESET).append("|\n").append(3).append("\t|");
+                string.append(Color.RESET).append(" |\n").append(3).append("  |");
             } else if (i == 11) {
-                string.append(Color.RESET).append("|\t");
+                string.append(Color.RESET).append(" |  ");
             }
         }
 
-        string.append(Color.RESET).append("\n\t -------------------------------");
+        string.append(Color.RESET).append("\n   -------------------------------");
         stream.print(string);
     }
 
@@ -88,20 +88,20 @@ public class FancyPrinter {
         ArrayList<StringBuilder> stringDevCard = new ArrayList<>();
         DevCard devCard1;
         if(id==0){
-            string1.append("\t┌───────────────────┐");
-            string2.append("\t│\t\t\t\t\t│");
-            string3.append("\t│\t\t\t\t\t│");
-            string4.append("\t│\t\t\t\t\t│");
-            string5.append("\t│\t\t\t\t\t│");
-            string6.append("\t│\t\t\t\t\t│");
-            string7.append("\t│\t\t\t\t\t│");
-            string8.append("\t│\t\t\t\t\t│");
-            string9.append("\t└───────────────────┘");
+            string1.append("  ┌───────────────────┐");
+            string2.append("  │                   │");
+            string3.append("  │                   │");
+            string4.append("  │                   │");
+            string5.append("  │                   │");
+            string6.append("  │                   │");
+            string7.append("  │                   │");
+            string8.append("  │                   │");
+            string9.append("  └───────────────────┘");
         } else {
             devCard1 = cardCollector.getDevCard(id);
 
-            string1.append("\t┌───────────────────┐");
-            string2.append("\t│  ");
+            string1.append("  ┌───────────────────┐");
+            string2.append("  │  ");
             switch (devCard1.getFlag().getColour()) {
                 case YELLOW:
                     string2.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET);
@@ -144,7 +144,7 @@ public class FancyPrinter {
                 }
                 switch (devCard1.getCost().size()) {
                     case 1:
-                        string2.append("  ");
+                        string2.append("   ");
                     case 2:
                         string2.append(" ");
                     case 3:
@@ -155,21 +155,21 @@ public class FancyPrinter {
 
             switch (devCard1.getFlag().getColour()) {
                 case YELLOW:
-                    string2.append(Color.YELLOW_BOLD.color()).append("▓\t").append(Color.RESET).append("│");
+                    string2.append(Color.YELLOW_BOLD.color()).append("▓  ").append(Color.RESET).append("│");
                     break;
                 case BLUE:
-                    string2.append(Color.HEAVENLY_BOLD.color()).append("▓\t").append(Color.RESET).append("│");
+                    string2.append(Color.HEAVENLY_BOLD.color()).append("▓  ").append(Color.RESET).append("│");
                     break;
                 case GREEN:
-                    string2.append(Color.GREEN_BOLD.color()).append("▓\t").append(Color.RESET).append("│");
+                    string2.append(Color.GREEN_BOLD.color()).append("▓  ").append(Color.RESET).append("│");
                     break;
                 case PURPLE:
-                    string2.append(Color.PURPLE_BOLD.color()).append("▓\t").append(Color.RESET).append("│");
+                    string2.append(Color.PURPLE_BOLD.color()).append("▓  ").append(Color.RESET).append("│");
                     break;
             }
 
-            string3.append("\t│\t\t\t\t\t│");
-            string4.append("\t│\t");
+            string3.append("  │                   │");
+            string4.append("  │   ");
 
             for (int i = 0; i < devCard1.getRecipe().getInputResources().size(); i++) {
                 int qtyIn = devCard1.getRecipe().getInputResources().get(i).getQty();
@@ -189,7 +189,7 @@ public class FancyPrinter {
                 }
                 switch (devCard1.getRecipe().getInputResources().size()) {
                     case 1:
-                        string4.append("\t");
+                        string4.append("      ");
                     case 2:
                         string4.append("  ");
                     case 3:
@@ -199,10 +199,10 @@ public class FancyPrinter {
 
             switch (devCard1.getRecipe().getInputResources().size()) {
                 case 1:
-                    string4.append("\t\t\t│");
+                    string4.append("    │");
                     break;
                 case 2:
-                    string4.append("\t│");
+                    string4.append("    │");
                     break;
                 case 3:
                     string4.append(" │");
@@ -210,9 +210,9 @@ public class FancyPrinter {
             }
 
             if (devCard1.getRecipe().getOutputResources().size() != 3) {
-                string5.append("\t│\t─►\t");
+                string5.append("  │ ─►   ");
             } else {
-                string5.append("\t│ ─► ");
+                string5.append("  │ ─► ");
             }
 
             for (int i = 0; i < devCard1.getRecipe().getOutputResources().size(); i++) {
@@ -235,7 +235,7 @@ public class FancyPrinter {
                 }
                 switch (devCard1.getRecipe().getOutputResources().size()) {
                     case 1:
-                        string5.append("\t");
+                        string5.append("     ");
                         break;
                     case 2:
                         string5.append("  ");
@@ -247,17 +247,21 @@ public class FancyPrinter {
             }
             switch (devCard1.getRecipe().getOutputResources().size()) {
                 case 1:
-                    string5.append("\t");
+                    string5.append("  ");
                 case 2:
                     string5.append("");
                 case 3:
                     string5.append(" ");
             }
-            string5.append("\t│");
-            string6.append("\t│\t\t\t\t\t│");
-            string7.append("\t│\t\t\t\t\t│");
-            string8.append("\t│ VictoryPoints:").append(devCard1.getVictoryPoints()).append("\t│");
-            string9.append("\t└───────────────────┘");
+            string5.append("  │");
+            string6.append("  │                   │");
+            string7.append("  │                   │");
+            if(devCard1.getVictoryPoints()>9){
+                string8.append("  │ VictoryPoints:").append(devCard1.getVictoryPoints()).append("  │");
+            } else {
+                string8.append("  │ VictoryPoints:").append(devCard1.getVictoryPoints()).append("   │");
+            }
+            string9.append("  └───────────────────┘");
 
         }
 
@@ -299,7 +303,7 @@ public class FancyPrinter {
             e.printStackTrace();
         }
         if(id!=0) {
-            base1.append("\t│  ");
+            base1.append("        │  ");
             switch (cardCollector.getDevCard(id).getFlag().getColour()) {
                 case YELLOW:
                     base1.append(Color.YELLOW_BOLD.color()).append("▓").append(Color.RESET);
@@ -314,26 +318,26 @@ public class FancyPrinter {
                     base1.append(Color.PURPLE_BOLD.color()).append("▓").append(Color.RESET);
                     break;
             }
-            base1.append("\t VP:").append(cardCollector.getDevCard(id).getVictoryPoints());
+            base1.append("         VP:").append(cardCollector.getDevCard(id).getVictoryPoints());
             switch (cardCollector.getDevCard(id).getFlag().getColour()) {
                 case YELLOW:
-                    base1.append(Color.YELLOW_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    base1.append(Color.YELLOW_BOLD.color()).append("         ▓").append(Color.RESET);
                     break;
                 case BLUE:
-                    base1.append(Color.HEAVENLY_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    base1.append(Color.HEAVENLY_BOLD.color()).append("         ▓").append(Color.RESET);
                     break;
                 case GREEN:
-                    base1.append(Color.GREEN_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    base1.append(Color.GREEN_BOLD.color()).append("         ▓").append(Color.RESET);
                     break;
                 case PURPLE:
-                    base1.append(Color.PURPLE_BOLD.color()).append("\t ▓").append(Color.RESET);
+                    base1.append(Color.PURPLE_BOLD.color()).append("         ▓").append(Color.RESET);
                     break;
             }
             base1.append("  │");
-            base2.append("\t└───────────────────┘");
+            base2.append("        └───────────────────┘");
         } else {
-            base1.append("\t│                   │");
-            base2.append("\t└───────────────────┘");
+            base1.append("        │                   │");
+            base2.append("        └───────────────────┘");
         }
         ArrayList<StringBuilder> base = new ArrayList<>();
         base.add(base1);
@@ -356,12 +360,12 @@ public class FancyPrinter {
 
         int x = 0;
         if(production){
-            string.get(0).append("   \t\t\t 2\t\t\t\t\t\t\t 3\t\t\t\t\t\t\t 4");
+            string.get(0).append("            2         3         4");
             x = 1;
         }
         for (int j = 0; j < 9; j++) {
             for (int i = 0; i < 3; i++) {
-                string.get(j+x).append(devCardToArrayList(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
+                string.get(j+x).append(devCardToArrayList(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("        ");
             }
         }
 
@@ -371,9 +375,9 @@ public class FancyPrinter {
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
                 if(indexHelper[i] < 0)
-                    string.get(j + 9 + x).append(printBase(0).get(j)).append("\t");
+                    string.get(j + 9 + x).append(printBase(0).get(j)).append("        ");
                 else
-                    string.get(j + 9 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
+                    string.get(j + 9 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("        ");
             }
         }
 
@@ -383,9 +387,9 @@ public class FancyPrinter {
         for (int j = 0; j < 2; j++) {
             for (int i = 0; i < 3; i++) {
                 if(indexHelper[i] < 0)
-                    string.get(j + 11 + x).append(printBase(0).get(j)).append("\t");
+                    string.get(j + 11 + x).append(printBase(0).get(j)).append("        ");
                 else
-                    string.get(j + 11 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("\t");
+                    string.get(j + 11 + x).append(printBase(board.getDevCardSlots()[i][indexHelper[i]]).get(j)).append("        ");
             }
         }
 
@@ -408,17 +412,17 @@ public class FancyPrinter {
      */
     public void printDevCardStructure(CompactDevCardStructure devCardStructure) {
         StringBuilder strDevCardStructure = new StringBuilder();
-        strDevCardStructure.append("\t\t\t\t\tGreen\t\t\t\t\t\tBlue\t\t\t\t\tYellow\t\t\t\t\t\tPurple");
+        strDevCardStructure.append("        Green        Blue        Yellow        Purple");
 
         for (int k = 0; k < 3; k++) {
             for (int i = 0; i < 9; i++) {
                 if (i != 4) {
-                    strDevCardStructure.append("\n\t\t");
+                    strDevCardStructure.append("\n        ");
                 } else {
-                    strDevCardStructure.append("\n\tLevel ").append(k+1);
+                    strDevCardStructure.append("\n        Level ").append(k+1);
                 }
                 for (int j = 0; j < 4; j++) {
-                    strDevCardStructure.append(devCardToArrayList(devCardStructure.getDevCardStructure()[k][j]).get(i)).append("\t");
+                    strDevCardStructure.append(devCardToArrayList(devCardStructure.getDevCardStructure()[k][j]).get(i)).append("        ");
                 }
             }
             strDevCardStructure.append("\n");
@@ -444,35 +448,35 @@ public class FancyPrinter {
         ArrayList<StringBuilder> stringLeaderCard = new ArrayList<>();
         LeaderCard leaderCard;
         if(id==0){
-            string1.append("\t┌───────────────────┐");
-            string2.append("\t│\t\t\t\t\t│");
-            string3.append("\t│\t\t\t\t\t│");
-            string4.append("\t│\t\t\t\t\t│");
-            string5.append("\t│\t\t\t\t\t│");
-            string6.append("\t│\t\t\t\t\t│");
-            string7.append("\t│\t\t\t\t\t│");
-            string8.append("\t│\t\t\t\t\t│");
-            string9.append("\t│\t\t\t\t\t│");
-            string10.append("\t└───────────────────┘");
+            string1.append("        ┌───────────────────┐");
+            string2.append("        │        │");
+            string3.append("        │        │");
+            string4.append("        │        │");
+            string5.append("        │        │");
+            string6.append("        │        │");
+            string7.append("        │        │");
+            string8.append("        │        │");
+            string9.append("        │        │");
+            string10.append("        └───────────────────┘");
         } else {
             leaderCard = cardCollector.getLeaderCard(id);
             int[] num = new int[4];
 
-            string1.append("\t┌───────────────────┐");
-            string2.append("\t│  ");
+            string1.append("        ┌───────────────────┐");
+            string2.append("        │  ");
             if (leaderCard.getSpecialAbility().getAbilityType() == 0) {
                 switch (leaderCard.getRequiredResources().getResource()) {
                     case COIN:
-                        string2.append(Color.YELLOW_BOLD.color()).append(5).append(" $").append(Color.RESET).append("\t\t\t\t│");
+                        string2.append(Color.YELLOW_BOLD.color()).append(5).append(" $").append(Color.RESET).append("        │");
                         break;
                     case SERVANT:
-                        string2.append(Color.PURPLE_BOLD.color()).append(5).append(" ■").append(Color.RESET).append("\t\t\t\t│");
+                        string2.append(Color.PURPLE_BOLD.color()).append(5).append(" ■").append(Color.RESET).append("        │");
                         break;
                     case SHIELD:
-                        string2.append(Color.HEAVENLY_BOLD.color()).append(5).append(" ◊").append(Color.RESET).append("\t\t\t\t│");
+                        string2.append(Color.HEAVENLY_BOLD.color()).append(5).append(" ◊").append(Color.RESET).append("        │");
                         break;
                     case STONE:
-                        string2.append(Color.WHITE_BOLD.color()).append(5).append(" ⌂").append(Color.RESET).append("\t\t\t\t│");
+                        string2.append(Color.WHITE_BOLD.color()).append(5).append(" ⌂").append(Color.RESET).append("        │");
                         break;
                 }
             } else {
@@ -495,35 +499,35 @@ public class FancyPrinter {
                     if (num[i] != 0) cont++;
                 }
                 if (cont == 2) {
-                    string2.append("\t\t│");
+                    string2.append("        │");
                 } else {
-                    string2.append("\t\t\t│");
+                    string2.append("        │");
                 }
             }
 
-            string3.append("\t│\t\t\t\t\t│");
-            string4.append("\t│\t\t\t\t\t│");
-            string5.append("\t│ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("\t│");
-            string6.append("\t│\t\t\t\t\t│");
-            string7.append("\t│ SpecialAbility:\t│");
-            string8.append("\t│ ");
+            string3.append("        │        │");
+            string4.append("        │        │");
+            string5.append("        │ VictoryPoints:").append(leaderCard.getVictoryPoints()).append("        │");
+            string6.append("        │        │");
+            string7.append("        │ SpecialAbility:        │");
+            string8.append("        │ ");
 
             switch (leaderCard.getSpecialAbility().getAbilityType()) {
                 case 0:
                     string8.append("Special Warehouse │");
-                    string9.append("\t│\t +2");
+                    string9.append("        │         +2");
                     break;
                 case 1:
                     string8.append("Special Marble    │");
-                    string9.append("\t│\t● =");
+                    string9.append("        │        ● =");
                     break;
                 case 2:
                     string8.append("Special Discount  │");
-                    string9.append("\t│\t -1 ");
+                    string9.append("        │         -1 ");
                     break;
                 case 3:
                     string8.append("Special Production│");
-                    string9.append("\t│\t");
+                    string9.append("        │        ");
                     break;
             }
 
@@ -542,8 +546,8 @@ public class FancyPrinter {
                         string9.append(Color.WHITE_BOLD.color()).append(" ⌂").append(Color.RESET);
                         break;
                 }
-                string9.append("\t\t\t│");
-                string10.append("\t└───────────────────┘");
+                string9.append("        │");
+                string10.append("        └───────────────────┘");
             } else {
                 switch (leaderCard.getSpecialAbility().getAbilityResource()) {
                     case COIN:
@@ -560,7 +564,7 @@ public class FancyPrinter {
                         break;
                 }
                 string9.append(" ─► 1 ").append(Color.WHITE_BOLD.color()).append("? ").append(Color.RESET).append(1).append(Color.RED_BOLD.color()).append(" †").append(Color.RESET).append("  │");
-                string10.append("\t└───────────────────┘");
+                string10.append("        └───────────────────┘");
             }
         }
         stringLeaderCard.add(string1);
@@ -600,7 +604,7 @@ public class FancyPrinter {
         Boolean flag;
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < board.getLeaderCards().length; i++) {
-                string.get(j).append(leaderCardToArrayList(board.getLeaderCards()[i]).get(j)).append("\t");
+                string.get(j).append(leaderCardToArrayList(board.getLeaderCards()[i]).get(j)).append("        ");
             }
         }
 
@@ -613,9 +617,9 @@ public class FancyPrinter {
                 }
             }
             if(flag)
-                string.get(10).append("\t\tActivated\t");
+                string.get(10).append("        Activated        ");
             else
-                string.get(10).append("\t\t\t\tNot Activated\t");
+                string.get(10).append("        Not Activated        ");
         }
 
         return string;
@@ -639,7 +643,7 @@ public class FancyPrinter {
         StringBuilder leaderCardSlot = new StringBuilder();
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < leaderCardArray.length; i++) {
-                leaderCardSlot.append(leaderCardToArrayList(leaderCardArray[i]).get(j)).append("\t");
+                leaderCardSlot.append(leaderCardToArrayList(leaderCardArray[i]).get(j)).append("        ");
             }
             leaderCardSlot.append("\n");
         }
@@ -755,17 +759,17 @@ public class FancyPrinter {
                 string15.append(" ONLY");
                 string16.append(Color.RESET).append("      └───────────┘");
             }else{
-                string14.append("\t\t\t\t");
-                string15.append("\t\t\t\t");
-                string16.append("\t\t\t\t");
+                string14.append("        ");
+                string15.append("        ");
+                string16.append("        ");
             }
         } else {
-            string11.append("\t\t\t\t");
-            string12.append("\t\t\t\t\t\t");
-            string13.append("\t\t\t\t");
-            string14.append("\t\t\t\t");
-            string15.append("\t\t\t\t");
-            string16.append("\t\t\t\t");
+            string11.append("        ");
+            string12.append("        ");
+            string13.append("        ");
+            string14.append("        ");
+            string15.append("        ");
+            string16.append("        ");
         }
 
         ArrayList<StringBuilder> string = new ArrayList<>();
@@ -838,34 +842,34 @@ public class FancyPrinter {
     public void printWarehouse(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append("\n").append(Color.GREEN_BOLD.color()).append("\t\t\t\t\tWAREHOUSE\n");
-        string.append("\t\t\t\t");
+        string.append("\n").append(Color.GREEN_BOLD.color()).append("        WAREHOUSE\n");
+        string.append("        ");
 
         for (int i = 0; i < 10; i++) {
-                switch (board.getWarehouse()[i]) {
-                    case STONE:
-                        string.append("\t").append(Color.WHITE_BOLD.color()).append(" STONE");
-                        break;
-                    case SERVANT:
-                        string.append("\t").append(Color.PURPLE_BOLD.color()).append("SERVANT");
-                        break;
-                    case COIN:
-                        string.append("\t").append(Color.YELLOW_BOLD.color()).append(" COIN");
-                        break;
-                    case SHIELD:
-                        string.append("\t").append(Color.BLUE_BOLD.color()).append("SHIELD");
-                        break;
-                    case ANY:
-                        string.append("");
-                }
+            switch (board.getWarehouse()[i]) {
+                case STONE:
+                    string.append("        ").append(Color.WHITE_BOLD.color()).append(" STONE");
+                    break;
+                case SERVANT:
+                    string.append("        ").append(Color.PURPLE_BOLD.color()).append("SERVANT");
+                    break;
+                case COIN:
+                    string.append("        ").append(Color.YELLOW_BOLD.color()).append(" COIN");
+                    break;
+                case SHIELD:
+                    string.append("        ").append(Color.BLUE_BOLD.color()).append("SHIELD");
+                    break;
+                case ANY:
+                    string.append("");
+            }
 
 
             if(i==0){
-                string.append("\n\t\t\t");
+                string.append("\n        ");
             } else if(i==2){
-                string.append("\n\t\t");
+                string.append("\n        ");
             } else if(i==5){
-                string.append(Color.RESET).append("\n\t----------------------------------------\n\t");
+                string.append(Color.RESET).append("\n        ----------------------------------------\n        ");
             }
         }
         string.append("\n");
@@ -886,17 +890,17 @@ public class FancyPrinter {
         StringBuilder string6 = new StringBuilder();
         StringBuilder string7 = new StringBuilder();
 
-        string1.append(Color.GREEN_BOLD.color()).append("\t\tSTRONGBOX").append(Color.RESET);
+        string1.append(Color.GREEN_BOLD.color()).append("        STRONGBOX").append(Color.RESET);
         string2.append(Color.RESET).append("┌───────────────────────┐");
-        string3.append("│\t").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET);
+        string3.append("│        ").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET);
         if(board.getStrongbox()[0]>9){
-             string3.append("\t\t\t│");
+            string3.append("        │");
         } else {
-            string3.append("\t\t\t\t│");
+            string3.append("        │");
         }
-        string4.append("│\t").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("\t\t\t│");
-        string5.append("│\t").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("\t\t\t│");
-        string6.append("│\t").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("\t\t\t│");
+        string4.append("│        ").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("        │");
+        string5.append("│        ").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("        │");
+        string6.append("│        ").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("        │");
         string7.append(Color.RESET).append("└───────────────────────┘");
 
         ArrayList<StringBuilder> string = new ArrayList<>();
@@ -928,11 +932,11 @@ public class FancyPrinter {
     public void printFaithTrack(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append(Color.YELLOW_BOLD.color()).append("{●} = Victory Points Space\t").append(Color.RESET).append(Color.LIME.color()).append("{†} = Faith Marker\n").append(Color.RESET).append(Color.HEAVENLY_BOLD.color()).append("{☼} = Pope's Favor tiles\t").append(Color.RESET).append(Color.RED_BOLD.color()).append("{♣} = Pope Space\t").append(Color.RESET).append(Color.PURPLE_BOLD.color()).append("─── = Vatican Report section\n\n").append(Color.RESET);
+        string.append(Color.YELLOW_BOLD.color()).append("{●} = Victory Points Space        ").append(Color.RESET).append(Color.LIME.color()).append("{†} = Faith Marker\n").append(Color.RESET).append(Color.HEAVENLY_BOLD.color()).append("{☼} = Pope's Favor tiles        ").append(Color.RESET).append(Color.RED_BOLD.color()).append("{♣} = Pope Space        ").append(Color.RESET).append(Color.PURPLE_BOLD.color()).append("─── = Vatican Report section\n\n").append(Color.RESET);
 
-        string.append(Color.PURPLE_BOLD.color()).append("\t\t\t\t\t┌─────────────────┐");
-        string.append("\t\t\t      ┌").append("───────────────────────").append("┐");
-        string.append("\t\t     ┌─").append("──────────────────────────────").append("┐").append("\n");
+        string.append(Color.PURPLE_BOLD.color()).append("        ┌─────────────────┐");
+        string.append("              ┌").append("───────────────────────").append("┐");
+        string.append("             ┌─").append("──────────────────────────────").append("┐").append("\n");
         string.append(Color.RESET);
 
         for (int i = 0; i < 25; i++) {
@@ -958,19 +962,19 @@ public class FancyPrinter {
             }
         }
 
-        string.append("\n\t\t\t\t\t").append(Color.PURPLE_BOLD.color()).append("└────┐ \t\t ┌────┘\t\t\t      └──────┐\t\t   ┌──────┘\t\t     └───────────┐\t\t\t┌────────┘");
-        string.append("\n\t\t\t\t\t     ").append(Color.PURPLE_BOLD.color()).append("│ ").append(Color.HEAVENLY_BOLD.color());
+        string.append("\n        ").append(Color.PURPLE_BOLD.color()).append("└────┐          ┌────┘              └──────┐           ┌──────┘             └───────────┐        ┌────────┘");
+        string.append("\n             ").append(Color.PURPLE_BOLD.color()).append("│ ").append(Color.HEAVENLY_BOLD.color());
 
         if (board.getFavCards()[0]) {
-            string.append("VP:+").append(2).append(Color.PURPLE_BOLD.color()).append(" │\t\t\t\t\t\t     │  ");
+            string.append("VP:+").append(2).append(Color.PURPLE_BOLD.color()).append(" │             │  ");
         } else {
-            string.append(" {☼}").append(Color.PURPLE_BOLD.color()).append("  │\t\t\t\t\t\t     │  ");
+            string.append(" {☼}").append(Color.PURPLE_BOLD.color()).append("  │             │  ");
         }
         string.append(Color.HEAVENLY_BOLD.color());
         if(board.getFavCards()[1]){
-            string.append("VP:+").append(3).append(Color.PURPLE_BOLD.color()).append("  │\t\t\t\t\t\t\t │");
+            string.append("VP:+").append(3).append(Color.PURPLE_BOLD.color()).append("  │         │");
         } else {
-            string.append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append(" │\t\t\t\t\t\t\t │");
+            string.append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append(" │         │");
         }
         string.append(Color.HEAVENLY_BOLD.color());
         if(board.getFavCards()[2]){
@@ -979,7 +983,7 @@ public class FancyPrinter {
             string.append("    {☼}").append(Color.PURPLE_BOLD.color()).append("   │");
         }
 
-        string.append("\n\t\t\t\t\t     └───────┘").append("\t\t\t\t\t\t     └─────────┘").append("\t\t\t\t\t\t\t └──────────┘");
+        string.append("\n             └───────┘").append("             └─────────┘").append("         └──────────┘");
         string.append(Color.RESET);
         stream.print(string);
     }
@@ -987,11 +991,11 @@ public class FancyPrinter {
     public void printBlackFaithTrack(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append(Color.BLACK_BOLD.color()).append("\tLORENZO FAITH TRACK\n\n");
+        string.append(Color.BLACK_BOLD.color()).append("        LORENZO FAITH TRACK\n\n");
 
         for (int i = 0; i < 25; i++) {
             if(board.getLorenzoIndex()==i){
-                    string.append(Color.WHITE_BOLD.color()).append("{†} ").append(Color.RESET);
+                string.append(Color.WHITE_BOLD.color()).append("{†} ").append(Color.RESET);
             } else if(i%8==0 && i!=0 && i!=24) {
                 string.append(Color.RED_BOLD.color()).append("{♣} ").append(Color.RESET);
             } else if(i!=24) {
@@ -1012,33 +1016,33 @@ public class FancyPrinter {
         for (int i = 0; i < 26; i++) {
             if (i < 14) {
                 if(i==7||i==8||i==9) {
-                    stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t").append(devCardSlotToArray(board, false).get(i)));
+                    stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(devCardSlotToArray(board, false).get(i)));
                 }
                 else if(i==11){
-                    stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t").append(devCardSlotToArray(board, false).get(i)));
+                    stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(devCardSlotToArray(board, false).get(i)));
                 } else
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t").append(devCardSlotToArray(board, false).get(i)));
+                    stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(devCardSlotToArray(board, false).get(i)));
             }
             if(i==14){
                 stream.print(warehouseV2ToArrayList(board).get(i));
             }
             if(i == 15){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("\t\t\t\t\t\t\t").append(leaderCardSlotToArray(board).get(i-15)));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 16){
-                stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
+                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
             }
             if(i==17){
-                stream.print(strongboxToArrayList(board).get(i-17).append("\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15)));
+                stream.print(strongboxToArrayList(board).get(i-17).append("        "+leaderCardSlotToArray(board).get(i-15)));
             }
             if(i>17 && i<24){
-                stream.print(strongboxToArrayList(board).get(i-17).append("\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15)));
+                stream.print(strongboxToArrayList(board).get(i-17).append("        "+leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 24){
-                stream.print("\t\t\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
+                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
             }
             if(i == 25)
-                stream.print("\t\t\t\t\t\t\t\t\t"+leaderCardSlotToArray(board).get(i-15));
+                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
             stream.print("\n");
         }
     }

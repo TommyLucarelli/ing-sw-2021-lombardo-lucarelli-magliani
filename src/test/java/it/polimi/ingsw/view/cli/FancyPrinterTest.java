@@ -137,7 +137,7 @@ public class FancyPrinterTest {
     @Test
     public void printDevCard() {
         FancyPrinter fancyPrinter =new FancyPrinter();
-        fancyPrinter.printDevCard(48);
+        fancyPrinter.printDevCard(21);
     }
 
     @Test
