@@ -25,16 +25,16 @@ public class FancyPrinterTest {
         int[][] slots = new int[3][3];
         slots[0][0] = 3;
         slots[0][1] = 0;
-        slots[0][2] = 0;
-        slots[1][0] = 20;
+        slots[0][2] = 47;
+        slots[1][0] = 46;
         slots[1][1] = 15;
         slots[1][2] = 0;
         slots[2][0] = 11;
-        slots[2][1] = 12;
+        slots[2][1] = 48;
         slots[2][2] = 3;
         board.setDevCardSlots(slots);
         FancyPrinter fancyPrinter = new FancyPrinter();
-        fancyPrinter.printDevCardSlot(board, false);
+        fancyPrinter.printDevCardSlot(board, true);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class FancyPrinterTest {
     @Test
     public void printStrongbox() {
         CompactBoard board = new CompactBoard();
-        int[] strongbox = {2,12,3,1};
+        int[] strongbox = {2,1,3,1};
         board.setStrongbox(strongbox);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printStrongbox(board);
@@ -91,7 +91,7 @@ public class FancyPrinterTest {
     public void printFaithTrack() {
         CompactBoard board = new CompactBoard();
         board.setFaithTrackIndex(14);
-        board.getFavCards()[0]=true;
+        board.getFavCards()[0]=false;
         board.getFavCards()[1]=true;
         board.getFavCards()[2]=true;
 
@@ -143,7 +143,7 @@ public class FancyPrinterTest {
     @Test
     public void printLeaderCard() {
         FancyPrinter fancyprinter = new FancyPrinter();
-        fancyprinter.printLeaderCard(64);
+        fancyprinter.printLeaderCard(52);
     }
 
     @Test
