@@ -145,6 +145,8 @@ public class MarketHandler {
             blackList.add(placed.get(1));
             if(placed.get(2) != Resource.ANY && placed.get(2) != placed.get(1))
                 return false;
+        }else if(placed.get(2) != Resource.ANY){
+               blackList.add(placed.get(2));
         }
         if(placed.get(3) != Resource.ANY){
             blackList.add(placed.get(3));
@@ -154,6 +156,12 @@ public class MarketHandler {
                 if(placed.get(5) != Resource.ANY && placed.get(5) != placed.get(4))
                     return false;
             }
+        }else if(placed.get(4) != Resource.ANY){
+            blackList.add(placed.get(4));
+            if(placed.get(5) != Resource.ANY && placed.get(5) != placed.get(4))
+                return false;
+        }else if(placed.get(5) != Resource.ANY){
+            blackList.add(placed.get(5));
         }
         for(int i=0; i< blackList.size(); i++)
         {
