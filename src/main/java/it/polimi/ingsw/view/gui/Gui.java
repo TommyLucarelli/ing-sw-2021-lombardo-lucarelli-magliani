@@ -166,7 +166,12 @@ public class Gui implements UserInterface {
     }
 
     public CompactPlayer getOpponent(int index){
-        return opponents.get(index);
+        int i = 0;
+        for(Integer player: opponents.keySet()){
+            if(i == index) return opponents.get(player);
+            else i++;
+        }
+        return opponents.get(0);
     }
 
     /**
