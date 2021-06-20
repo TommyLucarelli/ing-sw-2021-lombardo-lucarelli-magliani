@@ -117,7 +117,7 @@ public class FancyPrinterTest {
         int[] strongbox = {20,12,33,17};
         board.setStrongbox(strongbox);
         int[] leaderCards = {52,53};
-        int[] flag = {0,0, 0 ,0,0,0,0,0};
+        int[] flag = {54,53, 0 ,0,0,0,0,0};
         board.setLeaderCards(leaderCards);
         board.setAbilityActivationFlag(flag);
         int[][] slots = new int[3][3];

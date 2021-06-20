@@ -679,31 +679,31 @@ public class FancyPrinter {
         StringBuilder string14 = new StringBuilder();
         StringBuilder string15 = new StringBuilder();
         StringBuilder string16 = new StringBuilder();
-        string1.append("        WAREHOUSE");
-        string2.append("         ┌─────┐");
+        string1.append("        WAREHOUSE         ");
+        string2.append("         ┌─────┐          ");
         string3.append("         |  ");
         symbolForWarehouse(string3, board.getWarehouse()[0], 1);
-        string3.append("  |");
-        string4.append("         └─────┘");
-        string5.append("      ┌───────────┐");
+        string3.append("  |          ");
+        string4.append("         └─────┘          ");
+        string5.append("      ┌───────────┐       ");
         string6.append("      |  ");
         symbolForWarehouse(string6, board.getWarehouse()[1], 2);
         string6.append("     ");
         symbolForWarehouse(string6, board.getWarehouse()[2], 3);
-        string6.append("  |");
-        string7.append("      └───────────┘");
-        string8.append("    ┌───────────────┐");
+        string6.append("  |       ");
+        string7.append("      └───────────┘       ");
+        string8.append("    ┌───────────────┐     ");
         string9.append("    |  ");
         symbolForWarehouse(string9, board.getWarehouse()[3], 4);
         string9.append("    ");
         symbolForWarehouse(string9, board.getWarehouse()[4], 5);
         string9.append("    ");
         symbolForWarehouse(string9, board.getWarehouse()[5], 6);
-        string9.append("  |");
-        string10.append("    └───────────────┘");
+        string9.append("  |     ");
+        string10.append("    └───────────────┘     ");
 
         if(board.getAbilityActivationFlag()[0] != 0){
-            string11.append("      ┌───────────┐");
+            string11.append("      ┌───────────┐       ");
             string12.append("      |  ");
             symbolForWarehouse(string12, board.getWarehouse()[6], 7);
             string12.append("     ");
@@ -724,11 +724,11 @@ public class FancyPrinter {
                     break;
             }
             string12.append(" ONLY").append(Color.RESET);
-            string13.append("      └───────────┘");
+            string13.append("      └───────────┘       ");
 
             if(board.getAbilityActivationFlag()[1] != 0){
                 //1 caso
-                string14.append("      ┌───────────┐");
+                string14.append("      ┌───────────┐       ");
                 string15.append("      |  ");
                 symbolForWarehouse(string15, board.getWarehouse()[8], 9);
                 string15.append("     ");
@@ -749,7 +749,7 @@ public class FancyPrinter {
                         string15.append("10");
                         break;
                 }
-                string15.append(" | ");
+                string15.append(Color.RESET).append(" | ");
                 switch(cardCollector.getLeaderCard(board.getAbilityActivationFlag()[1]).getSpecialAbility().getAbilityResource()){
                     case STONE:
                         string15.append(Color.WHITE_BOLD.color()).append("⌂");
@@ -765,19 +765,19 @@ public class FancyPrinter {
                         break;
                 }
                 string15.append(" ONLY");
-                string16.append(Color.RESET).append("      └───────────┘");
+                string16.append(Color.RESET).append("      └───────────┘       ");
             }else{
-                string14.append("        ");
-                string15.append("        ");
-                string16.append("        ");
+                string14.append("                          ");
+                string15.append("                          ");
+                string16.append("                          ");
             }
         } else {
-            string11.append("        ");
-            string12.append("        ");
-            string13.append("        ");
-            string14.append("        ");
-            string15.append("        ");
-            string16.append("        ");
+            string11.append("                          ");
+            string12.append("                          ");
+            string13.append("                          ");
+            string14.append("                          ");
+            string15.append("                          ");
+            string16.append("                          ");
         }
 
         ArrayList<StringBuilder> string = new ArrayList<>();
@@ -898,7 +898,7 @@ public class FancyPrinter {
         StringBuilder string6 = new StringBuilder();
         StringBuilder string7 = new StringBuilder();
 
-        string1.append(Color.GREEN_BOLD.color()).append("        STRONGBOX").append(Color.RESET);
+        string1.append(Color.GREEN_BOLD.color()).append("        STRONGBOX        ").append(Color.RESET);
         string2.append(Color.RESET).append("┌───────────────────────┐");
         string3.append("│     ").append(Color.YELLOW_BOLD.color()).append("COIN: ").append(board.getStrongbox()[0]).append(Color.RESET);
         if(board.getStrongbox()[0]>9){
@@ -1035,34 +1035,28 @@ public class FancyPrinter {
         stream.print("\n\n");
         for (int i = 0; i < 26; i++) {
             if (i < 14) {
-                if(i==7||i==8||i==9) {
-                    stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(devCardSlotToArray(board, false).get(i)));
-                }
-                else if(i==11){
-                    stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(devCardSlotToArray(board, false).get(i)));
-                } else
-                    stream.print(warehouseV2ToArrayList(board).get(i).append("            ").append(devCardSlotToArray(board, false).get(i)));
+               stream.print(warehouseV2ToArrayList(board).get(i).append("            ").append(devCardSlotToArray(board, false).get(i)));
             }
             if(i==14){
                 stream.print(warehouseV2ToArrayList(board).get(i));
             }
             if(i == 15){
-                stream.print(warehouseV2ToArrayList(board).get(i).append("        ").append(leaderCardSlotToArray(board).get(i-15)));
+                stream.print(warehouseV2ToArrayList(board).get(i).append("            ").append(leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 16){
-                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
+                stream.print("                                      "+leaderCardSlotToArray(board).get(i-15));
             }
             if(i==17){
-                stream.print(strongboxToArrayList(board).get(i-17).append("        "+leaderCardSlotToArray(board).get(i-15)));
+                stream.print(strongboxToArrayList(board).get(i-17).append("             "+leaderCardSlotToArray(board).get(i-15)));
             }
             if(i>17 && i<24){
-                stream.print(strongboxToArrayList(board).get(i-17).append("        "+leaderCardSlotToArray(board).get(i-15)));
+                stream.print(strongboxToArrayList(board).get(i-17).append("             "+leaderCardSlotToArray(board).get(i-15)));
             }
             if(i == 24){
-                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
+                stream.print("                                      "+leaderCardSlotToArray(board).get(i-15));
             }
             if(i == 25)
-                stream.print("        "+leaderCardSlotToArray(board).get(i-15));
+                stream.print("                                      "+leaderCardSlotToArray(board).get(i-15));
             stream.print("\n");
         }
     }
