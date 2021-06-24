@@ -65,7 +65,7 @@ public class ProductionHandler {
                 ArrayList<ResourceQty> useful = board.getDevCardSlot(productions.get(i)-2).getTopCard().getRecipe().getOutputResources();
                 for (int j = 0; j < useful.size(); j++) {
                     if(useful.get(j).getResource().equals(Resource.FAITH)){
-                        controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), 1, 0);
+                        controller.getCurrentGame().faithTrackUpdate(controller.getCurrentPlayer(), useful.get(j).getQty() , 0);
                         useful.remove(j);
                         j--;
                     }
