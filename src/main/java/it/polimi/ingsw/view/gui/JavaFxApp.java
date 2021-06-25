@@ -126,6 +126,7 @@ public class JavaFxApp extends Application {
         new Thread(() -> Platform.runLater(() -> {
             Stage dialog = new Stage();
             dialog.initStyle(StageStyle.UTILITY);
+            dialog.setAlwaysOnTop(true);
             Scene scene = new Scene(finalRoot);
 
             dialog.setOnCloseRequest(Event::consume);
@@ -149,6 +150,7 @@ public class JavaFxApp extends Application {
         new Thread(() -> Platform.runLater(() -> {
             Stage dialog = new Stage();
             dialog.initStyle(StageStyle.UTILITY);
+            dialog.setAlwaysOnTop(true);
             Scene scene = new Scene(finalRoot);
 
             dialog.setOnCloseRequest(event -> dialog.hide());
@@ -178,6 +180,7 @@ public class JavaFxApp extends Application {
         new Thread(() -> Platform.runLater(() -> {
             Stage dialog = new Stage();
             dialog.initStyle(StageStyle.UTILITY);
+            dialog.setAlwaysOnTop(true);
             Scene scene = new Scene(finalRoot);
 
             DynamicController controller = fxmlLoader.getController();

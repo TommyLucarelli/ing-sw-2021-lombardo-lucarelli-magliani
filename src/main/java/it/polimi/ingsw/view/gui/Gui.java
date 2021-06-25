@@ -171,7 +171,7 @@ public class Gui implements UserInterface {
             if(i == index) return opponents.get(player);
             else i++;
         }
-        return opponents.get(0);
+        return null;
     }
 
     /**

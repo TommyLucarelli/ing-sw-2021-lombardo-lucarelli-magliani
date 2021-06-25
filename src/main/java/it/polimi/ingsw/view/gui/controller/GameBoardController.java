@@ -159,6 +159,7 @@ public class GameBoardController implements DynamicController, Initializable {
      * @param player the index of the player in the opponents HashMap.
      */
     private void showPlayer(CompactPlayer player){
+        if(player == null) return;
         JsonObject data = new JsonObject();
         Gson gson = new Gson();
 
