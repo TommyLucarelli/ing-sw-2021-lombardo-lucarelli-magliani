@@ -54,13 +54,17 @@ public class LeaderActionController implements DynamicController, Initializable 
         ArrayList<Integer> flags;
         json = data.get("flags").getAsString();
         flags = gson.fromJson(json, new TypeToken<ArrayList<Integer>>(){}.getType());
+        b0.setDisable(true);
+        b1.setDisable(true);
 
         if(leaders[0] != 0){
+            b0.setDisable(false);
             l0.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaders[0] + ".png")));
             if(flags.contains(leaders[0])) b0.setDisable(true);
         }
 
         if(leaders[1] != 0){
+            b1.setDisable(false);
             l1.setImage(new Image(getClass().getResourceAsStream("/images/cards/" + leaders[1] + ".png")));
             if(flags.contains(leaders[1])) b1.setDisable(true);
         }
