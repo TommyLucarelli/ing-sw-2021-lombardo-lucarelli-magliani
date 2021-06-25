@@ -116,7 +116,7 @@ public class GameBoardController implements DynamicController, Initializable {
 
         ArrayList<String> opponents = gson.fromJson(data.get("opponents").getAsString(), new TypeToken<ArrayList<String>>(){}.getType());
         if(opponents.size() == 0){
-            playerButtons.get(0).setText("Lorenzo");
+            playerButtons.get(0).setText("Lorenzo\nFaith Points: " + JavaFxApp.getManager().getMyself().getCompactBoard().getLorenzoIndex());
             playerButtons.get(0).setVisible(true);
             playerButtons.get(0).setDisable(false);
             playerButtons.get(0).setOnAction(Event::consume);
