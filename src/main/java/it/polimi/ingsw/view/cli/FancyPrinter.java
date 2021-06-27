@@ -720,7 +720,7 @@ public class FancyPrinter {
                     string12.append(Color.YELLOW_BOLD.color()).append("$");
                     break;
                 case SHIELD:
-                    string12.append(Color.BLUE_BOLD.color()).append("◊");
+                    string12.append(Color.HEAVENLY_BOLD.color()).append("◊");
                     break;
             }
             string12.append(" ONLY").append(Color.RESET);
@@ -743,7 +743,7 @@ public class FancyPrinter {
                         string15.append(Color.YELLOW_BOLD.color()).append("$ ");
                         break;
                     case SHIELD:
-                        string15.append(Color.BLUE_BOLD.color()).append("◊ ");
+                        string15.append(Color.HEAVENLY_BOLD.color()).append("◊ ");
                         break;
                     case ANY:
                         string15.append("10");
@@ -761,7 +761,7 @@ public class FancyPrinter {
                         string15.append(Color.YELLOW_BOLD.color()).append("$");
                         break;
                     case SHIELD:
-                        string15.append(Color.BLUE_BOLD.color()).append("◊");
+                        string15.append(Color.HEAVENLY_BOLD.color()).append("◊");
                         break;
                 }
                 string15.append(" ONLY");
@@ -819,7 +819,7 @@ public class FancyPrinter {
                 string.append(Color.YELLOW_BOLD.color()).append("$");
                 break;
             case SHIELD:
-                string.append(Color.BLUE_BOLD.color()).append("◊");
+                string.append(Color.HEAVENLY_BOLD.color()).append("◊");
                 break;
             case ANY:
                 string.append(any);
@@ -912,9 +912,9 @@ public class FancyPrinter {
             string4.append("│     ").append(Color.WHITE_BOLD.color()).append("STONE: ").append(board.getStrongbox()[1]).append(Color.RESET).append("          │");
         }
         if(board.getStrongbox()[2]>9){
-            string5.append("│     ").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("        │");
+            string5.append("│     ").append(Color.HEAVENLY_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("        │");
         } else {
-            string5.append("│     ").append(Color.BLUE_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("         │");
+            string5.append("│     ").append(Color.HEAVENLY_BOLD.color()).append("SHIELD: ").append(board.getStrongbox()[2]).append(Color.RESET).append("         │");
         }
         if(board.getStrongbox()[3]>9){
             string6.append("│     ").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("       │");
@@ -994,7 +994,7 @@ public class FancyPrinter {
         if(board.getFavCards()[1]){
             string.append("VP:+").append(3).append(Color.PURPLE_BOLD.color()).append("  │                              │");
         } else {
-            string.append(" {☼}  ").append(Color.PURPLE_BOLD.color()).append("│                              │ ");
+            string.append("  {☼}  ").append(Color.PURPLE_BOLD.color()).append("│                              │ ");
         }
         string.append(Color.HEAVENLY_BOLD.color());
         if(board.getFavCards()[2]){
@@ -1011,15 +1011,15 @@ public class FancyPrinter {
     public void printBlackFaithTrack(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append(Color.BLACK_BOLD.color()).append("        LORENZO FAITH TRACK\n\n");
+        string.append(Color.BLACK_UNDERLINED.color()).append("        LORENZO FAITH TRACK\n\n");
 
         for (int i = 0; i < 25; i++) {
             if(board.getLorenzoIndex()==i){
-                string.append(Color.WHITE_BOLD.color()).append("{†} ").append(Color.RESET);
+                string.append(Color.WHITE_UNDERLINED.color()).append("{†} ").append(Color.RESET);
             } else if(i%8==0 && i!=0 && i!=24) {
-                string.append(Color.RED_BOLD.color()).append("{♣} ").append(Color.RESET);
+                string.append(Color.RED_UNDERLINED.color()).append("{♣} ").append(Color.RESET);
             } else if(i!=24) {
-                string.append(Color.BLACK_BOLD.color()).append("{").append(i).append("} ").append(Color.RESET);
+                string.append(Color.BLACK_UNDERLINED.color()).append("{").append(i).append("} ").append(Color.RESET);
             }
         }
         string.append(Color.RESET);

@@ -20,6 +20,9 @@ public enum Color {
     PURPLE_BOLD("\033[1;35m"), // PURPLE
     HEAVENLY_BOLD("\033[1;36m"),   // HEAVENLY
     WHITE_BOLD("\033[1;37m"),  // WHITE
+    BLACK_UNDERLINED("\033[4;30m"),
+    WHITE_UNDERLINED("\033[4;37m"),
+    RED_UNDERLINED("\033[4;31m"),
 
     LIME("\33[38;5;112m"),
     SUNSET("\33[38;5;210m"),

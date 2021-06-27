@@ -81,7 +81,7 @@ public class FancyPrinterTest {
     @Test
     public void printStrongbox() {
         CompactBoard board = new CompactBoard();
-        int[] strongbox = {2,1,3,1};
+        int[] strongbox = {1,2,3,1};
         board.setStrongbox(strongbox);
         FancyPrinter fancyPrinter = new FancyPrinter();
         fancyPrinter.printStrongbox(board);
