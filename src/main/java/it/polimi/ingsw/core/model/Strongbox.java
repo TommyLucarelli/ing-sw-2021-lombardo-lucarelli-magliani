@@ -20,11 +20,11 @@ public class Strongbox
         resources = new ArrayList<>();
 
         /* only for testing
-        resources.add(new ResourceQty(Resource.COIN, 100));
-        resources.add(new ResourceQty(Resource.STONE, 100));
-        resources.add(new ResourceQty(Resource.SHIELD, 100));
-        resources.add(new ResourceQty(Resource.SERVANT, 100));
-        */
+        resources.add(new ResourceQty(Resource.COIN, 50));
+        resources.add(new ResourceQty(Resource.STONE, 50));
+        resources.add(new ResourceQty(Resource.SHIELD, 50));
+        resources.add(new ResourceQty(Resource.SERVANT, 50));
+         */
     }
 
     /**
