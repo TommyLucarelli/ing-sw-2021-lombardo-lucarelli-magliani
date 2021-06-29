@@ -2,7 +2,6 @@ package it.polimi.ingsw.net.client;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.net.msg.RequestMsg;
-import it.polimi.ingsw.net.msg.ResponseMsg;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

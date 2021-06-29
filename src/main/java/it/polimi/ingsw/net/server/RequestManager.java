@@ -5,7 +5,6 @@ import it.polimi.ingsw.core.controller.PlayerHandler;
 import it.polimi.ingsw.net.client.QuitConnectionException;
 import it.polimi.ingsw.net.msg.*;
 
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 /**

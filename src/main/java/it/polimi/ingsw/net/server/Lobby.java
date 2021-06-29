@@ -3,8 +3,6 @@ package it.polimi.ingsw.net.server;
 import it.polimi.ingsw.core.controller.MainController;
 import it.polimi.ingsw.core.controller.PlayerHandler;
 
-import java.util.ArrayList;
-
 public class Lobby {
     private int id;
     private int lobbySize;
