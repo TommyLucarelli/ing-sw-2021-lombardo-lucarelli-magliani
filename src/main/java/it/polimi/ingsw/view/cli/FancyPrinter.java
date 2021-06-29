@@ -921,7 +921,7 @@ public class FancyPrinter {
         } else {
             string6.append("│     ").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("        │");
         }
-        string7.append(Color.RESET).append("└───────────────────────┘");QA
+        string7.append(Color.RESET).append("└───────────────────────┘");
 
         ArrayList<StringBuilder> string = new ArrayList<>();
         string.add(string1);
