@@ -45,7 +45,7 @@ public class FancyPrinter {
                     string.append("   ").append(Color.WHITE_BOLD.color()).append("●   ");
                     break;
                 case 2:
-                    string.append("   ").append(Color.BLUE_BOLD.color()).append("●   ");
+                    string.append("   ").append(Color.HEAVENLY_BOLD.color()).append("●   ");
                     break;
                 case 3:
                     string.append("   ").append(Color.PURPLE_BOLD.color()).append("●   ");
