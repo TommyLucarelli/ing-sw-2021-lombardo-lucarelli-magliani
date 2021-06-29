@@ -921,7 +921,7 @@ public class FancyPrinter {
         } else {
             string6.append("│     ").append(Color.PURPLE_BOLD.color()).append("SERVANT: ").append(board.getStrongbox()[3]).append(Color.RESET).append("        │");
         }
-        string7.append(Color.RESET).append("└───────────────────────┘");
+        string7.append(Color.RESET).append("└───────────────────────┘");QA
 
         ArrayList<StringBuilder> string = new ArrayList<>();
         string.add(string1);
@@ -1011,15 +1011,15 @@ public class FancyPrinter {
     public void printBlackFaithTrack(CompactBoard board){
         StringBuilder string = new StringBuilder();
 
-        string.append(Color.BLACK_UNDERLINED.color()).append("        LORENZO FAITH TRACK\n\n");
+        string.append(Color.BLACK_UNDERGROUND.color()).append("        LORENZO FAITH TRACK\n\n");
 
         for (int i = 0; i < 25; i++) {
             if(board.getLorenzoIndex()==i){
-                string.append(Color.WHITE_UNDERLINED.color()).append("{†} ").append(Color.RESET);
+                string.append(Color.WHITE_UNDERGROUND.color()).append("{†} ").append(Color.RESET);
             } else if(i%8==0 && i!=0 && i!=24) {
-                string.append(Color.RED_UNDERLINED.color()).append("{♣} ").append(Color.RESET);
+                string.append(Color.RED_UNDERGROUND.color()).append("{♣} ").append(Color.RESET);
             } else if(i!=24) {
-                string.append(Color.BLACK_UNDERLINED.color()).append("{").append(i).append("} ").append(Color.RESET);
+                string.append(Color.BLACK_UNDERGROUND.color()).append("{").append(i).append("} ").append(Color.RESET);
             }
         }
         string.append(Color.RESET);
