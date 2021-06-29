@@ -17,14 +17,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.view.gui.controller.GameBoardController">
    <children>
-      <ImageView fitHeight="703.0" fitWidth="1309.0" layoutX="-1.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="701.0" fitWidth="1280.0" layoutX="1.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/board.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="972.0" layoutY="28.0" prefHeight="699.0" prefWidth="316.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="972.0" layoutY="28.0" prefHeight="693.0" prefWidth="304.0" spacing="20.0" AnchorPane.bottomAnchor="0.0">
          <children>
             <Button fx:id="player2" disable="true" maxHeight="115.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="210.0" text="Player 1">
                <graphic>
@@ -250,9 +250,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="1.0" layoutY="113.0" prefHeight="32.0" prefWidth="176.0" spacing="70.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="65.0">
+            <HBox alignment="CENTER" layoutX="1.0" layoutY="113.0" prefHeight="32.0" prefWidth="176.0" spacing="50.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="65.0">
                <children>
-                  <Text fx:id="sCoin" fill="#fff200" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sCoin" fill="#fff200" strokeType="INSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="36.9375">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -263,7 +263,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sStone" fill="#c6c6c6" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sStone" fill="#c6c6c6" strokeType="INSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="39.9375">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -299,9 +299,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="22.0" layoutY="137.0" prefHeight="54.0" prefWidth="158.0" spacing="70.0" AnchorPane.topAnchor="137.0">
+            <HBox alignment="CENTER" layoutX="22.0" layoutY="137.0" prefHeight="54.0" prefWidth="158.0" spacing="50.0" AnchorPane.topAnchor="137.0">
                <children>
-                  <Text fx:id="sShield" fill="#00dcff" strokeType="INSIDE" strokeWidth="0.0" text="3">
+                  <Text fx:id="sShield" fill="#00dcff" strokeType="INSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="38.9375">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>
@@ -312,7 +312,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="sServant" fill="#bd43ff" strokeType="INSIDE" strokeWidth="0.0" text="3" wrappingWidth="10.270843505859375">
+                  <Text fx:id="sServant" fill="#bd43ff" strokeType="INSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" wrappingWidth="36.270843505859375">
                      <font>
                         <Font name="Trattatello" size="24.0" />
                      </font>

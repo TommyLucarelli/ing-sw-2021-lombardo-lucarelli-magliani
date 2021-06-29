@@ -32,4 +32,14 @@ public class BlackFlagTokenTest {
         assertEquals(true, payload.get("shuffle").getAsBoolean());
 
     }
+
+    @Test
+    public void testGetMessage() {
+        BlackFlagToken bft = new BlackFlagToken(1,true);
+        BlackFlagToken bft1 = new BlackFlagToken(1,false);
+        String s1 = "You revealed a Black Flag Token with 1 faithpoint and shuffle";
+        String s2 = "You revealed a Black Flag Token with 2 faithpoints";
+        assertEquals(s1,bft.getMessage());
+        assertEquals(s2, bft1.getMessage());
+    }
 }

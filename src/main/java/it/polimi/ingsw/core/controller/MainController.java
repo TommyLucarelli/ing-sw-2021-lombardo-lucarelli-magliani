@@ -31,6 +31,7 @@ public class MainController{
     private DevCardHandler devCardHandler;
     private StartHandler startHandler;
     private int countStartPhase;
+    private boolean finish;
     //WARNING: non confondersi tra istanze di player e di playerHandler
 
     public MainController(int id, int numPlayers)
@@ -46,6 +47,7 @@ public class MainController{
         this.devCardHandler = new DevCardHandler(this);
         this.startHandler = new StartHandler(this);
         countStartPhase = 0;
+        finish = false;
     }
 
     public PlayerHandler addPlayer(int id, String username, RequestManager manager) throws InvalidResponseException {
@@ -335,6 +337,7 @@ public class MainController{
      * @param playerID of the player that has asked for the final update
      */
     public void finalUpdate(int playerID){
+        finish = true;
         JsonObject payload = new JsonObject();
         JsonArray p = new JsonArray();
         ArrayList<Integer> results = new ArrayList<>();
@@ -376,26 +379,28 @@ public class MainController{
      * @param playerHandler
      */
     public void handleDisconnection(PlayerHandler playerHandler){
-        JsonObject payload = new JsonObject();
-        payload.addProperty("gameAction", "SHORT_UPDATE");
-        payload.addProperty("message", "\nINFO: "+playerHandler.getUsername()+" has disconnected\n");
-        this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
-        boolean flag = currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
+        if(!finish) {
+            JsonObject payload = new JsonObject();
+            payload.addProperty("gameAction", "SHORT_UPDATE");
+            payload.addProperty("message", "\nINFO: " + playerHandler.getUsername() + " has disconnected\n");
+            this.notifyAllPlayers(new RequestMsg(MessageType.GAME_MESSAGE, payload));
+            boolean flag = currentGame.getTurn().addInBlackList(playerHandler.getPlayerId());
 
-        if(!flag) {
-            if (countStartPhase == players.size()) {
-                if (playerHandler.getPlayerId() == currentPlayer.getPlayerID()){
-                    if(getCurrentGame().getTurn().getTypeOfAction()==2){
-                        devCardHandler.disconnectionPlacement();
+            if (!flag) {
+                if (countStartPhase == players.size()) {
+                    if (playerHandler.getPlayerId() == currentPlayer.getPlayerID()) {
+                        if (getCurrentGame().getTurn().getTypeOfAction() == 2) {
+                            devCardHandler.disconnectionPlacement();
+                        }
+                        updateBuilder();
                     }
-                    updateBuilder();
+                } else {
+                    //rimuovo due carte leader a caso se non l'ha fatto
+                    currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
+                    boolean check = setCountStartPhase();
+                    if (check)
+                        initialUpdate();
                 }
-            } else {
-                //rimuovo due carte leader a caso se non l'ha fatto
-                currentGame.fromIdToPlayer(playerHandler.getPlayerId()).getBoard().randomRemoveLeaderCard();
-                boolean check = setCountStartPhase();
-                if (check)
-                    initialUpdate();
             }
         }
     }
@@ -405,36 +410,42 @@ public class MainController{
      * @param playerHandler
      */
     public void handleReconnection(PlayerHandler playerHandler){
-        JsonObject payload = new JsonObject();
-        for (PlayerHandler player : players) {
-            if (player.equals(playerHandler)) {
-                if(currentGame.getTurn().blackListSize() == numPlayers){
-                    currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
-                    currentPlayer = currentGame.getTurn().nextPlayer();
-                    reconnectionUpdate(playerHandler, true, false);
-                    countStartPhase = players.size();
-                }else {
-                    currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
-                    if (countStartPhase == players.size())
-                        reconnectionUpdate(playerHandler, false, false);
-                    else {
-                        reconnectionUpdate(playerHandler, false, true);
+        if(!finish) {
+            JsonObject payload = new JsonObject();
+            for (PlayerHandler player : players) {
+                if (player.equals(playerHandler)) {
+                    if (currentGame.getTurn().blackListSize() == numPlayers) {
+                        currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+                        currentPlayer = currentGame.getTurn().nextPlayer();
+                        reconnectionUpdate(playerHandler, true, false);
+                        countStartPhase = players.size();
+                    } else {
+                        currentGame.getTurn().removeFromBlacklist(playerHandler.getPlayerId());
+                        if (countStartPhase == players.size())
+                            reconnectionUpdate(playerHandler, false, false);
+                        else {
+                            reconnectionUpdate(playerHandler, false, true);
+                        }
                     }
+                } else {
+                    payload.addProperty("gameAction", "SHORT_UPDATE");
+                    payload.addProperty("message", "\nINFO: " + playerHandler.getUsername() + " has reconnected\n");
+                    this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
                 }
-            } else {
-                payload.addProperty("gameAction", "SHORT_UPDATE");
-                payload.addProperty("message", "\nINFO: " + playerHandler.getUsername() + " has reconnected\n");
-                this.notifyPlayer(player, new RequestMsg(MessageType.GAME_MESSAGE, payload));
+
             }
-
         }
-
     }
 
+    /**
+     * Method to handle the reconnection of a player
+     * @param playerHandler
+     * @param first is true if the player is the first to reconnect
+     * @param initial is true if the player reconnects in the initial phase of the game
+     */
     private void reconnectionUpdate(PlayerHandler playerHandler, boolean first, boolean initial){
         JsonObject payload = new JsonObject();
         payload.addProperty("gameAction", "RECONNECTION_UPDATE");
-
         if(first)
             payload.addProperty("first", true);
         if(initial)
