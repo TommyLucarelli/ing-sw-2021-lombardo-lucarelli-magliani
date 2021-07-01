@@ -8,11 +8,15 @@ The following table describes each type of message and the content of its payloa
 
 | Type | Server | Client |
 |------|--------|--------|
+|FIRST_MESSAGE|---|First message sent by the client to start the communication|
 |REGISTRATION_MESSAGE|Request of username at start of connection|Username|
 |WELCOME_MESSAGE|Welcome message with first instructions|Create/join lobby|
 |NUMBER_OF_PLAYERS|Request of the size of the lobby|Lobby size (number of players)
 |JOIN_GAME|Request of the lobby id|Lobby id|
+|RECONNECTION_MESSAGE|Check whether the player wants to reconnect to his previous game|The player's choice|
+|QUIT_MESSAGE|---|Closes the connection to the client|
 ||**GAME MESSAGES**||
+|START_GAME_COMMAND|Request to start the game when all the players have joined|The command to start the game|
 |CHOOSE_DEVCARD|The development card structure|The development card to buy|
 |CHOOSE_PRODUCTION|List of possible production(s)|The production(s) to activate|
 |CHOOSE_START_LEADERS|Four leader cards drafted at the start of the game|Selection of two leader cards|
@@ -21,10 +25,13 @@ The following table describes each type of message and the content of its payloa
 |LEADER_ACTION|Selection of possible leader cards to play/discard|Selected leader card and the action to perform (activate/discard)|
 |MAIN_CHOICE|Request to choose an action between the three main actions|Main action of the turn|
 |PICK|Market structure|Selected line/column of the market|
-|PLACEMENT_MARKET|Placement of the resources in the warehouse|Resources to place in the warehouse|
-|PLACEMENT_DEVCARD|Development card to place in the structure|Positioning of the dev card
+|WAREHOUSE_PLACEMENT|Placement of the resources in the warehouse|Resources to place in the warehouse|
+|DEVCARD_PLACEMENT|Development card to place in the structure|Positioning of the dev card
+|COME_BACK|| Request to go back to the previous choice.
 |SHORT_UPDATE|Short text message summarizing the progress of the game| ---
 |UPDATE|Complete update of the game's components|---
+|RECONNECTION_UPDATE|Complete update of the game's components after the reconnection|---
+|FINAL_UPDATE|Game results and rankings at the end of the match|---
 
 _Note: more messages could be added in the future._
 
