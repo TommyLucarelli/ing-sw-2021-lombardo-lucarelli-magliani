@@ -6,10 +6,14 @@
 - Giacomo Lombardo - CP: 10674987
 - Tommaso Lucarelli - CP: 10620739
 ---
-## Additional features
+## Features
 
-- Multiple games
-- Disconnection resilience
+- Complete rules
+- CLI
+- GUI
+- Socket
+- (FA) Multiple games
+- (FA) Disconnection resilience
 
 ---
 ## Getting started
@@ -20,6 +24,8 @@ After cloning the repository, run `mvn install` to build the project and run tes
 generate the project's documentation.
 
 ### Starting the project
+
+Move to the `target` directory, then:
 
 - **Server**: run `java -jar PSP02 -s <port>`
 - **GUI**: run `java -jar PSP02 -c <server_ip>:<server_port>`
