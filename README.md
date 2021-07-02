@@ -20,17 +20,19 @@
 
 In order to build and execute this project Java 15 is required.
 
-After cloning the repository, run `mvn package` to build the project and run tests.
+After cloning the repository, run `mvn install` to build the project and run tests.
 
 ### Starting the project
 
 **Requirements**: Java 15, Maven.
 
-Move to the `target` directory, then:
+After building the project, run `cd target` and then: 
 
-- **Server**: run `java -jar PSP02 -s <port>`
-- **GUI**: run `java -jar PSP02 -c <server_ip>:<server_port>`
-- **CLI**: run `java -jar PSP02 -c -cli <server_ip>:<server_port>`
+- **Server**: run `java -jar PSP02.jar -s <port>`
+- **GUI**: run `java -jar PSP02.jar -c <server_ip>:<server_port>`
+- **CLI**: run `java -jar PSP02.jar -c -cli <server_ip>:<server_port>`
+
+Otherwise, if you don't have Maven installed on your computer, a pre-built jar is included in the project: run `cd deliverables/final/jar` and then run the commands above to start the project.
 
 
 
