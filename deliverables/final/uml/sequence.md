@@ -46,28 +46,28 @@ and return to the last choice before entering the loop (e.g. a player chose to b
 resources to do so)._
 
 ### - Game creation
-![gamecreation.png](images/sequence/gamecreation.png)
+![gamecreation.png](../../images/sequence/gamecreation.png)
 
 ### - Join game
-![joingame.png](images/sequence/joingame.png)
+![joingame.png](../../images/sequence/joingame.png)
 
 ### - Game preparation
-![startgame.png](images/sequence/startgame.png)
+![startgame.png](../../images/sequence/startgame.png)
 
 ### - Start of player turn
-![startturn.png](images/sequence/startturn.png)
+![startturn.png](../../images/sequence/startturn.png)
 
 ### - Taking resources from market
-![market.png](images/sequence/market.png)
+![market.png](../../images/sequence/market.png)
 
 ### - Buying a development card
-![devcard.png](images/sequence/devcard.png)
+![devcard.png](../../images/sequence/devcard.png)
 
 ### - Activation of production(s)
-![production.png](images/sequence/production.png)
+![production.png](../../images/sequence/production.png)
 
 ### - End of player turn
-![endturn.png](images/sequence/endturn.png)
+![endturn.png](../../images/sequence/endturn.png)
 
 ### - End of game
-![endgame.png](images/sequence/endgame.png)
+![endgame.png](../../images/sequence/endgame.png)
