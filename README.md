@@ -20,8 +20,7 @@
 
 In order to build and execute this project Java 15 is required.
 
-After cloning the repository, run `mvn package` to build the project and run tests. Run `mvn javadoc:javadoc` to 
-generate the project's documentation.
+After cloning the repository, run `mvn package` to build the project and run tests.
 
 ### Starting the project
 
