@@ -21,7 +21,7 @@ public class TurnHandler {
     /**
      * Method that manages the choice of the main action of the turn made by the user.
      * Depending on the choice, a different message will be prepared that will start the process of each action.
-     * @param ms
+     * @param ms client message
      */
     public void mainChoice(ResponseMsg ms) {
         String actionChoice = ms.getPayload().get("actionChoice").getAsString();

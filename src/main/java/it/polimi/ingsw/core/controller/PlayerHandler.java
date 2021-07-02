@@ -44,11 +44,17 @@ public class PlayerHandler {
             manager.sendGameMessage(updateMsg);
     }
 
+    /**
+     * Method to handle the disconnection in the playerHandler stage, and forward it to the controller
+     */
     public void handleDisconnection(){
         active = false;
         controller.handleDisconnection(this);
     }
 
+    /**
+     * Method to handle the reconnection in the playerHandler stage, and forward it to the controller
+     */
     public void handleReconnection(){
         active = true;
         controller.handleReconnection(this);

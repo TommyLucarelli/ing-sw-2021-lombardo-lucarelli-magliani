@@ -180,7 +180,7 @@ public class MainController{
 
     /**
      * Method to send a broadcast message to all the players, usually used for update
-     * @param updateMsg
+     * @param updateMsg, Request message to be sent to all players simultaneously
      */
     public void notifyAllPlayers(RequestMsg updateMsg){
         for(PlayerHandler player: getPlayers()){
@@ -190,8 +190,8 @@ public class MainController{
 
     /**
      * Method to send a message to a specific player
-     * @param player 
-     * @param updateMsg
+     * @param player who is the target for this specific message
+     * @param updateMsg, Request message to be sent to the specific player
      */
     public void notifyPlayer(PlayerHandler player, RequestMsg updateMsg){
         player.newMessage(updateMsg);
@@ -199,7 +199,7 @@ public class MainController{
 
     /**
      * Method to send a message to the current player
-     * @param updateMsg
+     * @param updateMsg, Request message to be sent to the current player
      */
     public void notifyCurrentPlayer(RequestMsg updateMsg){
         for(PlayerHandler player: getPlayers()){
@@ -376,7 +376,7 @@ public class MainController{
 
     /**
      * Method to handle the event of a player going offline
-     * @param playerHandler
+     * @param playerHandler associated with the player who has just disconnected
      */
     public void handleDisconnection(PlayerHandler playerHandler){
         if(!finish) {
@@ -407,7 +407,7 @@ public class MainController{
 
     /**
      * Method to handle the event of a player coming back online
-     * @param playerHandler
+     * @param playerHandler associated with the player who has just reconnected
      */
     public void handleReconnection(PlayerHandler playerHandler){
         if(!finish) {
@@ -439,7 +439,7 @@ public class MainController{
 
     /**
      * Method to handle the reconnection of a player
-     * @param playerHandler
+     * @param playerHandler associated with the player who has just reconnected
      * @param first is true if the player is the first to reconnect
      * @param initial is true if the player reconnects in the initial phase of the game
      */
