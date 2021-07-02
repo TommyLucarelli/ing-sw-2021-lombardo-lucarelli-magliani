@@ -5,8 +5,23 @@ package it.polimi.ingsw.core.model;
  * @author Martina Magliani
  */
 public enum Colour {
+    /**
+     * Green colour
+     */
     GREEN,
+
+    /**
+     * Blue colour
+     */
     BLUE,
+
+    /**
+     * Yellow colour
+     */
     YELLOW,
+
+    /**
+     * Purple colour
+     */
     PURPLE;
 }

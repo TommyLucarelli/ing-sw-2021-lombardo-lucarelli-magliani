@@ -22,6 +22,7 @@ public class DevCardStructure {
 
     /**
      * Class constructor. Initializes the structure and then generates the development cards.
+     * @throws FileNotFoundException if the file containing the cards cannot be found.
      */
     public DevCardStructure() throws FileNotFoundException{
         Gson g = new Gson();

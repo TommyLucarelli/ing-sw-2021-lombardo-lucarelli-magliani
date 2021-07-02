@@ -192,7 +192,7 @@ public class Cli implements UserInterface {
             printLeaders[i] = leaderCards.get(i);
         }
         fancyPrinter.printArrayLeaderCard(printLeaders);
-        System.out.println("\t\t\t  1\t\t\t\t\t\t\t  2\t\t\t\t\t\t\t  3\t\t\t\t\t\t\t  4");
+        System.out.println("            1                                2                               3                               4");
 
         //TODO: controllo
         System.out.println("\nChoose your first leader card");
@@ -205,7 +205,7 @@ public class Cli implements UserInterface {
             printLeaders[i] = leaderCards.get(i);
         }
         fancyPrinter.printArrayLeaderCard(printLeaders);
-        System.out.println("\t\t\t  1\t\t\t\t\t\t\t  2\t\t\t\t\t\t\t  3");
+        System.out.println("            1                                2                               3");
 
         //TODO: controllo
         System.out.println("\nChoose your second leader card");

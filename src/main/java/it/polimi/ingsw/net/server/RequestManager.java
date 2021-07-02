@@ -26,7 +26,6 @@ public class RequestManager {
     /**
      * Main function that acts as a switch, depending on the message type received from the client.
      * @param response the response received from the client
-     * @return the new request message which will be sent to the client
      * @throws InvalidResponseException if the received message hasn't the expected format/fields.
      * @throws QuitConnectionException if the received message signals the end of the connection from the client.
      */
@@ -68,7 +67,6 @@ public class RequestManager {
 
     /**
      * Builds the first message of the communication.
-     * @return the first message to be sent to the client
      */
     public void sendFirstMessage(){
         JsonObject payload = new JsonObject();
@@ -84,7 +82,6 @@ public class RequestManager {
      * a registration request. If the username is instead available adds it to the list of registered ones and assigns it
      * to the clientHandler.
      * @param response the response received from the client
-     * @return the new request message which will be sent to the client
      * @throws InvalidResponseException if the received message hasn't the expected format/fields.
      */
     private void handleRegistration(JsonObject response) throws InvalidResponseException {

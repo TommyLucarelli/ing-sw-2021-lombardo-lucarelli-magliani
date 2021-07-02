@@ -19,6 +19,7 @@ public class LeaderCardsDeck {
 
     /**
      * Class constructor. Generates the 16 leader cards.
+     * @throws FileNotFoundException if the json file containing the leader cards cannot be found.
      */
     public LeaderCardsDeck() throws FileNotFoundException {
         Type CARD_TYPE = new TypeToken<Stack<LeaderCard>>() {}.getType();

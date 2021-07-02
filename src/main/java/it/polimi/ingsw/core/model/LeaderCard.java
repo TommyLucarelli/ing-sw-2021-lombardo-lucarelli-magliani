@@ -14,6 +14,7 @@ public class LeaderCard extends Card {
     private boolean abilityActivation;
     /**
      * Class constructor
+     * @param id the id of the leader card
      * @param requiredFlags type of flags required to play the leader card
      * @param requiredResources quantity of flags required to play the leader card
      * @param victoryPoints quantity of victory points assigned from the leader card
@@ -74,6 +75,10 @@ public class LeaderCard extends Card {
         this.abilityActivation = true;
     }
 
+    /**
+     * Getter method
+     * @return true if the card's ability is activated.
+     */
     public boolean getAbilityActivation() {
         return abilityActivation;
     }

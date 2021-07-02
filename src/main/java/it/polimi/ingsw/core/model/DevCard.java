@@ -14,6 +14,7 @@ public class DevCard extends Card {
 
     /**
      * Class constructor
+     * @param id the id of the development card
      * @param flag the flag of the development card
      * @param recipe the recipe of the development card
      * @param cost the cost of the card, represented by an ArrayList of ResourceQty

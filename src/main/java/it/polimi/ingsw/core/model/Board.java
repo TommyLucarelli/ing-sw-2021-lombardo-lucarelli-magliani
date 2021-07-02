@@ -73,6 +73,7 @@ public class Board {
 
     /**
      * Getter method
+     * @param i the index of the slot.
      * @return the slot for Development Card selected
      */
     public DevCardSlot getDevCardSlot(int i){
@@ -81,6 +82,7 @@ public class Board {
 
     /**
      * Getter method
+     * @param i the index of the leader card
      * @return the Leader Card selected
      */
     public LeaderCard getLeaderCard(int i){
@@ -253,6 +255,9 @@ public class Board {
         return payload;
     }
 
+    /**
+     * Removes a random leader card in case the player disconnects during the choose start leaders phase.
+     */
     public void randomRemoveLeaderCard(){
         if(leaderCards.size()>2){
             leaderCards.remove(3);

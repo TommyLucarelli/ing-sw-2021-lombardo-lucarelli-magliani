@@ -23,10 +23,12 @@ public class Game
     /**
      * Class constructor.
      * @param id the id of the game
+     * @param playerHandlers the playerHandlers of the players added to the game
+     * @throws FileNotFoundException if the json files containing cards information cannot be found.
      */
     public Game(int id, ArrayList<PlayerHandler> playerHandlers) throws FileNotFoundException {
         this.gameId = id;
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         this.market = new Market();
         if(playerHandlers.size() == 1){
             singlePlayer = true;
@@ -47,23 +49,42 @@ public class Game
             this.turn = new Turn(this.players);
     }
 
-
+    /**
+     * Getter method
+     * @return the game's id.
+     */
     public int getGameId() {
         return gameId;
     }
 
+    /**
+     * Getter method
+     * @return the players of the game.
+     */
     public ArrayList<Player> getPlayers() {
         return (ArrayList<Player>) players.clone();
     }
 
+    /**
+     * Getter method
+     * @return the game's market
+     */
     public Market getMarket() {
         return market;
     }
 
+    /**
+     * Getter method
+     * @return the game's dev card structure
+     */
     public DevCardStructure getDevCardStructure() {
         return devCardStructure;
     }
 
+    /**
+     * Getter method
+     * @return the deck of leader cards.
+     */
     public LeaderCardsDeck getLeaderCards() {
         return leaderCards;
     }
@@ -71,6 +92,7 @@ public class Game
     /**
      * Method to update the faithrack of all player simultaneously, in order to handle the pope actions
      * p represent the value of faithtrack movement
+     * @param play the player calling the faith track update
      * @param p1 main player
      * @param p2 other player
      */
@@ -125,10 +147,18 @@ public class Game
         }
     }
 
+    /**
+     * Getter method
+     * @return the value of the faith track marker.
+     */
     public int getFaithTrackMarker() {
         return faithTrackMarker;
     }
 
+    /**
+     * Getter method
+     * @return the current turn.
+     */
     public Turn getTurn() {
         return turn;
     }
@@ -136,7 +166,7 @@ public class Game
     /**
      * Method to get a player from his id
      * @param id of the player
-     * @return player
+     * @return the player related to the id
      */
     public Player fromIdToPlayer(int id){
         for (int i = 0; i < players.size(); i++) {
@@ -147,6 +177,10 @@ public class Game
         return null;
     }
 
+    /**
+     * Getter method
+     * @return true if the game is a single player game
+     */
     public Boolean getSinglePlayer() {
         return singlePlayer;
     }

@@ -21,7 +21,8 @@ public class DevCardSlot
 
     /**
      * Method to add a new development card in the slot
-     * @param dc is the development card that is being inserted in the array
+     * @param dc is the development card that is being inserted in the array.
+     * @return true if the card is added successfully.
      */
     public boolean addCard(DevCard dc)
     {

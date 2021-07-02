@@ -104,6 +104,10 @@ public class Strongbox
         return (ArrayList<ResourceQty>) resources.clone();
     }
 
+    /**
+     * Method used to synthesize the strongbox' informatio
+     * @return a json object containing a valid representation of the strongbox
+     */
     public JsonObject toCompactStrongBox(){
         int[] arr = {0,0,0,0};
 

@@ -54,7 +54,10 @@ public class SingleBoard extends Board{
         resetCounter();
     }
 
-
+    /**
+     * Getter method
+     * @return the faith track of Lorenzo.
+     */
     public FaithTrack getLorenzoTrack() {
         return lorenzoTrack;
     }

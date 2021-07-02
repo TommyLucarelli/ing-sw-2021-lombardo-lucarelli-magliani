@@ -10,6 +10,8 @@ public class ResourceQty {
 
     /**
      * Class constructor.
+     * @param resource the resource type
+     * @param qty the resource quantity
      */
     public ResourceQty(Resource resource, int qty){
         this.qty = qty;

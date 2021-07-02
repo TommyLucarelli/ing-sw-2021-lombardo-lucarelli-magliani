@@ -159,6 +159,10 @@ public class Market {
         return structure[row][column];
     }
 
+    /**
+     * Method that returns a json representation of the market
+     * @return a json representation of the market
+     */
     public JsonObject toCompactMarket(){
         int [] compact = new int[13];
         int x = reserveMarble.ordinal();

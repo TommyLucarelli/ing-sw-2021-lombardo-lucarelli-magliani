@@ -63,7 +63,7 @@ public class Turn {
 
     /**
      * Setter method
-     * @param endGame
+     * @param endGame true if the game is ending.
      */
     public void setEndGame(boolean endGame) {
         this.endGame = endGame;
@@ -92,7 +92,7 @@ public class Turn {
 
     /**
      * Getter method
-     * @return
+     * @return the type of the action
      */
     public int getTypeOfAction() {
         return typeOfAction;
@@ -100,7 +100,7 @@ public class Turn {
 
     /**
      * Setter method
-     * @param typeOfAction
+     * @param typeOfAction the type of the action
      */
     public void setTypeOfAction(int typeOfAction) {
         this.typeOfAction = typeOfAction;
@@ -128,6 +128,9 @@ public class Turn {
             leaderCardDiscarded[1] = id;
     }
 
+    /**
+     * Resets the discarded leader cards
+     */
     public void resetDiscarded(){
         leaderCardDiscarded[0] = 0;
         leaderCardDiscarded[1] = 0;
@@ -136,6 +139,7 @@ public class Turn {
     /**
      * Method to put a player, momentarily offline, in the blackList
      * @param id of the player
+     * @return true if the game has no longer active players
      */
     public boolean addInBlackList(int id){
         for (Player player : players) {
@@ -159,6 +163,10 @@ public class Turn {
 
     }
 
+    /**
+     * Getter method
+     * @return the size of the black list
+     */
     public int blackListSize(){
         return blackList.size();
     }

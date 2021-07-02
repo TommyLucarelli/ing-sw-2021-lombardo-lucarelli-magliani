@@ -31,6 +31,7 @@ public class Client implements Runnable{
      * Class constructor.
      * @param serverIp the IP address of the server
      * @param portNumber the port number of the server.
+     * @param CLI_ON true if the CLI mode is activated.
      */
     public Client(String serverIp, int portNumber, boolean CLI_ON){
         this.serverIp = serverIp;
@@ -49,6 +50,10 @@ public class Client implements Runnable{
 
     }
 
+    /**
+     * Client class main method
+     * @param args the arguments passed by the terminal
+     */
     public static void main(String[] args) {
         Client client;
 
@@ -67,6 +72,10 @@ public class Client implements Runnable{
         }
     }
 
+    /**
+     * Passes the request sent by the server to the user interface
+     * @param requestMsg the request sent by the server.
+     */
     protected void handleRequest(RequestMsg requestMsg){
         this.ui.handleRequest(requestMsg);
     }

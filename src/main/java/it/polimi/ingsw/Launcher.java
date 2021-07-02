@@ -10,6 +10,10 @@ import java.util.Arrays;
  * If the parameters are invalid or missing prints a help message and then exits.
  */
 public class Launcher {
+    /**
+     * Main method launched at the beginning of the execution
+     * @param args the arguments passed via terminal
+     */
     public static void main(String[] args) {
         if(args.length == 0){
             printHelpMessage("Missing argument:");
@@ -62,6 +66,7 @@ public class Launcher {
 
     /**
      * Prints a help message to the terminal.
+     * @param errorMessage The error to be printed at the beginning of the help message
      */
     public static void printHelpMessage(String errorMessage){
         System.out.println(errorMessage);

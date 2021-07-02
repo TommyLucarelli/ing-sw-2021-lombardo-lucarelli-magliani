@@ -17,6 +17,8 @@ public class Player {
      * Class constructor
      * @param playerID unique identifier of the player
      * @param nickname nickname of the player
+     * @param game the game where the player is playing
+     * @param single if the game is a single player game.
      */
     public Player(int playerID, String nickname, Game game, Boolean single)
     {
@@ -53,7 +55,10 @@ public class Player {
         return nickname;
     }
 
-
+    /**
+     * Method used to synthesize the player's information during the game
+     * @return a json object containing a valid representation of the player
+     */
     public JsonObject toCompactPlayer(){
         JsonObject payload = new JsonObject();
         payload.add("devCardSlots", board.toCompactDevCardSlots());
@@ -69,6 +74,10 @@ public class Player {
         return payload;
     }
 
+    /**
+     * Method used to synthesize the player's information at the beginning of the game
+     * @return a json object containing a valid representation of the player
+     */
     public JsonObject toCompactPlayerInitial(){
         JsonObject payload = new JsonObject();
         payload.addProperty("playerID", playerID);
@@ -93,6 +102,10 @@ public class Player {
         return payload;
     }
 
+    /**
+     * Method used to get a representation of the player's faith track
+     * @return a json object containing the player's faith track.
+     */
     public JsonObject toCompactFaith2(){
         JsonObject payload = new JsonObject();
         payload.addProperty("playerID", playerID);
