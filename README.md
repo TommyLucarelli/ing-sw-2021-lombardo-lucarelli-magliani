@@ -5,17 +5,33 @@
 - Martina Magliani - CP: 10682333
 - Giacomo Lombardo - CP: 10674987
 - Tommaso Lucarelli - CP: 10620739
----
+
+Grade: 29
+
+## Description
+
+The aim of the project is to develop a Java software to simulate a real-world table game: Masters of Renaissance. The proposed solution consists of a client-server application, communicating through a communication protocol built on top of the TCP protocol and using JSON and Google's Gson to send representations of game's objects. The client application consists of both a CLI tool and a GUI realized with JavaFX and FXML.
+
+### Implementation
+
+The project includes:
+
+- High-level UML Application Diagram
+- Final UML Application Diagrams representing the real implementation
+- An executable JAR file 
+- Source code
+- Test units
+
 ## Features
 
 - Complete rules
 - CLI
 - GUI
 - Socket
-- (FA) Multiple games
-- (FA) Disconnection resilience
+- Multiple games (*Advanced feature*)
+- Disconnection resilience (*Advanced feature*)
 
----
+
 ## Getting started
 
 In order to build and execute this project Java 15 is required.
@@ -34,5 +50,6 @@ After building the project, run `cd target` and then:
 
 Otherwise, if you don't have Maven installed on your computer, a pre-built jar is included in the project: run `cd deliverables/final/jar` and then run the commands above to start the project.
 
+## Copyrights
 
-
+*Image rights reserved and property of Cranio Creations.*
